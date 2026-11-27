@@ -92,11 +92,23 @@
   function getJSON(path) {
     var local = path + (path.indexOf('?') >= 0 ? '&' : '?') + 't=' + Date.now();
     var remote = 'https://cdn.jsdelivr.net/gh/' + OWNER + '/' + REPO + '@' + BRANCH + '/' + path;
-    function grab(url) {
-      return fetch(url, { cache: 'no-store' }).then(function (r) {
+    function once(url) {
+      // 冷启动时 CDN 首个请求可能超过 10 秒，超时就放弃这次尝试，避免整页卡在「正在加载」
+      var ctl = window.AbortController ? new AbortController() : null;
+      var timer = setTimeout(function () { if (ctl) ctl.abort(); }, 10000);
+      return fetch(url, ctl ? { cache: 'no-store', signal: ctl.signal } : { cache: 'no-store' }).then(function (r) {
         if (!r.ok) throw new Error('HTTP ' + r.status);
         return r.json();
+      }).then(function (d) {
+        clearTimeout(timer);
+        return d;
+      }, function (e) {
+        clearTimeout(timer);
+        throw e;
       });
+    }
+    function grab(url) {
+      return once(url).catch(function () { return once(url); });
     }
     return grab(local).catch(function () { return grab(remote); });
   }
@@ -1013,7 +1025,12 @@
         return { id: s.id, name: s.name, api: s.api, group: s.group, enabled: s.enabled, origin: s.origin };
       });
     }
-    if (!state.status) $('#pillTime').textContent = '尚无数据';
+    if (!state.status) {
+      $('#pillTime').textContent = '尚无数据';
+      if (!$('#rows').children.length) {
+        $('#listHint').textContent = '数据没加载出来：先刷新一次页面；还是空的，去仓库 Actions 看「Update Configs」是否成功跑过。';
+      }
+    }
     bind();
     renderAll();
   });
