@@ -289,7 +289,7 @@
       var stateCls = pending ? 'warn' : (res ? (res.ok ? 'ok' : 'bad') : meta.cls);
       var auto = s.origin === 'feed';
       return '<div class="row grid-cols" data-id="' + esc(s.id) + '">' +
-        '<div class="name-cell"><div class="n">' + esc(s.name) + (auto ? ' <span class="badge on">自动</span>' : '') + '</div></div>' +
+        '<div class="name-cell"><div class="n"><span class="txt" title="' + esc(s.name) + '">' + esc(s.name) + '</span>' + (auto ? '<span class="badge on">自动</span>' : '') + '</div></div>' +
         '<div class="api-cell" data-act="copy" data-url="' + esc(s.api) + '" title="点击复制：' + esc(s.api) + '">' + esc(s.api) + '</div>' +
         '<div><span class="badge">' + esc(groupOf(s)) + '</span></div>' +
         '<div class="c-state"><span class="dot ' + stateCls + '"><i></i>' + esc(stateLabel) + '</span></div>' +
