@@ -440,9 +440,17 @@
       "origin": "feed"
     },
     {
-      "id": "360zycom-7cf1",
+      "id": "360zyzzcom-a7cc",
       "name": "360",
-      "api": "https://360zy.com/api.php/provide/vod",
+      "api": "https://360zyzz.com/api.php/provide/vod",
+      "group": "综合",
+      "enabled": true,
+      "origin": "feed"
+    },
+    {
+      "id": "iqiyizyapicom-e25f",
+      "name": "爱奇艺",
+      "api": "https://iqiyizyapi.com/api.php/provide/vod",
       "group": "综合",
       "enabled": true,
       "origin": "feed"
