@@ -5,7 +5,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>TVbox-Configs · 视频源管理</title>
 <meta name="description" content="每 7 天自动检测的可视化 TVBox / MoonTV 视频源配置，多镜像订阅地址，支持在线新增、导入、测试与删除。">
-<link rel="stylesheet" href="assets/style.css?v=20261128e">
+<link rel="stylesheet" href="assets/style.css?v=20261128g">
 </head>
 <body>
 <div class="wrap">
@@ -51,6 +51,7 @@
         </select>
         <select id="filterGroup"><option value="all">全部分类</option></select>
         <button class="btn primary" id="btnAdd">＋ 新增源</button>
+        <button class="btn danger" id="btnBatchDel" disabled>批量删除 <span id="selCount">0</span></button>
         <button class="btn" id="btnDispatch" title="触发一次立即检测">立即重新生成</button>
         <button class="btn ghost" id="btnToken">设置令牌</button>
       </div>
@@ -62,6 +63,7 @@
 
     <div class="table">
       <div class="thead grid-cols">
+        <div class="c-check"><input type="checkbox" id="checkAll" title="全选当前筛选结果"></div>
         <div>资源名称</div><div>接口地址</div><div>分类</div><div>状态</div><div>延迟</div><div>近 8 期</div><div style="text-align:right">操作</div>
       </div>
       <div id="rows"></div>
@@ -117,6 +119,6 @@
 </div>
 
 <div class="toast" id="toast"></div>
-<script src="assets/app.js?v=20261128e"></script>
+<script src="assets/app.js?v=20261128g"></script>
 </body>
 </html>

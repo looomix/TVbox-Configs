@@ -115,11 +115,21 @@ func main() {
 		fmt.Printf("warn: feed file %s: %v\n", *feedsPath, err)
 	}
 
+	removed := make(map[string]bool, len(sf.Removed))
+	for _, k := range sf.Removed {
+		removed[k] = true
+	}
+
 	kept := make([]model.Source, 0, len(raw))
-	blocked := 0
+	blocked, gone := 0, 0
 	for _, s := range raw {
 		if blocker.Match(s) {
 			blocked++
+			continue
+		}
+		if removed[gen.NormalizeAPI(s.API)] {
+			// the user deleted this endpoint, so feeds must not bring it back
+			gone++
 			continue
 		}
 		kept = append(kept, s)
@@ -142,10 +152,10 @@ func main() {
 			fromFeed++
 		}
 	}
-	fmt.Printf("sources: %d total, %d blocked, %d duplicates removed, %d from feeds\n",
-		len(raw), blocked, dup, fromFeed)
+	fmt.Printf("sources: %d total, %d blocked, %d user removed, %d duplicates removed, %d from feeds\n",
+		len(raw), blocked, gone, dup, fromFeed)
 
-	newFile := model.SourceFile{Version: 1, UpdatedAt: now.Format("2006-01-02"), Sources: list}
+	newFile := model.SourceFile{Version: 1, UpdatedAt: now.Format("2006-01-02"), Removed: sf.Removed, Sources: list}
 	changed, err := gen.WriteJSONIfChanged(*sourcesPath, newFile)
 	if err != nil {
 		fmt.Printf("write %s: %v\n", *sourcesPath, err)
@@ -198,10 +208,12 @@ func main() {
 		} else {
 			st.History = oldHistory[s.ID]
 		}
-		switch r.State {
-		case "ok":
+		switch {
+		case !s.Enabled:
+			// disabled sources are not part of the health numbers
+		case r.State == "ok":
 			rep.Alive++
-		case "limited":
+		case r.State == "limited":
 			rep.Unverified++
 		default:
 			rep.Dead++

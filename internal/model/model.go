@@ -16,6 +16,8 @@ type SourceFile struct {
 	Version   int      `json:"version"`
 	UpdatedAt string   `json:"updated_at,omitempty"`
 	Sources   []Source `json:"sources"`
+	// Removed keeps user deletions alive: feeds must never re-add these keys.
+	Removed []string `json:"removed,omitempty"`
 }
 
 // Check is one point of history for a source.

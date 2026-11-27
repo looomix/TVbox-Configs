@@ -12,15 +12,6 @@
       "added_at": "2026-11-27"
     },
     {
-      "id": "iqiyizyapi_com",
-      "name": "爱奇艺",
-      "api": "https://iqiyizyapi.com/api.php/provide/vod",
-      "group": "综合",
-      "enabled": true,
-      "origin": "manual",
-      "added_at": "2026-11-27"
-    },
-    {
       "id": "dbzy_tv",
       "name": "豆瓣",
       "api": "https://caiji.dbzy5.com/api.php/provide/vod",
@@ -69,15 +60,6 @@
       "id": "lzizy_net",
       "name": "量子备用",
       "api": "https://cj.lziapi.com/api.php/provide/vod",
-      "group": "综合",
-      "enabled": true,
-      "origin": "manual",
-      "added_at": "2026-11-27"
-    },
-    {
-      "id": "360zy_com",
-      "name": "360",
-      "api": "https://360zyzz.com/api.php/provide/vod",
       "group": "综合",
       "enabled": true,
       "origin": "manual",
@@ -453,6 +435,14 @@
       "id": "jjpzhafreydpdnsorg-07ff",
       "name": "魔爪",
       "api": "https://jjpz.hafrey.dpdns.org/?url=https://mozhuazy.com/api.php/provide/vod",
+      "group": "综合",
+      "enabled": true,
+      "origin": "feed"
+    },
+    {
+      "id": "360zycom-7cf1",
+      "name": "360",
+      "api": "https://360zy.com/api.php/provide/vod",
       "group": "综合",
       "enabled": true,
       "origin": "feed"

@@ -26,7 +26,8 @@ func TXT(sites []model.Site) string {
 	b.WriteString("# TVbox-Configs 已验证视频源\n")
 	b.WriteString(fmt.Sprintf("# 共 %d 条，每行：名称|API|类型|状态\n", len(sites)))
 	for _, s := range sites {
-		b.WriteString(fmt.Sprintf("%s|%s|json|verified\n", s.Name, s.API))
+		name := strings.NewReplacer("|", "-", "\n", " ").Replace(s.Name)
+		b.WriteString(fmt.Sprintf("%s|%s|json|verified\n", name, s.API))
 	}
 	return b.String()
 }

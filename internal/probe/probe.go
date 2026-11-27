@@ -131,9 +131,9 @@ func Verify(c *http.Client, api string) Result {
 			best = r
 		}
 	}
-	if best.State == "" || best.State == "limited" {
-		// search index may be off; the latest list still proves the site serves
-		// playable content, so it is not a dead source.
+	if best.State != "ok" {
+		// search index may be off or the search endpoint may be blocked; the
+		// latest list still proves the site serves playable content.
 		if r := fetchOnce(c, listingURL(api)); r.State == "ok" {
 			r.Searchable = false
 			r.LatencyMs = int(time.Since(start).Milliseconds())

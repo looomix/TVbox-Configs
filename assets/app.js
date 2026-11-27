@@ -22,6 +22,7 @@
     filters: { q: '', state: 'all', group: 'all' },
     results: {},
     pending: {},
+    selected: {},
     editingId: null
   };
 
@@ -277,7 +278,9 @@
       var stateLabel = pending ? '检测中' : (res ? (res.ok ? '可用 ' + res.vods + ' 条' : '测试失败') : meta.label);
       var stateCls = pending ? 'warn' : (res ? (res.ok ? 'ok' : 'bad') : meta.cls);
       var auto = s.origin === 'feed';
+      var checked = state.selected[s.id] ? ' checked' : '';
       return '<div class="row grid-cols" data-id="' + esc(s.id) + '">' +
+        '<div class="c-check"><input type="checkbox" data-sel="' + esc(s.id) + '"' + checked + ' aria-label="选择 ' + esc(s.name) + '"></div>' +
         '<div class="name-cell"><div class="n"><span class="txt" title="' + esc(s.name) + '">' + esc(s.name) + '</span>' + (auto ? '<span class="badge on">自动</span>' : '') + '</div></div>' +
         '<div class="api-cell" data-act="copy" data-url="' + esc(s.api) + '" title="点击复制：' + esc(s.api) + '">' + esc(s.api) + '</div>' +
         '<div><span class="badge">' + esc(groupOf(s)) + '</span></div>' +
@@ -290,6 +293,74 @@
         '<button class="btn tiny" data-act="del">删</button>' +
         '</div></div>';
     }).join('');
+    syncSelection();
+  }
+
+  /* ---------------- batch delete ---------------- */
+
+  function selectedIds() {
+    var live = {};
+    state.sources.forEach(function (s) { live[s.id] = true; });
+    return Object.keys(state.selected).filter(function (id) {
+      if (live[id]) return true;
+      delete state.selected[id];
+      return false;
+    });
+  }
+
+  function syncSelection() {
+    var n = selectedIds().length;
+    var box = $('#btnBatchDel');
+    if (!box) return;
+    $('#selCount').textContent = n ? String(n) : '0';
+    box.disabled = n === 0;
+    var all = $('#checkAll');
+    if (all) {
+      var rows = document.querySelectorAll('#rows [data-sel]');
+      var checked = document.querySelectorAll('#rows [data-sel]:checked');
+      all.checked = rows.length > 0 && rows.length === checked.length;
+      all.indeterminate = checked.length > 0 && checked.length < rows.length;
+    }
+  }
+
+  function batchDelete() {
+    var ids = selectedIds();
+    if (!ids.length) return;
+    if (!state.token) { openToken(); return; }
+    var names = ids.map(function (id) {
+      var hit = state.sources.filter(function (s) { return s.id === id; })[0];
+      return hit ? hit.name : id;
+    });
+    if (!confirm('确定删除选中的 ' + ids.length + ' 个源？\n' + names.slice(0, 6).join('、') + (ids.length > 6 ? ' 等' : '') + '\n删除后会同步更新订阅配置。')) return;
+    var drop = {};
+    ids.forEach(function (id) { drop[id] = true; });
+    $('#btnBatchDel').disabled = true;
+    ghGetFile('sources/sources.json').then(function (res) {
+      var doc = res.doc || {};
+      doc.removed = doc.removed || [];
+      state.sources.forEach(function (s) {
+        if (s.id && drop[s.id]) {
+          var key = apiKey(s.api);
+          if (doc.removed.indexOf(key) < 0) doc.removed.push(key);
+        }
+      });
+      doc.sources = (doc.sources || []).filter(function (s) { return !drop[s.id]; });
+      doc.updated_at = new Date().toISOString().slice(0, 10);
+      var text = JSON.stringify(doc, null, 2) + '\n';
+      return ghPutFile('sources/sources.json', text, res.sha, 'chore: 批量删除 ' + ids.length + ' 个视频源').then(function () {
+        state.sources = doc.sources;
+        ids.forEach(function (id) { delete state.results[id]; delete state.pending[id]; });
+        state.selected = {};
+        return dispatchWorkflow();
+      }).then(function (triggered) {
+        renderAll();
+        toast('已删除 ' + ids.length + ' 个源' + (triggered ? '，后台正在重新生成（约 2 分钟）' : '，等待下一次自动更新'));
+        scheduleRefresh();
+      });
+    }).catch(function (err) {
+      renderAll();
+      toast(err.message || '批量删除失败');
+    });
   }
 
   function renderAll() {
@@ -461,6 +532,10 @@
     return ghGetFile('sources/sources.json').then(function (res) {
       var doc = res.doc || {};
       var list = doc.sources || (doc.sources = []);
+      if (doc.removed && doc.removed.length) {
+        var key = apiKey(payload.api);
+        doc.removed = doc.removed.filter(function (k) { return k !== key; });
+      }
       var idx = -1;
       for (var i = 0; i < list.length; i++) if (list[i].id === payload.id) { idx = i; break; }
       if (idx >= 0) list[idx] = Object.assign({}, list[idx], payload);
@@ -489,6 +564,11 @@
         if (s.id === id) { name = s.name; return false; }
         return true;
       });
+      var hit = state.sources.filter(function (s) { return s.id === id; })[0];
+      if (hit) {
+        doc.removed = doc.removed || [];
+        if (doc.removed.indexOf(apiKey(hit.api)) < 0) doc.removed.push(apiKey(hit.api));
+      }
       doc.updated_at = new Date().toISOString().slice(0, 10);
       var text = JSON.stringify(doc, null, 2) + '\n';
       return ghPutFile('sources/sources.json', text, res.sha, 'chore: 删除视频源 ' + (name || id)).then(function () {
@@ -527,6 +607,11 @@
     ghGetFile('sources/sources.json').then(function (res) {
       var doc = res.doc || {};
       var list = doc.sources || (doc.sources = []);
+      if (doc.removed && doc.removed.length) {
+        var keys = {};
+        fresh.forEach(function (f) { keys[apiKey(f.api)] = true; });
+        doc.removed = doc.removed.filter(function (k) { return !keys[k]; });
+      }
       var exist = {};
       list.forEach(function (s) { exist[s.id] = true; });
       fresh.forEach(function (f) {
@@ -549,6 +634,26 @@
         scheduleRefresh();
       });
     }).catch(function (err) { toast(err.message || '写入失败'); });
+  }
+
+  /* same key the generator uses, so deletions survive the next feed merge */
+  function apiKey(raw) {
+    try {
+      var u = new URL(raw);
+      var host = u.hostname.toLowerCase().replace(/^www\./, '');
+      var target = u.searchParams.get('url');
+      if (target) {
+        try {
+          var t = new URL(target);
+          var th = t.hostname.toLowerCase().replace(/^www\./, '');
+          var path = t.pathname.replace(/^\/+|\/+$/g, '').toLowerCase();
+          return host + '|' + th + (path ? '/' + path : '');
+        } catch (e) { /* keep host only */ }
+      }
+      return host;
+    } catch (e) {
+      return String(raw).toLowerCase();
+    }
   }
 
   function hostKey(url) {
@@ -658,6 +763,26 @@
     $('#filterGroup').addEventListener('change', function (e) { state.filters.group = e.target.value; renderRows(); });
 
     $('#btnAdd').addEventListener('click', function () { openEdit(null); });
+
+    $('#checkAll').addEventListener('change', function (e) {
+      var on = e.target.checked;
+      document.querySelectorAll('#rows [data-sel]').forEach(function (box) {
+        var id = box.getAttribute('data-sel');
+        box.checked = on;
+        if (on) state.selected[id] = true; else delete state.selected[id];
+      });
+      syncSelection();
+    });
+
+    $('#rows').addEventListener('change', function (e) {
+      var box = e.target.closest('[data-sel]');
+      if (!box) return;
+      var id = box.getAttribute('data-sel');
+      if (box.checked) state.selected[id] = true; else delete state.selected[id];
+      syncSelection();
+    });
+
+    $('#btnBatchDel').addEventListener('click', batchDelete);
     $('#btnToken').addEventListener('click', openToken);
     $('#pillToken').addEventListener('click', openToken);
 
