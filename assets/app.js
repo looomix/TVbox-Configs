@@ -9,6 +9,10 @@
   var FALLBACK = { owner: 'looomix', repo: 'TVbox-Configs' };
 
   function repoContext() {
+    // custom domains cannot be derived from the url: set window.TVBOX_REPO before
+    // the script tag instead of editing anything else
+    var forced = window.TVBOX_REPO;
+    if (forced && forced.owner && forced.repo) return { owner: forced.owner, repo: forced.repo };
     var host = (location.hostname || '').toLowerCase();
     var first = (location.pathname || '').replace(/^\/+/, '').split('/')[0];
     if (/\.github\.io$/.test(host) && first) {

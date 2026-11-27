@@ -46,6 +46,12 @@ index.html          管理页
 | `api/index.json` | TVBox 多仓入口（主 / 备 / 加速） |
 | `api/probe.json` | 网页「测试」按钮的单源云端检测结果 |
 
+用自定义域名发布时（不再是 `<用户名>.github.io`），在 `index.html` 引入脚本前加一行即可，无需改代码：
+
+```html
+<script>window.TVBOX_REPO = { owner: '你的用户名', repo: '你的仓库名' };</script>
+```
+
 ## 命令行
 
 ```bash
