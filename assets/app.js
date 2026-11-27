@@ -265,6 +265,15 @@
     });
   }
 
+  // cnFlag marks the domestic vantage verdict: the source may be blocked
+  // overseas but still usable from inside china.
+  function cnFlag(st) {
+    if (!st || !st.cn_state) return '';
+    if (st.cn_state === 'ok') return '<span class="cn-tag ok" title="国内节点可用">国内✓</span>';
+    if (st.cn_state === 'down') return '<span class="cn-tag bad" title="国内节点不可用">国内✗</span>';
+    return '<span class="cn-tag mid" title="国内节点未能确认">国内?</span>';
+  }
+
   function renderRows() {
     var list = visibleSources();
     var st = state.status;
