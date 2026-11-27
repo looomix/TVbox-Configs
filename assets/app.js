@@ -683,27 +683,50 @@
     try { return new URL(url).hostname.replace(/^www\./, ''); } catch (e) { return url; }
   }
 
-  function toggleFeed(url, on, name) {
+  // setFeeds enables all given list urls in one write and drops junk entries
+  // (a feed entry must be one plain http(s) link, never a glued blob).
+  function setFeeds(urls) {
     if (!state.token) { openToken(); return; }
     ghGetFile('sources/feeds.json').then(function (res) {
       var doc = res.doc || { version: 1, feeds: [] };
       var feeds = doc.feeds || (doc.feeds = []);
-      var idx = -1;
-      for (var i = 0; i < feeds.length; i++) if (feeds[i].url === url) { idx = i; break; }
-      if (idx >= 0) feeds[idx].enabled = on;
-      else feeds.push({ name: name || hostOf(url), url: url, enabled: on });
+      var clean = feeds.filter(function (f) { return validFeedUrl(f.url); });
+      urls.forEach(function (u) {
+        var hit = null;
+        for (var i = 0; i < clean.length; i++) if (clean[i].url === u) { hit = clean[i]; break; }
+        if (hit) { hit.enabled = true; return; }
+        clean.push({ name: hostOf(u), url: u, enabled: true });
+      });
+      doc.feeds = clean;
       var text = JSON.stringify(doc, null, 2) + '\n';
-      return ghPutFile('sources/feeds.json', text, res.sha, (on ? 'feat: 导入源库 ' : 'chore: 停用源库 ') + (name || hostOf(url)))
-        .then(function () {
-          return dispatchWorkflow();
-        }).then(function (triggered) {
-          toast(triggered ? ('已' + (on ? '导入' : '停用') + '，云端正在抓取并验证（约 2 分钟）') : '已保存，等待下一次自动更新');
+      return ghPutFile('sources/feeds.json', text, res.sha, 'feat: 导入源库 ' + urls.length + ' 个')
+        .then(function () { return dispatchWorkflow(); })
+        .then(function (triggered) {
+          toast(triggered ? ('已导入 ' + urls.length + ' 个源库，云端正在抓取（约 1 分钟）') : '已保存，等待下一次自动更新');
           scheduleRefresh();
         });
     }).catch(function (err) {
       toast(err.message || '操作失败');
     });
   }
+
+  function validFeedUrl(u) {
+    return /^https?:\/\/[^\s,，、]+$/i.test(String(u || '').trim());
+  }
+
+  // splitUrls pulls every link out of a pasted block, even when links are glued
+  // together without a separator.
+  function splitUrls(raw) {
+    var out = [];
+    raw.split(/[\n,，、;；]+/).forEach(function (chunk) {
+      chunk.split(/(?=https?:\/\/)/i).forEach(function (part) {
+        part = part.trim();
+        if (/^https?:\/\/\S+$/i.test(part)) out.push(part);
+      });
+    });
+    return out;
+  }
+
 
   var refreshTimer = null;
   function scheduleRefresh() {
@@ -821,19 +844,16 @@
     $('#btnFeedAdd').addEventListener('click', function () {
       var raw = $('#feedCustom').value.trim();
       if (!raw) { toast('请填入接口地址或源库链接'); return; }
-      var parts = raw.split(/[\n,，、]+/).map(function (x) { return x.trim(); }).filter(Boolean);
-      var looksInterface = parts.length > 1 || parts.some(function (u) {
-        return /api\.php|provide\/vod|ac=detail|inc\/api/i.test(u);
+      var urls = splitUrls(raw);
+      if (!urls.length) { toast('没有识别到 http(s) 链接'); return; }
+      var ifaces = [], feeds = [];
+      urls.forEach(function (u) {
+        if (/api\.php|provide\/vod|ac=detail|inc\/api|\/vod/i.test(u)) ifaces.push(u);
+        else feeds.push(u);
       });
-      if (looksInterface) {
-        var bad = parts.filter(function (u) { return !/^https?:\/\//i.test(u); });
-        if (bad.length) { toast('有 ' + bad.length + ' 条不是 http(s) 地址，已忽略'); }
-        addInterfaces(parts.filter(function (u) { return /^https?:\/\//i.test(u); }));
-      } else {
-        if (!/^https?:\/\//i.test(parts[0])) { toast('请填写 http(s) 开头的接口或链接'); return; }
-        toggleFeed(parts[0], true, hostOf(parts[0]));
-      }
       $('#feedCustom').value = '';
+      if (ifaces.length) addInterfaces(ifaces);
+      if (feeds.length) setFeeds(feeds);
     });
 
     $('#rows').addEventListener('click', function (e) {

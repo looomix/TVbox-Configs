@@ -32,9 +32,9 @@ func Fetch(rawURL string, timeout time.Duration) ([]model.Source, error) {
 		ResponseHeaderTimeout: timeout,
 	}}
 	var lastErr error
-	for attempt := 0; attempt < 3; attempt++ {
+	for attempt := 0; attempt < 2; attempt++ {
 		if attempt > 0 {
-			time.Sleep(time.Duration(attempt) * time.Second)
+			time.Sleep(time.Second)
 		}
 		req, err := http.NewRequest(http.MethodGet, rawURL, nil)
 		if err != nil {
@@ -82,16 +82,9 @@ type item struct {
 	URL      string `json:"url"`
 	API      string `json:"api"`
 	BaseURL  string `json:"baseUrl"`
-	Category string `json:"category"`
-	Type     string `json:"type"`
-	IsAdult  bool   `json:"isAdult"`
-	IsAdult2 bool   `json:"is_adult"`
 	Enabled  *bool  `json:"enabled"`
 	Enabled2 *bool  `json:"isEnabled"`
 }
-
-// adult reports whether an entry is flagged as adult content by upstream lists.
-func (it item) adult() bool { return it.IsAdult || it.IsAdult2 }
 
 // disabled reports an explicit upstream kill switch; nil means enabled.
 func (it item) disabled() bool {
@@ -122,12 +115,6 @@ func (it item) label() string {
 	return ""
 }
 
-// forbidden category aliases used by upstream lists.
-func forbiddenCategory(c string) bool {
-	l := strings.ToLower(strings.TrimSpace(c))
-	return l == "nsfw" || l == "adult" || l == "18+" || l == "r18" || strings.Contains(l, "adult")
-}
-
 func parseJSON(data []byte) ([]model.Source, bool) {
 	var root any
 	if err := json.Unmarshal(data, &root); err != nil {
@@ -140,7 +127,7 @@ func parseJSON(data []byte) ([]model.Source, bool) {
 			if json.Unmarshal(r, &it) != nil {
 				continue
 			}
-			if it.adult() || it.disabled() || forbiddenCategory(it.Category) || forbiddenCategory(it.Type) {
+			if it.disabled() {
 				continue
 			}
 			api := it.api()
@@ -175,7 +162,7 @@ func parseJSON(data []byte) ([]model.Source, bool) {
 					if b, err := json.Marshal(entry); err == nil {
 						_ = json.Unmarshal(b, &it)
 					}
-					if it.adult() || it.disabled() || forbiddenCategory(it.Category) || forbiddenCategory(it.Type) {
+					if it.disabled() {
 						continue
 					}
 					api := it.api()

@@ -52,7 +52,7 @@ func main() {
 			fmt.Println("probe url must start with http:// or https://")
 			os.Exit(1)
 		}
-		r := probe.Verify(probe.NewClient(*timeout), *probeURL)
+		r := probe.Verify(probe.NewClient(*timeout), *probeURL, time.Time{})
 		res := model.ProbeResult{
 			URL:       *probeURL,
 			State:     r.State,
@@ -94,10 +94,14 @@ func main() {
 	}
 
 	// remote lists are optional; the project ships with none enabled
+	feedDeadline := deadline
+	if !deadline.IsZero() {
+		feedDeadline = start.Add(*budget * 2 / 5)
+	}
 	raw := append([]model.Source{}, sf.Sources...)
 	var ff model.FeedFile
 	if err := gen.ReadJSON(*feedsPath, &ff); err == nil {
-		raw = append(raw, fetchFeeds(ff, *timeout, deadline)...)
+		raw = append(raw, fetchFeeds(ff, *timeout, feedDeadline)...)
 	} else if !os.IsNotExist(err) {
 		fmt.Printf("warn: feed file %s: %v\n", *feedsPath, err)
 	}
@@ -131,7 +135,7 @@ func main() {
 		}
 	}
 
-	newFile := model.SourceFile{Version: 1, UpdatedAt: start.Format("2006-01-02"), Removed: sf.Removed, Sources: list}
+	newFile := model.SourceFile{Version: 1, Removed: sf.Removed, Sources: list}
 	changed, err := gen.WriteJSONIfChanged(*sourcesPath, newFile)
 	if err != nil {
 		fmt.Printf("write %s: %v\n", *sourcesPath, err)
@@ -211,7 +215,7 @@ func main() {
 	fmt.Printf("done: %d verified / %d unverified / %d dead, %d sites published, %.1fs total\n",
 		rep.Alive, rep.Unverified, rep.Dead, len(sites), time.Since(start).Seconds())
 	if !deadline.IsZero() && time.Now().After(deadline) {
-		fmt.Printf("warn: run passed the %s budget, lower -timeout or raise -workers\n", *budget)
+		fmt.Printf("budget %s reached: sources without a verdict stay unverified, raise -budget or -workers for full coverage\n", *budget)
 	}
 }
 

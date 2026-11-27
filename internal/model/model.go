@@ -13,9 +13,8 @@ type Source struct {
 }
 
 type SourceFile struct {
-	Version   int      `json:"version"`
-	UpdatedAt string   `json:"updated_at,omitempty"`
-	Sources   []Source `json:"sources"`
+	Version int      `json:"version"`
+	Sources []Source `json:"sources"`
 	// Removed keeps user deletions alive: feeds must never re-add these keys.
 	Removed []string `json:"removed,omitempty"`
 }
@@ -126,9 +125,8 @@ type FeedFile struct {
 
 // MoonSite is one entry of the MoonTV / LunaTV api_site object.
 type MoonSite struct {
-	Name   string `json:"name"`
-	API    string `json:"api"`
-	Detail string `json:"detail,omitempty"`
+	Name string `json:"name"`
+	API  string `json:"api"`
 }
 
 // MoonConfig is the MoonTV config.json shape, importable in its 视频源配置 page.

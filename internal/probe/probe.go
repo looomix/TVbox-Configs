@@ -4,6 +4,7 @@
 package probe
 
 import (
+	"context"
 	"encoding/json"
 	"io"
 	"net/http"
@@ -71,9 +72,15 @@ type payload struct {
 	} `json:"list"`
 }
 
-func fetchOnce(c *http.Client, target string) Result {
+func fetchOnce(c *http.Client, target string, deadline time.Time) Result {
 	start := time.Now()
-	req, err := http.NewRequest(http.MethodGet, target, nil)
+	ctx := context.Background()
+	if !deadline.IsZero() {
+		var cancel context.CancelFunc
+		ctx, cancel = context.WithDeadline(ctx, deadline)
+		defer cancel()
+	}
+	req, err := http.NewRequestWithContext(ctx, http.MethodGet, target, nil)
 	if err != nil {
 		return Result{State: "down"}
 	}
@@ -114,14 +121,20 @@ func fetchOnce(c *http.Client, target string) Result {
 }
 
 // Verify decides the state of one endpoint: search first, latest listing last.
-func Verify(c *http.Client, api string) Result {
+// A non-zero deadline stops the remaining requests, so a loose -budget is never
+// overshot by more than a single request.
+func Verify(c *http.Client, api string, deadline time.Time) Result {
 	if strings.TrimSpace(api) == "" {
 		return Result{State: "down"}
 	}
 	start := time.Now()
+	expired := func() bool { return !deadline.IsZero() && time.Now().After(deadline) }
 	var best *Result
 	for _, kw := range keywords {
-		r := fetchOnce(c, testURL(api, kw))
+		if expired() {
+			break
+		}
+		r := fetchOnce(c, testURL(api, kw), deadline)
 		if r.State == "ok" {
 			r.LatencyMs = int(time.Since(start).Milliseconds())
 			return r
@@ -131,10 +144,12 @@ func Verify(c *http.Client, api string) Result {
 			best = &cp
 		}
 	}
-	if r := fetchOnce(c, listingURL(api)); r.State == "ok" {
-		r.Searchable = false
-		r.LatencyMs = int(time.Since(start).Milliseconds())
-		return r
+	if !expired() {
+		if r := fetchOnce(c, listingURL(api), deadline); r.State == "ok" {
+			r.Searchable = false
+			r.LatencyMs = int(time.Since(start).Milliseconds())
+			return r
+		}
 	}
 	out := Result{State: "down"}
 	if best != nil {
@@ -178,7 +193,12 @@ func Run(sources []model.Source, workers int, timeout time.Duration, deadline ti
 					results[j] = Result{State: "limited"}
 					continue
 				}
-				results[j] = Verify(c, sources[j].API)
+				r := Verify(c, sources[j].API, deadline)
+				if r.State != "ok" && !deadline.IsZero() && time.Now().After(deadline) {
+					// cut short by the budget: report unverified instead of dead
+					r.State = "limited"
+				}
+				results[j] = r
 			}
 		}()
 	}
