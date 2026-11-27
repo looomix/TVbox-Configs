@@ -1,4 +1,5 @@
-name: Probe Source
+# 只给网页「测试」按钮调用，不需要手动运行
+name: 测试单个源（网页测试按钮用）
 
 on:
   workflow_dispatch:

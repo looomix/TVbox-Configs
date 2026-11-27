@@ -20,13 +20,60 @@ api/                生成后的产物（勿手改）
 index.html          管理页
 ```
 
-## 使用
+## Fork 后必做：五步，照着点就行
 
-1. Fork 本仓库，在 **Actions** 页点「I understand my workflows, go ahead and enable them」，再到 **Settings → Pages** 选择 `main` / 根目录。链接全部按当前仓库自动生成：产物地址是 `<你的用户名>/<你的仓库名>`，页面读写也指向你自己的仓库，**不需要改任何代码**。
-2. 打开 `https://<用户名>.github.io/<仓库名>/`，点右上角「设置令牌」填入 PAT（fine-grained，勾选本仓库的 **Contents: Read and write** 与 **Actions: Read and write**）。
-3. 在「＋ 新增源」逐条添加，或在下方整行粘贴多个接口地址（换行 / 逗号分隔）批量导入。
-4. 保存后自动触发 `Update Configs`，约 1 分钟产物更新，订阅地址始终不变。
-5. 删过的接口会进入「删除记录」（避免源库把它抓回来）。表下方显示记录条数，「恢复被删源」清空记录并立刻重抓，「清空删除记录」只解除屏蔽、等下次自动更新。
+不需要装任何软件、不需要改代码，全程只在 GitHub 网页上点按钮。**跳过第 2 步或第 3 步，Action 不会跑、网页也打不开。**
+
+### 第 1 步 · Fork 到你自己的账号
+
+1. 打开本仓库页面，点右上角的 **Fork** 按钮（旁边有 ▼ 的，点 ▼ 选 **Create a new fork**）。
+2. 页面出现 **Create a new fork**：`Owner` 保持你自己的账号；`Repository name` 可以改成你喜欢的名字（例如 `my-tv`）；其余默认，直接点最下方 **Create fork**。
+3. 等几秒，浏览器会跳到 `https://github.com/<你的用户名>/<你的仓库名>` —— 从这里开始，看到的都是你自己的副本。
+
+### 第 2 步 · 打开 Actions（Fork 默认是关闭的，这步最容易漏）
+
+1. 在你自己的仓库页面，点上方标签栏的 **Actions**。
+2. 会看到黄色提示条：*Workflows aren't being run on this forked repository*。
+3. 点这条提示右侧的绿色按钮 **I understand my workflows, go ahead and enable them**。
+4. 左侧列表出现 **Update Configs** 和 **测试单个源（网页测试按钮用）** 两个工作流，说明已经开启。
+
+### 第 3 步 · 打开 Pages（不开就没有网页）
+
+1. 点上方标签栏的 **Settings**，在左侧菜单往下找到 **Pages**（大约在 Code and automation 分组里）。
+2. **Source** 选择 **Deploy from a branch**。
+3. **Branch** 选 **main**，右边的目录保持 **/ (root)**，点 **Save**。
+4. 等 1~2 分钟，回到 Settings → Pages 顶部，出现 *Your site is live at https://<你的用户名>.github.io/<你的仓库名>/* 就成功了，点 **Visit site** 打开管理页。
+
+### 第 4 步 · 给管理页填令牌（不填只能看，不能增删源）
+
+1. 先确认你的仓库是 **Public**：Settings → General → 拉到最下面 *Danger Zone* → **Change repository visibility** → **Change to public**（Private 仓库的订阅链接会 404，jsDelivr 不支持私有库）。
+2. 生成令牌：打开 https://github.com/settings/personal-access-tokens/new
+   - **Token name** 随便填；
+   - **Expiration** 选 90 days 或 No expiration；
+   - **Repository access** 选 **Only select repositories**，只勾你刚才那个仓库；
+   - **Permissions** 展开 **Repository permissions**，找到 **Contents** 选 **Read and write**，**Actions** 选 **Read and write**；
+   - 点最下方 **Generate token**，复制那串 `github_pat_...`（只显示一次）。
+3. 回到你的管理页 `https://<你的用户名>.github.io/<你的仓库名>/`，点右上角 **设置令牌**，粘贴、保存。页面上「只读模式」变成已设置状态即可。
+
+### 第 5 步 · 加第一条源并验证是自己的链接
+
+1. 点 **＋ 新增源**，填名称和接口地址（形如 `https://xxx.com/api.php/provide/vod`），点 **保存并发布**；或在下方整行粘贴多个接口地址批量导入。
+2. 保存后会自动触发 **Update Configs**，约 1 分钟回来自动刷新；也可以点 **立即重新生成** 手动触发。
+3. 到 **Actions** 页能看到一条绿色的 *Update Configs* 运行记录，说明链路通了。
+4. 确认链接是**你自己的**：管理页「订阅地址」里应显示 `https://cdn.jsdelivr.net/gh/<你的用户名>/<你的仓库名>@main/api/tvbox.json`。如果你看到的是别人的用户名，说明副本是旧代码 —— 在仓库页点 **Sync fork → Update branch**，再点一次「立即重新生成」。
+
+### 新手常见问题
+
+| 现象 | 原因 | 怎么修 |
+| :--- | :--- | :--- |
+| Actions 里提示工作流被禁用 / 看不到运行记录 | Fork 默认禁用工作流 | 回第 2 步，点绿色 enable 按钮 |
+| 打开网页 404 | Pages 没开，或分支/目录选错 | 回第 3 步，确认 `main` + `/ (root)`，保存后再等 2 分钟 |
+| 订阅链接 404 | 仓库是 Private | Settings → General → Danger Zone → 改为 Public |
+| 保存/删除提示 403、401 | 令牌权限或过期 | 重新生成令牌：Contents 与 Actions 都要 Read and write，且只勾你这一个仓库 |
+| 网页里显示的不是自己的链接 | 用的是旧版代码 | Sync fork 后跑一次 Update Configs |
+| 刚打开网页一片「0 条」 | 仓库默认不含任何源 | 正常现象，按第 5 步自己加源 |
+
+> 两个工作流分工：**Update Configs** 每天 16:00 UTC 检查一次、也是「立即重新生成」按钮触发的那个；**测试单个源** 只在你点表格里的「测试」时被网页自动调用，不需要手动点。
 
 订阅地址形如 `https://cdn.jsdelivr.net/gh/<用户名>/<仓库名>@main/api/tvbox.json`，9 个产物各配 5 条镜像，页面上一键复制。
 
@@ -80,7 +127,13 @@ go build -o bin/tvboxgen ./cmd/tvboxgen
 
 **TVbox-Configs** is a container-style repository for video source configs: a Go generator, a static web console, and nine subscription artifacts (TVBox, MoonTV / LunaTV, KatelyaTV, DecoTV, MoonTVPlus, OuonnkiTV, KVideo, LibreTV, plus a plain text list). **It ships with no sources** — what you put in is entirely up to you.
 
-- **Setup**: fork the repo, enable the workflows on the **Actions** tab, then enable GitHub Pages (`main` / root). Every link (jsDelivr, Pages, api calls, probe polling) is derived from the current repository, so **no code change is needed** after forking. Open the site and paste a fine-grained PAT with `Contents: read & write` and `Actions: read & write` scoped to this repository.
+- **Setup (5 steps, no code change)**:
+  1. **Fork** the repo into your own account.
+  2. Open the **Actions** tab and click **I understand my workflows, go ahead and enable them** — forked workflows are disabled by default.
+  3. Open **Settings → Pages**, set *Source* = `Deploy from a branch`, *Branch* = `main`, folder = `/ (root)`, then **Save** and wait 1–2 minutes for `https://<you>.github.io/<repo>/`.
+  4. Make the repository **Public** (Settings → General → Danger Zone), then create a fine-grained token with **Contents: read & write** and **Actions: read & write** scoped to that repository, and paste it via **设置令牌** on the site.
+  5. Add a source, wait for the auto-triggered **Update Configs** run, and check the subscription URL shows *your* account — if it still shows someone else's, run **Sync fork** and regenerate.
+  Every link (jsDelivr, Pages, api calls, probe polling) is derived from the current repository, so **no code change is needed** after forking.
 - **Manage**: add sources one by one, or paste many interface URLs at once (newline / comma separated); test, edit, delete a single row, or delete a multi-selected batch. Deleted endpoints go to a `removed` list so feeds cannot bring them back; the row below the table shows that count and offers **restore** (clear + re-run) and **clear only**.
 - **Generate**: `go build -o bin/tvboxgen ./cmd/tvboxgen && ./bin/tvboxgen -force`. Each run is hard-capped (`-budget`, default 50s). Only endpoints that answer with a real vod list (`ok`) reach the artifacts; the rest stay in `api/status.json`.
 - **Dedupe**: by endpoint key (host + first meaningful path segments, so two stations on one host stay apart) and by normalized Chinese display name, so mirrors of the same station collapse into one entry.
