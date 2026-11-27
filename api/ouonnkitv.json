@@ -1,1 +1,98 @@
-[]
+[
+  {
+    "id": "beiyongslapibfcom42b8",
+    "name": "森林",
+    "url": "https://beiyong.slapibf.com/api.php/provide/vod",
+    "detailUrl": "https://beiyong.slapibf.com/api.php/provide/vod",
+    "timeout": 5000,
+    "isEnabled": true
+  },
+  {
+    "id": "jinyingzycom6922",
+    "name": "金鹰点播",
+    "url": "https://jinyingzy.com/api.php/provide/vod",
+    "detailUrl": "https://jinyingzy.com/api.php/provide/vod",
+    "timeout": 5000,
+    "isEnabled": true
+  },
+  {
+    "id": "xingba111com649e",
+    "name": "杏吧",
+    "url": "https://xingba111.com/api.php/provide/vod",
+    "detailUrl": "https://xingba111.com/api.php/provide/vod",
+    "timeout": 5000,
+    "isEnabled": true
+  },
+  {
+    "id": "ckzymed5b2",
+    "name": "CK",
+    "url": "https://ckzy.me/api.php/provide/vod",
+    "detailUrl": "https://ckzy.me/api.php/provide/vod",
+    "timeout": 5000,
+    "isEnabled": true
+  },
+  {
+    "id": "tyyszycom97b0",
+    "name": "天涯影视",
+    "url": "https://tyyszy.com/api.php/provide/vod",
+    "detailUrl": "https://tyyszy.com/api.php/provide/vod",
+    "timeout": 5000,
+    "isEnabled": true
+  },
+  {
+    "id": "xsdsdzyapicom9e6a",
+    "name": "闪电",
+    "url": "https://xsd.sdzyapi.com/api.php/provide/vod",
+    "detailUrl": "https://xsd.sdzyapi.com/api.php/provide/vod",
+    "timeout": 5000,
+    "isEnabled": true
+  },
+  {
+    "id": "caijikuaichezyorgd01b",
+    "name": "快车",
+    "url": "https://caiji.kuaichezy.org/api.php/provide/vod",
+    "detailUrl": "https://caiji.kuaichezy.org/api.php/provide/vod",
+    "timeout": 5000,
+    "isEnabled": true
+  },
+  {
+    "id": "suoniapicom90b7",
+    "name": "索尼",
+    "url": "https://suoniapi.com/api.php/provide/vod",
+    "detailUrl": "https://suoniapi.com/api.php/provide/vod",
+    "timeout": 5000,
+    "isEnabled": true
+  },
+  {
+    "id": "1542191172327c08",
+    "name": "建安",
+    "url": "http://154.219.117.232:9981/jacloudapi.php/provide/vod",
+    "detailUrl": "http://154.219.117.232:9981/jacloudapi.php/provide/vod",
+    "timeout": 5000,
+    "isEnabled": true
+  },
+  {
+    "id": "cjffzyapicom2507",
+    "name": "非凡影视",
+    "url": "https://cj.ffzyapi.com/api.php/provide/vod",
+    "detailUrl": "https://cj.ffzyapi.com/api.php/provide/vod",
+    "timeout": 5000,
+    "isEnabled": true
+  },
+  {
+    "id": "apisouavzyvipa434",
+    "name": "souavZY",
+    "url": "https://api.souavzy.vip/api.php/provide/vod",
+    "detailUrl": "https://api.souavzy.vip/api.php/provide/vod",
+    "timeout": 5000,
+    "isEnabled": true
+  },
+  {
+    "id": "caijimaotaizycc4b5e",
+    "name": "茅台",
+    "url": "https://caiji.maotaizy.cc/api.php/provide/vod",
+    "detailUrl": "https://caiji.maotaizy.cc/api.php/provide/vod",
+    "timeout": 5000,
+    "isEnabled": true
+  }
+]

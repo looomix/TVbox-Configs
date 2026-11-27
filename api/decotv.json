@@ -1,4 +1,53 @@
 {
   "cache_time": 7200,
-  "api_site": {}
+  "api_site": {
+    "1542191172327c08": {
+      "name": "建安",
+      "api": "http://154.219.117.232:9981/jacloudapi.php/provide/vod"
+    },
+    "apisouavzyvipa434": {
+      "name": "souavZY",
+      "api": "https://api.souavzy.vip/api.php/provide/vod"
+    },
+    "beiyongslapibfcom42b8": {
+      "name": "森林",
+      "api": "https://beiyong.slapibf.com/api.php/provide/vod"
+    },
+    "caijikuaichezyorgd01b": {
+      "name": "快车",
+      "api": "https://caiji.kuaichezy.org/api.php/provide/vod"
+    },
+    "caijimaotaizycc4b5e": {
+      "name": "茅台",
+      "api": "https://caiji.maotaizy.cc/api.php/provide/vod"
+    },
+    "cjffzyapicom2507": {
+      "name": "非凡影视",
+      "api": "https://cj.ffzyapi.com/api.php/provide/vod"
+    },
+    "ckzymed5b2": {
+      "name": "CK",
+      "api": "https://ckzy.me/api.php/provide/vod"
+    },
+    "jinyingzycom6922": {
+      "name": "金鹰点播",
+      "api": "https://jinyingzy.com/api.php/provide/vod"
+    },
+    "suoniapicom90b7": {
+      "name": "索尼",
+      "api": "https://suoniapi.com/api.php/provide/vod"
+    },
+    "tyyszycom97b0": {
+      "name": "天涯影视",
+      "api": "https://tyyszy.com/api.php/provide/vod"
+    },
+    "xingba111com649e": {
+      "name": "杏吧",
+      "api": "https://xingba111.com/api.php/provide/vod"
+    },
+    "xsdsdzyapicom9e6a": {
+      "name": "闪电",
+      "api": "https://xsd.sdzyapi.com/api.php/provide/vod"
+    }
+  }
 }

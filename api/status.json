@@ -1,13 +1,614 @@
 {
-  "updated_at": "2026-11-27T08:26:02Z",
-  "next_update_at": "2026-12-04T08:26:02Z",
+  "updated_at": "2026-11-27T08:32:38Z",
+  "next_update_at": "2026-12-04T08:32:38Z",
   "interval_hours": 168,
-  "total": 0,
-  "alive": 0,
-  "unverified": 0,
-  "dead": 0,
-  "from_feed": 0,
-  "deduped": 0,
-  "duration_ms": 0,
-  "sources": []
+  "total": 30,
+  "alive": 12,
+  "unverified": 5,
+  "dead": 13,
+  "from_feed": 30,
+  "deduped": 3,
+  "duration_ms": 9151,
+  "sources": [
+    {
+      "id": "apiwwzytv-9614",
+      "name": "旺旺",
+      "api": "https://api.wwzy.tv/api.php/provide/vod",
+      "group": "综合",
+      "origin": "feed",
+      "enabled": true,
+      "state": "limited",
+      "latency_ms": 1395,
+      "searchable": false,
+      "vods": 0,
+      "checked_at": "2026-11-27T08:32:38Z",
+      "history": [
+        {
+          "t": "2026-11-27T08:32:38Z",
+          "ok": false,
+          "ms": 1395
+        }
+      ]
+    },
+    {
+      "id": "ckzyme-d5b2",
+      "name": "CK",
+      "api": "https://ckzy.me/api.php/provide/vod",
+      "group": "综合",
+      "origin": "feed",
+      "enabled": true,
+      "state": "ok",
+      "latency_ms": 507,
+      "searchable": false,
+      "vods": 20,
+      "checked_at": "2026-11-27T08:32:38Z",
+      "history": [
+        {
+          "t": "2026-11-27T08:32:38Z",
+          "ok": true,
+          "ms": 507
+        }
+      ]
+    },
+    {
+      "id": "jjpzhafreydpdnsorg-6dd0",
+      "name": "U酷",
+      "api": "https://jjpz.hafrey.dpdns.org/?url=https://api.ukuapi.com/api.php/provide/vod",
+      "group": "综合",
+      "origin": "feed",
+      "enabled": true,
+      "state": "down",
+      "latency_ms": 122,
+      "searchable": false,
+      "vods": 0,
+      "checked_at": "2026-11-27T08:32:38Z",
+      "history": [
+        {
+          "t": "2026-11-27T08:32:38Z",
+          "ok": false,
+          "ms": 122
+        }
+      ]
+    },
+    {
+      "id": "apisouavzyvip-a434",
+      "name": "souavZY",
+      "api": "https://api.souavzy.vip/api.php/provide/vod",
+      "group": "综合",
+      "origin": "feed",
+      "enabled": true,
+      "state": "ok",
+      "latency_ms": 1539,
+      "searchable": true,
+      "vods": 2,
+      "checked_at": "2026-11-27T08:32:38Z",
+      "history": [
+        {
+          "t": "2026-11-27T08:32:38Z",
+          "ok": true,
+          "ms": 1539
+        }
+      ]
+    },
+    {
+      "id": "wolongzywcom-8ba3",
+      "name": "卧龙",
+      "api": "https://wolongzyw.com/api.php/provide/vod",
+      "group": "综合",
+      "origin": "feed",
+      "enabled": true,
+      "state": "limited",
+      "latency_ms": 1208,
+      "searchable": false,
+      "vods": 0,
+      "checked_at": "2026-11-27T08:32:38Z",
+      "history": [
+        {
+          "t": "2026-11-27T08:32:38Z",
+          "ok": false,
+          "ms": 1208
+        }
+      ]
+    },
+    {
+      "id": "caijikuaichezyorg-d01b",
+      "name": "快车",
+      "api": "https://caiji.kuaichezy.org/api.php/provide/vod",
+      "group": "综合",
+      "origin": "feed",
+      "enabled": true,
+      "state": "ok",
+      "latency_ms": 648,
+      "searchable": false,
+      "vods": 20,
+      "checked_at": "2026-11-27T08:32:38Z",
+      "history": [
+        {
+          "t": "2026-11-27T08:32:38Z",
+          "ok": true,
+          "ms": 648
+        }
+      ]
+    },
+    {
+      "id": "siwazywtv-5dc4",
+      "name": "丝袜",
+      "api": "https://siwazyw.tv/api.php/provide/vod/at/json",
+      "group": "综合",
+      "origin": "feed",
+      "enabled": true,
+      "state": "down",
+      "latency_ms": 377,
+      "searchable": false,
+      "vods": 0,
+      "checked_at": "2026-11-27T08:32:38Z",
+      "history": [
+        {
+          "t": "2026-11-27T08:32:38Z",
+          "ok": false,
+          "ms": 377
+        }
+      ]
+    },
+    {
+      "id": "tyyszycom-97b0",
+      "name": "天涯影视",
+      "api": "https://tyyszy.com/api.php/provide/vod",
+      "group": "综合",
+      "origin": "feed",
+      "enabled": true,
+      "state": "ok",
+      "latency_ms": 509,
+      "searchable": false,
+      "vods": 20,
+      "checked_at": "2026-11-27T08:32:38Z",
+      "history": [
+        {
+          "t": "2026-11-27T08:32:38Z",
+          "ok": true,
+          "ms": 509
+        }
+      ]
+    },
+    {
+      "id": "caijimaotaizycc-4b5e",
+      "name": "茅台",
+      "api": "https://caiji.maotaizy.cc/api.php/provide/vod",
+      "group": "综合",
+      "origin": "feed",
+      "enabled": true,
+      "state": "ok",
+      "latency_ms": 2322,
+      "searchable": false,
+      "vods": 20,
+      "checked_at": "2026-11-27T08:32:38Z",
+      "history": [
+        {
+          "t": "2026-11-27T08:32:38Z",
+          "ok": true,
+          "ms": 2322
+        }
+      ]
+    },
+    {
+      "id": "suoniapicom-90b7",
+      "name": "索尼",
+      "api": "https://suoniapi.com/api.php/provide/vod",
+      "group": "综合",
+      "origin": "feed",
+      "enabled": true,
+      "state": "ok",
+      "latency_ms": 684,
+      "searchable": false,
+      "vods": 20,
+      "checked_at": "2026-11-27T08:32:38Z",
+      "history": [
+        {
+          "t": "2026-11-27T08:32:38Z",
+          "ok": true,
+          "ms": 684
+        }
+      ]
+    },
+    {
+      "id": "apibwzyzcom-c326",
+      "name": "百万",
+      "api": "https://api.bwzyz.com/api.php/provide/vod",
+      "group": "综合",
+      "origin": "feed",
+      "enabled": true,
+      "state": "down",
+      "latency_ms": 9151,
+      "searchable": false,
+      "vods": 0,
+      "checked_at": "2026-11-27T08:32:38Z",
+      "history": [
+        {
+          "t": "2026-11-27T08:32:38Z",
+          "ok": false,
+          "ms": 9151
+        }
+      ]
+    },
+    {
+      "id": "caijidbzy5com-2135",
+      "name": "豆瓣",
+      "api": "https://caiji.dbzy5.com/api.php/provide/vod",
+      "group": "综合",
+      "origin": "feed",
+      "enabled": true,
+      "state": "down",
+      "latency_ms": 209,
+      "searchable": false,
+      "vods": 0,
+      "checked_at": "2026-11-27T08:32:38Z",
+      "history": [
+        {
+          "t": "2026-11-27T08:32:38Z",
+          "ok": false,
+          "ms": 209
+        }
+      ]
+    },
+    {
+      "id": "wwzytv-6d36",
+      "name": "旺旺短剧",
+      "api": "https://wwzy.tv/api.php/provide/vod",
+      "group": "短剧",
+      "origin": "feed",
+      "enabled": true,
+      "state": "limited",
+      "latency_ms": 1443,
+      "searchable": false,
+      "vods": 0,
+      "checked_at": "2026-11-27T08:32:38Z",
+      "history": [
+        {
+          "t": "2026-11-27T08:32:38Z",
+          "ok": false,
+          "ms": 1443
+        }
+      ]
+    },
+    {
+      "id": "xingba111com-649e",
+      "name": "杏吧",
+      "api": "https://xingba111.com/api.php/provide/vod",
+      "group": "综合",
+      "origin": "feed",
+      "enabled": true,
+      "state": "ok",
+      "latency_ms": 463,
+      "searchable": true,
+      "vods": 20,
+      "checked_at": "2026-11-27T08:32:38Z",
+      "history": [
+        {
+          "t": "2026-11-27T08:32:38Z",
+          "ok": true,
+          "ms": 463
+        }
+      ]
+    },
+    {
+      "id": "apizuiseapicom-c23a",
+      "name": "最色",
+      "api": "https://api.zuiseapi.com/api.php/provide/vod",
+      "group": "综合",
+      "origin": "feed",
+      "enabled": true,
+      "state": "down",
+      "latency_ms": 200,
+      "searchable": false,
+      "vods": 0,
+      "checked_at": "2026-11-27T08:32:38Z",
+      "history": [
+        {
+          "t": "2026-11-27T08:32:38Z",
+          "ok": false,
+          "ms": 200
+        }
+      ]
+    },
+    {
+      "id": "apisexnguoncom-99ec",
+      "name": "色南国",
+      "api": "https://api.sexnguon.com/api.php/provide/vod",
+      "group": "综合",
+      "origin": "feed",
+      "enabled": true,
+      "state": "down",
+      "latency_ms": 248,
+      "searchable": false,
+      "vods": 0,
+      "checked_at": "2026-11-27T08:32:38Z",
+      "history": [
+        {
+          "t": "2026-11-27T08:32:38Z",
+          "ok": false,
+          "ms": 248
+        }
+      ]
+    },
+    {
+      "id": "beiyongslapibfcom-42b8",
+      "name": "森林",
+      "api": "https://beiyong.slapibf.com/api.php/provide/vod",
+      "group": "综合",
+      "origin": "feed",
+      "enabled": true,
+      "state": "ok",
+      "latency_ms": 240,
+      "searchable": true,
+      "vods": 20,
+      "checked_at": "2026-11-27T08:32:38Z",
+      "history": [
+        {
+          "t": "2026-11-27T08:32:38Z",
+          "ok": true,
+          "ms": 240
+        }
+      ]
+    },
+    {
+      "id": "jinyingzycom-6922",
+      "name": "金鹰点播",
+      "api": "https://jinyingzy.com/api.php/provide/vod",
+      "group": "综合",
+      "origin": "feed",
+      "enabled": true,
+      "state": "ok",
+      "latency_ms": 301,
+      "searchable": true,
+      "vods": 8,
+      "checked_at": "2026-11-27T08:32:38Z",
+      "history": [
+        {
+          "t": "2026-11-27T08:32:38Z",
+          "ok": true,
+          "ms": 301
+        }
+      ]
+    },
+    {
+      "id": "zysh0ocn-9735",
+      "name": "山海",
+      "api": "https://zy.sh0o.cn/api.php/provide/vod",
+      "group": "综合",
+      "origin": "feed",
+      "enabled": true,
+      "state": "down",
+      "latency_ms": 430,
+      "searchable": false,
+      "vods": 0,
+      "checked_at": "2026-11-27T08:32:38Z",
+      "history": [
+        {
+          "t": "2026-11-27T08:32:38Z",
+          "ok": false,
+          "ms": 430
+        }
+      ]
+    },
+    {
+      "id": "hsckzyxyz-8886",
+      "name": "黄色仓库",
+      "api": "https://hsckzy.xyz/api.php/provide/vod",
+      "group": "综合",
+      "origin": "feed",
+      "enabled": true,
+      "state": "down",
+      "latency_ms": 259,
+      "searchable": false,
+      "vods": 0,
+      "checked_at": "2026-11-27T08:32:38Z",
+      "history": [
+        {
+          "t": "2026-11-27T08:32:38Z",
+          "ok": false,
+          "ms": 259
+        }
+      ]
+    },
+    {
+      "id": "dadiapicom-4d3b",
+      "name": "大地",
+      "api": "https://dadiapi.com/feifei2",
+      "group": "综合",
+      "origin": "feed",
+      "enabled": true,
+      "state": "limited",
+      "latency_ms": 2002,
+      "searchable": false,
+      "vods": 0,
+      "checked_at": "2026-11-27T08:32:38Z",
+      "history": [
+        {
+          "t": "2026-11-27T08:32:38Z",
+          "ok": false,
+          "ms": 2002
+        }
+      ]
+    },
+    {
+      "id": "jjpzhafreydpdnsorg-07ff",
+      "name": "魔爪",
+      "api": "https://jjpz.hafrey.dpdns.org/?url=https://mozhuazy.com/api.php/provide/vod",
+      "group": "综合",
+      "origin": "feed",
+      "enabled": true,
+      "state": "down",
+      "latency_ms": 121,
+      "searchable": false,
+      "vods": 0,
+      "checked_at": "2026-11-27T08:32:38Z",
+      "history": [
+        {
+          "t": "2026-11-27T08:32:38Z",
+          "ok": false,
+          "ms": 121
+        }
+      ]
+    },
+    {
+      "id": "lbapibycom-d223",
+      "name": "AIvin",
+      "api": "http://lbapiby.com/api.php/provide/vod",
+      "group": "综合",
+      "origin": "feed",
+      "enabled": true,
+      "state": "down",
+      "latency_ms": 740,
+      "searchable": false,
+      "vods": 0,
+      "checked_at": "2026-11-27T08:32:38Z",
+      "history": [
+        {
+          "t": "2026-11-27T08:32:38Z",
+          "ok": false,
+          "ms": 740
+        }
+      ]
+    },
+    {
+      "id": "jjpzhafreydpdnsorg-08f6",
+      "name": "如意",
+      "api": "https://jjpz.hafrey.dpdns.org/?url=https://cj.rycjapi.com/api.php/provide/vod",
+      "group": "综合",
+      "origin": "feed",
+      "enabled": true,
+      "state": "down",
+      "latency_ms": 122,
+      "searchable": false,
+      "vods": 0,
+      "checked_at": "2026-11-27T08:32:38Z",
+      "history": [
+        {
+          "t": "2026-11-27T08:32:38Z",
+          "ok": false,
+          "ms": 122
+        }
+      ]
+    },
+    {
+      "id": "yyzywcjcom-3231",
+      "name": "优优",
+      "api": "https://www.yyzywcj.com/api.php/provide/vod",
+      "group": "综合",
+      "origin": "feed",
+      "enabled": true,
+      "state": "down",
+      "latency_ms": 750,
+      "searchable": false,
+      "vods": 0,
+      "checked_at": "2026-11-27T08:32:38Z",
+      "history": [
+        {
+          "t": "2026-11-27T08:32:38Z",
+          "ok": false,
+          "ms": 750
+        }
+      ]
+    },
+    {
+      "id": "caijisemaozynet-37da",
+      "name": "色猫",
+      "api": "https://caiji.semaozy.net/inc/apijson_vod.php/provide/vod",
+      "group": "综合",
+      "origin": "feed",
+      "enabled": true,
+      "state": "limited",
+      "latency_ms": 468,
+      "searchable": false,
+      "vods": 0,
+      "checked_at": "2026-11-27T08:32:38Z",
+      "history": [
+        {
+          "t": "2026-11-27T08:32:38Z",
+          "ok": false,
+          "ms": 468
+        }
+      ]
+    },
+    {
+      "id": "cjffzyapicom-2507",
+      "name": "非凡影视",
+      "api": "https://cj.ffzyapi.com/api.php/provide/vod",
+      "group": "综合",
+      "origin": "feed",
+      "enabled": true,
+      "state": "ok",
+      "latency_ms": 1282,
+      "searchable": true,
+      "vods": 8,
+      "checked_at": "2026-11-27T08:32:38Z",
+      "history": [
+        {
+          "t": "2026-11-27T08:32:38Z",
+          "ok": true,
+          "ms": 1282
+        }
+      ]
+    },
+    {
+      "id": "xzybb2com-1630",
+      "name": "幸",
+      "api": "https://xzybb2.com/api.php/provide/vod",
+      "group": "综合",
+      "origin": "feed",
+      "enabled": true,
+      "state": "down",
+      "latency_ms": 134,
+      "searchable": false,
+      "vods": 0,
+      "checked_at": "2026-11-27T08:32:38Z",
+      "history": [
+        {
+          "t": "2026-11-27T08:32:38Z",
+          "ok": false,
+          "ms": 134
+        }
+      ]
+    },
+    {
+      "id": "xsdsdzyapicom-9e6a",
+      "name": "闪电",
+      "api": "https://xsd.sdzyapi.com/api.php/provide/vod",
+      "group": "综合",
+      "origin": "feed",
+      "enabled": true,
+      "state": "ok",
+      "latency_ms": 570,
+      "searchable": false,
+      "vods": 20,
+      "checked_at": "2026-11-27T08:32:38Z",
+      "history": [
+        {
+          "t": "2026-11-27T08:32:38Z",
+          "ok": true,
+          "ms": 570
+        }
+      ]
+    },
+    {
+      "id": "154219117232-7c08",
+      "name": "建安",
+      "api": "http://154.219.117.232:9981/jacloudapi.php/provide/vod",
+      "group": "综合",
+      "origin": "feed",
+      "enabled": true,
+      "state": "ok",
+      "latency_ms": 817,
+      "searchable": true,
+      "vods": 20,
+      "checked_at": "2026-11-27T08:32:38Z",
+      "history": [
+        {
+          "t": "2026-11-27T08:32:38Z",
+          "ok": true,
+          "ms": 817
+        }
+      ]
+    }
+  ]
 }

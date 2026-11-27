@@ -1,1 +1,86 @@
-[]
+[
+  {
+    "id": "beiyongslapibfcom42b8",
+    "name": "森林",
+    "baseUrl": "https://beiyong.slapibf.com/api.php/provide/vod",
+    "group": "normal",
+    "enabled": true
+  },
+  {
+    "id": "jinyingzycom6922",
+    "name": "金鹰点播",
+    "baseUrl": "https://jinyingzy.com/api.php/provide/vod",
+    "group": "normal",
+    "enabled": true
+  },
+  {
+    "id": "xingba111com649e",
+    "name": "杏吧",
+    "baseUrl": "https://xingba111.com/api.php/provide/vod",
+    "group": "normal",
+    "enabled": true
+  },
+  {
+    "id": "ckzymed5b2",
+    "name": "CK",
+    "baseUrl": "https://ckzy.me/api.php/provide/vod",
+    "group": "normal",
+    "enabled": true
+  },
+  {
+    "id": "tyyszycom97b0",
+    "name": "天涯影视",
+    "baseUrl": "https://tyyszy.com/api.php/provide/vod",
+    "group": "normal",
+    "enabled": true
+  },
+  {
+    "id": "xsdsdzyapicom9e6a",
+    "name": "闪电",
+    "baseUrl": "https://xsd.sdzyapi.com/api.php/provide/vod",
+    "group": "normal",
+    "enabled": true
+  },
+  {
+    "id": "caijikuaichezyorgd01b",
+    "name": "快车",
+    "baseUrl": "https://caiji.kuaichezy.org/api.php/provide/vod",
+    "group": "normal",
+    "enabled": true
+  },
+  {
+    "id": "suoniapicom90b7",
+    "name": "索尼",
+    "baseUrl": "https://suoniapi.com/api.php/provide/vod",
+    "group": "normal",
+    "enabled": true
+  },
+  {
+    "id": "1542191172327c08",
+    "name": "建安",
+    "baseUrl": "http://154.219.117.232:9981/jacloudapi.php/provide/vod",
+    "group": "normal",
+    "enabled": true
+  },
+  {
+    "id": "cjffzyapicom2507",
+    "name": "非凡影视",
+    "baseUrl": "https://cj.ffzyapi.com/api.php/provide/vod",
+    "group": "normal",
+    "enabled": true
+  },
+  {
+    "id": "apisouavzyvipa434",
+    "name": "souavZY",
+    "baseUrl": "https://api.souavzy.vip/api.php/provide/vod",
+    "group": "normal",
+    "enabled": true
+  },
+  {
+    "id": "caijimaotaizycc4b5e",
+    "name": "茅台",
+    "baseUrl": "https://caiji.maotaizy.cc/api.php/provide/vod",
+    "group": "normal",
+    "enabled": true
+  }
+]
