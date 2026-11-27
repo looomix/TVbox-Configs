@@ -78,8 +78,32 @@ type payload struct {
 
 // playCandidates pulls the first http url of every episode list, which is the
 // cheapest way to check that a station still serves real media.
+// playCandidates prefers real media links (m3u8 / mp4) over share pages, so a
+// detail url in vod_play_url never causes a false "not media" verdict.
 func (p payload) playCandidates(limit int) []string {
 	out := make([]string, 0, limit)
+	for _, item := range p.List {
+		for _, entry := range strings.Split(item.Play, "#") {
+			entry = strings.TrimSpace(entry)
+			u := entry
+			if i := strings.LastIndex(entry, "$"); i >= 0 {
+				u = strings.TrimSpace(entry[i+1:])
+			} else if i := strings.LastIndex(entry, "|"); i >= 0 {
+				u = strings.TrimSpace(entry[i+1:])
+			}
+			low := strings.ToLower(u)
+			if strings.HasPrefix(low, "http") && (strings.Contains(low, ".m3u8") || strings.Contains(low, ".mp4")) {
+				out = append(out, u)
+				break
+			}
+		}
+		if len(out) >= limit {
+			break
+		}
+	}
+	if len(out) > 0 {
+		return out
+	}
 	for _, item := range p.List {
 		for _, entry := range strings.Split(item.Play, "#") {
 			entry = strings.TrimSpace(entry)
@@ -135,7 +159,7 @@ func fetchOnce(c *http.Client, target string) Result {
 		// Names without play urls: playable content cannot be confirmed.
 		return Result{State: "limited", LatencyMs: ms, Vods: len(data.List)}
 	}
-	samples := data.playCandidates(2)
+	samples := data.playCandidates(4)
 	first := ""
 	if len(samples) > 0 {
 		first = samples[0]
@@ -176,7 +200,7 @@ func CheckPlay(c *http.Client, samples []string) (bool, string, string) {
 	}
 	note := ""
 	for i, u := range samples {
-		if i >= 2 {
+		if i >= 4 {
 			break
 		}
 		req, err := http.NewRequest(http.MethodGet, u, nil)

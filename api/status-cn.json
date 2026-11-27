@@ -1,0 +1,377 @@
+{
+  "vantage": "cn",
+  "checked_at": "2026-11-27T07:39:44Z",
+  "sources": [
+    {
+      "id": "1080zyk_com",
+      "api": "https://api.yyzy-tv.vip/inc/api_mac10.php",
+      "state": "ok",
+      "latency_ms": 2904,
+      "play_ok": true
+    },
+    {
+      "id": "dbzy_tv",
+      "api": "https://caiji.dbzy5.com/api.php/provide/vod",
+      "state": "down",
+      "latency_ms": 3555,
+      "play_ok": false
+    },
+    {
+      "id": "mtzy_me",
+      "api": "https://caiji.maotaizy.cc/api.php/provide/vod",
+      "state": "limited",
+      "latency_ms": 8178,
+      "play_ok": false
+    },
+    {
+      "id": "ikunzy_com",
+      "api": "https://ikunzyapi.com/api.php/provide/vod",
+      "state": "down",
+      "latency_ms": 3968,
+      "play_ok": false
+    },
+    {
+      "id": "dyttzyapi_com",
+      "api": "http://caiji.dyttzyapi.com/api.php/provide/vod",
+      "state": "down",
+      "latency_ms": 33215,
+      "play_ok": false
+    },
+    {
+      "id": "maoyanzy_com",
+      "api": "https://api.maoyanapi.top/api.php/provide/vod",
+      "state": "ok",
+      "latency_ms": 1083,
+      "play_ok": true
+    },
+    {
+      "id": "lzizy_net",
+      "api": "https://cj.lziapi.com/api.php/provide/vod",
+      "state": "down",
+      "latency_ms": 17757,
+      "play_ok": false
+    },
+    {
+      "id": "jszyapi_com",
+      "api": "https://jszyapi.com/api.php/provide/vod",
+      "state": "ok",
+      "latency_ms": 7853,
+      "play_ok": true
+    },
+    {
+      "id": "moduzy_net",
+      "api": "https://www.mdzyapi.com/api.php/provide/vod",
+      "state": "ok",
+      "latency_ms": 2390,
+      "play_ok": true
+    },
+    {
+      "id": "ffzy5tv-e124",
+      "api": "https://ffzy5.tv/api.php/provide/vod",
+      "state": "ok",
+      "latency_ms": 3153,
+      "play_ok": true
+    },
+    {
+      "id": "bfzy_tv",
+      "api": "https://bfzyapi.com/api.php/provide/vod",
+      "state": "down",
+      "latency_ms": 23342,
+      "play_ok": false
+    },
+    {
+      "id": "zuidazy_co",
+      "api": "https://zuidazy.me/api.php/provide/vod",
+      "state": "down",
+      "latency_ms": 5134,
+      "play_ok": false
+    },
+    {
+      "id": "wujinzy_me",
+      "api": "https://api.wujinapi.me/api.php/provide/vod",
+      "state": "ok",
+      "latency_ms": 6106,
+      "play_ok": true
+    },
+    {
+      "id": "xinlangapi_com",
+      "api": "https://api.xinlangapi.com/xinlangapi.php/provide/vod",
+      "state": "down",
+      "latency_ms": 43003,
+      "play_ok": false
+    },
+    {
+      "id": "tyyszy_com",
+      "api": "https://tyyszyapi.com/api.php/provide/vod",
+      "state": "ok",
+      "latency_ms": 9076,
+      "play_ok": true
+    },
+    {
+      "id": "subozy_com",
+      "api": "https://subocaiji.com/api.php/provide/vod",
+      "state": "down",
+      "latency_ms": 43003,
+      "play_ok": false
+    },
+    {
+      "id": "jinyingzy_com",
+      "api": "https://jinyingzy.com/api.php/provide/vod",
+      "state": "ok",
+      "latency_ms": 1265,
+      "play_ok": true
+    },
+    {
+      "id": "p2100_net",
+      "api": "https://p2100.net/api.php/provide/vod",
+      "state": "limited",
+      "latency_ms": 5805,
+      "play_ok": false
+    },
+    {
+      "id": "ukuapi88_com",
+      "api": "https://api.ukuapi88.com/api.php/provide/vod",
+      "state": "ok",
+      "latency_ms": 9874,
+      "play_ok": true
+    },
+    {
+      "id": "guangsuapi_com",
+      "api": "https://api.guangsuapi.com/api.php/provide/vod",
+      "state": "ok",
+      "latency_ms": 6684,
+      "play_ok": true
+    },
+    {
+      "id": "hongniuzy_com",
+      "api": "https://www.hongniuzy2.com/api.php/provide/vod",
+      "state": "ok",
+      "latency_ms": 1073,
+      "play_ok": true
+    },
+    {
+      "id": "moduapi_cc",
+      "api": "https://caiji.moduapi.cc/api.php/provide/vod",
+      "state": "ok",
+      "latency_ms": 1571,
+      "play_ok": true
+    },
+    {
+      "id": "ryzyw_com",
+      "api": "https://cj.rycjapi.com/api.php/provide/vod",
+      "state": "down",
+      "latency_ms": 6139,
+      "play_ok": false
+    },
+    {
+      "id": "haohuazy_com",
+      "api": "https://hhzyapi.com/api.php/provide/vod",
+      "state": "ok",
+      "latency_ms": 1615,
+      "play_ok": true
+    },
+    {
+      "id": "bdzy1_com",
+      "api": "https://api.apibdzy.com/api.php/provide/vod",
+      "state": "ok",
+      "latency_ms": 3763,
+      "play_ok": true
+    },
+    {
+      "id": "lovedan_net",
+      "api": "https://lovedan.net/api.php/provide/vod",
+      "state": "down",
+      "latency_ms": 6249,
+      "play_ok": false
+    },
+    {
+      "id": "yayazy_com",
+      "api": "https://cj.yayazy.net/api.php/provide/vod",
+      "state": "ok",
+      "latency_ms": 7033,
+      "play_ok": true
+    },
+    {
+      "id": "suonizy_net",
+      "api": "https://suoniapi.com/api.php/provide/vod",
+      "state": "down",
+      "latency_ms": 43002,
+      "play_ok": false
+    },
+    {
+      "id": "kuaichezy_com",
+      "api": "https://caiji.kuaichezy.org/api.php/provide/vod",
+      "state": "down",
+      "latency_ms": 43003,
+      "play_ok": false
+    },
+    {
+      "id": "shandianzy_com",
+      "api": "https://xsd.sdzyapi.com/api.php/provide/vod",
+      "state": "down",
+      "latency_ms": 43002,
+      "play_ok": false
+    },
+    {
+      "id": "jipinvip1com-390b",
+      "api": "https://jipinvip1.com/api.php/provide/vod",
+      "state": "ok",
+      "latency_ms": 3623,
+      "play_ok": true
+    },
+    {
+      "id": "apiniuniuzyme-c64e",
+      "api": "https://api.niuniuzy.me/api.php/provide/vod",
+      "state": "ok",
+      "latency_ms": 6702,
+      "play_ok": true
+    },
+    {
+      "id": "huyazynet-7cd2",
+      "api": "https://huyazy.net/api.php/provide/vod",
+      "state": "ok",
+      "latency_ms": 2380,
+      "play_ok": true
+    },
+    {
+      "id": "fqzyme-981d",
+      "api": "https://fqzy.me/api.php/provide/vod",
+      "state": "ok",
+      "latency_ms": 2913,
+      "play_ok": true
+    },
+    {
+      "id": "bhziyuancom-31e9",
+      "api": "https://bhziyuan.com/api.php/provide/vod",
+      "state": "ok",
+      "latency_ms": 2297,
+      "play_ok": true
+    },
+    {
+      "id": "apivnzyzcom-e8d7",
+      "api": "https://api.vnzyz.com/api.php/provide/vod",
+      "state": "limited",
+      "latency_ms": 8259,
+      "play_ok": false
+    },
+    {
+      "id": "apiokzywnet-56b8",
+      "api": "https://api.okzyw.net/api.php/provide/vod",
+      "state": "ok",
+      "latency_ms": 10105,
+      "play_ok": true
+    },
+    {
+      "id": "apiyjzycom-a71d",
+      "api": "https://api.yjzy.com/api.php/provide/vod",
+      "state": "down",
+      "latency_ms": 3015,
+      "play_ok": false
+    },
+    {
+      "id": "ckzyme-d5b2",
+      "api": "https://ckzy.me/api.php/provide/vod",
+      "state": "ok",
+      "latency_ms": 7778,
+      "play_ok": true
+    },
+    {
+      "id": "apiwwzytv-9614",
+      "api": "https://api.wwzy.tv/api.php/provide/vod",
+      "state": "down",
+      "latency_ms": 43002,
+      "play_ok": false
+    },
+    {
+      "id": "wwzytv-6d36",
+      "api": "https://wwzy.tv/api.php/provide/vod",
+      "state": "down",
+      "latency_ms": 33017,
+      "play_ok": false
+    },
+    {
+      "id": "wolongzywcom-8ba3",
+      "api": "https://wolongzyw.com/api.php/provide/vod",
+      "state": "limited",
+      "latency_ms": 5859,
+      "play_ok": false
+    },
+    {
+      "id": "yyzywcjcom-8b7c",
+      "api": "https://www.yyzywcj.com/api.php/provide/vod",
+      "state": "down",
+      "latency_ms": 7747,
+      "play_ok": false
+    },
+    {
+      "id": "apibwzyzcom-8223",
+      "api": "https://api.bwzyz.com/api.php/provide/vod",
+      "state": "down",
+      "latency_ms": 19239,
+      "play_ok": false
+    },
+    {
+      "id": "154219117232-0255",
+      "api": "http://154.219.117.232:9981/jacloudapi.php/provide/vod",
+      "state": "limited",
+      "latency_ms": 43342,
+      "play_ok": false
+    },
+    {
+      "id": "api1080zykucom-c6d5",
+      "api": "https://api.1080zyku.com/inc/api_mac10.php",
+      "state": "down",
+      "latency_ms": 43004,
+      "play_ok": false
+    },
+    {
+      "id": "cdndzzyapicom-5909",
+      "api": "https://cdn.dzzyapi.com/api.php/provide/vod",
+      "state": "ok",
+      "latency_ms": 4221,
+      "play_ok": true
+    },
+    {
+      "id": "apiwsyzynet-4a1d",
+      "api": "https://api.wsyzy.net/api.php/provide/vod",
+      "state": "ok",
+      "latency_ms": 8777,
+      "play_ok": true
+    },
+    {
+      "id": "apiyparsecom-d55f",
+      "api": "https://api.yparse.com/api/json",
+      "state": "down",
+      "latency_ms": 4732,
+      "play_ok": false
+    },
+    {
+      "id": "zysh0ocn-7f4e",
+      "api": "https://zy.sh0o.cn/api.php/provide/vod",
+      "state": "down",
+      "latency_ms": 3009,
+      "play_ok": false
+    },
+    {
+      "id": "jjpzhafreydpdnsorg-07ff",
+      "api": "https://jjpz.hafrey.dpdns.org/?url=https://mozhuazy.com/api.php/provide/vod",
+      "state": "down",
+      "latency_ms": 10514,
+      "play_ok": false
+    },
+    {
+      "id": "360zyzzcom-a7cc",
+      "api": "https://360zyzz.com/api.php/provide/vod",
+      "state": "ok",
+      "latency_ms": 2675,
+      "play_ok": true
+    },
+    {
+      "id": "iqiyizyapicom-e25f",
+      "api": "https://iqiyizyapi.com/api.php/provide/vod",
+      "state": "ok",
+      "latency_ms": 3316,
+      "play_ok": true
+    }
+  ]
+}
