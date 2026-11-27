@@ -1,9 +1,12 @@
-// Package gen turns probe results into the published json artifacts.
+// Package gen turns the source list and probe results into the published
+// artifacts (TVBox config, MoonTV config, plain text list, reports).
 package gen
 
 import (
 	"encoding/json"
 	"fmt"
+	"hash/crc32"
+	"net/url"
 	"os"
 	"path/filepath"
 	"sort"
@@ -13,22 +16,16 @@ import (
 	"github.com/looomix/tvbox-configs/internal/model"
 )
 
-// Groups allowed in the generated config. Anything else falls back to 综合.
+// allowedGroups are the group labels written into the generated config.
 var allowedGroups = map[string]bool{
 	"综合": true, "影视": true, "动漫": true, "综艺": true, "短剧": true, "其他": true,
 }
 
-var blockedWords = []string{"nsfw", "adult", "porn", "18+", "成人", "福利", "里番", "色情"}
-
-// Blocked reports whether a source must never reach the published config.
-func Blocked(s model.Source) bool {
-	hay := strings.ToLower(s.Group + " " + s.Name + " " + s.ID + " " + s.API)
-	for _, w := range blockedWords {
-		if strings.Contains(hay, strings.ToLower(w)) {
-			return true
-		}
+func boolInt(v bool) int {
+	if v {
+		return 1
 	}
-	return false
+	return 0
 }
 
 func groupOf(g string) string {
@@ -39,93 +36,102 @@ func groupOf(g string) string {
 	return "综合"
 }
 
-func keyOf(id, name string, used map[string]bool) string {
-	base := strings.ToLower(strings.TrimSpace(id))
-	if base == "" {
-		base = strings.ToLower(strings.TrimSpace(name))
+// HostOf returns the lowercased hostname without a leading www.
+func HostOf(api string) string {
+	u, err := url.Parse(strings.TrimSpace(api))
+	if err != nil {
+		return ""
 	}
+	return strings.TrimPrefix(strings.ToLower(u.Hostname()), "www.")
+}
+
+// IDFor builds a stable id from the api url, so history survives re-runs.
+func IDFor(api string) string {
+	host := HostOf(api)
 	var b strings.Builder
-	for _, r := range base {
+	for _, r := range strings.ToLower(host) {
 		if (r >= 'a' && r <= 'z') || (r >= '0' && r <= '9') || r == '-' {
 			b.WriteRune(r)
 		}
 	}
-	k := b.String()
-	k = strings.Trim(k, "-")
+	slug := strings.Trim(b.String(), "-")
+	if slug == "" {
+		slug = "source"
+	}
+	return fmt.Sprintf("%s-%04x", slug, crc32.ChecksumIEEE([]byte(NormalizeAPI(api)))%0x10000)
+}
+
+func keyOf(id, name, api string, used map[string]bool, strict bool) string {
+	base := strings.ToLower(strings.TrimSpace(id))
+	if base == "" {
+		base = strings.ToLower(strings.TrimSpace(name))
+	}
+	if base == "" {
+		base = HostOf(api)
+	}
+	var b strings.Builder
+	for _, r := range base {
+		if (r >= 'a' && r <= 'z') || (r >= '0' && r <= '9') || (!strict && r == '-') {
+			b.WriteRune(r)
+		}
+	}
+	k := strings.Trim(b.String(), "-")
 	if k == "" {
 		k = "cms"
 	}
 	for i := 2; used[k]; i++ {
-		k = fmt.Sprintf("%s-%d", strings.TrimPrefix(k, "-"), i)
+		k = fmt.Sprintf("%s%d", strings.TrimSuffix(k, fmt.Sprintf("%d", i-1)), i)
 	}
 	used[k] = true
 	return k
 }
 
-// TVBox builds the single-repository config from a health report.
-func TVBox(rep *model.Report) *model.TVBox {
-	cfg := &model.TVBox{
-		Sites:   []model.Site{},
-		Lives:   []any{},
-		Parses:  []any{},
-		Version: "1.0",
-		Flags:   []string{"youku", "qq", "iqiyi", "qiyi", "letv", "sohu", "tudou", "pptv", "mgtv", "wasu", "bilibili"},
-	}
+// SitesOf builds the site list shared by every published format: only sources
+// that were positively verified (state ok) are included.
+func SitesOf(rep *model.Report) []model.Site {
 	list := append([]model.Status{}, rep.Sources...)
 	sort.SliceStable(list, func(i, j int) bool {
-		a, b := list[i], list[j]
-		if a.State != b.State {
-			return a.State == "ok"
+		if list[i].State != list[j].State {
+			return list[i].State == "ok"
 		}
-		if a.LatencyMs != b.LatencyMs {
-			return a.LatencyMs < b.LatencyMs
+		if list[i].LatencyMs != list[j].LatencyMs {
+			return list[i].LatencyMs < list[j].LatencyMs
 		}
-		return a.Name < b.Name
+		return list[i].Name < list[j].Name
 	})
+	sites := make([]model.Site, 0, len(list))
 	used := map[string]bool{}
 	for _, s := range list {
-		if !s.Enabled || (s.State != "ok" && s.State != "limited") {
+		if s.Origin == "" {
+			s.Origin = "manual"
+		}
+		if !s.Enabled || s.State != "ok" {
 			continue
 		}
-		cfg.Sites = append(cfg.Sites, model.Site{
-			Key:         keyOf(s.ID, s.Name, used),
+		sites = append(sites, model.Site{
+			Key:         keyOf(s.ID, s.Name, s.API, used, false),
 			Name:        s.Name,
 			Type:        3,
 			API:         s.API,
-			Searchable:  1,
-			QuickSearch: 1,
+			Searchable:  boolInt(s.Searchable),
+			QuickSearch: boolInt(s.Searchable),
 			Filterable:  1,
 			Ext:         "",
 			Group:       groupOf(s.Group),
 		})
 	}
-	return cfg
+	return sites
 }
 
-// WriteJSON writes v with indentation through a temp file so runs never leave
-// half written artifacts behind.
-func WriteJSON(path string, v any) error {
-	if err := os.MkdirAll(filepath.Dir(path), 0o755); err != nil {
-		return err
+// TVBox builds the single-repository config consumable by TVBox / 影视仓.
+func TVBox(sites []model.Site) *model.TVBox {
+	return &model.TVBox{
+		Sites:   sites,
+		Lives:   []any{},
+		Parses:  []any{},
+		Flags:   []string{"youku", "qq", "iqiyi", "qiyi", "letv", "sohu", "tudou", "pptv", "mgtv", "wasu", "bilibili"},
+		Version: "1.0",
 	}
-	data, err := json.MarshalIndent(v, "", "  ")
-	if err != nil {
-		return err
-	}
-	data = append(data, '\n')
-	tmp := path + ".tmp"
-	if err := os.WriteFile(tmp, data, 0o644); err != nil {
-		return err
-	}
-	return os.Rename(tmp, path)
-}
-
-func ReadJSON(path string, v any) error {
-	data, err := os.ReadFile(path)
-	if err != nil {
-		return err
-	}
-	return json.Unmarshal(data, v)
 }
 
 // AppendCheck appends one check point and keeps only the newest limit points.
@@ -139,4 +145,58 @@ func AppendCheck(prev []model.Check, ok bool, ms int, now time.Time, limit int) 
 		out = out[len(out)-limit:]
 	}
 	return out
+}
+
+// WriteJSON writes v with indentation through a temp file so runs never leave
+// half written artifacts behind.
+func WriteJSON(path string, v any) error {
+	data, err := encode(v)
+	if err != nil {
+		return err
+	}
+	return writeFile(path, data)
+}
+
+// WriteJSONIfChanged writes v only when the bytes differ, and reports a change.
+func WriteJSONIfChanged(path string, v any) (bool, error) {
+	data, err := encode(v)
+	if err != nil {
+		return false, err
+	}
+	if old, err := os.ReadFile(path); err == nil && string(old) == string(data) {
+		return false, nil
+	}
+	return true, writeFile(path, data)
+}
+
+// WriteText writes a plain text artifact.
+func WriteText(path, text string) error {
+	return writeFile(path, []byte(text))
+}
+
+func encode(v any) ([]byte, error) {
+	data, err := json.MarshalIndent(v, "", "  ")
+	if err != nil {
+		return nil, err
+	}
+	return append(data, '\n'), nil
+}
+
+func writeFile(path string, data []byte) error {
+	if err := os.MkdirAll(filepath.Dir(path), 0o755); err != nil {
+		return err
+	}
+	tmp := path + ".tmp"
+	if err := os.WriteFile(tmp, data, 0o644); err != nil {
+		return err
+	}
+	return os.Rename(tmp, path)
+}
+
+func ReadJSON(path string, v any) error {
+	data, err := os.ReadFile(path)
+	if err != nil {
+		return err
+	}
+	return json.Unmarshal(data, v)
 }

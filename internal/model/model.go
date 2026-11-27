@@ -8,6 +8,7 @@ type Source struct {
 	Group   string `json:"group"`
 	Note    string `json:"note,omitempty"`
 	Enabled bool   `json:"enabled"`
+	Origin  string `json:"origin,omitempty"` // manual | feed
 	AddedAt string `json:"added_at,omitempty"`
 }
 
@@ -31,6 +32,7 @@ type Status struct {
 	API        string  `json:"api"`
 	Group      string  `json:"group"`
 	Note       string  `json:"note,omitempty"`
+	Origin     string  `json:"origin,omitempty"`
 	Enabled    bool    `json:"enabled"`
 	State      string  `json:"state"` // ok | limited | down | off
 	LatencyMs  int     `json:"latency_ms"`
@@ -47,7 +49,10 @@ type Report struct {
 	IntervalHours int      `json:"interval_hours"`
 	Total         int      `json:"total"`
 	Alive         int      `json:"alive"`
+	Unverified    int      `json:"unverified"`
 	Dead          int      `json:"dead"`
+	FromFeed      int      `json:"from_feed"`
+	Deduped       int      `json:"deduped"`
 	DurationMs    int64    `json:"duration_ms"`
 	Sources       []Status `json:"sources"`
 }
@@ -81,6 +86,7 @@ type ProbeResult struct {
 	State     string `json:"state"`
 	LatencyMs int    `json:"latency_ms"`
 	Vods      int    `json:"vods"`
+	Playable  bool   `json:"playable"`
 	CheckedAt string `json:"checked_at"`
 }
 
@@ -91,9 +97,8 @@ type Mirror struct {
 }
 
 type MirrorFile struct {
-	UpdatedAt string   `json:"updated_at"`
-	File      string   `json:"file"`
-	Mirrors   []Mirror `json:"mirrors"`
+	UpdatedAt string        `json:"updated_at"`
+	Files     []MirrorGroup `json:"files"`
 }
 
 type IndexEntry struct {
@@ -104,4 +109,44 @@ type IndexEntry struct {
 type Index struct {
 	Name string       `json:"name"`
 	Urls []IndexEntry `json:"urls"`
+}
+
+// Feed is one remote source list that is merged into sources/sources.json.
+type Feed struct {
+	Name    string `json:"name"`
+	URL     string `json:"url"`
+	Enabled bool   `json:"enabled"`
+}
+
+type FeedFile struct {
+	Version int    `json:"version"`
+	Feeds   []Feed `json:"feeds"`
+}
+
+// Blocklist keeps adult / disallowed sites out of every generated artifact.
+type Blocklist struct {
+	Domains []string `json:"domains"`
+	Words   []string `json:"words"`
+}
+
+// MoonSite is one entry of the MoonTV / LunaTV api_site object.
+type MoonSite struct {
+	Name   string `json:"name"`
+	API    string `json:"api"`
+	Detail string `json:"detail,omitempty"`
+}
+
+// MoonConfig is the MoonTV config.json shape, importable in its 视频源配置 page.
+type MoonConfig struct {
+	CacheTime int                 `json:"cache_time"`
+	APISite   map[string]MoonSite `json:"api_site"`
+}
+
+// MirrorGroup lists the mirrors of one published artifact.
+type MirrorGroup struct {
+	File    string   `json:"file"`
+	Label   string   `json:"label"`
+	Kind    string   `json:"kind"` // config | text
+	Primary string   `json:"primary"`
+	Mirrors []Mirror `json:"mirrors"`
 }

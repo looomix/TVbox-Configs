@@ -4,8 +4,8 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>TVbox-Configs · 视频源管理</title>
-<meta name="description" content="每 7 天自动检测的可视化 TVBox 视频源配置，多镜像订阅地址，支持在线新增、修改、测试与删除。">
-<link rel="stylesheet" href="assets/style.css?v=20261127g">
+<meta name="description" content="每 7 天自动检测的可视化 TVBox / MoonTV 视频源配置，多镜像订阅地址，支持在线新增、导入、测试与删除。">
+<link rel="stylesheet" href="assets/style.css?v=20261128a">
 </head>
 <body>
 <div class="wrap">
@@ -13,10 +13,11 @@
   <header class="top">
     <div class="brand">
       <h1>TVbox-Configs</h1>
-      <p class="sub">7 天自动更新 · 多镜像订阅 · 在线视频源管理</p>
+      <p class="sub">7 天自动更新 · 自动抓取去重 · TVBox 与 MoonTV 共用一份源</p>
     </div>
     <div class="stats">
       <span class="pill ok" id="pillAlive">可用 —</span>
+      <span class="pill warn" id="pillUnverified">未验证 —</span>
       <span class="pill bad" id="pillDead">失效 —</span>
       <span class="pill" id="pillTime">上次更新 —</span>
       <span class="pill" id="pillToken" title="点击设置访问令牌">🔑 只读模式</span>
@@ -26,13 +27,13 @@
   <section class="card">
     <div class="card-head">
       <h2>订阅地址</h2>
-      <button class="btn sm primary" id="btnCopyPrimary">复制主线路</button>
+      <button class="btn sm primary" id="btnCopyPrimary">复制 TVBox 主线路</button>
     </div>
-    <div class="mirrors" id="mirrors"></div>
-    <p class="hint">TVBox / 影视仓「设置 → 配置地址」粘贴任意一条；主线路失效时依次换用备用镜像。</p>
+    <div id="mirrorGroups"></div>
+    <p class="hint">TVBox / 影视仓「设置 → 配置地址」贴 TVBox 那条；MoonTV 后台「视频源配置」可粘贴 MoonTV 那条或纯文本清单。主线路失效时换用同组的备用镜像。</p>
     <div class="inline-row">
       <span class="url" id="indexUrl">api/index.json</span>
-      <button class="btn sm" data-copy="#indexUrl">复制多仓入口</button>
+      <button class="btn sm" data-copy="index">复制多仓入口</button>
     </div>
   </section>
 
@@ -40,10 +41,11 @@
     <div class="card-head">
       <h2>视频源<span class="sub-count" id="listCount"></span></h2>
       <div class="tools">
-        <input class="input" id="q" type="search" placeholder="搜索名称 / 地址 / 备注">
+        <input class="input" id="q" type="search" placeholder="搜索名称 / 地址">
         <select id="filterState">
           <option value="all">全部状态</option>
           <option value="alive">仅可用</option>
+          <option value="unverified">仅未验证</option>
           <option value="down">仅失效</option>
           <option value="off">仅停用</option>
         </select>
@@ -61,6 +63,19 @@
       <div id="rows"></div>
     </div>
     <p class="hint" id="listHint">正在加载…</p>
+  </section>
+
+  <section class="card">
+    <div class="card-head">
+      <h2>一键导入源库<span class="sub-count" id="feedCount"></span></h2>
+      <button class="btn sm" id="btnFeedsReload">刷新状态</button>
+    </div>
+    <div id="feeds"></div>
+    <div class="inline-row">
+      <input class="input" id="feedCustom" placeholder="粘贴订阅链接（txt 或含 api_site / sites 的 json）">
+      <button class="btn primary" id="btnFeedAdd">导入链接</button>
+    </div>
+    <p class="hint">导入即加入云端抓取列表：自动去重、逐条验证，未通过验证的源不会写进订阅配置；每 7 天随更新一起刷新。</p>
   </section>
 
   <footer>
@@ -91,7 +106,7 @@
       <button class="btn" data-close>取消</button>
       <button class="btn primary" id="btnSave">保存并发布</button>
     </div>
-    <p class="hint" id="editHint">保存会直接提交到仓库的 <code>sources/sources.json</code>。测试接口：默认走 GitHub Actions 云端检测（需令牌，约 1 分钟）；未设置令牌时只能本机直连，多数采集接口会被跨域拦截。</p>
+    <p class="hint" id="editHint">保存会直接提交到仓库的 sources/sources.json，并在后台触发一次检测；令牌只留在本机浏览器。</p>
   </div>
 </div>
 
@@ -111,6 +126,6 @@
 </div>
 
 <div class="toast" id="toast"></div>
-<script src="assets/app.js?v=20261127g"></script>
+<script src="assets/app.js?v=20261128a"></script>
 </body>
 </html>

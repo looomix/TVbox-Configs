@@ -1,4 +1,4 @@
-// Package mirror builds the public subscription urls (mirrors) of the artifacts.
+// Package mirror builds the public subscription urls (mirrors) of each artifact.
 package mirror
 
 import (
@@ -19,7 +19,19 @@ func List(owner, repo, branch, file string) []model.Mirror {
 	}
 }
 
-// Index builds the multi-repository index pointing at three independent routes.
+// Group wraps the mirrors of one artifact with its label.
+func Group(owner, repo, branch, file, label, kind string) model.MirrorGroup {
+	return model.MirrorGroup{
+		File:    file,
+		Label:   label,
+		Kind:    kind,
+		Primary: fmt.Sprintf("https://cdn.jsdelivr.net/gh/%s/%s@%s/%s", owner, repo, branch, file),
+		Mirrors: List(owner, repo, branch, file),
+	}
+}
+
+// Index builds the multi-repository index pointing at three independent routes
+// of the TVBox config.
 func Index(owner, repo, branch, file string) *model.Index {
 	wanted := map[string]bool{"jsDelivr 主线路": true, "GitHub Pages 备用": true, "ghproxy 加速": true}
 	idx := &model.Index{Name: "TVbox-Configs 订阅总入口"}

@@ -1,0 +1,20 @@
+{
+  "version": 1,
+  "feeds": [
+    {
+      "name": "资源族 CMS 接口清单",
+      "url": "https://www.ziyuanzu.com/download/ziyuanzu-cms-interfaces.txt",
+      "enabled": true
+    },
+    {
+      "name": "CMS 状态全量清单",
+      "url": "https://raw.githubusercontent.com/puppet680/cms-config/refs/heads/main/full_status.json",
+      "enabled": true
+    },
+    {
+      "name": "LunaTV 配置清单",
+      "url": "https://raw.githubusercontent.com/hafrey1/LunaTV-config/refs/heads/main/LunaTV-config.json",
+      "enabled": true
+    }
+  ]
+}
