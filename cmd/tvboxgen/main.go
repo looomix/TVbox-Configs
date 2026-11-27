@@ -31,9 +31,10 @@ func main() {
 	workers := flag.Int("workers", 24, "parallel probes")
 	budget := flag.Duration("budget", 50*time.Second, "hard cap for the whole run, 0 disables it")
 	histLimit := flag.Int("history", 8, "check points kept per source")
-	owner := flag.String("owner", "looomix", "github owner used for mirror urls")
-	repo := flag.String("repo", "TVbox-Configs", "github repo used for mirror urls")
-	branch := flag.String("branch", "main", "branch used for mirror urls")
+	dOwner, dRepo, dBranch := repoDefaults()
+	owner := flag.String("owner", dOwner, "github owner used for mirror urls")
+	repo := flag.String("repo", dRepo, "github repo used for mirror urls")
+	branch := flag.String("branch", dBranch, "branch used for mirror urls")
 	feedOnly := flag.Bool("feed-only", false, "only merge feeds into sources.json, do not probe")
 	probeURL := flag.String("probe", "", "probe one api url only and exit")
 	probeOut := flag.String("probe-out", "", "write the single probe result to this json file")
@@ -268,6 +269,21 @@ func fetchFeeds(ff model.FeedFile, timeout time.Duration, deadline time.Time) []
 		out = append(out, r...)
 	}
 	return out
+}
+
+// repoDefaults reads the repository identity from the environment, so a fork's
+// own pages and jsDelivr links are generated instead of the upstream ones.
+func repoDefaults() (owner, repo, branch string) {
+	owner, repo, branch = "looomix", "TVbox-Configs", "main"
+	if full := strings.TrimSpace(os.Getenv("GITHUB_REPOSITORY")); full != "" {
+		if i := strings.Index(full, "/"); i > 0 {
+			owner, repo = full[:i], full[i+1:]
+		}
+	}
+	if ref := strings.TrimSpace(os.Getenv("GITHUB_REF_NAME")); ref != "" && !strings.Contains(ref, "/") {
+		branch = ref
+	}
+	return owner, repo, branch
 }
 
 // writeArtifacts renders every published file from one verified site list.

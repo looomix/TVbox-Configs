@@ -4,8 +4,22 @@
 (function () {
   'use strict';
 
-  var OWNER = 'looomix';
-  var REPO = 'TVbox-Configs';
+  // The page belongs to whoever serves it: <owner>.github.io/<repo>. Forking the
+  // project needs no edit, the api calls and probe polling follow the fork.
+  var FALLBACK = { owner: 'looomix', repo: 'TVbox-Configs' };
+
+  function repoContext() {
+    var host = (location.hostname || '').toLowerCase();
+    var first = (location.pathname || '').replace(/^\/+/, '').split('/')[0];
+    if (/\.github\.io$/.test(host) && first) {
+      return { owner: host.replace(/\.github\.io$/, ''), repo: first };
+    }
+    return FALLBACK;
+  }
+
+  var CTX = repoContext();
+  var OWNER = CTX.owner;
+  var REPO = CTX.repo;
   var BRANCH = 'main';
   var API = 'https://api.github.com/repos/' + OWNER + '/' + REPO;
   var TOKEN_KEY = 'tvbox_configs_pat';
@@ -873,6 +887,9 @@
     });
 
     $('#btnBatchDel').addEventListener('click', batchDelete);
+    var repoLink = $('#repoLink');
+    if (repoLink) repoLink.href = 'https://github.com/' + OWNER + '/' + REPO;
+
     $('#btnRestore').addEventListener('click', function () { clearRemoved(true); });
     $('#btnClearRemoved').addEventListener('click', function () { clearRemoved(false); });
 

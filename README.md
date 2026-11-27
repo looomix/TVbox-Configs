@@ -22,7 +22,7 @@ index.html          管理页
 
 ## 使用
 
-1. Fork 或克隆本仓库，在 **Settings → Pages** 选择 `main` / 根目录。
+1. Fork 本仓库，在 **Actions** 页点「I understand my workflows, go ahead and enable them」，再到 **Settings → Pages** 选择 `main` / 根目录。链接全部按当前仓库自动生成：产物地址是 `<你的用户名>/<你的仓库名>`，页面读写也指向你自己的仓库，**不需要改任何代码**。
 2. 打开 `https://<用户名>.github.io/<仓库名>/`，点右上角「设置令牌」填入 PAT（fine-grained，勾选本仓库的 **Contents: Read and write** 与 **Actions: Read and write**）。
 3. 在「＋ 新增源」逐条添加，或在下方整行粘贴多个接口地址（换行 / 逗号分隔）批量导入。
 4. 保存后自动触发 `Update Configs`，约 1 分钟产物更新，订阅地址始终不变。
@@ -74,7 +74,7 @@ go build -o bin/tvboxgen ./cmd/tvboxgen
 
 **TVbox-Configs** is a container-style repository for video source configs: a Go generator, a static web console, and nine subscription artifacts (TVBox, MoonTV / LunaTV, KatelyaTV, DecoTV, MoonTVPlus, OuonnkiTV, KVideo, LibreTV, plus a plain text list). **It ships with no sources** — what you put in is entirely up to you.
 
-- **Setup**: fork the repo, enable GitHub Pages (`main` / root), open the site, and paste a fine-grained PAT with `Contents: read & write` and `Actions: read & write` scoped to this repository.
+- **Setup**: fork the repo, enable the workflows on the **Actions** tab, then enable GitHub Pages (`main` / root). Every link (jsDelivr, Pages, api calls, probe polling) is derived from the current repository, so **no code change is needed** after forking. Open the site and paste a fine-grained PAT with `Contents: read & write` and `Actions: read & write` scoped to this repository.
 - **Manage**: add sources one by one, or paste many interface URLs at once (newline / comma separated); test, edit, delete a single row, or delete a multi-selected batch. Deleted endpoints go to a `removed` list so feeds cannot bring them back; the row below the table shows that count and offers **restore** (clear + re-run) and **clear only**.
 - **Generate**: `go build -o bin/tvboxgen ./cmd/tvboxgen && ./bin/tvboxgen -force`. Each run is hard-capped (`-budget`, default 50s). Only endpoints that answer with a real vod list (`ok`) reach the artifacts; the rest stay in `api/status.json`.
 - **Dedupe**: by endpoint key (host + first meaningful path segments, so two stations on one host stay apart) and by normalized Chinese display name, so mirrors of the same station collapse into one entry.
