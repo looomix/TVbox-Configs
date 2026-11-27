@@ -285,11 +285,29 @@
       if (state.filters.state === 'off' && !(st && !st.enabled)) return false;
       return true;
     }).sort(function (a, b) {
-      var ra = stateMeta(statusOf(a.id)).rank;
-      var rb = stateMeta(statusOf(b.id)).rank;
-      if (ra !== rb) return ra - rb;
+      // 可达的源按延迟从低到高；连不上的沉到最后，未测过的排在它们前面
+      var sa = statusOf(a.id);
+      var sb = statusOf(b.id);
+      var ba = latencyBucket(sa);
+      var bb = latencyBucket(sb);
+      if (ba !== bb) return ba - bb;
+      var la = latencyOf(sa);
+      var lb = latencyOf(sb);
+      if (la !== lb) return la - lb;
       return a.name.localeCompare(b.name, 'zh-Hans-CN');
     });
+  }
+
+  function latencyOf(st) {
+    if (st && typeof st.latency_ms === 'number' && st.latency_ms > 0) return st.latency_ms;
+    return Infinity;
+  }
+
+  function latencyBucket(st) {
+    if (!st || !st.enabled) return 2;
+    if (st.state === 'ok' || st.state === 'limited') return 0;
+    if (st.state === 'down') return 2;
+    return 1;
   }
 
   function renderRows() {
@@ -299,7 +317,7 @@
     if (!state.sources.length) {
       $('#listHint').textContent = '还没有源：点「＋ 新增源」逐条添加，或在上方整行粘贴多个接口地址批量导入。';
     } else if (st) {
-      $('#listHint').textContent = '自动抓取 ' + (st.from_feed || 0) + ' 条 · 去重 ' + (st.deduped || 0) + ' 条 · 只有验证通过的源才会写进订阅；「改」需要令牌。';
+      $('#listHint').textContent = '自动抓取 ' + (st.from_feed || 0) + ' 条 · 去重 ' + (st.deduped || 0) + ' 条 · 列表按延迟从低到高；只有验证通过的源才会写进订阅；「改」需要令牌。';
     } else {
       $('#listHint').textContent = '点击接口地址可复制；「改」需要令牌。';
     }
