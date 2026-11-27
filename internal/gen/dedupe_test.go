@@ -1,6 +1,10 @@
 package gen
 
-import "testing"
+import (
+	"testing"
+
+	"github.com/looomix/tvbox-configs/internal/model"
+)
 
 func TestNormalizeAPI(t *testing.T) {
 	cases := []struct{ raw, want string }{
@@ -21,15 +25,17 @@ func TestNormalizeAPI(t *testing.T) {
 	}
 }
 
-func TestNameKeyMergesMirrors(t *testing.T) {
-	same := []string{"无尽资源", "无尽资源(api.wujin.example)", "无尽资源3", "无尽资源 采集站", "1无尽资源"}
-	base := NameKey(same[0])
-	for _, n := range same[1:] {
-		if NameKey(n) != base {
-			t.Errorf("NameKey(%q) = %q, want %q", n, NameKey(n), base)
-		}
+func TestDedupeKeepsSameNameDifferentEndpoints(t *testing.T) {
+	in := []model.Source{
+		{Name: "无尽资源", API: "https://a.example.com/api.php/provide/vod"},
+		{Name: "无尽资源", API: "https://b.example.com/api.php/provide/vod"},
+		{Name: "无尽资源", API: "https://a.example.com/api.php/provide/vod/at/xml"},
 	}
-	if NameKey("无尽资源") == NameKey("非凡资源") {
-		t.Error("different stations must not collapse")
+	out, removed := Dedupe(in)
+	if len(out) != 2 || removed != 1 {
+		t.Fatalf("kept %d removed %d, want 2/1", len(out), removed)
+	}
+	if out[0].Name == out[1].Name {
+		t.Errorf("display names must stay unique, got %q twice", out[0].Name)
 	}
 }

@@ -712,6 +712,254 @@
       "group": "综合",
       "enabled": true,
       "origin": "feed"
+    },
+    {
+      "id": "cjlzcaijicom-5f94",
+      "name": "量子",
+      "api": "https://cj.lzcaiji.com/api.php/provide/vod",
+      "group": "综合",
+      "enabled": true,
+      "origin": "feed"
+    },
+    {
+      "id": "apiffzyapicom-cdc5",
+      "name": "非凡",
+      "api": "https://api.ffzyapi.com/api.php/provide/vod",
+      "group": "综合",
+      "enabled": true,
+      "origin": "feed"
+    },
+    {
+      "id": "apizuidapicom-6a3b",
+      "name": "最大",
+      "api": "https://api.zuidapi.com/api.php/provide/vod",
+      "group": "综合",
+      "enabled": true,
+      "origin": "feed"
+    },
+    {
+      "id": "apixinlangapicom-94e2",
+      "name": "新浪 (api.xinlangapi.com)",
+      "api": "https://api.xinlangapi.com/xinlangapi.php/provide/vod",
+      "group": "综合",
+      "enabled": true,
+      "origin": "feed"
+    },
+    {
+      "id": "subocaijicom-33d9",
+      "name": "速播 (subocaiji.com)",
+      "api": "https://subocaiji.com/api.php/provide/vod",
+      "group": "综合",
+      "enabled": true,
+      "origin": "feed"
+    },
+    {
+      "id": "apiukuapi88com-a4de",
+      "name": "U酷影视",
+      "api": "https://api.ukuapi88.com/api.php/provide/vod",
+      "group": "综合",
+      "enabled": true,
+      "origin": "feed"
+    },
+    {
+      "id": "hongniuzy2com-7f56",
+      "name": "红牛 (hongniuzy2.com)",
+      "api": "https://www.hongniuzy2.com/api.php/provide/vod",
+      "group": "综合",
+      "enabled": true,
+      "origin": "feed"
+    },
+    {
+      "id": "cjrycjapicom-c71c",
+      "name": "如意 (cj.rycjapi.com)",
+      "api": "https://cj.rycjapi.com/api.php/provide/vod",
+      "group": "综合",
+      "enabled": true,
+      "origin": "feed"
+    },
+    {
+      "id": "apiwujinapicom-d9d6",
+      "name": "无尽影视",
+      "api": "https://api.wujinapi.com/api.php/provide/vod",
+      "group": "综合",
+      "enabled": true,
+      "origin": "feed"
+    },
+    {
+      "id": "huyaapicom-61c4",
+      "name": "虎牙 (huyaapi.com)",
+      "api": "https://www.huyaapi.com/api.php/provide/vod",
+      "group": "综合",
+      "enabled": true,
+      "origin": "feed"
+    },
+    {
+      "id": "tyyszyapicom-f02c",
+      "name": "天涯",
+      "api": "https://tyyszyapi.com/api.php/provide/vod",
+      "group": "综合",
+      "enabled": true,
+      "origin": "feed"
+    },
+    {
+      "id": "haohuazycom-b089",
+      "name": "豪华 (haohuazy.com)",
+      "api": "https://haohuazy.com/api.php/provide/vod",
+      "group": "综合",
+      "enabled": true,
+      "origin": "feed"
+    },
+    {
+      "id": "suonizynet-3dda",
+      "name": "索尼 (suonizy.net)",
+      "api": "https://suonizy.net/api.php/provide/vod",
+      "group": "综合",
+      "enabled": true,
+      "origin": "feed"
+    },
+    {
+      "id": "mtzy5com-3e9f",
+      "name": "茅台 (mtzy5.com)",
+      "api": "https://mtzy5.com/api.php/provide/vod",
+      "group": "综合",
+      "enabled": true,
+      "origin": "feed"
+    },
+    {
+      "id": "suboziyuannet-816d",
+      "name": "速播 (suboziyuan.net)",
+      "api": "https://www.suboziyuan.net/api.php/provide/vod",
+      "group": "综合",
+      "enabled": true,
+      "origin": "feed"
+    },
+    {
+      "id": "jyzyapicom-f2b1",
+      "name": "金鹰",
+      "api": "https://jyzyapi.com/provide/vod",
+      "group": "综合",
+      "enabled": true,
+      "origin": "feed"
+    },
+    {
+      "id": "ffzy5tv-e124",
+      "name": "非凡 (ffzy5.tv)",
+      "api": "https://ffzy5.tv/api.php/provide/vod",
+      "group": "综合",
+      "enabled": true,
+      "origin": "feed"
+    },
+    {
+      "id": "slapibfcom-9fcc",
+      "name": "森林 (slapibf.com)",
+      "api": "https://slapibf.com/api.php/provide/vod",
+      "group": "综合",
+      "enabled": true,
+      "origin": "feed"
+    },
+    {
+      "id": "apiyzzycom-0c48",
+      "name": "优质 (api.yzzy.com)",
+      "api": "https://api.yzzy.com/api.php/provide/vod",
+      "group": "综合",
+      "enabled": true,
+      "origin": "feed"
+    },
+    {
+      "id": "apikczycom-413c",
+      "name": "快车 (api.kczy.com)",
+      "api": "https://api.kczy.com/api.php/provide/vod",
+      "group": "综合",
+      "enabled": true,
+      "origin": "feed"
+    },
+    {
+      "id": "apijyzycom-f77c",
+      "name": "金鹰 (api.jyzy.com)",
+      "api": "https://api.jyzy.com/api.php/provide/vod",
+      "group": "综合",
+      "enabled": true,
+      "origin": "feed"
+    },
+    {
+      "id": "apisdzycom-3e82",
+      "name": "闪电 (api.sdzy.com)",
+      "api": "https://api.sdzy.com/api.php/provide/vod",
+      "group": "综合",
+      "enabled": true,
+      "origin": "feed"
+    },
+    {
+      "id": "apickzycom-7f5e",
+      "name": "ck (api.ckzy.com)",
+      "api": "https://api.ckzy.com/api.php/provide/vod",
+      "group": "综合",
+      "enabled": true,
+      "origin": "feed"
+    },
+    {
+      "id": "dadiapicom-4d3b",
+      "name": "大地 (dadiapi.com)",
+      "api": "https://dadiapi.com/feifei2",
+      "group": "综合",
+      "enabled": true,
+      "origin": "feed"
+    },
+    {
+      "id": "jjpzhafreydpdnsorg-bdb1",
+      "name": "U酷88",
+      "api": "https://jjpz.hafrey.dpdns.org/?url=https://api.ukuapi88.com/api.php/provide/vod",
+      "group": "综合",
+      "enabled": true,
+      "origin": "feed"
+    },
+    {
+      "id": "jyzyapicom-7b2d",
+      "name": "金鹰 (jyzyapi.com)",
+      "api": "https://jyzyapi.com/provide/vod/from/jinyingyun/at/json",
+      "group": "综合",
+      "enabled": true,
+      "origin": "feed"
+    },
+    {
+      "id": "jjpzhafreydpdnsorg-6dd0",
+      "name": "U酷 (jjpz.hafrey.dpdns.org)",
+      "api": "https://jjpz.hafrey.dpdns.org/?url=https://api.ukuapi.com/api.php/provide/vod",
+      "group": "综合",
+      "enabled": true,
+      "origin": "feed"
+    },
+    {
+      "id": "caijisemaozynet-37da",
+      "name": "色猫 (caiji.semaozy.net)",
+      "api": "https://caiji.semaozy.net/inc/apijson_vod.php/provide/vod",
+      "group": "综合",
+      "enabled": true,
+      "origin": "feed"
+    },
+    {
+      "id": "caijidbzy5com-2135",
+      "name": "豆瓣 (caiji.dbzy5.com)",
+      "api": "https://caiji.dbzy5.com/api.php/provide/vod",
+      "group": "综合",
+      "enabled": true,
+      "origin": "feed"
+    },
+    {
+      "id": "collectwolongzywcom-bff8",
+      "name": "卧龙资源1",
+      "api": "https://collect.wolongzyw.com/api.php/provide/vod",
+      "group": "综合",
+      "enabled": true,
+      "origin": "feed"
+    },
+    {
+      "id": "jjpzhafreydpdnsorg-08f6",
+      "name": "如意 (jjpz.hafrey.dpdns.org)",
+      "api": "https://jjpz.hafrey.dpdns.org/?url=https://cj.rycjapi.com/api.php/provide/vod",
+      "group": "综合",
+      "enabled": true,
+      "origin": "feed"
     }
   ]
 }
