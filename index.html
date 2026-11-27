@@ -5,7 +5,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>TVbox-Configs · 视频源管理</title>
 <meta name="description" content="每 7 天自动检测的可视化 TVBox / MoonTV 视频源配置，多镜像订阅地址，支持在线新增、导入、测试与删除。">
-<link rel="stylesheet" href="assets/style.css?v=20261129c">
+<link rel="stylesheet" href="assets/style.css?v=20261129d">
 </head>
 <body>
 <div class="wrap">
@@ -69,6 +69,11 @@
       <div id="rows"></div>
     </div>
     <p class="hint" id="listHint">正在加载…</p>
+    <div class="inline-row recov">
+      <span class="hint" id="removedInfo">删除记录 0 条</span>
+      <button class="btn sm" id="btnRestore" disabled title="清空删除记录并立即重新抓取，源库条目会重新进来">恢复被删源</button>
+      <button class="btn sm ghost" id="btnClearRemoved" disabled title="只解除屏蔽，不立即生成；下次自动更新时才生效">清空删除记录</button>
+    </div>
   </section>
 
 
@@ -120,6 +125,6 @@
 </div>
 
 <div class="toast" id="toast"></div>
-<script src="assets/app.js?v=20261129c"></script>
+<script src="assets/app.js?v=20261129d"></script>
 </body>
 </html>

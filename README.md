@@ -26,6 +26,7 @@ index.html          管理页
 2. 打开 `https://<用户名>.github.io/<仓库名>/`，点右上角「设置令牌」填入 PAT（fine-grained，勾选本仓库的 **Contents: Read and write** 与 **Actions: Read and write**）。
 3. 在「＋ 新增源」逐条添加，或在下方整行粘贴多个接口地址（换行 / 逗号分隔）批量导入。
 4. 保存后自动触发 `Update Configs`，约 1 分钟产物更新，订阅地址始终不变。
+5. 删过的接口会进入「删除记录」（避免源库把它抓回来）。表下方显示记录条数，「恢复被删源」清空记录并立刻重抓，「清空删除记录」只解除屏蔽、等下次自动更新。
 
 订阅地址形如 `https://cdn.jsdelivr.net/gh/<用户名>/<仓库名>@main/api/tvbox.json`，9 个产物各配 5 条镜像，页面上一键复制。
 
@@ -74,7 +75,7 @@ go build -o bin/tvboxgen ./cmd/tvboxgen
 **TVbox-Configs** is a container-style repository for video source configs: a Go generator, a static web console, and nine subscription artifacts (TVBox, MoonTV / LunaTV, KatelyaTV, DecoTV, MoonTVPlus, OuonnkiTV, KVideo, LibreTV, plus a plain text list). **It ships with no sources** — what you put in is entirely up to you.
 
 - **Setup**: fork the repo, enable GitHub Pages (`main` / root), open the site, and paste a fine-grained PAT with `Contents: read & write` and `Actions: read & write` scoped to this repository.
-- **Manage**: add sources one by one, or paste many interface URLs at once (newline / comma separated); test, edit, delete a single row, or delete a multi-selected batch. Every write lands in `sources/sources.json` and triggers one cloud run.
+- **Manage**: add sources one by one, or paste many interface URLs at once (newline / comma separated); test, edit, delete a single row, or delete a multi-selected batch. Deleted endpoints go to a `removed` list so feeds cannot bring them back; the row below the table shows that count and offers **restore** (clear + re-run) and **clear only**.
 - **Generate**: `go build -o bin/tvboxgen ./cmd/tvboxgen && ./bin/tvboxgen -force`. Each run is hard-capped (`-budget`, default 50s). Only endpoints that answer with a real vod list (`ok`) reach the artifacts; the rest stay in `api/status.json`.
 - **Dedupe**: by endpoint key (host + first meaningful path segments, so two stations on one host stay apart) and by normalized Chinese display name, so mirrors of the same station collapse into one entry.
 - **Disclaimer**: this project only generates and manages configuration files. It does **not** host, proxy, transcode, or distribute any media. All endpoints are supplied by the repository's own users or fetched from lists they configure; the project does not screen or endorse them and gives no warranty as to their legality, availability, security, or content rights. Users are solely responsible for complying with the laws of their jurisdiction and the license terms of the software they use. Provided "as is", without any express or implied warranty, including merchantability, fitness for a particular purpose, and non-infringement; the author accepts no liability for any direct or indirect damages arising from use of, or inability to use, this project.

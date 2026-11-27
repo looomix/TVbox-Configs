@@ -18,6 +18,7 @@
     status: null,
     groups: [],
     sources: [],
+    removed: [],
     feeds: [],
     filters: { q: '', state: 'all', group: 'all' },
     results: {},
@@ -109,7 +110,10 @@
   }
 
   function loadSources() {
-    return getJSON('sources/sources.json').then(function (d) { state.sources = (d && d.sources) || []; }).catch(function () { state.sources = []; });
+    return getJSON('sources/sources.json').then(function (d) {
+      state.sources = (d && d.sources) || [];
+      state.removed = (d && d.removed) || [];
+    }).catch(function () { state.sources = []; state.removed = []; });
   }
 
   function defaultGroups() {
@@ -350,6 +354,7 @@
       var text = JSON.stringify(doc, null, 2) + '\n';
       return ghPutFile('sources/sources.json', text, res.sha, 'chore: 批量删除 ' + ids.length + ' 个视频源').then(function () {
         state.sources = doc.sources;
+        state.removed = doc.removed || [];
         ids.forEach(function (id) { delete state.results[id]; delete state.pending[id]; });
         state.selected = {};
         return dispatchWorkflow();
@@ -364,11 +369,19 @@
     });
   }
 
+  function renderRemoved() {
+    var n = (state.removed || []).length;
+    $('#removedInfo').textContent = '删除记录 ' + n + ' 条' + (n ? '（屏蔽源库重新抓回）' : '');
+    $('#btnRestore').disabled = !n;
+    $('#btnClearRemoved').disabled = !n;
+  }
+
   function renderAll() {
     renderStats();
     renderMirrors();
     renderGroups();
     renderRows();
+    renderRemoved();
   }
 
   /* ---------------- probing: cloud workflow first ---------------- */
@@ -526,6 +539,40 @@
     }).then(function (r) { return r.status === 204; }).catch(function () { return false; });
   }
 
+  // clearRemoved drops the deleted-endpoint blocklist. restore also kicks off a
+  // run right away, so the feeds bring their entries back in one step.
+  function clearRemoved(restore) {
+    if (!state.token) { openToken(); return; }
+    var n = (state.removed || []).length;
+    if (!n) return;
+    var msg = restore
+      ? '恢复被删源？会清空 ' + n + ' 条删除记录并立即重新生成，源库里的条目会回来（手动删掉的、源库也没有的例外）。'
+      : '清空 ' + n + ' 条删除记录？只解除屏蔽，不立即生成，下次自动更新时才生效。';
+    if (!confirm(msg)) return;
+    $('#btnRestore').disabled = true;
+    $('#btnClearRemoved').disabled = true;
+    ghGetFile('sources/sources.json').then(function (res) {
+      var doc = res.doc || {};
+      doc.removed = [];
+      var text = JSON.stringify(doc, null, 2) + '\n';
+      return ghPutFile('sources/sources.json', text, res.sha, restore ? 'feat: 恢复被删源' : 'chore: 清空删除记录')
+        .then(function () {
+          state.removed = [];
+          if (!restore) return false;
+          return dispatchWorkflow();
+        });
+    }).then(function (triggered) {
+      renderRemoved();
+      toast(restore
+        ? (triggered ? '已清空删除记录，正在重新抓取（约 1 分钟）' : '已清空删除记录，等下次自动更新')
+        : '已清空删除记录，下次自动更新时生效');
+      if (triggered) scheduleRefresh();
+    }).catch(function (err) {
+      renderRemoved();
+      toast(err.message || '操作失败');
+    });
+  }
+
   function saveSource(payload) {
     if (!state.token) {
       openToken();
@@ -537,6 +584,7 @@
       if (doc.removed && doc.removed.length) {
         var key = apiKey(payload.api);
         doc.removed = doc.removed.filter(function (k) { return k !== key; });
+        state.removed = doc.removed;
       }
       var idx = -1;
       for (var i = 0; i < list.length; i++) if (list[i].id === payload.id) { idx = i; break; }
@@ -575,6 +623,7 @@
       var text = JSON.stringify(doc, null, 2) + '\n';
       return ghPutFile('sources/sources.json', text, res.sha, 'chore: 删除视频源 ' + (name || id)).then(function () {
         state.sources = doc.sources;
+        state.removed = doc.removed || [];
         delete state.results[id];
         return dispatchWorkflow();
       }).then(function () {
@@ -613,6 +662,7 @@
         var keys = {};
         fresh.forEach(function (f) { keys[apiKey(f.api)] = true; });
         doc.removed = doc.removed.filter(function (k) { return !keys[k]; });
+        state.removed = doc.removed;
       }
       var exist = {};
       list.forEach(function (s) { exist[s.id] = true; });
@@ -823,6 +873,8 @@
     });
 
     $('#btnBatchDel').addEventListener('click', batchDelete);
+    $('#btnRestore').addEventListener('click', function () { clearRemoved(true); });
+    $('#btnClearRemoved').addEventListener('click', function () { clearRemoved(false); });
 
     $('#btnToken').addEventListener('click', openToken);
     $('#pillToken').addEventListener('click', openToken);
