@@ -1,50 +1,8 @@
 [
   {
-    "id": "ffzy5tve124",
-    "name": "非凡",
-    "baseUrl": "https://ffzy5.tv/api.php/provide/vod",
-    "group": "normal",
-    "enabled": true
-  },
-  {
-    "id": "apiwujinapicomd9d6",
-    "name": "无尽影视",
-    "baseUrl": "https://api.wujinapi.com/api.php/provide/vod",
-    "group": "normal",
-    "enabled": true
-  },
-  {
-    "id": "apizuidapicom6a3b",
-    "name": "最大",
-    "baseUrl": "https://api.zuidapi.com/api.php/provide/vod",
-    "group": "normal",
-    "enabled": true
-  },
-  {
-    "id": "subocjcomf010",
+    "id": "suboziyuannet816d",
     "name": "速播",
-    "baseUrl": "https://subocj.com/api.php/provide/vod",
-    "group": "normal",
-    "enabled": true
-  },
-  {
-    "id": "huyazynet7cd2",
-    "name": "虎牙",
-    "baseUrl": "https://huyazy.net/api.php/provide/vod",
-    "group": "normal",
-    "enabled": true
-  },
-  {
-    "id": "haohuazycomb089",
-    "name": "豪华",
-    "baseUrl": "https://haohuazy.com/api.php/provide/vod",
-    "group": "normal",
-    "enabled": true
-  },
-  {
-    "id": "cjlzcaijicom5f94",
-    "name": "量子",
-    "baseUrl": "https://cj.lzcaiji.com/api.php/provide/vod",
+    "baseUrl": "https://www.suboziyuan.net/api.php/provide/vod",
     "group": "normal",
     "enabled": true
   }

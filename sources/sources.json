@@ -1,7 +1,16 @@
 {
   "version": 1,
   "updated_at": "2026-11-27",
-  "sources": [],
+  "sources": [
+    {
+      "id": "suboziyuannet-816d",
+      "name": "速播",
+      "api": "https://www.suboziyuan.net/api.php/provide/vod",
+      "group": "综合",
+      "enabled": true,
+      "origin": "feed"
+    }
+  ],
   "removed": [
     "iqiyizyapi.com/api.php/provide/vod",
     "ikunzyapi.com/api.php/provide/vod",

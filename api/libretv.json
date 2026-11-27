@@ -1,30 +1,6 @@
 [
   {
-    "name": "非凡",
-    "url": "https://ffzy5.tv/api.php/provide/vod"
-  },
-  {
-    "name": "无尽影视",
-    "url": "https://api.wujinapi.com/api.php/provide/vod"
-  },
-  {
-    "name": "最大",
-    "url": "https://api.zuidapi.com/api.php/provide/vod"
-  },
-  {
     "name": "速播",
-    "url": "https://subocj.com/api.php/provide/vod"
-  },
-  {
-    "name": "虎牙",
-    "url": "https://huyazy.net/api.php/provide/vod"
-  },
-  {
-    "name": "豪华",
-    "url": "https://haohuazy.com/api.php/provide/vod"
-  },
-  {
-    "name": "量子",
-    "url": "https://cj.lzcaiji.com/api.php/provide/vod"
+    "url": "https://www.suboziyuan.net/api.php/provide/vod"
   }
 ]

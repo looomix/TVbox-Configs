@@ -1,57 +1,9 @@
 [
   {
-    "id": "ffzy5tve124",
-    "name": "非凡",
-    "url": "https://ffzy5.tv/api.php/provide/vod",
-    "detailUrl": "https://ffzy5.tv/api.php/provide/vod",
-    "timeout": 5000,
-    "isEnabled": true
-  },
-  {
-    "id": "apiwujinapicomd9d6",
-    "name": "无尽影视",
-    "url": "https://api.wujinapi.com/api.php/provide/vod",
-    "detailUrl": "https://api.wujinapi.com/api.php/provide/vod",
-    "timeout": 5000,
-    "isEnabled": true
-  },
-  {
-    "id": "apizuidapicom6a3b",
-    "name": "最大",
-    "url": "https://api.zuidapi.com/api.php/provide/vod",
-    "detailUrl": "https://api.zuidapi.com/api.php/provide/vod",
-    "timeout": 5000,
-    "isEnabled": true
-  },
-  {
-    "id": "subocjcomf010",
+    "id": "suboziyuannet816d",
     "name": "速播",
-    "url": "https://subocj.com/api.php/provide/vod",
-    "detailUrl": "https://subocj.com/api.php/provide/vod",
-    "timeout": 5000,
-    "isEnabled": true
-  },
-  {
-    "id": "huyazynet7cd2",
-    "name": "虎牙",
-    "url": "https://huyazy.net/api.php/provide/vod",
-    "detailUrl": "https://huyazy.net/api.php/provide/vod",
-    "timeout": 5000,
-    "isEnabled": true
-  },
-  {
-    "id": "haohuazycomb089",
-    "name": "豪华",
-    "url": "https://haohuazy.com/api.php/provide/vod",
-    "detailUrl": "https://haohuazy.com/api.php/provide/vod",
-    "timeout": 5000,
-    "isEnabled": true
-  },
-  {
-    "id": "cjlzcaijicom5f94",
-    "name": "量子",
-    "url": "https://cj.lzcaiji.com/api.php/provide/vod",
-    "detailUrl": "https://cj.lzcaiji.com/api.php/provide/vod",
+    "url": "https://www.suboziyuan.net/api.php/provide/vod",
+    "detailUrl": "https://www.suboziyuan.net/api.php/provide/vod",
     "timeout": 5000,
     "isEnabled": true
   }
