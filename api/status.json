@@ -1,14 +1,14 @@
 {
-  "updated_at": "2026-11-27T07:12:18Z",
-  "next_update_at": "2026-12-04T07:12:18Z",
+  "updated_at": "2026-11-27T07:15:40Z",
+  "next_update_at": "2026-12-04T07:15:40Z",
   "interval_hours": 168,
-  "total": 70,
-  "alive": 49,
-  "unverified": 6,
-  "dead": 15,
-  "from_feed": 37,
-  "deduped": 384,
-  "duration_ms": 26612,
+  "total": 53,
+  "alive": 39,
+  "unverified": 3,
+  "dead": 11,
+  "from_feed": 22,
+  "deduped": 372,
+  "duration_ms": 24329,
   "sources": [
     {
       "id": "1080zyk_com",
@@ -18,16 +18,11 @@
       "origin": "manual",
       "enabled": true,
       "state": "ok",
-      "latency_ms": 912,
+      "latency_ms": 528,
       "searchable": true,
       "vods": 20,
-      "checked_at": "2026-11-27T07:12:18Z",
+      "checked_at": "2026-11-27T07:15:40Z",
       "history": [
-        {
-          "t": "2026-11-27T13:52:02+08:00",
-          "ok": true,
-          "ms": 1016
-        },
         {
           "t": "2026-11-27T14:10:34+08:00",
           "ok": true,
@@ -62,6 +57,11 @@
           "t": "2026-11-27T07:12:18Z",
           "ok": true,
           "ms": 912
+        },
+        {
+          "t": "2026-11-27T07:15:40Z",
+          "ok": true,
+          "ms": 528
         }
       ]
     },
@@ -73,16 +73,11 @@
       "origin": "manual",
       "enabled": true,
       "state": "ok",
-      "latency_ms": 1888,
+      "latency_ms": 2353,
       "searchable": true,
       "vods": 2,
-      "checked_at": "2026-11-27T07:12:18Z",
+      "checked_at": "2026-11-27T07:15:40Z",
       "history": [
-        {
-          "t": "2026-11-27T13:52:02+08:00",
-          "ok": true,
-          "ms": 1591
-        },
         {
           "t": "2026-11-27T14:10:34+08:00",
           "ok": true,
@@ -117,6 +112,11 @@
           "t": "2026-11-27T07:12:18Z",
           "ok": true,
           "ms": 1888
+        },
+        {
+          "t": "2026-11-27T07:15:40Z",
+          "ok": true,
+          "ms": 2353
         }
       ]
     },
@@ -128,16 +128,11 @@
       "origin": "manual",
       "enabled": true,
       "state": "down",
-      "latency_ms": 3599,
+      "latency_ms": 3441,
       "searchable": false,
       "vods": 0,
-      "checked_at": "2026-11-27T07:12:18Z",
+      "checked_at": "2026-11-27T07:15:40Z",
       "history": [
-        {
-          "t": "2026-11-27T13:52:02+08:00",
-          "ok": false,
-          "ms": 99
-        },
         {
           "t": "2026-11-27T14:10:34+08:00",
           "ok": false,
@@ -172,6 +167,11 @@
           "t": "2026-11-27T07:12:18Z",
           "ok": false,
           "ms": 3599
+        },
+        {
+          "t": "2026-11-27T07:15:40Z",
+          "ok": false,
+          "ms": 3441
         }
       ]
     },
@@ -183,16 +183,11 @@
       "origin": "manual",
       "enabled": true,
       "state": "ok",
-      "latency_ms": 6069,
+      "latency_ms": 6255,
       "searchable": false,
       "vods": 20,
-      "checked_at": "2026-11-27T07:12:18Z",
+      "checked_at": "2026-11-27T07:15:40Z",
       "history": [
-        {
-          "t": "2026-11-27T13:52:02+08:00",
-          "ok": true,
-          "ms": 1766
-        },
         {
           "t": "2026-11-27T14:10:34+08:00",
           "ok": true,
@@ -227,6 +222,11 @@
           "t": "2026-11-27T07:12:18Z",
           "ok": true,
           "ms": 6069
+        },
+        {
+          "t": "2026-11-27T07:15:40Z",
+          "ok": true,
+          "ms": 6255
         }
       ]
     },
@@ -238,16 +238,11 @@
       "origin": "manual",
       "enabled": true,
       "state": "ok",
-      "latency_ms": 211,
+      "latency_ms": 198,
       "searchable": true,
       "vods": 3,
-      "checked_at": "2026-11-27T07:12:18Z",
+      "checked_at": "2026-11-27T07:15:40Z",
       "history": [
-        {
-          "t": "2026-11-27T13:52:02+08:00",
-          "ok": false,
-          "ms": 361
-        },
         {
           "t": "2026-11-27T14:10:34+08:00",
           "ok": false,
@@ -282,6 +277,11 @@
           "t": "2026-11-27T07:12:18Z",
           "ok": true,
           "ms": 211
+        },
+        {
+          "t": "2026-11-27T07:15:40Z",
+          "ok": true,
+          "ms": 198
         }
       ]
     },
@@ -293,16 +293,11 @@
       "origin": "manual",
       "enabled": true,
       "state": "down",
-      "latency_ms": 3483,
+      "latency_ms": 3502,
       "searchable": false,
       "vods": 0,
-      "checked_at": "2026-11-27T07:12:18Z",
+      "checked_at": "2026-11-27T07:15:40Z",
       "history": [
-        {
-          "t": "2026-11-27T13:52:02+08:00",
-          "ok": false,
-          "ms": 10000
-        },
         {
           "t": "2026-11-27T14:10:34+08:00",
           "ok": false,
@@ -337,6 +332,11 @@
           "t": "2026-11-27T07:12:18Z",
           "ok": false,
           "ms": 3483
+        },
+        {
+          "t": "2026-11-27T07:15:40Z",
+          "ok": false,
+          "ms": 3502
         }
       ]
     },
@@ -348,16 +348,11 @@
       "origin": "manual",
       "enabled": true,
       "state": "ok",
-      "latency_ms": 751,
+      "latency_ms": 756,
       "searchable": true,
       "vods": 1,
-      "checked_at": "2026-11-27T07:12:18Z",
+      "checked_at": "2026-11-27T07:15:40Z",
       "history": [
-        {
-          "t": "2026-11-27T13:52:02+08:00",
-          "ok": true,
-          "ms": 586
-        },
         {
           "t": "2026-11-27T14:10:34+08:00",
           "ok": true,
@@ -392,1151 +387,11 @@
           "t": "2026-11-27T07:12:18Z",
           "ok": true,
           "ms": 751
-        }
-      ]
-    },
-    {
-      "id": "lzcaiji_com",
-      "name": "量子",
-      "api": "https://cj.lzcaiji.com/api.php/provide/vod",
-      "group": "综合",
-      "origin": "manual",
-      "enabled": true,
-      "state": "ok",
-      "latency_ms": 1625,
-      "searchable": true,
-      "vods": 20,
-      "checked_at": "2026-11-27T07:12:18Z",
-      "history": [
-        {
-          "t": "2026-11-27T13:52:02+08:00",
-          "ok": false,
-          "ms": 6263
-        },
-        {
-          "t": "2026-11-27T14:10:34+08:00",
-          "ok": false,
-          "ms": 8552
-        },
-        {
-          "t": "2026-11-27T14:27:07+08:00",
-          "ok": false,
-          "ms": 11676
-        },
-        {
-          "t": "2026-11-27T14:28:32+08:00",
-          "ok": false,
-          "ms": 6670
-        },
-        {
-          "t": "2026-11-27T14:29:34+08:00",
-          "ok": false,
-          "ms": 7479
-        },
-        {
-          "t": "2026-11-27T06:38:53Z",
-          "ok": true,
-          "ms": 1566
-        },
-        {
-          "t": "2026-11-27T06:52:51Z",
-          "ok": true,
-          "ms": 1916
-        },
-        {
-          "t": "2026-11-27T07:12:18Z",
-          "ok": true,
-          "ms": 1625
-        }
-      ]
-    },
-    {
-      "id": "360zy_com",
-      "name": "360",
-      "api": "https://360zyzz.com/api.php/provide/vod",
-      "group": "综合",
-      "origin": "manual",
-      "enabled": true,
-      "state": "ok",
-      "latency_ms": 825,
-      "searchable": true,
-      "vods": 3,
-      "checked_at": "2026-11-27T07:12:18Z",
-      "history": [
-        {
-          "t": "2026-11-27T13:52:02+08:00",
-          "ok": true,
-          "ms": 1305
-        },
-        {
-          "t": "2026-11-27T14:10:34+08:00",
-          "ok": true,
-          "ms": 1381
-        },
-        {
-          "t": "2026-11-27T14:27:07+08:00",
-          "ok": true,
-          "ms": 1044
-        },
-        {
-          "t": "2026-11-27T14:28:32+08:00",
-          "ok": true,
-          "ms": 2216
-        },
-        {
-          "t": "2026-11-27T14:29:34+08:00",
-          "ok": true,
-          "ms": 945
-        },
-        {
-          "t": "2026-11-27T06:38:53Z",
-          "ok": true,
-          "ms": 884
-        },
-        {
-          "t": "2026-11-27T06:52:51Z",
-          "ok": true,
-          "ms": 774
-        },
-        {
-          "t": "2026-11-27T07:12:18Z",
-          "ok": true,
-          "ms": 825
-        }
-      ]
-    },
-    {
-      "id": "jszyapi_com",
-      "name": "极速",
-      "api": "https://jszyapi.com/api.php/provide/vod",
-      "group": "综合",
-      "origin": "manual",
-      "enabled": true,
-      "state": "ok",
-      "latency_ms": 271,
-      "searchable": true,
-      "vods": 8,
-      "checked_at": "2026-11-27T07:12:18Z",
-      "history": [
-        {
-          "t": "2026-11-27T13:52:02+08:00",
-          "ok": false,
-          "ms": 2980
-        },
-        {
-          "t": "2026-11-27T14:10:34+08:00",
-          "ok": false,
-          "ms": 12001
-        },
-        {
-          "t": "2026-11-27T14:27:07+08:00",
-          "ok": false,
-          "ms": 5288
-        },
-        {
-          "t": "2026-11-27T14:28:32+08:00",
-          "ok": false,
-          "ms": 3906
-        },
-        {
-          "t": "2026-11-27T14:29:34+08:00",
-          "ok": false,
-          "ms": 4732
-        },
-        {
-          "t": "2026-11-27T06:38:53Z",
-          "ok": true,
-          "ms": 272
-        },
-        {
-          "t": "2026-11-27T06:52:51Z",
-          "ok": true,
-          "ms": 205
-        },
-        {
-          "t": "2026-11-27T07:12:18Z",
-          "ok": true,
-          "ms": 271
-        }
-      ]
-    },
-    {
-      "id": "moduzy_net",
-      "name": "魔都",
-      "api": "https://www.mdzyapi.com/api.php/provide/vod",
-      "group": "综合",
-      "origin": "manual",
-      "enabled": true,
-      "state": "ok",
-      "latency_ms": 217,
-      "searchable": true,
-      "vods": 3,
-      "checked_at": "2026-11-27T07:12:18Z",
-      "history": [
-        {
-          "t": "2026-11-27T13:52:02+08:00",
-          "ok": true,
-          "ms": 852
-        },
-        {
-          "t": "2026-11-27T14:10:34+08:00",
-          "ok": true,
-          "ms": 1680
-        },
-        {
-          "t": "2026-11-27T14:27:07+08:00",
-          "ok": true,
-          "ms": 1130
-        },
-        {
-          "t": "2026-11-27T14:28:32+08:00",
-          "ok": true,
-          "ms": 873
-        },
-        {
-          "t": "2026-11-27T14:29:34+08:00",
-          "ok": true,
-          "ms": 1325
-        },
-        {
-          "t": "2026-11-27T06:38:53Z",
-          "ok": true,
-          "ms": 299
-        },
-        {
-          "t": "2026-11-27T06:52:51Z",
-          "ok": true,
-          "ms": 333
-        },
-        {
-          "t": "2026-11-27T07:12:18Z",
-          "ok": true,
-          "ms": 217
-        }
-      ]
-    },
-    {
-      "id": "ffzy5tv-e124",
-      "name": "非凡",
-      "api": "https://ffzy5.tv/api.php/provide/vod",
-      "group": "综合",
-      "origin": "feed",
-      "enabled": true,
-      "state": "ok",
-      "latency_ms": 1219,
-      "searchable": true,
-      "vods": 8,
-      "checked_at": "2026-11-27T07:12:18Z",
-      "history": [
-        {
-          "t": "2026-11-27T14:27:07+08:00",
-          "ok": true,
-          "ms": 549
-        },
-        {
-          "t": "2026-11-27T14:28:32+08:00",
-          "ok": true,
-          "ms": 845
-        },
-        {
-          "t": "2026-11-27T14:29:34+08:00",
-          "ok": true,
-          "ms": 480
-        },
-        {
-          "t": "2026-11-27T06:38:53Z",
-          "ok": true,
-          "ms": 276
-        },
-        {
-          "t": "2026-11-27T06:52:51Z",
-          "ok": true,
-          "ms": 1054
-        },
-        {
-          "t": "2026-11-27T07:12:18Z",
-          "ok": true,
-          "ms": 1219
-        }
-      ]
-    },
-    {
-      "id": "bfzy_tv",
-      "name": "暴风",
-      "api": "https://bfzyapi.com/api.php/provide/vod",
-      "group": "综合",
-      "origin": "manual",
-      "enabled": true,
-      "state": "ok",
-      "latency_ms": 848,
-      "searchable": true,
-      "vods": 20,
-      "checked_at": "2026-11-27T07:12:18Z",
-      "history": [
-        {
-          "t": "2026-11-27T13:52:02+08:00",
-          "ok": false,
-          "ms": 10000
-        },
-        {
-          "t": "2026-11-27T14:10:34+08:00",
-          "ok": false,
-          "ms": 12001
-        },
-        {
-          "t": "2026-11-27T14:27:07+08:00",
-          "ok": false,
-          "ms": 11559
-        },
-        {
-          "t": "2026-11-27T14:28:32+08:00",
-          "ok": false,
-          "ms": 21518
-        },
-        {
-          "t": "2026-11-27T14:29:34+08:00",
-          "ok": false,
-          "ms": 33003
-        },
-        {
-          "t": "2026-11-27T06:38:53Z",
-          "ok": true,
-          "ms": 833
-        },
-        {
-          "t": "2026-11-27T06:52:51Z",
-          "ok": true,
-          "ms": 865
-        },
-        {
-          "t": "2026-11-27T07:12:18Z",
-          "ok": true,
-          "ms": 848
-        }
-      ]
-    },
-    {
-      "id": "zuida_xyz",
-      "name": "最大",
-      "api": "https://api.zuidapi.com/api.php/provide/vod",
-      "group": "综合",
-      "origin": "manual",
-      "enabled": true,
-      "state": "ok",
-      "latency_ms": 92,
-      "searchable": true,
-      "vods": 20,
-      "checked_at": "2026-11-27T07:12:18Z",
-      "history": [
-        {
-          "t": "2026-11-27T13:52:02+08:00",
-          "ok": true,
-          "ms": 1811
-        },
-        {
-          "t": "2026-11-27T14:10:34+08:00",
-          "ok": true,
-          "ms": 660
-        },
-        {
-          "t": "2026-11-27T14:27:07+08:00",
-          "ok": true,
-          "ms": 1077
-        },
-        {
-          "t": "2026-11-27T14:28:32+08:00",
-          "ok": true,
-          "ms": 1002
-        },
-        {
-          "t": "2026-11-27T14:29:34+08:00",
-          "ok": true,
-          "ms": 1064
-        },
-        {
-          "t": "2026-11-27T06:38:53Z",
-          "ok": true,
-          "ms": 144
-        },
-        {
-          "t": "2026-11-27T06:52:51Z",
-          "ok": true,
-          "ms": 377
-        },
-        {
-          "t": "2026-11-27T07:12:18Z",
-          "ok": true,
-          "ms": 92
-        }
-      ]
-    },
-    {
-      "id": "wujinzy_me",
-      "name": "无尽",
-      "api": "https://api.wujinapi.me/api.php/provide/vod",
-      "group": "综合",
-      "origin": "manual",
-      "enabled": true,
-      "state": "ok",
-      "latency_ms": 200,
-      "searchable": true,
-      "vods": 9,
-      "checked_at": "2026-11-27T07:12:18Z",
-      "history": [
-        {
-          "t": "2026-11-27T13:52:02+08:00",
-          "ok": false,
-          "ms": 1154
-        },
-        {
-          "t": "2026-11-27T14:10:34+08:00",
-          "ok": false,
-          "ms": 1591
-        },
-        {
-          "t": "2026-11-27T14:27:07+08:00",
-          "ok": false,
-          "ms": 2985
-        },
-        {
-          "t": "2026-11-27T14:28:32+08:00",
-          "ok": false,
-          "ms": 4976
-        },
-        {
-          "t": "2026-11-27T14:29:34+08:00",
-          "ok": false,
-          "ms": 4680
-        },
-        {
-          "t": "2026-11-27T06:38:53Z",
-          "ok": true,
-          "ms": 275
-        },
-        {
-          "t": "2026-11-27T06:52:51Z",
-          "ok": true,
-          "ms": 200
-        },
-        {
-          "t": "2026-11-27T07:12:18Z",
-          "ok": true,
-          "ms": 200
-        }
-      ]
-    },
-    {
-      "id": "xinlangapi_com",
-      "name": "新浪",
-      "api": "https://api.xinlangapi.com/xinlangapi.php/provide/vod",
-      "group": "综合",
-      "origin": "manual",
-      "enabled": true,
-      "state": "ok",
-      "latency_ms": 400,
-      "searchable": true,
-      "vods": 8,
-      "checked_at": "2026-11-27T07:12:18Z",
-      "history": [
-        {
-          "t": "2026-11-27T13:52:02+08:00",
-          "ok": false,
-          "ms": 10000
-        },
-        {
-          "t": "2026-11-27T14:10:34+08:00",
-          "ok": false,
-          "ms": 12001
-        },
-        {
-          "t": "2026-11-27T14:27:07+08:00",
-          "ok": false,
-          "ms": 31503
-        },
-        {
-          "t": "2026-11-27T14:28:32+08:00",
-          "ok": false,
-          "ms": 31505
-        },
-        {
-          "t": "2026-11-27T14:29:34+08:00",
-          "ok": false,
-          "ms": 33002
-        },
-        {
-          "t": "2026-11-27T06:38:53Z",
-          "ok": true,
-          "ms": 336
-        },
-        {
-          "t": "2026-11-27T06:52:51Z",
-          "ok": true,
-          "ms": 386
-        },
-        {
-          "t": "2026-11-27T07:12:18Z",
-          "ok": true,
-          "ms": 400
-        }
-      ]
-    },
-    {
-      "id": "tyyszy_com",
-      "name": "天涯",
-      "api": "https://tyyszyapi.com/api.php/provide/vod",
-      "group": "综合",
-      "origin": "manual",
-      "enabled": true,
-      "state": "ok",
-      "latency_ms": 3688,
-      "searchable": false,
-      "vods": 20,
-      "checked_at": "2026-11-27T07:12:18Z",
-      "history": [
-        {
-          "t": "2026-11-27T13:52:02+08:00",
-          "ok": true,
-          "ms": 1253
-        },
-        {
-          "t": "2026-11-27T14:10:34+08:00",
-          "ok": true,
-          "ms": 988
-        },
-        {
-          "t": "2026-11-27T14:27:07+08:00",
-          "ok": false,
-          "ms": 5139
-        },
-        {
-          "t": "2026-11-27T14:28:32+08:00",
-          "ok": true,
-          "ms": 4377
-        },
-        {
-          "t": "2026-11-27T14:29:34+08:00",
-          "ok": true,
-          "ms": 5614
-        },
-        {
-          "t": "2026-11-27T06:38:53Z",
-          "ok": true,
-          "ms": 3550
-        },
-        {
-          "t": "2026-11-27T06:52:51Z",
-          "ok": true,
-          "ms": 3537
-        },
-        {
-          "t": "2026-11-27T07:12:18Z",
-          "ok": true,
-          "ms": 3688
-        }
-      ]
-    },
-    {
-      "id": "subozy_com",
-      "name": "速播",
-      "api": "https://subocaiji.com/api.php/provide/vod",
-      "group": "综合",
-      "origin": "manual",
-      "enabled": true,
-      "state": "ok",
-      "latency_ms": 580,
-      "searchable": true,
-      "vods": 8,
-      "checked_at": "2026-11-27T07:12:18Z",
-      "history": [
-        {
-          "t": "2026-11-27T13:52:02+08:00",
-          "ok": false,
-          "ms": 10000
-        },
-        {
-          "t": "2026-11-27T14:10:34+08:00",
-          "ok": false,
-          "ms": 12000
-        },
-        {
-          "t": "2026-11-27T14:27:07+08:00",
-          "ok": false,
-          "ms": 31501
-        },
-        {
-          "t": "2026-11-27T14:28:32+08:00",
-          "ok": false,
-          "ms": 31501
-        },
-        {
-          "t": "2026-11-27T14:29:34+08:00",
-          "ok": false,
-          "ms": 33004
-        },
-        {
-          "t": "2026-11-27T06:38:53Z",
-          "ok": true,
-          "ms": 577
-        },
-        {
-          "t": "2026-11-27T06:52:51Z",
-          "ok": true,
-          "ms": 317
-        },
-        {
-          "t": "2026-11-27T07:12:18Z",
-          "ok": true,
-          "ms": 580
-        }
-      ]
-    },
-    {
-      "id": "jinyingzy_com",
-      "name": "金鹰点播",
-      "api": "https://jinyingzy.com/api.php/provide/vod",
-      "group": "综合",
-      "origin": "manual",
-      "enabled": true,
-      "state": "ok",
-      "latency_ms": 523,
-      "searchable": true,
-      "vods": 8,
-      "checked_at": "2026-11-27T07:12:18Z",
-      "history": [
-        {
-          "t": "2026-11-27T13:52:02+08:00",
-          "ok": true,
-          "ms": 1185
-        },
-        {
-          "t": "2026-11-27T14:10:34+08:00",
-          "ok": true,
-          "ms": 1223
-        },
-        {
-          "t": "2026-11-27T14:27:07+08:00",
-          "ok": true,
-          "ms": 1195
-        },
-        {
-          "t": "2026-11-27T14:28:32+08:00",
-          "ok": true,
-          "ms": 2255
-        },
-        {
-          "t": "2026-11-27T14:29:34+08:00",
-          "ok": true,
-          "ms": 1448
-        },
-        {
-          "t": "2026-11-27T06:38:53Z",
-          "ok": true,
-          "ms": 426
-        },
-        {
-          "t": "2026-11-27T06:52:51Z",
-          "ok": true,
-          "ms": 411
-        },
-        {
-          "t": "2026-11-27T07:12:18Z",
-          "ok": true,
-          "ms": 523
-        }
-      ]
-    },
-    {
-      "id": "p2100_net",
-      "name": "飘零",
-      "api": "https://p2100.net/api.php/provide/vod",
-      "group": "综合",
-      "origin": "manual",
-      "enabled": true,
-      "state": "down",
-      "latency_ms": 3108,
-      "searchable": false,
-      "vods": 0,
-      "checked_at": "2026-11-27T07:12:18Z",
-      "history": [
-        {
-          "t": "2026-11-27T13:52:02+08:00",
-          "ok": true,
-          "ms": 1179
-        },
-        {
-          "t": "2026-11-27T14:10:34+08:00",
-          "ok": true,
-          "ms": 2435
-        },
-        {
-          "t": "2026-11-27T14:27:07+08:00",
-          "ok": false,
-          "ms": 2920
-        },
-        {
-          "t": "2026-11-27T14:28:32+08:00",
-          "ok": false,
-          "ms": 3945
-        },
-        {
-          "t": "2026-11-27T14:29:34+08:00",
-          "ok": false,
-          "ms": 15934
-        },
-        {
-          "t": "2026-11-27T06:38:53Z",
-          "ok": false,
-          "ms": 3127
-        },
-        {
-          "t": "2026-11-27T06:52:51Z",
-          "ok": false,
-          "ms": 3062
-        },
-        {
-          "t": "2026-11-27T07:12:18Z",
-          "ok": false,
-          "ms": 3108
-        }
-      ]
-    },
-    {
-      "id": "ukuapi88_com",
-      "name": "U酷影视",
-      "api": "https://api.ukuapi88.com/api.php/provide/vod",
-      "group": "综合",
-      "origin": "manual",
-      "enabled": true,
-      "state": "ok",
-      "latency_ms": 346,
-      "searchable": true,
-      "vods": 3,
-      "checked_at": "2026-11-27T07:12:18Z",
-      "history": [
-        {
-          "t": "2026-11-27T13:52:02+08:00",
-          "ok": true,
-          "ms": 1509
-        },
-        {
-          "t": "2026-11-27T14:10:34+08:00",
-          "ok": true,
-          "ms": 1030
-        },
-        {
-          "t": "2026-11-27T14:27:07+08:00",
-          "ok": true,
-          "ms": 1274
-        },
-        {
-          "t": "2026-11-27T14:28:32+08:00",
-          "ok": true,
-          "ms": 805
-        },
-        {
-          "t": "2026-11-27T14:29:34+08:00",
-          "ok": true,
-          "ms": 1413
-        },
-        {
-          "t": "2026-11-27T06:38:53Z",
-          "ok": true,
-          "ms": 367
-        },
-        {
-          "t": "2026-11-27T06:52:51Z",
-          "ok": true,
-          "ms": 295
-        },
-        {
-          "t": "2026-11-27T07:12:18Z",
-          "ok": true,
-          "ms": 346
-        }
-      ]
-    },
-    {
-      "id": "guangsuapi_com",
-      "name": "光速",
-      "api": "https://api.guangsuapi.com/api.php/provide/vod",
-      "group": "综合",
-      "origin": "manual",
-      "enabled": true,
-      "state": "ok",
-      "latency_ms": 376,
-      "searchable": true,
-      "vods": 8,
-      "checked_at": "2026-11-27T07:12:18Z",
-      "history": [
-        {
-          "t": "2026-11-27T13:52:02+08:00",
-          "ok": false,
-          "ms": 838
-        },
-        {
-          "t": "2026-11-27T14:10:34+08:00",
-          "ok": false,
-          "ms": 1752
-        },
-        {
-          "t": "2026-11-27T14:27:07+08:00",
-          "ok": false,
-          "ms": 3217
-        },
-        {
-          "t": "2026-11-27T14:28:32+08:00",
-          "ok": false,
-          "ms": 3003
-        },
-        {
-          "t": "2026-11-27T14:29:34+08:00",
-          "ok": false,
-          "ms": 5424
-        },
-        {
-          "t": "2026-11-27T06:38:53Z",
-          "ok": true,
-          "ms": 376
-        },
-        {
-          "t": "2026-11-27T06:52:51Z",
-          "ok": true,
-          "ms": 385
-        },
-        {
-          "t": "2026-11-27T07:12:18Z",
-          "ok": true,
-          "ms": 376
-        }
-      ]
-    },
-    {
-      "id": "hongniuzy_com",
-      "name": "红牛",
-      "api": "https://www.hongniuzy2.com/api.php/provide/vod",
-      "group": "综合",
-      "origin": "manual",
-      "enabled": true,
-      "state": "ok",
-      "latency_ms": 254,
-      "searchable": true,
-      "vods": 8,
-      "checked_at": "2026-11-27T07:12:18Z",
-      "history": [
-        {
-          "t": "2026-11-27T13:52:02+08:00",
-          "ok": true,
-          "ms": 1060
-        },
-        {
-          "t": "2026-11-27T14:10:34+08:00",
-          "ok": true,
-          "ms": 857
-        },
-        {
-          "t": "2026-11-27T14:27:07+08:00",
-          "ok": true,
-          "ms": 1340
-        },
-        {
-          "t": "2026-11-27T14:28:32+08:00",
-          "ok": true,
-          "ms": 881
-        },
-        {
-          "t": "2026-11-27T14:29:34+08:00",
-          "ok": true,
-          "ms": 1338
-        },
-        {
-          "t": "2026-11-27T06:38:53Z",
-          "ok": true,
-          "ms": 220
-        },
-        {
-          "t": "2026-11-27T06:52:51Z",
-          "ok": true,
-          "ms": 217
-        },
-        {
-          "t": "2026-11-27T07:12:18Z",
-          "ok": true,
-          "ms": 254
-        }
-      ]
-    },
-    {
-      "id": "moduapi_cc",
-      "name": "魔都动漫",
-      "api": "https://caiji.moduapi.cc/api.php/provide/vod",
-      "group": "动漫",
-      "origin": "manual",
-      "enabled": true,
-      "state": "ok",
-      "latency_ms": 383,
-      "searchable": true,
-      "vods": 3,
-      "checked_at": "2026-11-27T07:12:18Z",
-      "history": [
-        {
-          "t": "2026-11-27T13:52:02+08:00",
-          "ok": true,
-          "ms": 1048
-        },
-        {
-          "t": "2026-11-27T14:10:34+08:00",
-          "ok": true,
-          "ms": 2118
-        },
-        {
-          "t": "2026-11-27T14:27:07+08:00",
-          "ok": true,
-          "ms": 1250
-        },
-        {
-          "t": "2026-11-27T14:28:32+08:00",
-          "ok": true,
-          "ms": 816
-        },
-        {
-          "t": "2026-11-27T14:29:34+08:00",
-          "ok": true,
-          "ms": 1091
-        },
-        {
-          "t": "2026-11-27T06:38:53Z",
-          "ok": true,
-          "ms": 311
-        },
-        {
-          "t": "2026-11-27T06:52:51Z",
-          "ok": true,
-          "ms": 344
-        },
-        {
-          "t": "2026-11-27T07:12:18Z",
-          "ok": true,
-          "ms": 383
-        }
-      ]
-    },
-    {
-      "id": "ryzyw_com",
-      "name": "如意",
-      "api": "https://cj.rycjapi.com/api.php/provide/vod",
-      "group": "综合",
-      "origin": "manual",
-      "enabled": true,
-      "state": "ok",
-      "latency_ms": 1666,
-      "searchable": true,
-      "vods": 3,
-      "checked_at": "2026-11-27T07:12:18Z",
-      "history": [
-        {
-          "t": "2026-11-27T13:52:02+08:00",
-          "ok": false,
-          "ms": 979
-        },
-        {
-          "t": "2026-11-27T14:10:34+08:00",
-          "ok": false,
-          "ms": 1016
-        },
-        {
-          "t": "2026-11-27T14:27:07+08:00",
-          "ok": false,
-          "ms": 2884
-        },
-        {
-          "t": "2026-11-27T14:28:32+08:00",
-          "ok": false,
-          "ms": 2675
-        },
-        {
-          "t": "2026-11-27T14:29:34+08:00",
-          "ok": false,
-          "ms": 4376
-        },
-        {
-          "t": "2026-11-27T06:38:53Z",
-          "ok": true,
-          "ms": 1581
-        },
-        {
-          "t": "2026-11-27T06:52:51Z",
-          "ok": true,
-          "ms": 2187
-        },
-        {
-          "t": "2026-11-27T07:12:18Z",
-          "ok": true,
-          "ms": 1666
-        }
-      ]
-    },
-    {
-      "id": "haohuazy_com",
-      "name": "豪华",
-      "api": "https://hhzyapi.com/api.php/provide/vod",
-      "group": "综合",
-      "origin": "manual",
-      "enabled": true,
-      "state": "ok",
-      "latency_ms": 342,
-      "searchable": true,
-      "vods": 8,
-      "checked_at": "2026-11-27T07:12:18Z",
-      "history": [
-        {
-          "t": "2026-11-27T13:52:02+08:00",
-          "ok": true,
-          "ms": 992
-        },
-        {
-          "t": "2026-11-27T14:10:34+08:00",
-          "ok": true,
-          "ms": 1040
-        },
-        {
-          "t": "2026-11-27T14:27:07+08:00",
-          "ok": true,
-          "ms": 1224
-        },
-        {
-          "t": "2026-11-27T14:28:32+08:00",
-          "ok": true,
-          "ms": 2300
-        },
-        {
-          "t": "2026-11-27T14:29:34+08:00",
-          "ok": true,
-          "ms": 993
-        },
-        {
-          "t": "2026-11-27T06:38:53Z",
-          "ok": true,
-          "ms": 348
-        },
-        {
-          "t": "2026-11-27T06:52:51Z",
-          "ok": true,
-          "ms": 311
-        },
-        {
-          "t": "2026-11-27T07:12:18Z",
-          "ok": true,
-          "ms": 342
-        }
-      ]
-    },
-    {
-      "id": "bdzy1_com",
-      "name": "百度云zy",
-      "api": "https://api.apibdzy.com/api.php/provide/vod",
-      "group": "综合",
-      "origin": "manual",
-      "enabled": true,
-      "state": "down",
-      "latency_ms": 3116,
-      "searchable": false,
-      "vods": 0,
-      "checked_at": "2026-11-27T07:12:18Z",
-      "history": [
-        {
-          "t": "2026-11-27T13:52:02+08:00",
-          "ok": true,
-          "ms": 2173
-        },
-        {
-          "t": "2026-11-27T14:10:34+08:00",
-          "ok": true,
-          "ms": 2686
-        },
-        {
-          "t": "2026-11-27T14:27:07+08:00",
-          "ok": true,
-          "ms": 2545
-        },
-        {
-          "t": "2026-11-27T14:28:32+08:00",
-          "ok": true,
-          "ms": 2490
         },
         {
-          "t": "2026-11-27T14:29:34+08:00",
+          "t": "2026-11-27T07:15:40Z",
           "ok": true,
-          "ms": 2602
-        },
-        {
-          "t": "2026-11-27T06:38:53Z",
-          "ok": false,
-          "ms": 3126
-        },
-        {
-          "t": "2026-11-27T06:52:51Z",
-          "ok": false,
-          "ms": 3055
-        },
-        {
-          "t": "2026-11-27T07:12:18Z",
-          "ok": false,
-          "ms": 3116
-        }
-      ]
-    },
-    {
-      "id": "lovedan_net",
-      "name": "艾旦影视",
-      "api": "https://lovedan.net/api.php/provide/vod",
-      "group": "综合",
-      "origin": "manual",
-      "enabled": true,
-      "state": "down",
-      "latency_ms": 3115,
-      "searchable": false,
-      "vods": 0,
-      "checked_at": "2026-11-27T07:12:18Z",
-      "history": [
-        {
-          "t": "2026-11-27T13:52:02+08:00",
-          "ok": false,
-          "ms": 1762
-        },
-        {
-          "t": "2026-11-27T14:10:34+08:00",
-          "ok": false,
-          "ms": 1833
-        },
-        {
-          "t": "2026-11-27T14:27:07+08:00",
-          "ok": false,
-          "ms": 4216
-        },
-        {
-          "t": "2026-11-27T14:28:32+08:00",
-          "ok": false,
-          "ms": 4354
-        },
-        {
-          "t": "2026-11-27T14:29:34+08:00",
-          "ok": false,
-          "ms": 4968
-        },
-        {
-          "t": "2026-11-27T06:38:53Z",
-          "ok": false,
-          "ms": 3131
-        },
-        {
-          "t": "2026-11-27T06:52:51Z",
-          "ok": false,
-          "ms": 3066
-        },
-        {
-          "t": "2026-11-27T07:12:18Z",
-          "ok": false,
-          "ms": 3115
+          "ms": 756
         }
       ]
     },
@@ -1548,16 +403,11 @@
       "origin": "manual",
       "enabled": true,
       "state": "ok",
-      "latency_ms": 1401,
+      "latency_ms": 1425,
       "searchable": true,
       "vods": 20,
-      "checked_at": "2026-11-27T07:12:18Z",
+      "checked_at": "2026-11-27T07:15:40Z",
       "history": [
-        {
-          "t": "2026-11-27T13:52:02+08:00",
-          "ok": false,
-          "ms": 10000
-        },
         {
           "t": "2026-11-27T14:10:34+08:00",
           "ok": false,
@@ -1592,6 +442,281 @@
           "t": "2026-11-27T07:12:18Z",
           "ok": true,
           "ms": 1401
+        },
+        {
+          "t": "2026-11-27T07:15:40Z",
+          "ok": true,
+          "ms": 1425
+        }
+      ]
+    },
+    {
+      "id": "360zy_com",
+      "name": "360",
+      "api": "https://360zyzz.com/api.php/provide/vod",
+      "group": "综合",
+      "origin": "manual",
+      "enabled": true,
+      "state": "ok",
+      "latency_ms": 827,
+      "searchable": true,
+      "vods": 3,
+      "checked_at": "2026-11-27T07:15:40Z",
+      "history": [
+        {
+          "t": "2026-11-27T14:10:34+08:00",
+          "ok": true,
+          "ms": 1381
+        },
+        {
+          "t": "2026-11-27T14:27:07+08:00",
+          "ok": true,
+          "ms": 1044
+        },
+        {
+          "t": "2026-11-27T14:28:32+08:00",
+          "ok": true,
+          "ms": 2216
+        },
+        {
+          "t": "2026-11-27T14:29:34+08:00",
+          "ok": true,
+          "ms": 945
+        },
+        {
+          "t": "2026-11-27T06:38:53Z",
+          "ok": true,
+          "ms": 884
+        },
+        {
+          "t": "2026-11-27T06:52:51Z",
+          "ok": true,
+          "ms": 774
+        },
+        {
+          "t": "2026-11-27T07:12:18Z",
+          "ok": true,
+          "ms": 825
+        },
+        {
+          "t": "2026-11-27T07:15:40Z",
+          "ok": true,
+          "ms": 827
+        }
+      ]
+    },
+    {
+      "id": "jszyapi_com",
+      "name": "极速",
+      "api": "https://jszyapi.com/api.php/provide/vod",
+      "group": "综合",
+      "origin": "manual",
+      "enabled": true,
+      "state": "ok",
+      "latency_ms": 297,
+      "searchable": true,
+      "vods": 8,
+      "checked_at": "2026-11-27T07:15:40Z",
+      "history": [
+        {
+          "t": "2026-11-27T14:10:34+08:00",
+          "ok": false,
+          "ms": 12001
+        },
+        {
+          "t": "2026-11-27T14:27:07+08:00",
+          "ok": false,
+          "ms": 5288
+        },
+        {
+          "t": "2026-11-27T14:28:32+08:00",
+          "ok": false,
+          "ms": 3906
+        },
+        {
+          "t": "2026-11-27T14:29:34+08:00",
+          "ok": false,
+          "ms": 4732
+        },
+        {
+          "t": "2026-11-27T06:38:53Z",
+          "ok": true,
+          "ms": 272
+        },
+        {
+          "t": "2026-11-27T06:52:51Z",
+          "ok": true,
+          "ms": 205
+        },
+        {
+          "t": "2026-11-27T07:12:18Z",
+          "ok": true,
+          "ms": 271
+        },
+        {
+          "t": "2026-11-27T07:15:40Z",
+          "ok": true,
+          "ms": 297
+        }
+      ]
+    },
+    {
+      "id": "moduzy_net",
+      "name": "魔都",
+      "api": "https://www.mdzyapi.com/api.php/provide/vod",
+      "group": "综合",
+      "origin": "manual",
+      "enabled": true,
+      "state": "ok",
+      "latency_ms": 209,
+      "searchable": true,
+      "vods": 3,
+      "checked_at": "2026-11-27T07:15:40Z",
+      "history": [
+        {
+          "t": "2026-11-27T14:10:34+08:00",
+          "ok": true,
+          "ms": 1680
+        },
+        {
+          "t": "2026-11-27T14:27:07+08:00",
+          "ok": true,
+          "ms": 1130
+        },
+        {
+          "t": "2026-11-27T14:28:32+08:00",
+          "ok": true,
+          "ms": 873
+        },
+        {
+          "t": "2026-11-27T14:29:34+08:00",
+          "ok": true,
+          "ms": 1325
+        },
+        {
+          "t": "2026-11-27T06:38:53Z",
+          "ok": true,
+          "ms": 299
+        },
+        {
+          "t": "2026-11-27T06:52:51Z",
+          "ok": true,
+          "ms": 333
+        },
+        {
+          "t": "2026-11-27T07:12:18Z",
+          "ok": true,
+          "ms": 217
+        },
+        {
+          "t": "2026-11-27T07:15:40Z",
+          "ok": true,
+          "ms": 209
+        }
+      ]
+    },
+    {
+      "id": "ffzy5tv-e124",
+      "name": "非凡",
+      "api": "https://ffzy5.tv/api.php/provide/vod",
+      "group": "综合",
+      "origin": "feed",
+      "enabled": true,
+      "state": "ok",
+      "latency_ms": 289,
+      "searchable": true,
+      "vods": 8,
+      "checked_at": "2026-11-27T07:15:40Z",
+      "history": [
+        {
+          "t": "2026-11-27T14:27:07+08:00",
+          "ok": true,
+          "ms": 549
+        },
+        {
+          "t": "2026-11-27T14:28:32+08:00",
+          "ok": true,
+          "ms": 845
+        },
+        {
+          "t": "2026-11-27T14:29:34+08:00",
+          "ok": true,
+          "ms": 480
+        },
+        {
+          "t": "2026-11-27T06:38:53Z",
+          "ok": true,
+          "ms": 276
+        },
+        {
+          "t": "2026-11-27T06:52:51Z",
+          "ok": true,
+          "ms": 1054
+        },
+        {
+          "t": "2026-11-27T07:12:18Z",
+          "ok": true,
+          "ms": 1219
+        },
+        {
+          "t": "2026-11-27T07:15:40Z",
+          "ok": true,
+          "ms": 289
+        }
+      ]
+    },
+    {
+      "id": "bfzy_tv",
+      "name": "暴风",
+      "api": "https://bfzyapi.com/api.php/provide/vod",
+      "group": "综合",
+      "origin": "manual",
+      "enabled": true,
+      "state": "ok",
+      "latency_ms": 814,
+      "searchable": true,
+      "vods": 20,
+      "checked_at": "2026-11-27T07:15:40Z",
+      "history": [
+        {
+          "t": "2026-11-27T14:10:34+08:00",
+          "ok": false,
+          "ms": 12001
+        },
+        {
+          "t": "2026-11-27T14:27:07+08:00",
+          "ok": false,
+          "ms": 11559
+        },
+        {
+          "t": "2026-11-27T14:28:32+08:00",
+          "ok": false,
+          "ms": 21518
+        },
+        {
+          "t": "2026-11-27T14:29:34+08:00",
+          "ok": false,
+          "ms": 33003
+        },
+        {
+          "t": "2026-11-27T06:38:53Z",
+          "ok": true,
+          "ms": 833
+        },
+        {
+          "t": "2026-11-27T06:52:51Z",
+          "ok": true,
+          "ms": 865
+        },
+        {
+          "t": "2026-11-27T07:12:18Z",
+          "ok": true,
+          "ms": 848
+        },
+        {
+          "t": "2026-11-27T07:15:40Z",
+          "ok": true,
+          "ms": 814
         }
       ]
     },
@@ -1603,16 +728,11 @@
       "origin": "manual",
       "enabled": true,
       "state": "ok",
-      "latency_ms": 431,
+      "latency_ms": 472,
       "searchable": true,
       "vods": 20,
-      "checked_at": "2026-11-27T07:12:18Z",
+      "checked_at": "2026-11-27T07:15:40Z",
       "history": [
-        {
-          "t": "2026-11-27T13:52:02+08:00",
-          "ok": false,
-          "ms": 257
-        },
         {
           "t": "2026-11-27T14:10:34+08:00",
           "ok": false,
@@ -1647,6 +767,781 @@
           "t": "2026-11-27T07:12:18Z",
           "ok": true,
           "ms": 431
+        },
+        {
+          "t": "2026-11-27T07:15:40Z",
+          "ok": true,
+          "ms": 472
+        }
+      ]
+    },
+    {
+      "id": "wujinzy_me",
+      "name": "无尽",
+      "api": "https://api.wujinapi.me/api.php/provide/vod",
+      "group": "综合",
+      "origin": "manual",
+      "enabled": true,
+      "state": "ok",
+      "latency_ms": 211,
+      "searchable": true,
+      "vods": 9,
+      "checked_at": "2026-11-27T07:15:40Z",
+      "history": [
+        {
+          "t": "2026-11-27T14:10:34+08:00",
+          "ok": false,
+          "ms": 1591
+        },
+        {
+          "t": "2026-11-27T14:27:07+08:00",
+          "ok": false,
+          "ms": 2985
+        },
+        {
+          "t": "2026-11-27T14:28:32+08:00",
+          "ok": false,
+          "ms": 4976
+        },
+        {
+          "t": "2026-11-27T14:29:34+08:00",
+          "ok": false,
+          "ms": 4680
+        },
+        {
+          "t": "2026-11-27T06:38:53Z",
+          "ok": true,
+          "ms": 275
+        },
+        {
+          "t": "2026-11-27T06:52:51Z",
+          "ok": true,
+          "ms": 200
+        },
+        {
+          "t": "2026-11-27T07:12:18Z",
+          "ok": true,
+          "ms": 200
+        },
+        {
+          "t": "2026-11-27T07:15:40Z",
+          "ok": true,
+          "ms": 211
+        }
+      ]
+    },
+    {
+      "id": "xinlangapi_com",
+      "name": "新浪",
+      "api": "https://api.xinlangapi.com/xinlangapi.php/provide/vod",
+      "group": "综合",
+      "origin": "manual",
+      "enabled": true,
+      "state": "ok",
+      "latency_ms": 409,
+      "searchable": true,
+      "vods": 8,
+      "checked_at": "2026-11-27T07:15:40Z",
+      "history": [
+        {
+          "t": "2026-11-27T14:10:34+08:00",
+          "ok": false,
+          "ms": 12001
+        },
+        {
+          "t": "2026-11-27T14:27:07+08:00",
+          "ok": false,
+          "ms": 31503
+        },
+        {
+          "t": "2026-11-27T14:28:32+08:00",
+          "ok": false,
+          "ms": 31505
+        },
+        {
+          "t": "2026-11-27T14:29:34+08:00",
+          "ok": false,
+          "ms": 33002
+        },
+        {
+          "t": "2026-11-27T06:38:53Z",
+          "ok": true,
+          "ms": 336
+        },
+        {
+          "t": "2026-11-27T06:52:51Z",
+          "ok": true,
+          "ms": 386
+        },
+        {
+          "t": "2026-11-27T07:12:18Z",
+          "ok": true,
+          "ms": 400
+        },
+        {
+          "t": "2026-11-27T07:15:40Z",
+          "ok": true,
+          "ms": 409
+        }
+      ]
+    },
+    {
+      "id": "tyyszy_com",
+      "name": "天涯",
+      "api": "https://tyyszyapi.com/api.php/provide/vod",
+      "group": "综合",
+      "origin": "manual",
+      "enabled": true,
+      "state": "ok",
+      "latency_ms": 3635,
+      "searchable": false,
+      "vods": 20,
+      "checked_at": "2026-11-27T07:15:40Z",
+      "history": [
+        {
+          "t": "2026-11-27T14:10:34+08:00",
+          "ok": true,
+          "ms": 988
+        },
+        {
+          "t": "2026-11-27T14:27:07+08:00",
+          "ok": false,
+          "ms": 5139
+        },
+        {
+          "t": "2026-11-27T14:28:32+08:00",
+          "ok": true,
+          "ms": 4377
+        },
+        {
+          "t": "2026-11-27T14:29:34+08:00",
+          "ok": true,
+          "ms": 5614
+        },
+        {
+          "t": "2026-11-27T06:38:53Z",
+          "ok": true,
+          "ms": 3550
+        },
+        {
+          "t": "2026-11-27T06:52:51Z",
+          "ok": true,
+          "ms": 3537
+        },
+        {
+          "t": "2026-11-27T07:12:18Z",
+          "ok": true,
+          "ms": 3688
+        },
+        {
+          "t": "2026-11-27T07:15:40Z",
+          "ok": true,
+          "ms": 3635
+        }
+      ]
+    },
+    {
+      "id": "subozy_com",
+      "name": "速播",
+      "api": "https://subocaiji.com/api.php/provide/vod",
+      "group": "综合",
+      "origin": "manual",
+      "enabled": true,
+      "state": "ok",
+      "latency_ms": 573,
+      "searchable": true,
+      "vods": 8,
+      "checked_at": "2026-11-27T07:15:40Z",
+      "history": [
+        {
+          "t": "2026-11-27T14:10:34+08:00",
+          "ok": false,
+          "ms": 12000
+        },
+        {
+          "t": "2026-11-27T14:27:07+08:00",
+          "ok": false,
+          "ms": 31501
+        },
+        {
+          "t": "2026-11-27T14:28:32+08:00",
+          "ok": false,
+          "ms": 31501
+        },
+        {
+          "t": "2026-11-27T14:29:34+08:00",
+          "ok": false,
+          "ms": 33004
+        },
+        {
+          "t": "2026-11-27T06:38:53Z",
+          "ok": true,
+          "ms": 577
+        },
+        {
+          "t": "2026-11-27T06:52:51Z",
+          "ok": true,
+          "ms": 317
+        },
+        {
+          "t": "2026-11-27T07:12:18Z",
+          "ok": true,
+          "ms": 580
+        },
+        {
+          "t": "2026-11-27T07:15:40Z",
+          "ok": true,
+          "ms": 573
+        }
+      ]
+    },
+    {
+      "id": "jinyingzy_com",
+      "name": "金鹰点播",
+      "api": "https://jinyingzy.com/api.php/provide/vod",
+      "group": "综合",
+      "origin": "manual",
+      "enabled": true,
+      "state": "ok",
+      "latency_ms": 408,
+      "searchable": true,
+      "vods": 8,
+      "checked_at": "2026-11-27T07:15:40Z",
+      "history": [
+        {
+          "t": "2026-11-27T14:10:34+08:00",
+          "ok": true,
+          "ms": 1223
+        },
+        {
+          "t": "2026-11-27T14:27:07+08:00",
+          "ok": true,
+          "ms": 1195
+        },
+        {
+          "t": "2026-11-27T14:28:32+08:00",
+          "ok": true,
+          "ms": 2255
+        },
+        {
+          "t": "2026-11-27T14:29:34+08:00",
+          "ok": true,
+          "ms": 1448
+        },
+        {
+          "t": "2026-11-27T06:38:53Z",
+          "ok": true,
+          "ms": 426
+        },
+        {
+          "t": "2026-11-27T06:52:51Z",
+          "ok": true,
+          "ms": 411
+        },
+        {
+          "t": "2026-11-27T07:12:18Z",
+          "ok": true,
+          "ms": 523
+        },
+        {
+          "t": "2026-11-27T07:15:40Z",
+          "ok": true,
+          "ms": 408
+        }
+      ]
+    },
+    {
+      "id": "p2100_net",
+      "name": "飘零",
+      "api": "https://p2100.net/api.php/provide/vod",
+      "group": "综合",
+      "origin": "manual",
+      "enabled": true,
+      "state": "down",
+      "latency_ms": 3109,
+      "searchable": false,
+      "vods": 0,
+      "checked_at": "2026-11-27T07:15:40Z",
+      "history": [
+        {
+          "t": "2026-11-27T14:10:34+08:00",
+          "ok": true,
+          "ms": 2435
+        },
+        {
+          "t": "2026-11-27T14:27:07+08:00",
+          "ok": false,
+          "ms": 2920
+        },
+        {
+          "t": "2026-11-27T14:28:32+08:00",
+          "ok": false,
+          "ms": 3945
+        },
+        {
+          "t": "2026-11-27T14:29:34+08:00",
+          "ok": false,
+          "ms": 15934
+        },
+        {
+          "t": "2026-11-27T06:38:53Z",
+          "ok": false,
+          "ms": 3127
+        },
+        {
+          "t": "2026-11-27T06:52:51Z",
+          "ok": false,
+          "ms": 3062
+        },
+        {
+          "t": "2026-11-27T07:12:18Z",
+          "ok": false,
+          "ms": 3108
+        },
+        {
+          "t": "2026-11-27T07:15:40Z",
+          "ok": false,
+          "ms": 3109
+        }
+      ]
+    },
+    {
+      "id": "ukuapi88_com",
+      "name": "U酷影视",
+      "api": "https://api.ukuapi88.com/api.php/provide/vod",
+      "group": "综合",
+      "origin": "manual",
+      "enabled": true,
+      "state": "ok",
+      "latency_ms": 344,
+      "searchable": true,
+      "vods": 3,
+      "checked_at": "2026-11-27T07:15:40Z",
+      "history": [
+        {
+          "t": "2026-11-27T14:10:34+08:00",
+          "ok": true,
+          "ms": 1030
+        },
+        {
+          "t": "2026-11-27T14:27:07+08:00",
+          "ok": true,
+          "ms": 1274
+        },
+        {
+          "t": "2026-11-27T14:28:32+08:00",
+          "ok": true,
+          "ms": 805
+        },
+        {
+          "t": "2026-11-27T14:29:34+08:00",
+          "ok": true,
+          "ms": 1413
+        },
+        {
+          "t": "2026-11-27T06:38:53Z",
+          "ok": true,
+          "ms": 367
+        },
+        {
+          "t": "2026-11-27T06:52:51Z",
+          "ok": true,
+          "ms": 295
+        },
+        {
+          "t": "2026-11-27T07:12:18Z",
+          "ok": true,
+          "ms": 346
+        },
+        {
+          "t": "2026-11-27T07:15:40Z",
+          "ok": true,
+          "ms": 344
+        }
+      ]
+    },
+    {
+      "id": "guangsuapi_com",
+      "name": "光速",
+      "api": "https://api.guangsuapi.com/api.php/provide/vod",
+      "group": "综合",
+      "origin": "manual",
+      "enabled": true,
+      "state": "ok",
+      "latency_ms": 484,
+      "searchable": true,
+      "vods": 8,
+      "checked_at": "2026-11-27T07:15:40Z",
+      "history": [
+        {
+          "t": "2026-11-27T14:10:34+08:00",
+          "ok": false,
+          "ms": 1752
+        },
+        {
+          "t": "2026-11-27T14:27:07+08:00",
+          "ok": false,
+          "ms": 3217
+        },
+        {
+          "t": "2026-11-27T14:28:32+08:00",
+          "ok": false,
+          "ms": 3003
+        },
+        {
+          "t": "2026-11-27T14:29:34+08:00",
+          "ok": false,
+          "ms": 5424
+        },
+        {
+          "t": "2026-11-27T06:38:53Z",
+          "ok": true,
+          "ms": 376
+        },
+        {
+          "t": "2026-11-27T06:52:51Z",
+          "ok": true,
+          "ms": 385
+        },
+        {
+          "t": "2026-11-27T07:12:18Z",
+          "ok": true,
+          "ms": 376
+        },
+        {
+          "t": "2026-11-27T07:15:40Z",
+          "ok": true,
+          "ms": 484
+        }
+      ]
+    },
+    {
+      "id": "hongniuzy_com",
+      "name": "红牛",
+      "api": "https://www.hongniuzy2.com/api.php/provide/vod",
+      "group": "综合",
+      "origin": "manual",
+      "enabled": true,
+      "state": "ok",
+      "latency_ms": 239,
+      "searchable": true,
+      "vods": 8,
+      "checked_at": "2026-11-27T07:15:40Z",
+      "history": [
+        {
+          "t": "2026-11-27T14:10:34+08:00",
+          "ok": true,
+          "ms": 857
+        },
+        {
+          "t": "2026-11-27T14:27:07+08:00",
+          "ok": true,
+          "ms": 1340
+        },
+        {
+          "t": "2026-11-27T14:28:32+08:00",
+          "ok": true,
+          "ms": 881
+        },
+        {
+          "t": "2026-11-27T14:29:34+08:00",
+          "ok": true,
+          "ms": 1338
+        },
+        {
+          "t": "2026-11-27T06:38:53Z",
+          "ok": true,
+          "ms": 220
+        },
+        {
+          "t": "2026-11-27T06:52:51Z",
+          "ok": true,
+          "ms": 217
+        },
+        {
+          "t": "2026-11-27T07:12:18Z",
+          "ok": true,
+          "ms": 254
+        },
+        {
+          "t": "2026-11-27T07:15:40Z",
+          "ok": true,
+          "ms": 239
+        }
+      ]
+    },
+    {
+      "id": "moduapi_cc",
+      "name": "魔都动漫",
+      "api": "https://caiji.moduapi.cc/api.php/provide/vod",
+      "group": "动漫",
+      "origin": "manual",
+      "enabled": true,
+      "state": "ok",
+      "latency_ms": 354,
+      "searchable": true,
+      "vods": 3,
+      "checked_at": "2026-11-27T07:15:40Z",
+      "history": [
+        {
+          "t": "2026-11-27T14:10:34+08:00",
+          "ok": true,
+          "ms": 2118
+        },
+        {
+          "t": "2026-11-27T14:27:07+08:00",
+          "ok": true,
+          "ms": 1250
+        },
+        {
+          "t": "2026-11-27T14:28:32+08:00",
+          "ok": true,
+          "ms": 816
+        },
+        {
+          "t": "2026-11-27T14:29:34+08:00",
+          "ok": true,
+          "ms": 1091
+        },
+        {
+          "t": "2026-11-27T06:38:53Z",
+          "ok": true,
+          "ms": 311
+        },
+        {
+          "t": "2026-11-27T06:52:51Z",
+          "ok": true,
+          "ms": 344
+        },
+        {
+          "t": "2026-11-27T07:12:18Z",
+          "ok": true,
+          "ms": 383
+        },
+        {
+          "t": "2026-11-27T07:15:40Z",
+          "ok": true,
+          "ms": 354
+        }
+      ]
+    },
+    {
+      "id": "ryzyw_com",
+      "name": "如意",
+      "api": "https://cj.rycjapi.com/api.php/provide/vod",
+      "group": "综合",
+      "origin": "manual",
+      "enabled": true,
+      "state": "ok",
+      "latency_ms": 1634,
+      "searchable": true,
+      "vods": 3,
+      "checked_at": "2026-11-27T07:15:40Z",
+      "history": [
+        {
+          "t": "2026-11-27T14:10:34+08:00",
+          "ok": false,
+          "ms": 1016
+        },
+        {
+          "t": "2026-11-27T14:27:07+08:00",
+          "ok": false,
+          "ms": 2884
+        },
+        {
+          "t": "2026-11-27T14:28:32+08:00",
+          "ok": false,
+          "ms": 2675
+        },
+        {
+          "t": "2026-11-27T14:29:34+08:00",
+          "ok": false,
+          "ms": 4376
+        },
+        {
+          "t": "2026-11-27T06:38:53Z",
+          "ok": true,
+          "ms": 1581
+        },
+        {
+          "t": "2026-11-27T06:52:51Z",
+          "ok": true,
+          "ms": 2187
+        },
+        {
+          "t": "2026-11-27T07:12:18Z",
+          "ok": true,
+          "ms": 1666
+        },
+        {
+          "t": "2026-11-27T07:15:40Z",
+          "ok": true,
+          "ms": 1634
+        }
+      ]
+    },
+    {
+      "id": "haohuazy_com",
+      "name": "豪华",
+      "api": "https://hhzyapi.com/api.php/provide/vod",
+      "group": "综合",
+      "origin": "manual",
+      "enabled": true,
+      "state": "ok",
+      "latency_ms": 361,
+      "searchable": true,
+      "vods": 8,
+      "checked_at": "2026-11-27T07:15:40Z",
+      "history": [
+        {
+          "t": "2026-11-27T14:10:34+08:00",
+          "ok": true,
+          "ms": 1040
+        },
+        {
+          "t": "2026-11-27T14:27:07+08:00",
+          "ok": true,
+          "ms": 1224
+        },
+        {
+          "t": "2026-11-27T14:28:32+08:00",
+          "ok": true,
+          "ms": 2300
+        },
+        {
+          "t": "2026-11-27T14:29:34+08:00",
+          "ok": true,
+          "ms": 993
+        },
+        {
+          "t": "2026-11-27T06:38:53Z",
+          "ok": true,
+          "ms": 348
+        },
+        {
+          "t": "2026-11-27T06:52:51Z",
+          "ok": true,
+          "ms": 311
+        },
+        {
+          "t": "2026-11-27T07:12:18Z",
+          "ok": true,
+          "ms": 342
+        },
+        {
+          "t": "2026-11-27T07:15:40Z",
+          "ok": true,
+          "ms": 361
+        }
+      ]
+    },
+    {
+      "id": "bdzy1_com",
+      "name": "百度云zy",
+      "api": "https://api.apibdzy.com/api.php/provide/vod",
+      "group": "综合",
+      "origin": "manual",
+      "enabled": true,
+      "state": "down",
+      "latency_ms": 3118,
+      "searchable": false,
+      "vods": 0,
+      "checked_at": "2026-11-27T07:15:40Z",
+      "history": [
+        {
+          "t": "2026-11-27T14:10:34+08:00",
+          "ok": true,
+          "ms": 2686
+        },
+        {
+          "t": "2026-11-27T14:27:07+08:00",
+          "ok": true,
+          "ms": 2545
+        },
+        {
+          "t": "2026-11-27T14:28:32+08:00",
+          "ok": true,
+          "ms": 2490
+        },
+        {
+          "t": "2026-11-27T14:29:34+08:00",
+          "ok": true,
+          "ms": 2602
+        },
+        {
+          "t": "2026-11-27T06:38:53Z",
+          "ok": false,
+          "ms": 3126
+        },
+        {
+          "t": "2026-11-27T06:52:51Z",
+          "ok": false,
+          "ms": 3055
+        },
+        {
+          "t": "2026-11-27T07:12:18Z",
+          "ok": false,
+          "ms": 3116
+        },
+        {
+          "t": "2026-11-27T07:15:40Z",
+          "ok": false,
+          "ms": 3118
+        }
+      ]
+    },
+    {
+      "id": "lovedan_net",
+      "name": "艾旦影视",
+      "api": "https://lovedan.net/api.php/provide/vod",
+      "group": "综合",
+      "origin": "manual",
+      "enabled": true,
+      "state": "down",
+      "latency_ms": 3113,
+      "searchable": false,
+      "vods": 0,
+      "checked_at": "2026-11-27T07:15:40Z",
+      "history": [
+        {
+          "t": "2026-11-27T14:10:34+08:00",
+          "ok": false,
+          "ms": 1833
+        },
+        {
+          "t": "2026-11-27T14:27:07+08:00",
+          "ok": false,
+          "ms": 4216
+        },
+        {
+          "t": "2026-11-27T14:28:32+08:00",
+          "ok": false,
+          "ms": 4354
+        },
+        {
+          "t": "2026-11-27T14:29:34+08:00",
+          "ok": false,
+          "ms": 4968
+        },
+        {
+          "t": "2026-11-27T06:38:53Z",
+          "ok": false,
+          "ms": 3131
+        },
+        {
+          "t": "2026-11-27T06:52:51Z",
+          "ok": false,
+          "ms": 3066
+        },
+        {
+          "t": "2026-11-27T07:12:18Z",
+          "ok": false,
+          "ms": 3115
+        },
+        {
+          "t": "2026-11-27T07:15:40Z",
+          "ok": false,
+          "ms": 3113
         }
       ]
     },
@@ -1658,16 +1553,11 @@
       "origin": "manual",
       "enabled": true,
       "state": "ok",
-      "latency_ms": 3718,
+      "latency_ms": 3769,
       "searchable": false,
       "vods": 20,
-      "checked_at": "2026-11-27T07:12:18Z",
+      "checked_at": "2026-11-27T07:15:40Z",
       "history": [
-        {
-          "t": "2026-11-27T13:52:02+08:00",
-          "ok": true,
-          "ms": 1036
-        },
         {
           "t": "2026-11-27T14:10:34+08:00",
           "ok": true,
@@ -1702,6 +1592,11 @@
           "t": "2026-11-27T07:12:18Z",
           "ok": true,
           "ms": 3718
+        },
+        {
+          "t": "2026-11-27T07:15:40Z",
+          "ok": true,
+          "ms": 3769
         }
       ]
     },
@@ -1713,16 +1608,11 @@
       "origin": "manual",
       "enabled": true,
       "state": "ok",
-      "latency_ms": 3181,
+      "latency_ms": 3180,
       "searchable": false,
       "vods": 20,
-      "checked_at": "2026-11-27T07:12:18Z",
+      "checked_at": "2026-11-27T07:15:40Z",
       "history": [
-        {
-          "t": "2026-11-27T13:52:02+08:00",
-          "ok": false,
-          "ms": 10000
-        },
         {
           "t": "2026-11-27T14:10:34+08:00",
           "ok": false,
@@ -1757,6 +1647,11 @@
           "t": "2026-11-27T07:12:18Z",
           "ok": true,
           "ms": 3181
+        },
+        {
+          "t": "2026-11-27T07:15:40Z",
+          "ok": true,
+          "ms": 3180
         }
       ]
     },
@@ -1768,16 +1663,11 @@
       "origin": "manual",
       "enabled": true,
       "state": "ok",
-      "latency_ms": 3718,
+      "latency_ms": 3904,
       "searchable": false,
       "vods": 20,
-      "checked_at": "2026-11-27T07:12:18Z",
+      "checked_at": "2026-11-27T07:15:40Z",
       "history": [
-        {
-          "t": "2026-11-27T13:52:02+08:00",
-          "ok": false,
-          "ms": 10000
-        },
         {
           "t": "2026-11-27T14:10:34+08:00",
           "ok": false,
@@ -1812,6 +1702,11 @@
           "t": "2026-11-27T07:12:18Z",
           "ok": true,
           "ms": 3718
+        },
+        {
+          "t": "2026-11-27T07:15:40Z",
+          "ok": true,
+          "ms": 3904
         }
       ]
     },
@@ -1823,16 +1718,11 @@
       "origin": "manual",
       "enabled": true,
       "state": "ok",
-      "latency_ms": 3800,
+      "latency_ms": 3760,
       "searchable": false,
       "vods": 20,
-      "checked_at": "2026-11-27T07:12:18Z",
+      "checked_at": "2026-11-27T07:15:40Z",
       "history": [
-        {
-          "t": "2026-11-27T13:52:02+08:00",
-          "ok": false,
-          "ms": 10000
-        },
         {
           "t": "2026-11-27T14:10:34+08:00",
           "ok": false,
@@ -1867,6 +1757,11 @@
           "t": "2026-11-27T07:12:18Z",
           "ok": true,
           "ms": 3800
+        },
+        {
+          "t": "2026-11-27T07:15:40Z",
+          "ok": true,
+          "ms": 3760
         }
       ]
     },
@@ -1878,10 +1773,10 @@
       "origin": "feed",
       "enabled": true,
       "state": "ok",
-      "latency_ms": 1046,
+      "latency_ms": 1087,
       "searchable": true,
       "vods": 5,
-      "checked_at": "2026-11-27T07:12:18Z",
+      "checked_at": "2026-11-27T07:15:40Z",
       "history": [
         {
           "t": "2026-11-27T14:27:07+08:00",
@@ -1912,6 +1807,11 @@
           "t": "2026-11-27T07:12:18Z",
           "ok": true,
           "ms": 1046
+        },
+        {
+          "t": "2026-11-27T07:15:40Z",
+          "ok": true,
+          "ms": 1087
         }
       ]
     },
@@ -1923,10 +1823,10 @@
       "origin": "feed",
       "enabled": true,
       "state": "ok",
-      "latency_ms": 3819,
+      "latency_ms": 3797,
       "searchable": false,
       "vods": 20,
-      "checked_at": "2026-11-27T07:12:18Z",
+      "checked_at": "2026-11-27T07:15:40Z",
       "history": [
         {
           "t": "2026-11-27T14:27:07+08:00",
@@ -1957,6 +1857,11 @@
           "t": "2026-11-27T07:12:18Z",
           "ok": true,
           "ms": 3819
+        },
+        {
+          "t": "2026-11-27T07:15:40Z",
+          "ok": true,
+          "ms": 3797
         }
       ]
     },
@@ -1968,10 +1873,10 @@
       "origin": "feed",
       "enabled": true,
       "state": "ok",
-      "latency_ms": 446,
+      "latency_ms": 487,
       "searchable": true,
       "vods": 8,
-      "checked_at": "2026-11-27T07:12:18Z",
+      "checked_at": "2026-11-27T07:15:40Z",
       "history": [
         {
           "t": "2026-11-27T14:27:07+08:00",
@@ -2002,51 +1907,11 @@
           "t": "2026-11-27T07:12:18Z",
           "ok": true,
           "ms": 446
-        }
-      ]
-    },
-    {
-      "id": "jyzyapicom-f2b1",
-      "name": "金鹰",
-      "api": "https://jyzyapi.com/provide/vod",
-      "group": "综合",
-      "origin": "feed",
-      "enabled": true,
-      "state": "ok",
-      "latency_ms": 85,
-      "searchable": true,
-      "vods": 8,
-      "checked_at": "2026-11-27T07:12:18Z",
-      "history": [
-        {
-          "t": "2026-11-27T14:27:07+08:00",
-          "ok": true,
-          "ms": 1081
         },
         {
-          "t": "2026-11-27T14:28:32+08:00",
+          "t": "2026-11-27T07:15:40Z",
           "ok": true,
-          "ms": 634
-        },
-        {
-          "t": "2026-11-27T14:29:34+08:00",
-          "ok": true,
-          "ms": 850
-        },
-        {
-          "t": "2026-11-27T06:38:53Z",
-          "ok": true,
-          "ms": 180
-        },
-        {
-          "t": "2026-11-27T06:52:51Z",
-          "ok": true,
-          "ms": 101
-        },
-        {
-          "t": "2026-11-27T07:12:18Z",
-          "ok": true,
-          "ms": 85
+          "ms": 487
         }
       ]
     },
@@ -2058,10 +1923,10 @@
       "origin": "feed",
       "enabled": true,
       "state": "ok",
-      "latency_ms": 1423,
+      "latency_ms": 1397,
       "searchable": true,
       "vods": 3,
-      "checked_at": "2026-11-27T07:12:18Z",
+      "checked_at": "2026-11-27T07:15:40Z",
       "history": [
         {
           "t": "2026-11-27T14:27:07+08:00",
@@ -2092,6 +1957,11 @@
           "t": "2026-11-27T07:12:18Z",
           "ok": true,
           "ms": 1423
+        },
+        {
+          "t": "2026-11-27T07:15:40Z",
+          "ok": true,
+          "ms": 1397
         }
       ]
     },
@@ -2103,10 +1973,10 @@
       "origin": "feed",
       "enabled": true,
       "state": "ok",
-      "latency_ms": 1075,
+      "latency_ms": 871,
       "searchable": true,
       "vods": 1,
-      "checked_at": "2026-11-27T07:12:18Z",
+      "checked_at": "2026-11-27T07:15:40Z",
       "history": [
         {
           "t": "2026-11-27T14:27:07+08:00",
@@ -2137,6 +2007,11 @@
           "t": "2026-11-27T07:12:18Z",
           "ok": true,
           "ms": 1075
+        },
+        {
+          "t": "2026-11-27T07:15:40Z",
+          "ok": true,
+          "ms": 871
         }
       ]
     },
@@ -2148,10 +2023,10 @@
       "origin": "feed",
       "enabled": true,
       "state": "ok",
-      "latency_ms": 3635,
+      "latency_ms": 3652,
       "searchable": false,
       "vods": 20,
-      "checked_at": "2026-11-27T07:12:18Z",
+      "checked_at": "2026-11-27T07:15:40Z",
       "history": [
         {
           "t": "2026-11-27T14:27:07+08:00",
@@ -2182,6 +2057,11 @@
           "t": "2026-11-27T07:12:18Z",
           "ok": true,
           "ms": 3635
+        },
+        {
+          "t": "2026-11-27T07:15:40Z",
+          "ok": true,
+          "ms": 3652
         }
       ]
     },
@@ -2193,10 +2073,10 @@
       "origin": "feed",
       "enabled": true,
       "state": "ok",
-      "latency_ms": 3755,
+      "latency_ms": 3795,
       "searchable": false,
       "vods": 20,
-      "checked_at": "2026-11-27T07:12:18Z",
+      "checked_at": "2026-11-27T07:15:40Z",
       "history": [
         {
           "t": "2026-11-27T06:52:51Z",
@@ -2207,51 +2087,11 @@
           "t": "2026-11-27T07:12:18Z",
           "ok": true,
           "ms": 3755
-        }
-      ]
-    },
-    {
-      "id": "apiyzzy-apicom-97cf",
-      "name": "优质",
-      "api": "https://api.yzzy-api.com/inc/apijson.php",
-      "group": "综合",
-      "origin": "feed",
-      "enabled": true,
-      "state": "ok",
-      "latency_ms": 353,
-      "searchable": true,
-      "vods": 5,
-      "checked_at": "2026-11-27T07:12:18Z",
-      "history": [
-        {
-          "t": "2026-11-27T14:27:07+08:00",
-          "ok": false,
-          "ms": 31503
         },
         {
-          "t": "2026-11-27T14:28:32+08:00",
-          "ok": false,
-          "ms": 21707
-        },
-        {
-          "t": "2026-11-27T14:29:34+08:00",
-          "ok": false,
-          "ms": 13032
-        },
-        {
-          "t": "2026-11-27T06:38:53Z",
+          "t": "2026-11-27T07:15:40Z",
           "ok": true,
-          "ms": 325
-        },
-        {
-          "t": "2026-11-27T06:52:51Z",
-          "ok": true,
-          "ms": 399
-        },
-        {
-          "t": "2026-11-27T07:12:18Z",
-          "ok": true,
-          "ms": 353
+          "ms": 3795
         }
       ]
     },
@@ -2263,10 +2103,10 @@
       "origin": "feed",
       "enabled": true,
       "state": "down",
-      "latency_ms": 7231,
+      "latency_ms": 4339,
       "searchable": false,
       "vods": 0,
-      "checked_at": "2026-11-27T07:12:18Z",
+      "checked_at": "2026-11-27T07:15:40Z",
       "history": [
         {
           "t": "2026-11-27T14:27:07+08:00",
@@ -2297,6 +2137,11 @@
           "t": "2026-11-27T07:12:18Z",
           "ok": false,
           "ms": 7231
+        },
+        {
+          "t": "2026-11-27T07:15:40Z",
+          "ok": false,
+          "ms": 4339
         }
       ]
     },
@@ -2308,10 +2153,10 @@
       "origin": "feed",
       "enabled": true,
       "state": "ok",
-      "latency_ms": 3536,
+      "latency_ms": 3635,
       "searchable": false,
       "vods": 20,
-      "checked_at": "2026-11-27T07:12:18Z",
+      "checked_at": "2026-11-27T07:15:40Z",
       "history": [
         {
           "t": "2026-11-27T14:27:07+08:00",
@@ -2342,6 +2187,11 @@
           "t": "2026-11-27T07:12:18Z",
           "ok": true,
           "ms": 3536
+        },
+        {
+          "t": "2026-11-27T07:15:40Z",
+          "ok": true,
+          "ms": 3635
         }
       ]
     },
@@ -2353,10 +2203,10 @@
       "origin": "feed",
       "enabled": true,
       "state": "limited",
-      "latency_ms": 5126,
+      "latency_ms": 5191,
       "searchable": false,
       "vods": 0,
-      "checked_at": "2026-11-27T07:12:18Z",
+      "checked_at": "2026-11-27T07:15:40Z",
       "history": [
         {
           "t": "2026-11-27T14:27:07+08:00",
@@ -2387,6 +2237,11 @@
           "t": "2026-11-27T07:12:18Z",
           "ok": false,
           "ms": 5126
+        },
+        {
+          "t": "2026-11-27T07:15:40Z",
+          "ok": false,
+          "ms": 5191
         }
       ]
     },
@@ -2398,10 +2253,10 @@
       "origin": "feed",
       "enabled": true,
       "state": "limited",
-      "latency_ms": 5019,
+      "latency_ms": 4909,
       "searchable": false,
       "vods": 0,
-      "checked_at": "2026-11-27T07:12:18Z",
+      "checked_at": "2026-11-27T07:15:40Z",
       "history": [
         {
           "t": "2026-11-27T14:27:07+08:00",
@@ -2432,6 +2287,11 @@
           "t": "2026-11-27T07:12:18Z",
           "ok": false,
           "ms": 5019
+        },
+        {
+          "t": "2026-11-27T07:15:40Z",
+          "ok": false,
+          "ms": 4909
         }
       ]
     },
@@ -2443,10 +2303,10 @@
       "origin": "feed",
       "enabled": true,
       "state": "limited",
-      "latency_ms": 4728,
+      "latency_ms": 4706,
       "searchable": false,
       "vods": 0,
-      "checked_at": "2026-11-27T07:12:18Z",
+      "checked_at": "2026-11-27T07:15:40Z",
       "history": [
         {
           "t": "2026-11-27T14:27:07+08:00",
@@ -2477,31 +2337,11 @@
           "t": "2026-11-27T07:12:18Z",
           "ok": false,
           "ms": 4728
-        }
-      ]
-    },
-    {
-      "id": "91jpzywcom-9f93",
-      "name": "91-精品",
-      "api": "https://91jpzyw.com/api.php/provide/vod",
-      "group": "综合",
-      "origin": "feed",
-      "enabled": true,
-      "state": "limited",
-      "latency_ms": 3589,
-      "searchable": false,
-      "vods": 0,
-      "checked_at": "2026-11-27T07:12:18Z",
-      "history": [
-        {
-          "t": "2026-11-27T06:52:51Z",
-          "ok": false,
-          "ms": 3199
         },
         {
-          "t": "2026-11-27T07:12:18Z",
+          "t": "2026-11-27T07:15:40Z",
           "ok": false,
-          "ms": 3589
+          "ms": 4706
         }
       ]
     },
@@ -2513,10 +2353,10 @@
       "origin": "feed",
       "enabled": true,
       "state": "down",
-      "latency_ms": 3269,
+      "latency_ms": 3311,
       "searchable": false,
       "vods": 0,
-      "checked_at": "2026-11-27T07:12:18Z",
+      "checked_at": "2026-11-27T07:15:40Z",
       "history": [
         {
           "t": "2026-11-27T06:52:51Z",
@@ -2527,31 +2367,11 @@
           "t": "2026-11-27T07:12:18Z",
           "ok": false,
           "ms": 3269
-        }
-      ]
-    },
-    {
-      "id": "xzybb2com-b168",
-      "name": "幸",
-      "api": "https://xzybb2.com/api.php/provide/vod",
-      "group": "综合",
-      "origin": "feed",
-      "enabled": true,
-      "state": "down",
-      "latency_ms": 3111,
-      "searchable": false,
-      "vods": 0,
-      "checked_at": "2026-11-27T07:12:18Z",
-      "history": [
-        {
-          "t": "2026-11-27T06:52:51Z",
-          "ok": false,
-          "ms": 3007
         },
         {
-          "t": "2026-11-27T07:12:18Z",
+          "t": "2026-11-27T07:15:40Z",
           "ok": false,
-          "ms": 3111
+          "ms": 3311
         }
       ]
     },
@@ -2563,10 +2383,10 @@
       "origin": "feed",
       "enabled": true,
       "state": "down",
-      "latency_ms": 11908,
+      "latency_ms": 10806,
       "searchable": false,
       "vods": 0,
-      "checked_at": "2026-11-27T07:12:18Z",
+      "checked_at": "2026-11-27T07:15:40Z",
       "history": [
         {
           "t": "2026-11-27T06:52:51Z",
@@ -2577,6 +2397,11 @@
           "t": "2026-11-27T07:12:18Z",
           "ok": false,
           "ms": 11908
+        },
+        {
+          "t": "2026-11-27T07:15:40Z",
+          "ok": false,
+          "ms": 10806
         }
       ]
     },
@@ -2588,10 +2413,10 @@
       "origin": "feed",
       "enabled": true,
       "state": "ok",
-      "latency_ms": 1094,
+      "latency_ms": 1079,
       "searchable": true,
       "vods": 20,
-      "checked_at": "2026-11-27T07:12:18Z",
+      "checked_at": "2026-11-27T07:15:40Z",
       "history": [
         {
           "t": "2026-11-27T06:52:51Z",
@@ -2602,31 +2427,11 @@
           "t": "2026-11-27T07:12:18Z",
           "ok": true,
           "ms": 1094
-        }
-      ]
-    },
-    {
-      "id": "apiwujinapicc-9f92",
-      "name": "wujinapi无尽",
-      "api": "https://api.wujinapi.cc/api.php/provide/vod",
-      "group": "综合",
-      "origin": "feed",
-      "enabled": true,
-      "state": "ok",
-      "latency_ms": 247,
-      "searchable": true,
-      "vods": 9,
-      "checked_at": "2026-11-27T07:12:18Z",
-      "history": [
-        {
-          "t": "2026-11-27T06:52:51Z",
-          "ok": true,
-          "ms": 206
         },
         {
-          "t": "2026-11-27T07:12:18Z",
+          "t": "2026-11-27T07:15:40Z",
           "ok": true,
-          "ms": 247
+          "ms": 1079
         }
       ]
     },
@@ -2638,10 +2443,10 @@
       "origin": "feed",
       "enabled": true,
       "state": "ok",
-      "latency_ms": 317,
+      "latency_ms": 357,
       "searchable": true,
       "vods": 20,
-      "checked_at": "2026-11-27T07:12:18Z",
+      "checked_at": "2026-11-27T07:15:40Z",
       "history": [
         {
           "t": "2026-11-27T06:52:51Z",
@@ -2652,6 +2457,11 @@
           "t": "2026-11-27T07:12:18Z",
           "ok": true,
           "ms": 317
+        },
+        {
+          "t": "2026-11-27T07:15:40Z",
+          "ok": true,
+          "ms": 357
         }
       ]
     },
@@ -2663,10 +2473,10 @@
       "origin": "feed",
       "enabled": true,
       "state": "ok",
-      "latency_ms": 221,
+      "latency_ms": 226,
       "searchable": true,
       "vods": 5,
-      "checked_at": "2026-11-27T07:12:18Z",
+      "checked_at": "2026-11-27T07:15:40Z",
       "history": [
         {
           "t": "2026-11-27T06:52:51Z",
@@ -2677,156 +2487,11 @@
           "t": "2026-11-27T07:12:18Z",
           "ok": true,
           "ms": 221
-        }
-      ]
-    },
-    {
-      "id": "taopianapicom-7749",
-      "name": "淘片",
-      "api": "https://taopianapi.com/cjapi/mc10/vod/json.html",
-      "group": "综合",
-      "origin": "feed",
-      "enabled": true,
-      "state": "limited",
-      "latency_ms": 3572,
-      "searchable": false,
-      "vods": 14,
-      "checked_at": "2026-11-27T07:12:18Z",
-      "history": [
-        {
-          "t": "2026-11-27T06:52:51Z",
-          "ok": false,
-          "ms": 3785
         },
         {
-          "t": "2026-11-27T07:12:18Z",
-          "ok": false,
-          "ms": 3572
-        }
-      ]
-    },
-    {
-      "id": "yonghuffzyapi8com-bfb1",
-      "name": "无广1线 非凡",
-      "api": "https://yonghu.ffzyapi8.com/api.php/provide/vod/from/ffm3u8/at/json",
-      "group": "综合",
-      "origin": "feed",
-      "enabled": true,
-      "state": "ok",
-      "latency_ms": 270,
-      "searchable": true,
-      "vods": 8,
-      "checked_at": "2026-11-27T07:12:18Z",
-      "history": [
-        {
-          "t": "2026-11-27T06:52:51Z",
+          "t": "2026-11-27T07:15:40Z",
           "ok": true,
-          "ms": 2130
-        },
-        {
-          "t": "2026-11-27T07:12:18Z",
-          "ok": true,
-          "ms": 270
-        }
-      ]
-    },
-    {
-      "id": "yhzycc-b3a5",
-      "name": "樱花资源ᴴ",
-      "api": "https://yhzy.cc/api.php/provide/vod",
-      "group": "综合",
-      "origin": "feed",
-      "enabled": true,
-      "state": "ok",
-      "latency_ms": 928,
-      "searchable": true,
-      "vods": 8,
-      "checked_at": "2026-11-27T07:12:18Z",
-      "history": [
-        {
-          "t": "2026-11-27T06:52:51Z",
-          "ok": true,
-          "ms": 945
-        },
-        {
-          "t": "2026-11-27T07:12:18Z",
-          "ok": true,
-          "ms": 928
-        }
-      ]
-    },
-    {
-      "id": "apiwujinapinet-768a",
-      "name": "无尽资源3",
-      "api": "https://api.wujinapi.net/api.php/provide/vod",
-      "group": "综合",
-      "origin": "feed",
-      "enabled": true,
-      "state": "ok",
-      "latency_ms": 250,
-      "searchable": true,
-      "vods": 9,
-      "checked_at": "2026-11-27T07:12:18Z",
-      "history": [
-        {
-          "t": "2026-11-27T06:52:51Z",
-          "ok": true,
-          "ms": 210
-        },
-        {
-          "t": "2026-11-27T07:12:18Z",
-          "ok": true,
-          "ms": 250
-        }
-      ]
-    },
-    {
-      "id": "xingba111com-38e3",
-      "name": "杏吧",
-      "api": "https://xingba111.com/api.php/provide/vod",
-      "group": "综合",
-      "origin": "feed",
-      "enabled": true,
-      "state": "ok",
-      "latency_ms": 618,
-      "searchable": true,
-      "vods": 20,
-      "checked_at": "2026-11-27T07:12:18Z",
-      "history": [
-        {
-          "t": "2026-11-27T06:52:51Z",
-          "ok": true,
-          "ms": 585
-        },
-        {
-          "t": "2026-11-27T07:12:18Z",
-          "ok": true,
-          "ms": 618
-        }
-      ]
-    },
-    {
-      "id": "apisouavzyvip-9f7c",
-      "name": "souav",
-      "api": "https://api.souavzy.vip/api.php/provide/vod",
-      "group": "综合",
-      "origin": "feed",
-      "enabled": true,
-      "state": "ok",
-      "latency_ms": 1725,
-      "searchable": true,
-      "vods": 2,
-      "checked_at": "2026-11-27T07:12:18Z",
-      "history": [
-        {
-          "t": "2026-11-27T06:52:51Z",
-          "ok": true,
-          "ms": 2077
-        },
-        {
-          "t": "2026-11-27T07:12:18Z",
-          "ok": true,
-          "ms": 1725
+          "ms": 226
         }
       ]
     },
@@ -2838,10 +2503,10 @@
       "origin": "feed",
       "enabled": true,
       "state": "ok",
-      "latency_ms": 3745,
+      "latency_ms": 3769,
       "searchable": false,
       "vods": 20,
-      "checked_at": "2026-11-27T07:12:18Z",
+      "checked_at": "2026-11-27T07:15:40Z",
       "history": [
         {
           "t": "2026-11-27T06:52:51Z",
@@ -2852,6 +2517,11 @@
           "t": "2026-11-27T07:12:18Z",
           "ok": true,
           "ms": 3745
+        },
+        {
+          "t": "2026-11-27T07:15:40Z",
+          "ok": true,
+          "ms": 3769
         }
       ]
     },
@@ -2863,10 +2533,10 @@
       "origin": "feed",
       "enabled": true,
       "state": "down",
-      "latency_ms": 3105,
+      "latency_ms": 3140,
       "searchable": false,
       "vods": 0,
-      "checked_at": "2026-11-27T07:12:18Z",
+      "checked_at": "2026-11-27T07:15:40Z",
       "history": [
         {
           "t": "2026-11-27T06:52:51Z",
@@ -2877,6 +2547,11 @@
           "t": "2026-11-27T07:12:18Z",
           "ok": false,
           "ms": 3105
+        },
+        {
+          "t": "2026-11-27T07:15:40Z",
+          "ok": false,
+          "ms": 3140
         }
       ]
     },
@@ -2888,10 +2563,10 @@
       "origin": "feed",
       "enabled": true,
       "state": "down",
-      "latency_ms": 4077,
+      "latency_ms": 4107,
       "searchable": false,
       "vods": 0,
-      "checked_at": "2026-11-27T07:12:18Z",
+      "checked_at": "2026-11-27T07:15:40Z",
       "history": [
         {
           "t": "2026-11-27T06:52:51Z",
@@ -2902,56 +2577,11 @@
           "t": "2026-11-27T07:12:18Z",
           "ok": false,
           "ms": 4077
-        }
-      ]
-    },
-    {
-      "id": "jjpzhafreydpdnsorg-bdb1",
-      "name": "U酷88",
-      "api": "https://jjpz.hafrey.dpdns.org/?url=https://api.ukuapi88.com/api.php/provide/vod",
-      "group": "综合",
-      "origin": "feed",
-      "enabled": true,
-      "state": "down",
-      "latency_ms": 3713,
-      "searchable": false,
-      "vods": 0,
-      "checked_at": "2026-11-27T07:12:18Z",
-      "history": [
-        {
-          "t": "2026-11-27T06:52:51Z",
-          "ok": false,
-          "ms": 3067
         },
         {
-          "t": "2026-11-27T07:12:18Z",
+          "t": "2026-11-27T07:15:40Z",
           "ok": false,
-          "ms": 3713
-        }
-      ]
-    },
-    {
-      "id": "apisexnguoncom-a993",
-      "name": "色南国",
-      "api": "https://api.sexnguon.com/api.php/provide/vod",
-      "group": "综合",
-      "origin": "feed",
-      "enabled": true,
-      "state": "down",
-      "latency_ms": 3262,
-      "searchable": false,
-      "vods": 0,
-      "checked_at": "2026-11-27T07:12:18Z",
-      "history": [
-        {
-          "t": "2026-11-27T06:52:51Z",
-          "ok": false,
-          "ms": 3186
-        },
-        {
-          "t": "2026-11-27T07:12:18Z",
-          "ok": false,
-          "ms": 3262
+          "ms": 4107
         }
       ]
     },
@@ -2963,10 +2593,10 @@
       "origin": "feed",
       "enabled": true,
       "state": "down",
-      "latency_ms": 3530,
+      "latency_ms": 3734,
       "searchable": false,
       "vods": 0,
-      "checked_at": "2026-11-27T07:12:18Z",
+      "checked_at": "2026-11-27T07:15:40Z",
       "history": [
         {
           "t": "2026-11-27T06:52:51Z",
@@ -2977,56 +2607,11 @@
           "t": "2026-11-27T07:12:18Z",
           "ok": false,
           "ms": 3530
-        }
-      ]
-    },
-    {
-      "id": "collectwolongzywcom-8d65",
-      "name": "卧龙资源1",
-      "api": "https://collect.wolongzyw.com/api.php/provide/vod",
-      "group": "综合",
-      "origin": "feed",
-      "enabled": true,
-      "state": "limited",
-      "latency_ms": 4742,
-      "searchable": false,
-      "vods": 0,
-      "checked_at": "2026-11-27T07:12:18Z",
-      "history": [
-        {
-          "t": "2026-11-27T06:52:51Z",
-          "ok": false,
-          "ms": 4416
         },
         {
-          "t": "2026-11-27T07:12:18Z",
+          "t": "2026-11-27T07:15:40Z",
           "ok": false,
-          "ms": 4742
-        }
-      ]
-    },
-    {
-      "id": "apizuiseapicom-cbc7",
-      "name": "最色",
-      "api": "https://api.zuiseapi.com/api.php/provide/vod",
-      "group": "综合",
-      "origin": "feed",
-      "enabled": true,
-      "state": "down",
-      "latency_ms": 3147,
-      "searchable": false,
-      "vods": 0,
-      "checked_at": "2026-11-27T07:12:18Z",
-      "history": [
-        {
-          "t": "2026-11-27T06:52:51Z",
-          "ok": false,
-          "ms": 3037
-        },
-        {
-          "t": "2026-11-27T07:12:18Z",
-          "ok": false,
-          "ms": 3147
+          "ms": 3734
         }
       ]
     }

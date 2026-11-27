@@ -2,39 +2,6 @@
   "spider": "",
   "sites": [
     {
-      "key": "jyzyapicom-f2b1",
-      "name": "金鹰",
-      "type": 3,
-      "api": "https://jyzyapi.com/provide/vod",
-      "searchable": 1,
-      "quickSearch": 1,
-      "filterable": 1,
-      "ext": "",
-      "group": "综合"
-    },
-    {
-      "key": "zuidaxyz",
-      "name": "最大",
-      "type": 3,
-      "api": "https://api.zuidapi.com/api.php/provide/vod",
-      "searchable": 1,
-      "quickSearch": 1,
-      "filterable": 1,
-      "ext": "",
-      "group": "综合"
-    },
-    {
-      "key": "wujinzyme",
-      "name": "无尽",
-      "type": 3,
-      "api": "https://api.wujinapi.me/api.php/provide/vod",
-      "searchable": 1,
-      "quickSearch": 1,
-      "filterable": 1,
-      "ext": "",
-      "group": "综合"
-    },
-    {
       "key": "ikunzycom",
       "name": "iKun",
       "type": 3,
@@ -57,32 +24,21 @@
       "group": "综合"
     },
     {
+      "key": "wujinzyme",
+      "name": "无尽",
+      "type": 3,
+      "api": "https://api.wujinapi.me/api.php/provide/vod",
+      "searchable": 1,
+      "quickSearch": 1,
+      "filterable": 1,
+      "ext": "",
+      "group": "综合"
+    },
+    {
       "key": "cdndzzyapicom-5909",
       "name": "大众资源采集接口",
       "type": 3,
       "api": "https://cdn.dzzyapi.com/api.php/provide/vod",
-      "searchable": 1,
-      "quickSearch": 1,
-      "filterable": 1,
-      "ext": "",
-      "group": "综合"
-    },
-    {
-      "key": "apiwujinapicc-9f92",
-      "name": "wujinapi无尽",
-      "type": 3,
-      "api": "https://api.wujinapi.cc/api.php/provide/vod",
-      "searchable": 1,
-      "quickSearch": 1,
-      "filterable": 1,
-      "ext": "",
-      "group": "综合"
-    },
-    {
-      "key": "apiwujinapinet-768a",
-      "name": "无尽资源3",
-      "type": 3,
-      "api": "https://api.wujinapi.net/api.php/provide/vod",
       "searchable": 1,
       "quickSearch": 1,
       "filterable": 1,
@@ -101,10 +57,10 @@
       "group": "综合"
     },
     {
-      "key": "yonghuffzyapi8com-bfb1",
-      "name": "无广1线 非凡",
+      "key": "ffzy5tv-e124",
+      "name": "非凡",
       "type": 3,
-      "api": "https://yonghu.ffzyapi8.com/api.php/provide/vod/from/ffm3u8/at/json",
+      "api": "https://ffzy5.tv/api.php/provide/vod",
       "searchable": 1,
       "quickSearch": 1,
       "filterable": 1,
@@ -121,6 +77,28 @@
       "filterable": 1,
       "ext": "",
       "group": "综合"
+    },
+    {
+      "key": "ukuapi88com",
+      "name": "U酷影视",
+      "type": 3,
+      "api": "https://api.ukuapi88.com/api.php/provide/vod",
+      "searchable": 1,
+      "quickSearch": 1,
+      "filterable": 1,
+      "ext": "",
+      "group": "综合"
+    },
+    {
+      "key": "moduapicc",
+      "name": "魔都动漫",
+      "type": 3,
+      "api": "https://caiji.moduapi.cc/api.php/provide/vod",
+      "searchable": 1,
+      "quickSearch": 1,
+      "filterable": 1,
+      "ext": "",
+      "group": "动漫"
     },
     {
       "key": "api1080zykucom-c6d5",
@@ -145,48 +123,15 @@
       "group": "综合"
     },
     {
-      "key": "ukuapi88com",
-      "name": "U酷影视",
+      "key": "jinyingzycom",
+      "name": "金鹰点播",
       "type": 3,
-      "api": "https://api.ukuapi88.com/api.php/provide/vod",
+      "api": "https://jinyingzy.com/api.php/provide/vod",
       "searchable": 1,
       "quickSearch": 1,
       "filterable": 1,
       "ext": "",
       "group": "综合"
-    },
-    {
-      "key": "apiyzzy-apicom-97cf",
-      "name": "优质",
-      "type": 3,
-      "api": "https://api.yzzy-api.com/inc/apijson.php",
-      "searchable": 1,
-      "quickSearch": 1,
-      "filterable": 1,
-      "ext": "",
-      "group": "综合"
-    },
-    {
-      "key": "guangsuapicom",
-      "name": "光速",
-      "type": 3,
-      "api": "https://api.guangsuapi.com/api.php/provide/vod",
-      "searchable": 1,
-      "quickSearch": 1,
-      "filterable": 1,
-      "ext": "",
-      "group": "综合"
-    },
-    {
-      "key": "moduapicc",
-      "name": "魔都动漫",
-      "type": 3,
-      "api": "https://caiji.moduapi.cc/api.php/provide/vod",
-      "searchable": 1,
-      "quickSearch": 1,
-      "filterable": 1,
-      "ext": "",
-      "group": "动漫"
     },
     {
       "key": "xinlangapicom",
@@ -211,76 +156,21 @@
       "group": "综合"
     },
     {
+      "key": "guangsuapicom",
+      "name": "光速",
+      "type": 3,
+      "api": "https://api.guangsuapi.com/api.php/provide/vod",
+      "searchable": 1,
+      "quickSearch": 1,
+      "filterable": 1,
+      "ext": "",
+      "group": "综合"
+    },
+    {
       "key": "huyazynet-7cd2",
       "name": "虎牙",
       "type": 3,
       "api": "https://huyazy.net/api.php/provide/vod",
-      "searchable": 1,
-      "quickSearch": 1,
-      "filterable": 1,
-      "ext": "",
-      "group": "综合"
-    },
-    {
-      "key": "jinyingzycom",
-      "name": "金鹰点播",
-      "type": 3,
-      "api": "https://jinyingzy.com/api.php/provide/vod",
-      "searchable": 1,
-      "quickSearch": 1,
-      "filterable": 1,
-      "ext": "",
-      "group": "综合"
-    },
-    {
-      "key": "subozycom",
-      "name": "速播",
-      "type": 3,
-      "api": "https://subocaiji.com/api.php/provide/vod",
-      "searchable": 1,
-      "quickSearch": 1,
-      "filterable": 1,
-      "ext": "",
-      "group": "综合"
-    },
-    {
-      "key": "xingba111com-38e3",
-      "name": "杏吧",
-      "type": 3,
-      "api": "https://xingba111.com/api.php/provide/vod",
-      "searchable": 1,
-      "quickSearch": 1,
-      "filterable": 1,
-      "ext": "",
-      "group": "综合"
-    },
-    {
-      "key": "maoyanzycom",
-      "name": "猫眼",
-      "type": 3,
-      "api": "https://api.maoyanapi.top/api.php/provide/vod",
-      "searchable": 1,
-      "quickSearch": 1,
-      "filterable": 1,
-      "ext": "",
-      "group": "综合"
-    },
-    {
-      "key": "360zycom",
-      "name": "360",
-      "type": 3,
-      "api": "https://360zyzz.com/api.php/provide/vod",
-      "searchable": 1,
-      "quickSearch": 1,
-      "filterable": 1,
-      "ext": "",
-      "group": "综合"
-    },
-    {
-      "key": "bfzytv",
-      "name": "暴风",
-      "type": 3,
-      "api": "https://bfzyapi.com/api.php/provide/vod",
       "searchable": 1,
       "quickSearch": 1,
       "filterable": 1,
@@ -299,10 +189,10 @@
       "group": "综合"
     },
     {
-      "key": "yhzycc-b3a5",
-      "name": "樱花资源ᴴ",
+      "key": "subozycom",
+      "name": "速播",
       "type": 3,
-      "api": "https://yhzy.cc/api.php/provide/vod",
+      "api": "https://subocaiji.com/api.php/provide/vod",
       "searchable": 1,
       "quickSearch": 1,
       "filterable": 1,
@@ -310,10 +200,32 @@
       "group": "综合"
     },
     {
-      "key": "jipinvip1com-390b",
-      "name": "新极品",
+      "key": "maoyanzycom",
+      "name": "猫眼",
       "type": 3,
-      "api": "https://jipinvip1.com/api.php/provide/vod",
+      "api": "https://api.maoyanapi.top/api.php/provide/vod",
+      "searchable": 1,
+      "quickSearch": 1,
+      "filterable": 1,
+      "ext": "",
+      "group": "综合"
+    },
+    {
+      "key": "bfzytv",
+      "name": "暴风",
+      "type": 3,
+      "api": "https://bfzyapi.com/api.php/provide/vod",
+      "searchable": 1,
+      "quickSearch": 1,
+      "filterable": 1,
+      "ext": "",
+      "group": "综合"
+    },
+    {
+      "key": "360zycom",
+      "name": "360",
+      "type": 3,
+      "api": "https://360zyzz.com/api.php/provide/vod",
       "searchable": 1,
       "quickSearch": 1,
       "filterable": 1,
@@ -343,21 +255,10 @@
       "group": "综合"
     },
     {
-      "key": "ffzy5tv-e124",
-      "name": "非凡",
+      "key": "jipinvip1com-390b",
+      "name": "新极品",
       "type": 3,
-      "api": "https://ffzy5.tv/api.php/provide/vod",
-      "searchable": 1,
-      "quickSearch": 1,
-      "filterable": 1,
-      "ext": "",
-      "group": "综合"
-    },
-    {
-      "key": "lzizynet",
-      "name": "量子备用",
-      "type": 3,
-      "api": "https://cj.lziapi.com/api.php/provide/vod",
+      "api": "https://jipinvip1.com/api.php/provide/vod",
       "searchable": 1,
       "quickSearch": 1,
       "filterable": 1,
@@ -376,10 +277,10 @@
       "group": "综合"
     },
     {
-      "key": "lzcaijicom",
-      "name": "量子",
+      "key": "lzizynet",
+      "name": "量子备用",
       "type": 3,
-      "api": "https://cj.lzcaiji.com/api.php/provide/vod",
+      "api": "https://cj.lziapi.com/api.php/provide/vod",
       "searchable": 1,
       "quickSearch": 1,
       "filterable": 1,
@@ -391,17 +292,6 @@
       "name": "如意",
       "type": 3,
       "api": "https://cj.rycjapi.com/api.php/provide/vod",
-      "searchable": 1,
-      "quickSearch": 1,
-      "filterable": 1,
-      "ext": "",
-      "group": "综合"
-    },
-    {
-      "key": "apisouavzyvip-9f7c",
-      "name": "souav",
-      "type": 3,
-      "api": "https://api.souavzy.vip/api.php/provide/vod",
       "searchable": 1,
       "quickSearch": 1,
       "filterable": 1,
@@ -442,17 +332,6 @@
       "group": "综合"
     },
     {
-      "key": "apivnzyzcom-e8d7",
-      "name": "越南",
-      "type": 3,
-      "api": "https://api.vnzyz.com/api.php/provide/vod",
-      "searchable": 0,
-      "quickSearch": 0,
-      "filterable": 1,
-      "ext": "",
-      "group": "综合"
-    },
-    {
       "key": "tyyszycom",
       "name": "天涯",
       "type": 3,
@@ -464,43 +343,10 @@
       "group": "综合"
     },
     {
-      "key": "kuaichezycom",
-      "name": "快车",
+      "key": "apivnzyzcom-e8d7",
+      "name": "越南",
       "type": 3,
-      "api": "https://caiji.kuaichezy.org/api.php/provide/vod",
-      "searchable": 0,
-      "quickSearch": 0,
-      "filterable": 1,
-      "ext": "",
-      "group": "综合"
-    },
-    {
-      "key": "yayazycom",
-      "name": "鸭鸭",
-      "type": 3,
-      "api": "https://cj.yayazy.net/api.php/provide/vod",
-      "searchable": 0,
-      "quickSearch": 0,
-      "filterable": 1,
-      "ext": "",
-      "group": "综合"
-    },
-    {
-      "key": "apiwsyzynet-4a1d",
-      "name": "无水印资源网采集接口",
-      "type": 3,
-      "api": "https://api.wsyzy.net/api.php/provide/vod",
-      "searchable": 0,
-      "quickSearch": 0,
-      "filterable": 1,
-      "ext": "",
-      "group": "综合"
-    },
-    {
-      "key": "apiokzywnet-56b8",
-      "name": "OK",
-      "type": 3,
-      "api": "https://api.okzyw.net/api.php/provide/vod",
+      "api": "https://api.vnzyz.com/api.php/provide/vod",
       "searchable": 0,
       "quickSearch": 0,
       "filterable": 1,
@@ -519,10 +365,54 @@
       "group": "综合"
     },
     {
+      "key": "apiwsyzynet-4a1d",
+      "name": "无水印资源网采集接口",
+      "type": 3,
+      "api": "https://api.wsyzy.net/api.php/provide/vod",
+      "searchable": 0,
+      "quickSearch": 0,
+      "filterable": 1,
+      "ext": "",
+      "group": "综合"
+    },
+    {
+      "key": "yayazycom",
+      "name": "鸭鸭",
+      "type": 3,
+      "api": "https://cj.yayazy.net/api.php/provide/vod",
+      "searchable": 0,
+      "quickSearch": 0,
+      "filterable": 1,
+      "ext": "",
+      "group": "综合"
+    },
+    {
+      "key": "apiokzywnet-56b8",
+      "name": "OK",
+      "type": 3,
+      "api": "https://api.okzyw.net/api.php/provide/vod",
+      "searchable": 0,
+      "quickSearch": 0,
+      "filterable": 1,
+      "ext": "",
+      "group": "综合"
+    },
+    {
       "key": "apiniuniuzyme-c64e",
       "name": "牛牛",
       "type": 3,
       "api": "https://api.niuniuzy.me/api.php/provide/vod",
+      "searchable": 0,
+      "quickSearch": 0,
+      "filterable": 1,
+      "ext": "",
+      "group": "综合"
+    },
+    {
+      "key": "kuaichezycom",
+      "name": "快车",
+      "type": 3,
+      "api": "https://caiji.kuaichezy.org/api.php/provide/vod",
       "searchable": 0,
       "quickSearch": 0,
       "filterable": 1,
