@@ -347,7 +347,11 @@
   function runProbe(api, onProgress) {
     if (onProgress) onProgress('检测中…');
     return quickProbe(api).then(function (quick) {
-      if (quick.ok || !state.token) return quick;
+      if (quick.ok) return quick;
+      if (!state.token) {
+        quick.note = '浏览器跨域受限（设置令牌可改用云端检测）';
+        return quick;
+      }
       if (onProgress) onProgress('云端检测中…（约 1 分钟）');
       return cloudProbe(api, onProgress).then(function (d) {
         return { ok: d.state === 'ok' || d.state === 'limited', ms: d.latency_ms, vods: d.vods, via: '云端', state: d.state };
