@@ -1,14 +1,14 @@
 {
-  "updated_at": "2026-11-27T06:29:34Z",
-  "next_update_at": "2026-12-04T06:29:34Z",
+  "updated_at": "2026-11-27T06:38:53Z",
+  "next_update_at": "2026-12-04T06:38:53Z",
   "interval_hours": 168,
   "total": 69,
-  "alive": 30,
-  "unverified": 3,
-  "dead": 36,
+  "alive": 46,
+  "unverified": 4,
+  "dead": 19,
   "from_feed": 35,
   "deduped": 114,
-  "duration_ms": 169236,
+  "duration_ms": 69209,
   "sources": [
     {
       "id": "1080zyk_com",
@@ -18,10 +18,10 @@
       "origin": "manual",
       "enabled": true,
       "state": "ok",
-      "latency_ms": 1434,
+      "latency_ms": 443,
       "searchable": true,
       "vods": 20,
-      "checked_at": "2026-11-27T06:29:34Z",
+      "checked_at": "2026-11-27T06:38:53Z",
       "history": [
         {
           "t": "2026-11-27T13:52:02+08:00",
@@ -47,6 +47,11 @@
           "t": "2026-11-27T14:29:34+08:00",
           "ok": true,
           "ms": 1434
+        },
+        {
+          "t": "2026-11-27T06:38:53Z",
+          "ok": true,
+          "ms": 443
         }
       ]
     },
@@ -58,10 +63,10 @@
       "origin": "manual",
       "enabled": true,
       "state": "ok",
-      "latency_ms": 1019,
+      "latency_ms": 1968,
       "searchable": true,
       "vods": 2,
-      "checked_at": "2026-11-27T06:29:34Z",
+      "checked_at": "2026-11-27T06:38:53Z",
       "history": [
         {
           "t": "2026-11-27T13:52:02+08:00",
@@ -87,6 +92,11 @@
           "t": "2026-11-27T14:29:34+08:00",
           "ok": true,
           "ms": 1019
+        },
+        {
+          "t": "2026-11-27T06:38:53Z",
+          "ok": true,
+          "ms": 1968
         }
       ]
     },
@@ -98,10 +108,10 @@
       "origin": "manual",
       "enabled": true,
       "state": "down",
-      "latency_ms": 3310,
+      "latency_ms": 3486,
       "searchable": false,
       "vods": 0,
-      "checked_at": "2026-11-27T06:29:34Z",
+      "checked_at": "2026-11-27T06:38:53Z",
       "history": [
         {
           "t": "2026-11-27T13:52:02+08:00",
@@ -127,6 +137,11 @@
           "t": "2026-11-27T14:29:34+08:00",
           "ok": false,
           "ms": 3310
+        },
+        {
+          "t": "2026-11-27T06:38:53Z",
+          "ok": false,
+          "ms": 3486
         }
       ]
     },
@@ -138,10 +153,10 @@
       "origin": "manual",
       "enabled": true,
       "state": "ok",
-      "latency_ms": 8560,
+      "latency_ms": 6373,
       "searchable": false,
       "vods": 20,
-      "checked_at": "2026-11-27T06:29:34Z",
+      "checked_at": "2026-11-27T06:38:53Z",
       "history": [
         {
           "t": "2026-11-27T13:52:02+08:00",
@@ -167,6 +182,11 @@
           "t": "2026-11-27T14:29:34+08:00",
           "ok": true,
           "ms": 8560
+        },
+        {
+          "t": "2026-11-27T06:38:53Z",
+          "ok": true,
+          "ms": 6373
         }
       ]
     },
@@ -177,11 +197,11 @@
       "group": "综合",
       "origin": "manual",
       "enabled": true,
-      "state": "down",
-      "latency_ms": 5008,
-      "searchable": false,
-      "vods": 0,
-      "checked_at": "2026-11-27T06:29:34Z",
+      "state": "ok",
+      "latency_ms": 683,
+      "searchable": true,
+      "vods": 3,
+      "checked_at": "2026-11-27T06:38:53Z",
       "history": [
         {
           "t": "2026-11-27T13:52:02+08:00",
@@ -207,6 +227,11 @@
           "t": "2026-11-27T14:29:34+08:00",
           "ok": false,
           "ms": 5008
+        },
+        {
+          "t": "2026-11-27T06:38:53Z",
+          "ok": true,
+          "ms": 683
         }
       ]
     },
@@ -218,10 +243,10 @@
       "origin": "manual",
       "enabled": true,
       "state": "down",
-      "latency_ms": 4589,
+      "latency_ms": 3366,
       "searchable": false,
       "vods": 0,
-      "checked_at": "2026-11-27T06:29:34Z",
+      "checked_at": "2026-11-27T06:38:53Z",
       "history": [
         {
           "t": "2026-11-27T13:52:02+08:00",
@@ -247,6 +272,11 @@
           "t": "2026-11-27T14:29:34+08:00",
           "ok": false,
           "ms": 4589
+        },
+        {
+          "t": "2026-11-27T06:38:53Z",
+          "ok": false,
+          "ms": 3366
         }
       ]
     },
@@ -258,10 +288,10 @@
       "origin": "manual",
       "enabled": true,
       "state": "ok",
-      "latency_ms": 493,
+      "latency_ms": 727,
       "searchable": true,
       "vods": 1,
-      "checked_at": "2026-11-27T06:29:34Z",
+      "checked_at": "2026-11-27T06:38:53Z",
       "history": [
         {
           "t": "2026-11-27T13:52:02+08:00",
@@ -287,6 +317,11 @@
           "t": "2026-11-27T14:29:34+08:00",
           "ok": true,
           "ms": 493
+        },
+        {
+          "t": "2026-11-27T06:38:53Z",
+          "ok": true,
+          "ms": 727
         }
       ]
     },
@@ -297,11 +332,11 @@
       "group": "综合",
       "origin": "manual",
       "enabled": true,
-      "state": "down",
-      "latency_ms": 7479,
-      "searchable": false,
-      "vods": 0,
-      "checked_at": "2026-11-27T06:29:34Z",
+      "state": "ok",
+      "latency_ms": 1566,
+      "searchable": true,
+      "vods": 20,
+      "checked_at": "2026-11-27T06:38:53Z",
       "history": [
         {
           "t": "2026-11-27T13:52:02+08:00",
@@ -327,6 +362,11 @@
           "t": "2026-11-27T14:29:34+08:00",
           "ok": false,
           "ms": 7479
+        },
+        {
+          "t": "2026-11-27T06:38:53Z",
+          "ok": true,
+          "ms": 1566
         }
       ]
     },
@@ -338,10 +378,10 @@
       "origin": "manual",
       "enabled": true,
       "state": "ok",
-      "latency_ms": 945,
+      "latency_ms": 884,
       "searchable": true,
       "vods": 3,
-      "checked_at": "2026-11-27T06:29:34Z",
+      "checked_at": "2026-11-27T06:38:53Z",
       "history": [
         {
           "t": "2026-11-27T13:52:02+08:00",
@@ -367,6 +407,11 @@
           "t": "2026-11-27T14:29:34+08:00",
           "ok": true,
           "ms": 945
+        },
+        {
+          "t": "2026-11-27T06:38:53Z",
+          "ok": true,
+          "ms": 884
         }
       ]
     },
@@ -377,11 +422,11 @@
       "group": "综合",
       "origin": "manual",
       "enabled": true,
-      "state": "down",
-      "latency_ms": 4732,
-      "searchable": false,
-      "vods": 0,
-      "checked_at": "2026-11-27T06:29:34Z",
+      "state": "ok",
+      "latency_ms": 272,
+      "searchable": true,
+      "vods": 8,
+      "checked_at": "2026-11-27T06:38:53Z",
       "history": [
         {
           "t": "2026-11-27T13:52:02+08:00",
@@ -407,6 +452,11 @@
           "t": "2026-11-27T14:29:34+08:00",
           "ok": false,
           "ms": 4732
+        },
+        {
+          "t": "2026-11-27T06:38:53Z",
+          "ok": true,
+          "ms": 272
         }
       ]
     },
@@ -418,10 +468,10 @@
       "origin": "manual",
       "enabled": true,
       "state": "ok",
-      "latency_ms": 1325,
+      "latency_ms": 299,
       "searchable": true,
       "vods": 3,
-      "checked_at": "2026-11-27T06:29:34Z",
+      "checked_at": "2026-11-27T06:38:53Z",
       "history": [
         {
           "t": "2026-11-27T13:52:02+08:00",
@@ -447,6 +497,11 @@
           "t": "2026-11-27T14:29:34+08:00",
           "ok": true,
           "ms": 1325
+        },
+        {
+          "t": "2026-11-27T06:38:53Z",
+          "ok": true,
+          "ms": 299
         }
       ]
     },
@@ -458,10 +513,10 @@
       "origin": "manual",
       "enabled": true,
       "state": "down",
-      "latency_ms": 9208,
+      "latency_ms": 3876,
       "searchable": false,
       "vods": 0,
-      "checked_at": "2026-11-27T06:29:34Z",
+      "checked_at": "2026-11-27T06:38:53Z",
       "history": [
         {
           "t": "2026-11-27T13:52:02+08:00",
@@ -487,6 +542,11 @@
           "t": "2026-11-27T14:29:34+08:00",
           "ok": false,
           "ms": 9208
+        },
+        {
+          "t": "2026-11-27T06:38:53Z",
+          "ok": false,
+          "ms": 3876
         }
       ]
     },
@@ -497,11 +557,11 @@
       "group": "综合",
       "origin": "manual",
       "enabled": true,
-      "state": "down",
-      "latency_ms": 33003,
-      "searchable": false,
-      "vods": 0,
-      "checked_at": "2026-11-27T06:29:34Z",
+      "state": "ok",
+      "latency_ms": 833,
+      "searchable": true,
+      "vods": 20,
+      "checked_at": "2026-11-27T06:38:53Z",
       "history": [
         {
           "t": "2026-11-27T13:52:02+08:00",
@@ -527,6 +587,11 @@
           "t": "2026-11-27T14:29:34+08:00",
           "ok": false,
           "ms": 33003
+        },
+        {
+          "t": "2026-11-27T06:38:53Z",
+          "ok": true,
+          "ms": 833
         }
       ]
     },
@@ -538,10 +603,10 @@
       "origin": "manual",
       "enabled": true,
       "state": "ok",
-      "latency_ms": 1064,
+      "latency_ms": 144,
       "searchable": true,
       "vods": 20,
-      "checked_at": "2026-11-27T06:29:34Z",
+      "checked_at": "2026-11-27T06:38:53Z",
       "history": [
         {
           "t": "2026-11-27T13:52:02+08:00",
@@ -567,6 +632,11 @@
           "t": "2026-11-27T14:29:34+08:00",
           "ok": true,
           "ms": 1064
+        },
+        {
+          "t": "2026-11-27T06:38:53Z",
+          "ok": true,
+          "ms": 144
         }
       ]
     },
@@ -577,11 +647,11 @@
       "group": "综合",
       "origin": "manual",
       "enabled": true,
-      "state": "down",
-      "latency_ms": 4680,
-      "searchable": false,
-      "vods": 0,
-      "checked_at": "2026-11-27T06:29:34Z",
+      "state": "ok",
+      "latency_ms": 275,
+      "searchable": true,
+      "vods": 9,
+      "checked_at": "2026-11-27T06:38:53Z",
       "history": [
         {
           "t": "2026-11-27T13:52:02+08:00",
@@ -607,6 +677,11 @@
           "t": "2026-11-27T14:29:34+08:00",
           "ok": false,
           "ms": 4680
+        },
+        {
+          "t": "2026-11-27T06:38:53Z",
+          "ok": true,
+          "ms": 275
         }
       ]
     },
@@ -617,11 +692,11 @@
       "group": "综合",
       "origin": "manual",
       "enabled": true,
-      "state": "down",
-      "latency_ms": 33002,
-      "searchable": false,
-      "vods": 0,
-      "checked_at": "2026-11-27T06:29:34Z",
+      "state": "ok",
+      "latency_ms": 336,
+      "searchable": true,
+      "vods": 8,
+      "checked_at": "2026-11-27T06:38:53Z",
       "history": [
         {
           "t": "2026-11-27T13:52:02+08:00",
@@ -647,6 +722,11 @@
           "t": "2026-11-27T14:29:34+08:00",
           "ok": false,
           "ms": 33002
+        },
+        {
+          "t": "2026-11-27T06:38:53Z",
+          "ok": true,
+          "ms": 336
         }
       ]
     },
@@ -658,10 +738,10 @@
       "origin": "manual",
       "enabled": true,
       "state": "ok",
-      "latency_ms": 5614,
+      "latency_ms": 3550,
       "searchable": false,
       "vods": 20,
-      "checked_at": "2026-11-27T06:29:34Z",
+      "checked_at": "2026-11-27T06:38:53Z",
       "history": [
         {
           "t": "2026-11-27T13:52:02+08:00",
@@ -687,6 +767,11 @@
           "t": "2026-11-27T14:29:34+08:00",
           "ok": true,
           "ms": 5614
+        },
+        {
+          "t": "2026-11-27T06:38:53Z",
+          "ok": true,
+          "ms": 3550
         }
       ]
     },
@@ -697,11 +782,11 @@
       "group": "综合",
       "origin": "manual",
       "enabled": true,
-      "state": "down",
-      "latency_ms": 33004,
-      "searchable": false,
-      "vods": 0,
-      "checked_at": "2026-11-27T06:29:34Z",
+      "state": "ok",
+      "latency_ms": 577,
+      "searchable": true,
+      "vods": 8,
+      "checked_at": "2026-11-27T06:38:53Z",
       "history": [
         {
           "t": "2026-11-27T13:52:02+08:00",
@@ -727,6 +812,11 @@
           "t": "2026-11-27T14:29:34+08:00",
           "ok": false,
           "ms": 33004
+        },
+        {
+          "t": "2026-11-27T06:38:53Z",
+          "ok": true,
+          "ms": 577
         }
       ]
     },
@@ -738,10 +828,10 @@
       "origin": "manual",
       "enabled": true,
       "state": "ok",
-      "latency_ms": 1448,
+      "latency_ms": 426,
       "searchable": true,
       "vods": 8,
-      "checked_at": "2026-11-27T06:29:34Z",
+      "checked_at": "2026-11-27T06:38:53Z",
       "history": [
         {
           "t": "2026-11-27T13:52:02+08:00",
@@ -767,6 +857,11 @@
           "t": "2026-11-27T14:29:34+08:00",
           "ok": true,
           "ms": 1448
+        },
+        {
+          "t": "2026-11-27T06:38:53Z",
+          "ok": true,
+          "ms": 426
         }
       ]
     },
@@ -777,11 +872,11 @@
       "group": "综合",
       "origin": "manual",
       "enabled": true,
-      "state": "limited",
-      "latency_ms": 15934,
+      "state": "down",
+      "latency_ms": 3127,
       "searchable": false,
       "vods": 0,
-      "checked_at": "2026-11-27T06:29:34Z",
+      "checked_at": "2026-11-27T06:38:53Z",
       "history": [
         {
           "t": "2026-11-27T13:52:02+08:00",
@@ -807,6 +902,11 @@
           "t": "2026-11-27T14:29:34+08:00",
           "ok": false,
           "ms": 15934
+        },
+        {
+          "t": "2026-11-27T06:38:53Z",
+          "ok": false,
+          "ms": 3127
         }
       ]
     },
@@ -818,10 +918,10 @@
       "origin": "manual",
       "enabled": true,
       "state": "ok",
-      "latency_ms": 1413,
+      "latency_ms": 367,
       "searchable": true,
       "vods": 3,
-      "checked_at": "2026-11-27T06:29:34Z",
+      "checked_at": "2026-11-27T06:38:53Z",
       "history": [
         {
           "t": "2026-11-27T13:52:02+08:00",
@@ -847,6 +947,11 @@
           "t": "2026-11-27T14:29:34+08:00",
           "ok": true,
           "ms": 1413
+        },
+        {
+          "t": "2026-11-27T06:38:53Z",
+          "ok": true,
+          "ms": 367
         }
       ]
     },
@@ -857,11 +962,11 @@
       "group": "综合",
       "origin": "manual",
       "enabled": true,
-      "state": "down",
-      "latency_ms": 5424,
-      "searchable": false,
-      "vods": 0,
-      "checked_at": "2026-11-27T06:29:34Z",
+      "state": "ok",
+      "latency_ms": 376,
+      "searchable": true,
+      "vods": 8,
+      "checked_at": "2026-11-27T06:38:53Z",
       "history": [
         {
           "t": "2026-11-27T13:52:02+08:00",
@@ -887,6 +992,11 @@
           "t": "2026-11-27T14:29:34+08:00",
           "ok": false,
           "ms": 5424
+        },
+        {
+          "t": "2026-11-27T06:38:53Z",
+          "ok": true,
+          "ms": 376
         }
       ]
     },
@@ -898,10 +1008,10 @@
       "origin": "manual",
       "enabled": true,
       "state": "ok",
-      "latency_ms": 1338,
+      "latency_ms": 220,
       "searchable": true,
       "vods": 8,
-      "checked_at": "2026-11-27T06:29:34Z",
+      "checked_at": "2026-11-27T06:38:53Z",
       "history": [
         {
           "t": "2026-11-27T13:52:02+08:00",
@@ -927,6 +1037,11 @@
           "t": "2026-11-27T14:29:34+08:00",
           "ok": true,
           "ms": 1338
+        },
+        {
+          "t": "2026-11-27T06:38:53Z",
+          "ok": true,
+          "ms": 220
         }
       ]
     },
@@ -938,10 +1053,10 @@
       "origin": "manual",
       "enabled": true,
       "state": "ok",
-      "latency_ms": 1091,
+      "latency_ms": 311,
       "searchable": true,
       "vods": 3,
-      "checked_at": "2026-11-27T06:29:34Z",
+      "checked_at": "2026-11-27T06:38:53Z",
       "history": [
         {
           "t": "2026-11-27T13:52:02+08:00",
@@ -967,6 +1082,11 @@
           "t": "2026-11-27T14:29:34+08:00",
           "ok": true,
           "ms": 1091
+        },
+        {
+          "t": "2026-11-27T06:38:53Z",
+          "ok": true,
+          "ms": 311
         }
       ]
     },
@@ -977,11 +1097,11 @@
       "group": "综合",
       "origin": "manual",
       "enabled": true,
-      "state": "down",
-      "latency_ms": 4376,
-      "searchable": false,
-      "vods": 0,
-      "checked_at": "2026-11-27T06:29:34Z",
+      "state": "ok",
+      "latency_ms": 1581,
+      "searchable": true,
+      "vods": 3,
+      "checked_at": "2026-11-27T06:38:53Z",
       "history": [
         {
           "t": "2026-11-27T13:52:02+08:00",
@@ -1007,6 +1127,11 @@
           "t": "2026-11-27T14:29:34+08:00",
           "ok": false,
           "ms": 4376
+        },
+        {
+          "t": "2026-11-27T06:38:53Z",
+          "ok": true,
+          "ms": 1581
         }
       ]
     },
@@ -1018,10 +1143,10 @@
       "origin": "manual",
       "enabled": true,
       "state": "ok",
-      "latency_ms": 993,
+      "latency_ms": 348,
       "searchable": true,
       "vods": 8,
-      "checked_at": "2026-11-27T06:29:34Z",
+      "checked_at": "2026-11-27T06:38:53Z",
       "history": [
         {
           "t": "2026-11-27T13:52:02+08:00",
@@ -1047,6 +1172,11 @@
           "t": "2026-11-27T14:29:34+08:00",
           "ok": true,
           "ms": 993
+        },
+        {
+          "t": "2026-11-27T06:38:53Z",
+          "ok": true,
+          "ms": 348
         }
       ]
     },
@@ -1057,11 +1187,11 @@
       "group": "综合",
       "origin": "manual",
       "enabled": true,
-      "state": "ok",
-      "latency_ms": 2602,
-      "searchable": true,
-      "vods": 2,
-      "checked_at": "2026-11-27T06:29:34Z",
+      "state": "down",
+      "latency_ms": 3126,
+      "searchable": false,
+      "vods": 0,
+      "checked_at": "2026-11-27T06:38:53Z",
       "history": [
         {
           "t": "2026-11-27T13:52:02+08:00",
@@ -1087,6 +1217,11 @@
           "t": "2026-11-27T14:29:34+08:00",
           "ok": true,
           "ms": 2602
+        },
+        {
+          "t": "2026-11-27T06:38:53Z",
+          "ok": false,
+          "ms": 3126
         }
       ]
     },
@@ -1098,10 +1233,10 @@
       "origin": "manual",
       "enabled": true,
       "state": "down",
-      "latency_ms": 4968,
+      "latency_ms": 3131,
       "searchable": false,
       "vods": 0,
-      "checked_at": "2026-11-27T06:29:34Z",
+      "checked_at": "2026-11-27T06:38:53Z",
       "history": [
         {
           "t": "2026-11-27T13:52:02+08:00",
@@ -1127,6 +1262,11 @@
           "t": "2026-11-27T14:29:34+08:00",
           "ok": false,
           "ms": 4968
+        },
+        {
+          "t": "2026-11-27T06:38:53Z",
+          "ok": false,
+          "ms": 3131
         }
       ]
     },
@@ -1137,11 +1277,11 @@
       "group": "综合",
       "origin": "manual",
       "enabled": true,
-      "state": "down",
-      "latency_ms": 23823,
-      "searchable": false,
-      "vods": 0,
-      "checked_at": "2026-11-27T06:29:34Z",
+      "state": "ok",
+      "latency_ms": 1299,
+      "searchable": true,
+      "vods": 20,
+      "checked_at": "2026-11-27T06:38:53Z",
       "history": [
         {
           "t": "2026-11-27T13:52:02+08:00",
@@ -1167,6 +1307,11 @@
           "t": "2026-11-27T14:29:34+08:00",
           "ok": false,
           "ms": 23823
+        },
+        {
+          "t": "2026-11-27T06:38:53Z",
+          "ok": true,
+          "ms": 1299
         }
       ]
     },
@@ -1177,11 +1322,11 @@
       "group": "综合",
       "origin": "manual",
       "enabled": true,
-      "state": "down",
-      "latency_ms": 18677,
-      "searchable": false,
-      "vods": 0,
-      "checked_at": "2026-11-27T06:29:34Z",
+      "state": "ok",
+      "latency_ms": 414,
+      "searchable": true,
+      "vods": 20,
+      "checked_at": "2026-11-27T06:38:53Z",
       "history": [
         {
           "t": "2026-11-27T13:52:02+08:00",
@@ -1207,6 +1352,11 @@
           "t": "2026-11-27T14:29:34+08:00",
           "ok": false,
           "ms": 18677
+        },
+        {
+          "t": "2026-11-27T06:38:53Z",
+          "ok": true,
+          "ms": 414
         }
       ]
     },
@@ -1218,10 +1368,10 @@
       "origin": "manual",
       "enabled": true,
       "state": "ok",
-      "latency_ms": 6304,
+      "latency_ms": 3770,
       "searchable": false,
       "vods": 20,
-      "checked_at": "2026-11-27T06:29:34Z",
+      "checked_at": "2026-11-27T06:38:53Z",
       "history": [
         {
           "t": "2026-11-27T13:52:02+08:00",
@@ -1247,6 +1397,11 @@
           "t": "2026-11-27T14:29:34+08:00",
           "ok": true,
           "ms": 6304
+        },
+        {
+          "t": "2026-11-27T06:38:53Z",
+          "ok": true,
+          "ms": 3770
         }
       ]
     },
@@ -1257,11 +1412,11 @@
       "group": "综合",
       "origin": "manual",
       "enabled": true,
-      "state": "down",
-      "latency_ms": 33004,
+      "state": "ok",
+      "latency_ms": 3983,
       "searchable": false,
-      "vods": 0,
-      "checked_at": "2026-11-27T06:29:34Z",
+      "vods": 20,
+      "checked_at": "2026-11-27T06:38:53Z",
       "history": [
         {
           "t": "2026-11-27T13:52:02+08:00",
@@ -1287,6 +1442,11 @@
           "t": "2026-11-27T14:29:34+08:00",
           "ok": false,
           "ms": 33004
+        },
+        {
+          "t": "2026-11-27T06:38:53Z",
+          "ok": true,
+          "ms": 3983
         }
       ]
     },
@@ -1297,11 +1457,11 @@
       "group": "综合",
       "origin": "manual",
       "enabled": true,
-      "state": "down",
-      "latency_ms": 13031,
+      "state": "ok",
+      "latency_ms": 3820,
       "searchable": false,
-      "vods": 0,
-      "checked_at": "2026-11-27T06:29:34Z",
+      "vods": 20,
+      "checked_at": "2026-11-27T06:38:53Z",
       "history": [
         {
           "t": "2026-11-27T13:52:02+08:00",
@@ -1327,6 +1487,11 @@
           "t": "2026-11-27T14:29:34+08:00",
           "ok": false,
           "ms": 13031
+        },
+        {
+          "t": "2026-11-27T06:38:53Z",
+          "ok": true,
+          "ms": 3820
         }
       ]
     },
@@ -1337,11 +1502,11 @@
       "group": "综合",
       "origin": "manual",
       "enabled": true,
-      "state": "down",
-      "latency_ms": 33002,
+      "state": "ok",
+      "latency_ms": 3867,
       "searchable": false,
-      "vods": 0,
-      "checked_at": "2026-11-27T06:29:34Z",
+      "vods": 20,
+      "checked_at": "2026-11-27T06:38:53Z",
       "history": [
         {
           "t": "2026-11-27T13:52:02+08:00",
@@ -1367,6 +1532,11 @@
           "t": "2026-11-27T14:29:34+08:00",
           "ok": false,
           "ms": 33002
+        },
+        {
+          "t": "2026-11-27T06:38:53Z",
+          "ok": true,
+          "ms": 3867
         }
       ]
     },
@@ -1378,10 +1548,10 @@
       "origin": "feed",
       "enabled": true,
       "state": "ok",
-      "latency_ms": 1475,
+      "latency_ms": 1139,
       "searchable": true,
       "vods": 3,
-      "checked_at": "2026-11-27T06:29:34Z",
+      "checked_at": "2026-11-27T06:38:53Z",
       "history": [
         {
           "t": "2026-11-27T14:27:07+08:00",
@@ -1397,6 +1567,11 @@
           "t": "2026-11-27T14:29:34+08:00",
           "ok": true,
           "ms": 1475
+        },
+        {
+          "t": "2026-11-27T06:38:53Z",
+          "ok": true,
+          "ms": 1139
         }
       ]
     },
@@ -1408,10 +1583,10 @@
       "origin": "feed",
       "enabled": true,
       "state": "ok",
-      "latency_ms": 1061,
+      "latency_ms": 792,
       "searchable": true,
       "vods": 8,
-      "checked_at": "2026-11-27T06:29:34Z",
+      "checked_at": "2026-11-27T06:38:53Z",
       "history": [
         {
           "t": "2026-11-27T14:27:07+08:00",
@@ -1427,6 +1602,11 @@
           "t": "2026-11-27T14:29:34+08:00",
           "ok": true,
           "ms": 1061
+        },
+        {
+          "t": "2026-11-27T06:38:53Z",
+          "ok": true,
+          "ms": 792
         }
       ]
     },
@@ -1438,10 +1618,10 @@
       "origin": "feed",
       "enabled": true,
       "state": "ok",
-      "latency_ms": 3097,
+      "latency_ms": 1160,
       "searchable": true,
       "vods": 5,
-      "checked_at": "2026-11-27T06:29:34Z",
+      "checked_at": "2026-11-27T06:38:53Z",
       "history": [
         {
           "t": "2026-11-27T14:27:07+08:00",
@@ -1457,6 +1637,11 @@
           "t": "2026-11-27T14:29:34+08:00",
           "ok": true,
           "ms": 3097
+        },
+        {
+          "t": "2026-11-27T06:38:53Z",
+          "ok": true,
+          "ms": 1160
         }
       ]
     },
@@ -1468,10 +1653,10 @@
       "origin": "feed",
       "enabled": true,
       "state": "ok",
-      "latency_ms": 6140,
+      "latency_ms": 3955,
       "searchable": false,
       "vods": 20,
-      "checked_at": "2026-11-27T06:29:34Z",
+      "checked_at": "2026-11-27T06:38:53Z",
       "history": [
         {
           "t": "2026-11-27T14:27:07+08:00",
@@ -1487,6 +1672,11 @@
           "t": "2026-11-27T14:29:34+08:00",
           "ok": true,
           "ms": 6140
+        },
+        {
+          "t": "2026-11-27T06:38:53Z",
+          "ok": true,
+          "ms": 3955
         }
       ]
     },
@@ -1497,11 +1687,11 @@
       "group": "综合",
       "origin": "feed",
       "enabled": true,
-      "state": "down",
-      "latency_ms": 3545,
+      "state": "ok",
+      "latency_ms": 3850,
       "searchable": false,
-      "vods": 0,
-      "checked_at": "2026-11-27T06:29:34Z",
+      "vods": 20,
+      "checked_at": "2026-11-27T06:38:53Z",
       "history": [
         {
           "t": "2026-11-27T14:27:07+08:00",
@@ -1517,6 +1707,11 @@
           "t": "2026-11-27T14:29:34+08:00",
           "ok": false,
           "ms": 3545
+        },
+        {
+          "t": "2026-11-27T06:38:53Z",
+          "ok": true,
+          "ms": 3850
         }
       ]
     },
@@ -1528,10 +1723,10 @@
       "origin": "feed",
       "enabled": true,
       "state": "ok",
-      "latency_ms": 10501,
+      "latency_ms": 6217,
       "searchable": false,
       "vods": 20,
-      "checked_at": "2026-11-27T06:29:34Z",
+      "checked_at": "2026-11-27T06:38:53Z",
       "history": [
         {
           "t": "2026-11-27T14:27:07+08:00",
@@ -1547,6 +1742,11 @@
           "t": "2026-11-27T14:29:34+08:00",
           "ok": true,
           "ms": 10501
+        },
+        {
+          "t": "2026-11-27T06:38:53Z",
+          "ok": true,
+          "ms": 6217
         }
       ]
     },
@@ -1558,10 +1758,10 @@
       "origin": "feed",
       "enabled": true,
       "state": "ok",
-      "latency_ms": 1563,
+      "latency_ms": 445,
       "searchable": true,
       "vods": 8,
-      "checked_at": "2026-11-27T06:29:34Z",
+      "checked_at": "2026-11-27T06:38:53Z",
       "history": [
         {
           "t": "2026-11-27T14:27:07+08:00",
@@ -1577,6 +1777,11 @@
           "t": "2026-11-27T14:29:34+08:00",
           "ok": true,
           "ms": 1563
+        },
+        {
+          "t": "2026-11-27T06:38:53Z",
+          "ok": true,
+          "ms": 445
         }
       ]
     },
@@ -1588,10 +1793,10 @@
       "origin": "feed",
       "enabled": true,
       "state": "down",
-      "latency_ms": 5082,
+      "latency_ms": 3845,
       "searchable": false,
       "vods": 0,
-      "checked_at": "2026-11-27T06:29:34Z",
+      "checked_at": "2026-11-27T06:38:53Z",
       "history": [
         {
           "t": "2026-11-27T14:27:07+08:00",
@@ -1607,6 +1812,11 @@
           "t": "2026-11-27T14:29:34+08:00",
           "ok": false,
           "ms": 5082
+        },
+        {
+          "t": "2026-11-27T06:38:53Z",
+          "ok": false,
+          "ms": 3845
         }
       ]
     },
@@ -1618,10 +1828,10 @@
       "origin": "feed",
       "enabled": true,
       "state": "ok",
-      "latency_ms": 1496,
+      "latency_ms": 755,
       "searchable": true,
       "vods": 8,
-      "checked_at": "2026-11-27T06:29:34Z",
+      "checked_at": "2026-11-27T06:38:53Z",
       "history": [
         {
           "t": "2026-11-27T14:27:07+08:00",
@@ -1637,6 +1847,11 @@
           "t": "2026-11-27T14:29:34+08:00",
           "ok": true,
           "ms": 1496
+        },
+        {
+          "t": "2026-11-27T06:38:53Z",
+          "ok": true,
+          "ms": 755
         }
       ]
     },
@@ -1648,10 +1863,10 @@
       "origin": "feed",
       "enabled": true,
       "state": "ok",
-      "latency_ms": 1507,
+      "latency_ms": 564,
       "searchable": true,
       "vods": 8,
-      "checked_at": "2026-11-27T06:29:34Z",
+      "checked_at": "2026-11-27T06:38:53Z",
       "history": [
         {
           "t": "2026-11-27T14:27:07+08:00",
@@ -1667,6 +1882,11 @@
           "t": "2026-11-27T14:29:34+08:00",
           "ok": true,
           "ms": 1507
+        },
+        {
+          "t": "2026-11-27T06:38:53Z",
+          "ok": true,
+          "ms": 564
         }
       ]
     },
@@ -1678,10 +1898,10 @@
       "origin": "feed",
       "enabled": true,
       "state": "ok",
-      "latency_ms": 850,
+      "latency_ms": 180,
       "searchable": true,
       "vods": 8,
-      "checked_at": "2026-11-27T06:29:34Z",
+      "checked_at": "2026-11-27T06:38:53Z",
       "history": [
         {
           "t": "2026-11-27T14:27:07+08:00",
@@ -1697,6 +1917,11 @@
           "t": "2026-11-27T14:29:34+08:00",
           "ok": true,
           "ms": 850
+        },
+        {
+          "t": "2026-11-27T06:38:53Z",
+          "ok": true,
+          "ms": 180
         }
       ]
     },
@@ -1708,10 +1933,10 @@
       "origin": "feed",
       "enabled": true,
       "state": "ok",
-      "latency_ms": 480,
+      "latency_ms": 276,
       "searchable": true,
       "vods": 8,
-      "checked_at": "2026-11-27T06:29:34Z",
+      "checked_at": "2026-11-27T06:38:53Z",
       "history": [
         {
           "t": "2026-11-27T14:27:07+08:00",
@@ -1727,6 +1952,11 @@
           "t": "2026-11-27T14:29:34+08:00",
           "ok": true,
           "ms": 480
+        },
+        {
+          "t": "2026-11-27T06:38:53Z",
+          "ok": true,
+          "ms": 276
         }
       ]
     },
@@ -1738,10 +1968,10 @@
       "origin": "feed",
       "enabled": true,
       "state": "ok",
-      "latency_ms": 1813,
+      "latency_ms": 1569,
       "searchable": true,
       "vods": 3,
-      "checked_at": "2026-11-27T06:29:34Z",
+      "checked_at": "2026-11-27T06:38:53Z",
       "history": [
         {
           "t": "2026-11-27T14:27:07+08:00",
@@ -1757,6 +1987,11 @@
           "t": "2026-11-27T14:29:34+08:00",
           "ok": true,
           "ms": 1813
+        },
+        {
+          "t": "2026-11-27T06:38:53Z",
+          "ok": true,
+          "ms": 1569
         }
       ]
     },
@@ -1768,10 +2003,10 @@
       "origin": "feed",
       "enabled": true,
       "state": "ok",
-      "latency_ms": 550,
+      "latency_ms": 881,
       "searchable": true,
       "vods": 1,
-      "checked_at": "2026-11-27T06:29:34Z",
+      "checked_at": "2026-11-27T06:38:53Z",
       "history": [
         {
           "t": "2026-11-27T14:27:07+08:00",
@@ -1787,6 +2022,11 @@
           "t": "2026-11-27T14:29:34+08:00",
           "ok": true,
           "ms": 550
+        },
+        {
+          "t": "2026-11-27T06:38:53Z",
+          "ok": true,
+          "ms": 881
         }
       ]
     },
@@ -1798,10 +2038,10 @@
       "origin": "feed",
       "enabled": true,
       "state": "ok",
-      "latency_ms": 4460,
+      "latency_ms": 3558,
       "searchable": false,
       "vods": 20,
-      "checked_at": "2026-11-27T06:29:34Z",
+      "checked_at": "2026-11-27T06:38:53Z",
       "history": [
         {
           "t": "2026-11-27T14:27:07+08:00",
@@ -1817,6 +2057,11 @@
           "t": "2026-11-27T14:29:34+08:00",
           "ok": true,
           "ms": 4460
+        },
+        {
+          "t": "2026-11-27T06:38:53Z",
+          "ok": true,
+          "ms": 3558
         }
       ]
     },
@@ -1828,10 +2073,10 @@
       "origin": "feed",
       "enabled": true,
       "state": "down",
-      "latency_ms": 3238,
+      "latency_ms": 3555,
       "searchable": false,
       "vods": 0,
-      "checked_at": "2026-11-27T06:29:34Z",
+      "checked_at": "2026-11-27T06:38:53Z",
       "history": [
         {
           "t": "2026-11-27T14:27:07+08:00",
@@ -1847,6 +2092,11 @@
           "t": "2026-11-27T14:29:34+08:00",
           "ok": false,
           "ms": 3238
+        },
+        {
+          "t": "2026-11-27T06:38:53Z",
+          "ok": false,
+          "ms": 3555
         }
       ]
     },
@@ -1858,10 +2108,10 @@
       "origin": "feed",
       "enabled": true,
       "state": "down",
-      "latency_ms": 5078,
+      "latency_ms": 3176,
       "searchable": false,
       "vods": 0,
-      "checked_at": "2026-11-27T06:29:34Z",
+      "checked_at": "2026-11-27T06:38:53Z",
       "history": [
         {
           "t": "2026-11-27T14:27:07+08:00",
@@ -1877,6 +2127,11 @@
           "t": "2026-11-27T14:29:34+08:00",
           "ok": false,
           "ms": 5078
+        },
+        {
+          "t": "2026-11-27T06:38:53Z",
+          "ok": false,
+          "ms": 3176
         }
       ]
     },
@@ -1888,10 +2143,10 @@
       "origin": "feed",
       "enabled": true,
       "state": "down",
-      "latency_ms": 3008,
+      "latency_ms": 3110,
       "searchable": false,
       "vods": 0,
-      "checked_at": "2026-11-27T06:29:34Z",
+      "checked_at": "2026-11-27T06:38:53Z",
       "history": [
         {
           "t": "2026-11-27T14:27:07+08:00",
@@ -1907,6 +2162,11 @@
           "t": "2026-11-27T14:29:34+08:00",
           "ok": false,
           "ms": 3008
+        },
+        {
+          "t": "2026-11-27T06:38:53Z",
+          "ok": false,
+          "ms": 3110
         }
       ]
     },
@@ -1918,10 +2178,10 @@
       "origin": "feed",
       "enabled": true,
       "state": "limited",
-      "latency_ms": 9081,
+      "latency_ms": 4448,
       "searchable": false,
       "vods": 0,
-      "checked_at": "2026-11-27T06:29:34Z",
+      "checked_at": "2026-11-27T06:38:53Z",
       "history": [
         {
           "t": "2026-11-27T14:27:07+08:00",
@@ -1937,6 +2197,11 @@
           "t": "2026-11-27T14:29:34+08:00",
           "ok": false,
           "ms": 9081
+        },
+        {
+          "t": "2026-11-27T06:38:53Z",
+          "ok": false,
+          "ms": 4448
         }
       ]
     },
@@ -1948,10 +2213,10 @@
       "origin": "feed",
       "enabled": true,
       "state": "down",
-      "latency_ms": 3174,
+      "latency_ms": 3580,
       "searchable": false,
       "vods": 0,
-      "checked_at": "2026-11-27T06:29:34Z",
+      "checked_at": "2026-11-27T06:38:53Z",
       "history": [
         {
           "t": "2026-11-27T14:27:07+08:00",
@@ -1967,6 +2232,11 @@
           "t": "2026-11-27T14:29:34+08:00",
           "ok": false,
           "ms": 3174
+        },
+        {
+          "t": "2026-11-27T06:38:53Z",
+          "ok": false,
+          "ms": 3580
         }
       ]
     },
@@ -1978,10 +2248,10 @@
       "origin": "feed",
       "enabled": true,
       "state": "down",
-      "latency_ms": 21030,
+      "latency_ms": 29872,
       "searchable": false,
       "vods": 0,
-      "checked_at": "2026-11-27T06:29:34Z",
+      "checked_at": "2026-11-27T06:38:53Z",
       "history": [
         {
           "t": "2026-11-27T14:27:07+08:00",
@@ -1997,6 +2267,11 @@
           "t": "2026-11-27T14:29:34+08:00",
           "ok": false,
           "ms": 21030
+        },
+        {
+          "t": "2026-11-27T06:38:53Z",
+          "ok": false,
+          "ms": 29872
         }
       ]
     },
@@ -2008,10 +2283,10 @@
       "origin": "feed",
       "enabled": true,
       "state": "down",
-      "latency_ms": 3007,
+      "latency_ms": 3132,
       "searchable": false,
       "vods": 0,
-      "checked_at": "2026-11-27T06:29:34Z",
+      "checked_at": "2026-11-27T06:38:53Z",
       "history": [
         {
           "t": "2026-11-27T14:27:07+08:00",
@@ -2027,6 +2302,11 @@
           "t": "2026-11-27T14:29:34+08:00",
           "ok": false,
           "ms": 3007
+        },
+        {
+          "t": "2026-11-27T06:38:53Z",
+          "ok": false,
+          "ms": 3132
         }
       ]
     },
@@ -2038,10 +2318,10 @@
       "origin": "feed",
       "enabled": true,
       "state": "down",
-      "latency_ms": 3277,
+      "latency_ms": 3656,
       "searchable": false,
       "vods": 0,
-      "checked_at": "2026-11-27T06:29:34Z",
+      "checked_at": "2026-11-27T06:38:53Z",
       "history": [
         {
           "t": "2026-11-27T14:27:07+08:00",
@@ -2057,6 +2337,11 @@
           "t": "2026-11-27T14:29:34+08:00",
           "ok": false,
           "ms": 3277
+        },
+        {
+          "t": "2026-11-27T06:38:53Z",
+          "ok": false,
+          "ms": 3656
         }
       ]
     },
@@ -2068,10 +2353,10 @@
       "origin": "feed",
       "enabled": true,
       "state": "down",
-      "latency_ms": 3149,
+      "latency_ms": 4114,
       "searchable": false,
       "vods": 0,
-      "checked_at": "2026-11-27T06:29:34Z",
+      "checked_at": "2026-11-27T06:38:53Z",
       "history": [
         {
           "t": "2026-11-27T14:27:07+08:00",
@@ -2087,6 +2372,11 @@
           "t": "2026-11-27T14:29:34+08:00",
           "ok": false,
           "ms": 3149
+        },
+        {
+          "t": "2026-11-27T06:38:53Z",
+          "ok": false,
+          "ms": 4114
         }
       ]
     },
@@ -2098,10 +2388,10 @@
       "origin": "feed",
       "enabled": true,
       "state": "down",
-      "latency_ms": 3213,
+      "latency_ms": 4717,
       "searchable": false,
       "vods": 0,
-      "checked_at": "2026-11-27T06:29:34Z",
+      "checked_at": "2026-11-27T06:38:53Z",
       "history": [
         {
           "t": "2026-11-27T14:27:07+08:00",
@@ -2117,6 +2407,11 @@
           "t": "2026-11-27T14:29:34+08:00",
           "ok": false,
           "ms": 3213
+        },
+        {
+          "t": "2026-11-27T06:38:53Z",
+          "ok": false,
+          "ms": 4717
         }
       ]
     },
@@ -2128,10 +2423,10 @@
       "origin": "feed",
       "enabled": true,
       "state": "down",
-      "latency_ms": 4192,
+      "latency_ms": 3415,
       "searchable": false,
       "vods": 0,
-      "checked_at": "2026-11-27T06:29:34Z",
+      "checked_at": "2026-11-27T06:38:53Z",
       "history": [
         {
           "t": "2026-11-27T14:27:07+08:00",
@@ -2147,6 +2442,11 @@
           "t": "2026-11-27T14:29:34+08:00",
           "ok": false,
           "ms": 4192
+        },
+        {
+          "t": "2026-11-27T06:38:53Z",
+          "ok": false,
+          "ms": 3415
         }
       ]
     },
@@ -2158,10 +2458,10 @@
       "origin": "feed",
       "enabled": true,
       "state": "down",
-      "latency_ms": 10119,
+      "latency_ms": 3417,
       "searchable": false,
       "vods": 0,
-      "checked_at": "2026-11-27T06:29:34Z",
+      "checked_at": "2026-11-27T06:38:53Z",
       "history": [
         {
           "t": "2026-11-27T14:27:07+08:00",
@@ -2177,6 +2477,11 @@
           "t": "2026-11-27T14:29:34+08:00",
           "ok": false,
           "ms": 10119
+        },
+        {
+          "t": "2026-11-27T06:38:53Z",
+          "ok": false,
+          "ms": 3417
         }
       ]
     },
@@ -2188,10 +2493,10 @@
       "origin": "feed",
       "enabled": true,
       "state": "ok",
-      "latency_ms": 758,
+      "latency_ms": 269,
       "searchable": true,
       "vods": 9,
-      "checked_at": "2026-11-27T06:29:34Z",
+      "checked_at": "2026-11-27T06:38:53Z",
       "history": [
         {
           "t": "2026-11-27T14:27:07+08:00",
@@ -2207,6 +2512,11 @@
           "t": "2026-11-27T14:29:34+08:00",
           "ok": true,
           "ms": 758
+        },
+        {
+          "t": "2026-11-27T06:38:53Z",
+          "ok": true,
+          "ms": 269
         }
       ]
     },
@@ -2218,10 +2528,10 @@
       "origin": "feed",
       "enabled": true,
       "state": "down",
-      "latency_ms": 6171,
+      "latency_ms": 3176,
       "searchable": false,
       "vods": 0,
-      "checked_at": "2026-11-27T06:29:34Z",
+      "checked_at": "2026-11-27T06:38:53Z",
       "history": [
         {
           "t": "2026-11-27T14:27:07+08:00",
@@ -2237,6 +2547,11 @@
           "t": "2026-11-27T14:29:34+08:00",
           "ok": false,
           "ms": 6171
+        },
+        {
+          "t": "2026-11-27T06:38:53Z",
+          "ok": false,
+          "ms": 3176
         }
       ]
     },
@@ -2247,11 +2562,11 @@
       "group": "综合",
       "origin": "feed",
       "enabled": true,
-      "state": "down",
-      "latency_ms": 23060,
+      "state": "limited",
+      "latency_ms": 4963,
       "searchable": false,
       "vods": 0,
-      "checked_at": "2026-11-27T06:29:34Z",
+      "checked_at": "2026-11-27T06:38:53Z",
       "history": [
         {
           "t": "2026-11-27T14:27:07+08:00",
@@ -2267,6 +2582,11 @@
           "t": "2026-11-27T14:29:34+08:00",
           "ok": false,
           "ms": 23060
+        },
+        {
+          "t": "2026-11-27T06:38:53Z",
+          "ok": false,
+          "ms": 4963
         }
       ]
     },
@@ -2277,11 +2597,11 @@
       "group": "短剧",
       "origin": "feed",
       "enabled": true,
-      "state": "down",
-      "latency_ms": 23081,
+      "state": "limited",
+      "latency_ms": 4849,
       "searchable": false,
       "vods": 0,
-      "checked_at": "2026-11-27T06:29:34Z",
+      "checked_at": "2026-11-27T06:38:53Z",
       "history": [
         {
           "t": "2026-11-27T14:27:07+08:00",
@@ -2297,6 +2617,11 @@
           "t": "2026-11-27T14:29:34+08:00",
           "ok": false,
           "ms": 23081
+        },
+        {
+          "t": "2026-11-27T06:38:53Z",
+          "ok": false,
+          "ms": 4849
         }
       ]
     },
@@ -2308,10 +2633,10 @@
       "origin": "feed",
       "enabled": true,
       "state": "ok",
-      "latency_ms": 5654,
+      "latency_ms": 3715,
       "searchable": false,
       "vods": 20,
-      "checked_at": "2026-11-27T06:29:34Z",
+      "checked_at": "2026-11-27T06:38:53Z",
       "history": [
         {
           "t": "2026-11-27T14:27:07+08:00",
@@ -2327,6 +2652,11 @@
           "t": "2026-11-27T14:29:34+08:00",
           "ok": true,
           "ms": 5654
+        },
+        {
+          "t": "2026-11-27T06:38:53Z",
+          "ok": true,
+          "ms": 3715
         }
       ]
     },
@@ -2338,10 +2668,10 @@
       "origin": "feed",
       "enabled": true,
       "state": "limited",
-      "latency_ms": 10111,
+      "latency_ms": 5398,
       "searchable": false,
       "vods": 0,
-      "checked_at": "2026-11-27T06:29:34Z",
+      "checked_at": "2026-11-27T06:38:53Z",
       "history": [
         {
           "t": "2026-11-27T14:27:07+08:00",
@@ -2357,6 +2687,11 @@
           "t": "2026-11-27T14:29:34+08:00",
           "ok": false,
           "ms": 10111
+        },
+        {
+          "t": "2026-11-27T06:38:53Z",
+          "ok": false,
+          "ms": 5398
         }
       ]
     },
@@ -2367,11 +2702,11 @@
       "group": "综合",
       "origin": "feed",
       "enabled": true,
-      "state": "down",
-      "latency_ms": 13032,
-      "searchable": false,
-      "vods": 0,
-      "checked_at": "2026-11-27T06:29:34Z",
+      "state": "ok",
+      "latency_ms": 325,
+      "searchable": true,
+      "vods": 5,
+      "checked_at": "2026-11-27T06:38:53Z",
       "history": [
         {
           "t": "2026-11-27T14:27:07+08:00",
@@ -2387,6 +2722,11 @@
           "t": "2026-11-27T14:29:34+08:00",
           "ok": false,
           "ms": 13032
+        },
+        {
+          "t": "2026-11-27T06:38:53Z",
+          "ok": true,
+          "ms": 325
         }
       ]
     },
@@ -2397,11 +2737,11 @@
       "group": "综合",
       "origin": "feed",
       "enabled": true,
-      "state": "down",
-      "latency_ms": 5142,
-      "searchable": false,
-      "vods": 0,
-      "checked_at": "2026-11-27T06:29:34Z",
+      "state": "ok",
+      "latency_ms": 238,
+      "searchable": true,
+      "vods": 8,
+      "checked_at": "2026-11-27T06:38:53Z",
       "history": [
         {
           "t": "2026-11-27T14:27:07+08:00",
@@ -2417,6 +2757,11 @@
           "t": "2026-11-27T14:29:34+08:00",
           "ok": false,
           "ms": 5142
+        },
+        {
+          "t": "2026-11-27T06:38:53Z",
+          "ok": true,
+          "ms": 238
         }
       ]
     }
