@@ -10,6 +10,10 @@ on:
         description: '强制立即更新（忽略 7 天间隔）'
         type: boolean
         default: true
+      rollback:
+        description: '回滚到某个版本日期，格式 2026-11-27（留空则正常生成）'
+        type: string
+        default: ''
 
 permissions:
   contents: write
@@ -40,13 +44,19 @@ jobs:
       - name: Generate configs
         env:
           FORCE: ${{ github.event.inputs.force || 'false' }}
-        run: ./bin/tvboxgen -force=$FORCE -workers=16 -timeout=10s -history=8
+          ROLLBACK: ${{ github.event.inputs.rollback || '' }}
+        run: |
+          if [ -n "$ROLLBACK" ]; then
+            ./bin/tvboxgen -rollback="$ROLLBACK" -workers=16 -timeout=10s
+          else
+            ./bin/tvboxgen -force=$FORCE -workers=16 -timeout=10s -history=8
+          fi
 
       - name: Commit and push
         run: |
           git config --local user.name "github-actions[bot]"
           git config --local user.email "41898282+github-actions[bot]@users.noreply.github.com"
-          git add api sources
+          git add api sources versions
           if git diff --staged --quiet; then
             echo "no changes, nothing to commit"
             exit 0
@@ -57,6 +67,6 @@ jobs:
       - name: Purge jsDelivr cache
         if: always()
         run: |
-          for f in api/tvbox.json api/moontv.json api/sources.txt api/status.json api/mirror.json api/index.json; do
+          for f in api/tvbox.json api/moontv.json api/katelyatv.json api/decotv.json api/moontvplus.json api/ouonnkitv.json api/kvideo.json api/libretv.json api/sources.txt api/status.json api/mirror.json api/index.json versions/index.json; do
             curl -s "https://purge.jsdelivr.net/gh/${GITHUB_REPOSITORY}@main/$f" > /dev/null || true
           done

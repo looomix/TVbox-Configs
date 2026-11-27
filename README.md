@@ -6,11 +6,20 @@ TVBox / 影视仓 与 MoonTV / LunaTV **共用同一份已验证视频源**：�
 | :--- | :--- |
 | `api/tvbox.json` | TVBox / 影视仓 单仓配置（`sites` 数组） |
 | `api/moontv.json` | MoonTV / LunaTV 源配置（`api_site` 对象，可直接粘贴导入） |
+| `api/katelyatv.json` | KatelyaTV 源配置（同 MoonTV 结构） |
+| `api/decotv.json` | DecoTV 源配置（同 MoonTV 结构） |
+| `api/moontvplus.json` | MoonTVPlus 源配置（同 MoonTV 结构） |
+| `api/ouonnkitv.json` | OuonnkiTV 源清单（`id / name / url / detailUrl / timeout / isEnabled` 数组） |
+| `api/kvideo.json` | KVideo 源清单（`id / name / baseUrl / group / enabled` 数组） |
+| `api/libretv.json` | LibreTV 源清单（`name / url` 数组） |
 | `api/sources.txt` | 纯文本清单（`名称\|API\|类型\|状态`，多数客户端可一键导入） |
 | `api/status.json` | 全量检测报告：状态、延迟、近 8 期趋势、抓取与去重统计 |
 | `api/mirror.json` | 每个产物的 5 条镜像线路 |
 | `api/index.json` | TVBox 多仓入口（主 / 备 / 加速） |
 | `api/probe.json` | 网页「测试」按钮触发的单源云端检测结果 |
+| `api/status-cn.json` | 国内节点的独立判定（`-vantage=cn` 生成，主流程 30 天内有效） |
+| `versions/<date>.json` | 每次生成的版本快照，用于对比与回滚 |
+| `versions/index.json` | 版本列表：可用数、本次新增与剔除 |
 
 ## 订阅地址
 
@@ -50,13 +59,16 @@ api/status.json  api/mirror.json   api/index.json
 2. 只有 **HTTP 200 + 标准 JSON + list 非空 + 至少一条带 `http` 播放地址** 才记为 `ok`。
 3. 搜索无结果但站点可访问时，再查一次「最新列表」；能返回可播放条目同样判为 `ok`（`searchable` 自动置 0）。
 4. 首轮判为失效的源，会在整轮结束后用**新连接 + 双倍超时**再确认一次，确认不过才算失效。
-5. `ok` 才写进 `tvbox.json` / `moontv.json` / `sources.txt`；`limited`（未验证）和 `down`（失效）只在 `status.json` 里留记录，**永远不出现在订阅链接里**。
+5. **能播才算可用**：接口返回 ok 后再抽 1~2 个 `vod_play_url`，带 `Range` 请求真实取几 KB，只有拿到 m3u8 文本或视频字节才算 ok；接口活、播放地址 404/403 的会被降级成 `limited`，不进任何配置。
+6. **两个节点判定**：云端 runner（海外）跑主判定，`-vantage=cn` 可在国内节点单独跑一遍并写 `api/status-cn.json`；主流程会合并两地结论——任一节点可用即发布，页面状态列会标 `国内✓ / 国内✗`，国内快照超过 30 天自动失效。
+7. `ok` 才写进所有配置产物；`limited`（未验证）和 `down`（失效）只在 `status.json` 里留记录，**永远不出现在订阅链接里**。
 
 ### 7 天更新机制
 
 - GitHub Actions 每天 16:00 UTC（北京时间 00:00）检查一次，生成器比对 `api/status.json` 的 `updated_at`，不足 168 小时就 `skip` 退出、不产生提交。
 - 某次跑失败时，第二天会自动补跑；需要立刻刷新时，网页点「立即重新生成」或 Actions 手动 Run workflow（`force=true`）。
 - 改周期用 `-interval=72h`，网页上的「下次更新」会跟着变。
+- 每次生成都会写 `versions/<date>.json` 并更新 `versions/index.json`，保留最近 14 份；网页「版本快照」可查看/回滚。
 
 ## 网页管理
 
@@ -112,3 +124,12 @@ go run ./cmd/tvboxgen -interval=72h -workers=16 -timeout=10s -history=8
 ## License
 
 [MIT](LICENSE)
+
+## 国内节点与回滚
+
+```bash
+go run ./cmd/tvboxgen -vantage=cn     # 用当前 api/status.json 的清单在国内网络复测，写 api/status-cn.json
+go run ./cmd/tvboxgen -rollback=2026-11-27   # 用某个版本的可播清单重写全部产物
+```
+
+网页上点「回滚」等价于触发带 `rollback` 输入的 `Update Configs`，订阅地址不变，只是内容换回那一版。

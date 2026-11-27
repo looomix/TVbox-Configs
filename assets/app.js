@@ -23,6 +23,7 @@
     results: {},
     pending: {},
     selected: {},
+    versions: [],
     editingId: null
   };
 
@@ -110,6 +111,12 @@
 
   function loadSources() {
     return getJSON('sources/sources.json').then(function (d) { state.sources = (d && d.sources) || []; }).catch(function () { state.sources = []; });
+  }
+
+  function loadVersions() {
+    return getJSON('versions/index.json').then(function (d) {
+      state.versions = (d && d.versions) || [];
+    }).catch(function () { state.versions = []; });
   }
 
   function defaultGroups() {
@@ -284,7 +291,8 @@
         '<div class="name-cell"><div class="n"><span class="txt" title="' + esc(s.name) + '">' + esc(s.name) + '</span>' + (auto ? '<span class="badge on">自动</span>' : '') + '</div></div>' +
         '<div class="api-cell" data-act="copy" data-url="' + esc(s.api) + '" title="点击复制：' + esc(s.api) + '">' + esc(s.api) + '</div>' +
         '<div><span class="badge">' + esc(groupOf(s)) + '</span></div>' +
-        '<div class="c-state"><span class="dot ' + stateCls + '"><i></i>' + esc(stateLabel) + '</span></div>' +
+        '<div class="c-state"><span class="dot ' + stateCls + '"><i></i>' + esc(stateLabel) +
+          cnFlag(st2) + '</span></div>' +
         '<div class="c-lat">' + lat + '</div>' +
         '<div class="c-spark">' + spark(st2 && st2.history) + '</div>' +
         '<div class="ops">' +
@@ -363,11 +371,41 @@
     });
   }
 
+  function renderVersions() {
+    var rows = state.versions || [];
+    $('#verCount').textContent = rows.length ? (rows.length + ' 个版本') : '暂无';
+    if (!rows.length) {
+      $('#versions').innerHTML = '<p class="hint">还没有版本记录，下次生成后会出现。</p>';
+      return;
+    }
+    $('#versions').innerHTML = rows.map(function (v) {
+      var add = (v.added || []).length;
+      var del = (v.removed || []).length;
+      var diff = '';
+      if (add || del) {
+        diff = '<span class="ver-diff">' +
+          (add ? '<span class="add">+' + add + '</span>' : '') +
+          (add && del ? ' · ' : '') +
+          (del ? '<span class="del">-' + del + '</span>' : '') +
+          '</span>';
+      }
+      return '<div class="ver-row">' +
+        '<span class="ver-date">' + esc(v.date) + '</span>' +
+        '<span class="ver-meta">可用 ' + v.alive + ' / 共 ' + v.total + '</span>' +
+        diff +
+        '<span class="ver-ops">' +
+        '<button class="btn tiny" data-ver-view="' + esc(v.date) + '">查看</button>' +
+        '<button class="btn tiny" data-ver-rollback="' + esc(v.date) + '">回滚</button>' +
+        '</span></div>';
+    }).join('');
+  }
+
   function renderAll() {
     renderStats();
     renderMirrors();
     renderGroups();
     renderRows();
+    renderVersions();
   }
 
   /* ---------------- probing: cloud workflow first ---------------- */
@@ -515,13 +553,24 @@
     });
   }
 
-  function dispatchWorkflow() {
+  function dispatchWorkflow(extra) {
     if (!state.token) return Promise.resolve(false);
+    var inputs = { force: 'true' };
+    if (extra) Object.keys(extra).forEach(function (k) { inputs[k] = extra[k]; });
     return fetch(API + '/actions/workflows/update.yml/dispatches', {
       method: 'POST',
       headers: Object.assign({ 'Content-Type': 'application/json' }, authHeaders()),
-      body: JSON.stringify({ ref: BRANCH, inputs: { force: 'true' } })
+      body: JSON.stringify({ ref: BRANCH, inputs: inputs })
     }).then(function (r) { return r.status === 204; }).catch(function () { return false; });
+  }
+
+  function rollbackTo(date) {
+    if (!state.token) { openToken(); return; }
+    if (!confirm('回滚到 ' + date + '？会用该版本的可播清单覆盖当前所有产物，订阅链接不变。')) return;
+    dispatchWorkflow({ rollback: date }).then(function (ok) {
+      toast(ok ? ('已触发回滚到 ' + date + '，约 2 分钟后生效') : '触发失败，请检查令牌的 Actions 权限');
+      if (ok) scheduleRefresh();
+    });
   }
 
   function saveSource(payload) {
@@ -692,7 +741,7 @@
   function scheduleRefresh() {
     clearTimeout(refreshTimer);
     refreshTimer = setTimeout(function () {
-      Promise.all([loadStatus(), loadSources(), loadMirrors()]).then(renderAll);
+      Promise.all([loadStatus(), loadSources(), loadMirrors(), loadVersions()]).then(renderAll);
     }, 100000);
   }
 
@@ -783,6 +832,16 @@
     });
 
     $('#btnBatchDel').addEventListener('click', batchDelete);
+
+    $('#versions').addEventListener('click', function (e) {
+      var view = e.target.closest('[data-ver-view]');
+      if (view) {
+        window.open('versions/' + view.getAttribute('data-ver-view') + '.json', '_blank');
+        return;
+      }
+      var back = e.target.closest('[data-ver-rollback]');
+      if (back) rollbackTo(back.getAttribute('data-ver-rollback'));
+    });
     $('#btnToken').addEventListener('click', openToken);
     $('#pillToken').addEventListener('click', openToken);
 
@@ -896,7 +955,7 @@
 
   /* ---------------- boot ---------------- */
 
-  Promise.all([loadStatus(), loadSources(), loadMirrors()]).then(function () {
+  Promise.all([loadStatus(), loadSources(), loadMirrors(), loadVersions()]).then(function () {
     if (!state.sources.length && state.status) {
       state.sources = state.status.sources.map(function (s) {
         return { id: s.id, name: s.name, api: s.api, group: s.group, enabled: s.enabled, origin: s.origin };

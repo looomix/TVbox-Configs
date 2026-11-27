@@ -5,7 +5,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>TVbox-Configs · 视频源管理</title>
 <meta name="description" content="每 7 天自动检测的可视化 TVBox / MoonTV 视频源配置，多镜像订阅地址，支持在线新增、导入、测试与删除。">
-<link rel="stylesheet" href="assets/style.css?v=20261128g">
+<link rel="stylesheet" href="assets/style.css?v=20261128h">
 </head>
 <body>
 <div class="wrap">
@@ -71,6 +71,14 @@
     <p class="hint" id="listHint">正在加载…</p>
   </section>
 
+  <section class="card" id="verCard">
+    <div class="card-head">
+      <h2>版本快照<span class="sub-count" id="verCount"></span></h2>
+    </div>
+    <div id="versions"></div>
+    <p class="hint">每次生成存一份，保留最近 14 份；回滚会用该版本的可播清单重写全部产物（需令牌）。</p>
+  </section>
+
   <footer>
     <a href="https://github.com/looomix/TVbox-Configs" target="_blank" rel="noopener">GitHub 仓库</a>
     · 数据来源为公开采集接口，版权归原站点所有，本项目仅做技术整理，不含成人内容。
@@ -119,6 +127,6 @@
 </div>
 
 <div class="toast" id="toast"></div>
-<script src="assets/app.js?v=20261128g"></script>
+<script src="assets/app.js?v=20261128h"></script>
 </body>
 </html>

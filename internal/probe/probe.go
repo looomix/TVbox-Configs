@@ -31,6 +31,10 @@ type Result struct {
 	Vods       int
 	Searchable bool
 	Playable   bool
+	PlayOK     bool     // a sampled play url really served bytes
+	PlaySample string   // the url that was sampled
+	PlayNote   string   // why the sample failed, empty when fine
+	Samples    []string `json:"-"`
 }
 
 // NewClient builds one reusable http client for probing.
@@ -72,6 +76,31 @@ type payload struct {
 	} `json:"list"`
 }
 
+// playCandidates pulls the first http url of every episode list, which is the
+// cheapest way to check that a station still serves real media.
+func (p payload) playCandidates(limit int) []string {
+	out := make([]string, 0, limit)
+	for _, item := range p.List {
+		for _, entry := range strings.Split(item.Play, "#") {
+			entry = strings.TrimSpace(entry)
+			u := entry
+			if i := strings.LastIndex(entry, "$"); i >= 0 {
+				u = strings.TrimSpace(entry[i+1:])
+			} else if i := strings.LastIndex(entry, "|"); i >= 0 {
+				u = strings.TrimSpace(entry[i+1:])
+			}
+			if strings.HasPrefix(strings.ToLower(u), "http") {
+				out = append(out, u)
+				break
+			}
+		}
+		if len(out) >= limit {
+			break
+		}
+	}
+	return out
+}
+
 func fetchOnce(c *http.Client, target string) Result {
 	start := time.Now()
 	resp, err := c.Get(target)
@@ -106,45 +135,133 @@ func fetchOnce(c *http.Client, target string) Result {
 		// Names without play urls: playable content cannot be confirmed.
 		return Result{State: "limited", LatencyMs: ms, Vods: len(data.List)}
 	}
-	return Result{State: "ok", LatencyMs: ms, Vods: len(data.List), Searchable: true, Playable: true}
+	samples := data.playCandidates(2)
+	first := ""
+	if len(samples) > 0 {
+		first = samples[0]
+	}
+	return Result{
+		State:      "ok",
+		LatencyMs:  ms,
+		Vods:       len(data.List),
+		Searchable: true,
+		Playable:   true,
+		PlaySample: first,
+		Samples:    samples,
+	}
 }
 
-// Verify probes one source up to three times (second keyword included) and only
-// returns down when every attempt failed, so a short network hiccup cannot mark
-// a healthy source as dead.
+// looksMedia reports whether the first bytes really look like a video or a
+// playlist, so an html error page injected at a cdn edge is not counted.
+func looksMedia(head []byte, contentType string) bool {
+	ct := strings.ToLower(contentType)
+	for _, want := range []string{"mpegurl", "mp4", "video/", "octet-stream", "x-flv"} {
+		if strings.Contains(ct, want) {
+			return true
+		}
+	}
+	t := strings.TrimSpace(strings.ToLower(string(head)))
+	if strings.HasPrefix(t, "#extm3u") || strings.Contains(t, "ftyp") {
+		return true
+	}
+	return false
+}
+
+// CheckPlay samples up to two play urls and reports whether media bytes really
+// come back. It is strict on purpose: an api that answers but serves dead play
+// links is exactly the "接口活、播不了" case the publish rules must catch.
+func CheckPlay(c *http.Client, samples []string) (bool, string, string) {
+	if len(samples) == 0 {
+		return false, "", "no play url in response"
+	}
+	note := ""
+	for i, u := range samples {
+		if i >= 2 {
+			break
+		}
+		req, err := http.NewRequest(http.MethodGet, u, nil)
+		if err != nil {
+			note = "bad play url"
+			continue
+		}
+		req.Header.Set("User-Agent", ua)
+		req.Header.Set("Range", "bytes=0-2047")
+		req.Header.Set("Referer", "https://www.google.com/")
+		resp, err := c.Do(req)
+		if err != nil {
+			note = "play fetch failed"
+			continue
+		}
+		head, _ := io.ReadAll(io.LimitReader(resp.Body, 512))
+		ct := resp.Header.Get("Content-Type")
+		resp.Body.Close()
+		if resp.StatusCode < 400 && looksMedia(head, ct) {
+			return true, u, ""
+		}
+		if resp.StatusCode >= 400 {
+			note = "play http " + resp.Status
+		} else {
+			note = "play body is not media"
+		}
+	}
+	return false, samples[0], note
+}
+
+// Verify probes one source up to three times (second keyword included), then
+// checks that a sampled play url really serves media. A station whose api
+// answers but whose play links are dead is reported limited, never ok, so it
+// cannot reach any published config.
 func Verify(c *http.Client, api string) Result {
 	if strings.TrimSpace(api) == "" {
 		return Result{State: "down"}
 	}
 	start := time.Now()
 	sequence := []string{keywords[0], keywords[0], keywords[1]}
-	best := Result{State: "down"}
+	var best *Result
+	remember := func(r Result) {
+		if best == nil {
+			cp := r
+			best = &cp
+		}
+	}
+
 	for i, kw := range sequence {
 		if i > 0 {
 			time.Sleep(time.Duration(i) * time.Second)
 		}
 		r := fetchOnce(c, testURL(api, kw))
-		if r.State == "ok" {
-			return r
-		}
-		if r.State == "limited" || best.State != "limited" {
-			best = r
+		switch r.State {
+		case "ok":
+			if ok, sample, note := CheckPlay(c, r.Samples); ok {
+				r.PlayOK, r.PlaySample = true, sample
+				r.LatencyMs = int(time.Since(start).Milliseconds())
+				return r
+			} else {
+				r.State, r.PlayOK = "limited", false
+				r.PlaySample, r.PlayNote = sample, note
+				remember(r)
+			}
+		default:
+			remember(r)
 		}
 	}
-	if best.State != "ok" {
-		// search index may be off or the search endpoint may be blocked; the
-		// latest list still proves the site serves playable content.
-		if r := fetchOnce(c, listingURL(api)); r.State == "ok" {
-			r.Searchable = false
+
+	// the search index may be off; the latest list still proves the site serves
+	// playable content, so give it one last chance.
+	if r := fetchOnce(c, listingURL(api)); r.State == "ok" {
+		if ok, sample, _ := CheckPlay(c, r.Samples); ok {
+			r.Searchable, r.PlayOK, r.PlaySample = false, true, sample
 			r.LatencyMs = int(time.Since(start).Milliseconds())
 			return r
 		}
 	}
-	if best.State == "" {
-		best.State = "down"
+
+	out := Result{State: "down"}
+	if best != nil {
+		out = *best
 	}
-	best.LatencyMs = int(time.Since(start).Milliseconds())
-	return best
+	out.LatencyMs = int(time.Since(start).Milliseconds())
+	return out
 }
 
 // Run probes all sources with a bounded worker pool and keeps the input order.

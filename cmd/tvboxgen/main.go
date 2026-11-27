@@ -36,6 +36,9 @@ func main() {
 	feedOnly := flag.Bool("feed-only", false, "only merge feeds into sources.json, do not probe")
 	probeURL := flag.String("probe", "", "probe one api url only and exit (used by the cloud test workflow)")
 	probeOut := flag.String("probe-out", "", "write the single probe result to this json file")
+	vantage := flag.String("vantage", "", "probe only and write api/status-<vantage>.json (us / cn)")
+	rollback := flag.String("rollback", "", "rebuild every artifact from versions/<date>.json")
+	snapDir := flag.String("versions", "versions", "version snapshot directory")
 	flag.Parse()
 
 	now := time.Now()
@@ -63,6 +66,55 @@ func main() {
 			}
 		}
 		fmt.Printf("probe %s -> %s, %d ms, %d results\n", res.URL, res.State, res.LatencyMs, res.Vods)
+		return
+	}
+
+	// rollback mode: rebuild the published files from a dated snapshot
+	if *rollback != "" {
+		snap, err := gen.LoadSnapshot(*snapDir, *rollback)
+		if err != nil {
+			fmt.Printf("rollback: %v\n", err)
+			os.Exit(1)
+		}
+		sites := gen.SitesOfSnapshot(snap)
+		if err := writeArtifacts(*outDir, *owner, *repo, *branch, sites, snap.UpdatedAt); err != nil {
+			fmt.Printf("rollback write: %v\n", err)
+			os.Exit(1)
+		}
+		fmt.Printf("rollback done: %s, %d sites\n", snap.Date, len(sites))
+		return
+	}
+
+	// vantage mode: re-probe the current published list from another network and
+	// store the verdicts separately, so the main run can merge two viewpoints.
+	if *vantage != "" {
+		var rep model.Report
+		if err := gen.ReadJSON(rel("status.json"), &rep); err != nil {
+			fmt.Printf("vantage: read status.json: %v\n", err)
+			os.Exit(1)
+		}
+		list := make([]model.Source, 0, len(rep.Sources))
+		for _, st := range rep.Sources {
+			list = append(list, model.Source{ID: st.ID, Name: st.Name, API: st.API, Group: st.Group, Enabled: st.Enabled})
+		}
+		fmt.Printf("vantage %s: probing %d sources ...\n", *vantage, len(list))
+		results := probe.Run(list, *workers, *timeout)
+		vf := model.VantageFile{Vantage: *vantage, CheckedAt: now.UTC().Format(time.RFC3339)}
+		ok := 0
+		for i, src := range list {
+			r := results[i]
+			vf.Sources = append(vf.Sources, model.VantageEntry{
+				ID: src.ID, API: src.API, State: r.State, LatencyMs: r.LatencyMs, PlayOK: r.PlayOK,
+			})
+			if r.State == "ok" {
+				ok++
+			}
+		}
+		if err := gen.WriteJSON(rel("status-"+*vantage+".json"), vf); err != nil {
+			fmt.Printf("write vantage: %v\n", err)
+			os.Exit(1)
+		}
+		fmt.Printf("vantage %s done: %d/%d ok\n", *vantage, ok, len(list))
 		return
 	}
 
@@ -177,6 +229,8 @@ func main() {
 		oldHistory[s.ID] = s.History
 	}
 
+	cnByID, cnChecked := loadVantage(filepath.Join(*outDir, "status-cn.json"))
+
 	rep := &model.Report{
 		UpdatedAt:     now.UTC().Format(time.RFC3339),
 		NextUpdateAt:  now.Add(*interval).UTC().Format(time.RFC3339),
@@ -186,7 +240,12 @@ func main() {
 		Deduped:       dup,
 		Sources:       make([]model.Status, 0, len(list)),
 	}
+	rep.Vantages = []string{"primary"}
+	if len(cnByID) > 0 {
+		rep.Vantages = append(rep.Vantages, "cn")
+	}
 	checkedAt := now.UTC().Format(time.RFC3339)
+	cnRescued := 0
 	for i, s := range list {
 		r := results[i]
 		st := model.Status{
@@ -203,6 +262,22 @@ func main() {
 		}
 		st.Searchable = r.Searchable
 		st.CheckedAt = checkedAt
+		st.PlayOK = r.PlayOK
+		st.PlaySample = r.PlaySample
+		st.PlayNote = r.PlayNote
+		if cn, ok := cnByID[s.ID]; ok {
+			st.CNState = cn.State
+			st.CNLatency = cn.LatencyMs
+			st.CNChecked = cnChecked
+			if r.State != "ok" && cn.State == "ok" {
+				// the overseas vantage failed but the domestic one passed: publish
+				// it, the subscription is consumed from inside china
+				st.State = "ok"
+				st.LatencyMs = cn.LatencyMs
+				st.Searchable = true
+				cnRescued++
+			}
+		}
 		if s.Enabled {
 			st.History = gen.AppendCheck(oldHistory[s.ID], r.State == "ok", r.LatencyMs, now, *histLimit)
 		} else {
@@ -211,9 +286,9 @@ func main() {
 		switch {
 		case !s.Enabled:
 			// disabled sources are not part of the health numbers
-		case r.State == "ok":
+		case st.State == "ok":
 			rep.Alive++
-		case r.State == "limited":
+		case st.State == "limited":
 			rep.Unverified++
 		default:
 			rep.Dead++
@@ -223,38 +298,77 @@ func main() {
 	rep.DurationMs = time.Since(start).Milliseconds()
 
 	sites := gen.SitesOf(rep)
-	cfg := gen.TVBox(sites)
-	moon := gen.MoonTV(sites)
-	txt := gen.TXT(sites)
-	mf := &model.MirrorFile{
-		UpdatedAt: rep.UpdatedAt,
-		Files: []model.MirrorGroup{
-			mirror.Group(*owner, *repo, *branch, "api/tvbox.json", "TVBox / 影视仓 单仓配置", "config"),
-			mirror.Group(*owner, *repo, *branch, "api/moontv.json", "MoonTV / LunaTV 视频源", "config"),
-			mirror.Group(*owner, *repo, *branch, "api/sources.txt", "纯文本源清单（可粘贴导入）", "text"),
-		},
-	}
-	idx := mirror.Index(*owner, *repo, *branch, "api/tvbox.json")
-
-	for name, v := range map[string]any{
-		"tvbox.json":  cfg,
-		"moontv.json": moon,
-		"status.json": rep,
-		"mirror.json": mf,
-		"index.json":  idx,
-	} {
-		if err := gen.WriteJSON(rel(name), v); err != nil {
-			fmt.Printf("write %s: %v\n", name, err)
-			os.Exit(1)
-		}
-	}
-	if err := gen.WriteText(rel("sources.txt"), txt); err != nil {
-		fmt.Printf("write sources.txt: %v\n", err)
+	if err := writeArtifacts(*outDir, *owner, *repo, *branch, sites, rep.UpdatedAt); err != nil {
+		fmt.Printf("write artifacts: %v\n", err)
 		os.Exit(1)
 	}
+	if err := gen.WriteJSON(rel("status.json"), rep); err != nil {
+		fmt.Printf("write status.json: %v\n", err)
+		os.Exit(1)
+	}
+	if row, err := gen.WriteSnapshot(*snapDir, gen.BuildSnapshot(now.Format("2006-01-02"), rep.UpdatedAt, rep.Total, rep.Alive, sites)); err == nil {
+		fmt.Printf("snapshot %s: +%d / -%d\n", row.Date, len(row.Added), len(row.Removed))
+	} else {
+		fmt.Printf("warn: snapshot: %v\n", err)
+	}
 
+	if cnRescued > 0 {
+		fmt.Printf("vantages merged: %d sources rescued by the cn vantage\n", cnRescued)
+	}
 	fmt.Printf("done: %d verified / %d unverified / %d dead, %d sites published, %d ms\n",
 		rep.Alive, rep.Unverified, rep.Dead, len(sites), rep.DurationMs)
 	next, _ := time.Parse(time.RFC3339, rep.NextUpdateAt)
 	fmt.Printf("next update: %s\n", next.Local().Format("2006-01-02 15:04"))
+}
+
+// writeArtifacts renders every published file from one verified site list, so a
+// normal run and a rollback produce exactly the same set of outputs.
+func writeArtifacts(outDir, owner, repo, branch string, sites []model.Site, updatedAt string) error {
+	for name, v := range gen.Artifacts(sites) {
+		if err := gen.WriteJSON(filepath.Join(outDir, name), v); err != nil {
+			return err
+		}
+	}
+	if err := gen.WriteText(filepath.Join(outDir, "sources.txt"), gen.TXT(sites)); err != nil {
+		return err
+	}
+
+	files := []struct{ file, kind string }{
+		{"tvbox.json", "config"},
+		{"moontv.json", "config"},
+		{"katelyatv.json", "config"},
+		{"decotv.json", "config"},
+		{"moontvplus.json", "config"},
+		{"ouonnkitv.json", "config"},
+		{"kvideo.json", "config"},
+		{"libretv.json", "config"},
+		{"sources.txt", "text"},
+	}
+	groups := make([]model.MirrorGroup, 0, len(files))
+	for _, f := range files {
+		groups = append(groups, mirror.Group(owner, repo, branch, "api/"+f.file, gen.Labels[f.file], f.kind))
+	}
+	mf := &model.MirrorFile{UpdatedAt: updatedAt, Files: groups}
+	if err := gen.WriteJSON(filepath.Join(outDir, "mirror.json"), mf); err != nil {
+		return err
+	}
+	return gen.WriteJSON(filepath.Join(outDir, "index.json"), mirror.Index(owner, repo, branch, "api/tvbox.json"))
+}
+
+// loadVantage reads a secondary vantage report and ignores stale files, so an
+// old domestic snapshot never overrides today's verdicts.
+func loadVantage(path string) (map[string]model.VantageEntry, string) {
+	var vf model.VantageFile
+	if err := gen.ReadJSON(path, &vf); err != nil || vf.CheckedAt == "" {
+		return nil, ""
+	}
+	at, err := time.Parse(time.RFC3339, vf.CheckedAt)
+	if err != nil || time.Since(at) > 30*24*time.Hour {
+		return nil, ""
+	}
+	out := make(map[string]model.VantageEntry, len(vf.Sources))
+	for _, e := range vf.Sources {
+		out[e.ID] = e
+	}
+	return out, vf.CheckedAt
 }
