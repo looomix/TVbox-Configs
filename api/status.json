@@ -1,34 +1,13 @@
 {
-  "updated_at": "2026-11-27T08:20:02Z",
-  "next_update_at": "2026-12-04T08:20:02Z",
+  "updated_at": "2026-11-27T08:21:28Z",
+  "next_update_at": "2026-12-04T08:21:28Z",
   "interval_hours": 168,
-  "total": 1,
-  "alive": 1,
+  "total": 0,
+  "alive": 0,
   "unverified": 0,
   "dead": 0,
-  "from_feed": 1,
+  "from_feed": 0,
   "deduped": 0,
-  "duration_ms": 464,
-  "sources": [
-    {
-      "id": "suboziyuannet-816d",
-      "name": "速播",
-      "api": "https://www.suboziyuan.net/api.php/provide/vod",
-      "group": "综合",
-      "origin": "feed",
-      "enabled": true,
-      "state": "ok",
-      "latency_ms": 464,
-      "searchable": true,
-      "vods": 8,
-      "checked_at": "2026-11-27T08:20:02Z",
-      "history": [
-        {
-          "t": "2026-11-27T08:20:02Z",
-          "ok": true,
-          "ms": 464
-        }
-      ]
-    }
-  ]
+  "duration_ms": 0,
+  "sources": []
 }

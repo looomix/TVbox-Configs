@@ -1,3 +1,2 @@
 # TVbox-Configs 已验证视频源
-# 共 1 条，每行：名称|API|类型|状态
-速播|https://www.suboziyuan.net/api.php/provide/vod|json|verified
+# 共 0 条，每行：名称|API|类型|状态

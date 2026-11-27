@@ -1,10 +1,1 @@
-[
-  {
-    "id": "suboziyuannet816d",
-    "name": "速播",
-    "url": "https://www.suboziyuan.net/api.php/provide/vod",
-    "detailUrl": "https://www.suboziyuan.net/api.php/provide/vod",
-    "timeout": 5000,
-    "isEnabled": true
-  }
-]
+[]

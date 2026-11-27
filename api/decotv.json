@@ -1,9 +1,4 @@
 {
   "cache_time": 7200,
-  "api_site": {
-    "suboziyuannet816d": {
-      "name": "速播",
-      "api": "https://www.suboziyuan.net/api.php/provide/vod"
-    }
-  }
+  "api_site": {}
 }

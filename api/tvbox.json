@@ -1,18 +1,6 @@
 {
   "spider": "",
-  "sites": [
-    {
-      "key": "suboziyuannet-816d",
-      "name": "速播",
-      "type": 3,
-      "api": "https://www.suboziyuan.net/api.php/provide/vod",
-      "searchable": 1,
-      "quickSearch": 1,
-      "filterable": 1,
-      "ext": "",
-      "group": "综合"
-    }
-  ],
+  "sites": [],
   "lives": [],
   "parses": [],
   "flags": [
