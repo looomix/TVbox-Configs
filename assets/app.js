@@ -20,6 +20,7 @@
     indexUrl: '',
     sources: [],
     filters: { q: '', state: 'all', group: 'all' },
+    results: {},
     editingId: null,
     busy: false
   };
@@ -68,11 +69,16 @@
     return h;
   }
 
-  function getJSON(url) {
-    return fetch(url, { cache: 'no-store' }).then(function (r) {
-      if (!r.ok) throw new Error('HTTP ' + r.status);
-      return r.json();
-    });
+  function getJSON(path) {
+    var local = path + (path.indexOf('?') >= 0 ? '&' : '?') + 't=' + Date.now();
+    var remote = 'https://cdn.jsdelivr.net/gh/' + OWNER + '/' + REPO + '@' + BRANCH + '/' + path;
+    function grab(url) {
+      return fetch(url, { cache: 'no-store' }).then(function (r) {
+        if (!r.ok) throw new Error('HTTP ' + r.status);
+        return r.json();
+      });
+    }
+    return grab(local).catch(function () { return grab(remote); });
   }
 
   function withParams(api) {
@@ -98,13 +104,13 @@
   /* ---------------- loading ---------------- */
 
   function loadStatus() {
-    return getJSON('api/status.json?t=' + Date.now()).then(function (d) {
+    return getJSON('api/status.json').then(function (d) {
       state.status = d;
     }).catch(function () { state.status = null; });
   }
 
   function loadSources() {
-    return getJSON('sources/sources.json?t=' + Date.now()).then(function (d) {
+    return getJSON('sources/sources.json').then(function (d) {
       state.sources = (d && d.sources) || [];
     }).catch(function () { state.sources = []; });
   }
@@ -122,7 +128,7 @@
   }
 
   function loadMirrors() {
-    return getJSON('api/mirror.json?t=' + Date.now()).then(function (d) {
+    return getJSON('api/mirror.json').then(function (d) {
       state.mirrors = (d && d.mirrors) || defaultMirrors();
     }).catch(function () { state.mirrors = defaultMirrors(); });
   }
