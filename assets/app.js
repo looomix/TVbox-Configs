@@ -588,15 +588,15 @@
   function addInterfaces(lines) {
     if (!state.token) { openToken(); return; }
     var known = {};
-    state.sources.forEach(function (s) { known[hostKey(s.api)] = true; });
+    state.sources.forEach(function (s) { known[apiKey(s.api)] = true; });
     var fresh = [], dup = 0;
     lines.forEach(function (api) {
-      var key = hostKey(api);
+      var key = apiKey(api);
       if (known[key]) { dup++; return; }
       known[key] = true;
       fresh.push({
         id: slug(key, api),
-        name: key,
+        name: hostKey(api),
         api: api,
         group: '综合',
         note: '',
@@ -639,6 +639,20 @@
   }
 
   /* same key the generator uses, so deletions survive the next feed merge */
+  // must stay in sync with gen.NormalizeAPI on the server
+  var API_PATH_NOISE = { at: 1, from: 1, xml: 1, json: 1, ac: 1, wd: 1, pg: 1, p: 1, t: 1, h: 1, ids: 1, page: 1 };
+
+  function pathKey(rawPath) {
+    var segs = String(rawPath || '').toLowerCase().replace(/^\/+|\/+$/g, '').split('/');
+    var kept = [];
+    for (var i = 0; i < segs.length; i++) {
+      if (!segs[i] || API_PATH_NOISE[segs[i]]) continue;
+      kept.push(segs[i]);
+      if (kept.length === 3) break;
+    }
+    return kept.join('/');
+  }
+
   function apiKey(raw) {
     try {
       var u = new URL(raw);
@@ -648,11 +662,12 @@
         try {
           var t = new URL(target);
           var th = t.hostname.toLowerCase().replace(/^www\./, '');
-          var path = t.pathname.replace(/^\/+|\/+$/g, '').toLowerCase();
-          return host + '|' + th + (path ? '/' + path : '');
+          var pk = pathKey(t.pathname);
+          return host + '|' + th + (pk ? '/' + pk : '');
         } catch (e) { /* keep host only */ }
       }
-      return host;
+      var pk2 = pathKey(u.pathname);
+      return pk2 ? host + '/' + pk2 : host;
     } catch (e) {
       return String(raw).toLowerCase();
     }

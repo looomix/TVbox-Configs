@@ -10,8 +10,35 @@ import (
 	"github.com/looomix/tvbox-configs/internal/model"
 )
 
-// NormalizeAPI builds the dedupe key: scheme, www, trailing slashes, default
-// ports and letter case are ignored, the path itself is kept.
+// pathNoise are the segments that only carry request parameters of one and the
+// same endpoint (/api.php/provide/vod, /api.php/provide/vod/at/xml, …).
+var pathNoise = map[string]bool{
+	"at": true, "from": true, "xml": true, "json": true, "ac": true, "wd": true,
+	"pg": true, "p": true, "t": true, "h": true, "ids": true, "page": true,
+}
+
+// PathKey keeps the first three meaningful path segments, so two stations served
+// from one host stay apart while param variants of one endpoint still collapse.
+func PathKey(rawPath string) string {
+	path := strings.ToLower(strings.Trim(strings.TrimSpace(rawPath), "/"))
+	if path == "" {
+		return ""
+	}
+	kept := make([]string, 0, 3)
+	for _, seg := range strings.Split(path, "/") {
+		if seg == "" || pathNoise[seg] {
+			continue
+		}
+		kept = append(kept, seg)
+		if len(kept) == 3 {
+			break
+		}
+	}
+	return strings.Join(kept, "/")
+}
+
+// NormalizeAPI builds the dedupe key: scheme, www, port, case and trailing
+// slashes are ignored; host and path prefix decide which station it is.
 func NormalizeAPI(raw string) string {
 	u, err := url.Parse(strings.TrimSpace(raw))
 	if err != nil || u.Host == "" {
@@ -19,16 +46,19 @@ func NormalizeAPI(raw string) string {
 	}
 	host := strings.TrimPrefix(strings.ToLower(u.Hostname()), "www.")
 	// proxy style endpoints (…?url=…) may serve different stations on one host
-	key := host
 	if target := u.Query().Get("url"); target != "" {
 		if t, err := url.Parse(strings.TrimSpace(target)); err == nil && t.Host != "" {
-			key = host + "|" + strings.TrimPrefix(strings.ToLower(t.Hostname()), "www.")
-			if path := strings.Trim(t.Path, "/"); path != "" {
-				key += "/" + strings.ToLower(path)
+			key := host + "|" + strings.TrimPrefix(strings.ToLower(t.Hostname()), "www.")
+			if path := PathKey(t.Path); path != "" {
+				key += "/" + path
 			}
+			return key
 		}
 	}
-	return key
+	if path := PathKey(u.Path); path != "" {
+		return host + "/" + path
+	}
+	return host
 }
 
 // Dedupe removes repeated api endpoints, keeps the first occurrence (manual

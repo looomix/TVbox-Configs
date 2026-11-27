@@ -12,7 +12,7 @@
 ```
 cmd/tvboxgen        生成器入口（Go，无第三方依赖）
 internal/probe      接口探活（CMS 搜索 + 最新列表，最多三次请求定结论）
-internal/gen        产物构造、域名与中文名去重
+internal/gen        产物构造、接口键（域名 + 路径前缀）与中文名去重
 internal/feed       源库拉取（纯文本 / json / api_site 三种格式）
 internal/mirror     各产物的多镜像地址
 sources/            源清单与源库清单（默认全空）
@@ -76,7 +76,7 @@ go build -o bin/tvboxgen ./cmd/tvboxgen
 - **Setup**: fork the repo, enable GitHub Pages (`main` / root), open the site, and paste a fine-grained PAT with `Contents: read & write` and `Actions: read & write` scoped to this repository.
 - **Manage**: add sources one by one, or paste many interface URLs at once (newline / comma separated); test, edit, delete a single row, or delete a multi-selected batch. Every write lands in `sources/sources.json` and triggers one cloud run.
 - **Generate**: `go build -o bin/tvboxgen ./cmd/tvboxgen && ./bin/tvboxgen -force`. Each run is hard-capped (`-budget`, default 50s). Only endpoints that answer with a real vod list (`ok`) reach the artifacts; the rest stay in `api/status.json`.
-- **Dedupe**: by host and by normalized Chinese display name, so mirrors of the same station collapse into one entry.
+- **Dedupe**: by endpoint key (host + first meaningful path segments, so two stations on one host stay apart) and by normalized Chinese display name, so mirrors of the same station collapse into one entry.
 - **Disclaimer**: this project only generates and manages configuration files. It does **not** host, proxy, transcode, or distribute any media. All endpoints are supplied by the repository's own users or fetched from lists they configure; the project does not screen or endorse them and gives no warranty as to their legality, availability, security, or content rights. Users are solely responsible for complying with the laws of their jurisdiction and the license terms of the software they use. Provided "as is", without any express or implied warranty, including merchantability, fitness for a particular purpose, and non-infringement; the author accepts no liability for any direct or indirect damages arising from use of, or inability to use, this project.
 
 ## License
