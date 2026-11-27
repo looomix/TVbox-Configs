@@ -1,7 +1,112 @@
 {
   "version": 1,
   "updated_at": "2026-11-27",
-  "sources": [],
+  "sources": [
+    {
+      "id": "cjlzcaijicom-5f94",
+      "name": "量子",
+      "api": "https://cj.lzcaiji.com/api.php/provide/vod",
+      "group": "综合",
+      "enabled": true,
+      "origin": "feed"
+    },
+    {
+      "id": "apizuidapicom-6a3b",
+      "name": "最大",
+      "api": "https://api.zuidapi.com/api.php/provide/vod",
+      "group": "综合",
+      "enabled": true,
+      "origin": "feed"
+    },
+    {
+      "id": "apiwujinapicom-d9d6",
+      "name": "无尽影视",
+      "api": "https://api.wujinapi.com/api.php/provide/vod",
+      "group": "综合",
+      "enabled": true,
+      "origin": "feed"
+    },
+    {
+      "id": "haohuazycom-b089",
+      "name": "豪华",
+      "api": "https://haohuazy.com/api.php/provide/vod",
+      "group": "综合",
+      "enabled": true,
+      "origin": "feed"
+    },
+    {
+      "id": "huyazynet-7cd2",
+      "name": "虎牙",
+      "api": "https://huyazy.net/api.php/provide/vod",
+      "group": "综合",
+      "enabled": true,
+      "origin": "feed"
+    },
+    {
+      "id": "subocjcom-f010",
+      "name": "速播",
+      "api": "https://subocj.com/api.php/provide/vod",
+      "group": "综合",
+      "enabled": true,
+      "origin": "feed"
+    },
+    {
+      "id": "ffzy5tv-e124",
+      "name": "非凡",
+      "api": "https://ffzy5.tv/api.php/provide/vod",
+      "group": "综合",
+      "enabled": true,
+      "origin": "feed"
+    },
+    {
+      "id": "apiukuzycom-4175",
+      "name": "u酷",
+      "api": "https://api.ukuzy.com/api.php/provide/vod",
+      "group": "综合",
+      "enabled": true,
+      "origin": "feed"
+    },
+    {
+      "id": "apiyzzycom-0c48",
+      "name": "优质",
+      "api": "https://api.yzzy.com/api.php/provide/vod",
+      "group": "综合",
+      "enabled": true,
+      "origin": "feed"
+    },
+    {
+      "id": "apiryzycom-ce44",
+      "name": "如意",
+      "api": "https://api.ryzy.com/api.php/provide/vod",
+      "group": "综合",
+      "enabled": true,
+      "origin": "feed"
+    },
+    {
+      "id": "apixlzycom-07c7",
+      "name": "新浪",
+      "api": "https://api.xlzy.com/api.php/provide/vod",
+      "group": "综合",
+      "enabled": true,
+      "origin": "feed"
+    },
+    {
+      "id": "apihnzy2com-78a7",
+      "name": "红牛",
+      "api": "https://api.hnzy2.com/api.php/provide/vod",
+      "group": "综合",
+      "enabled": true,
+      "origin": "feed"
+    },
+    {
+      "id": "apijyzycom-f77c",
+      "name": "金鹰",
+      "api": "https://api.jyzy.com/api.php/provide/vod",
+      "group": "综合",
+      "enabled": true,
+      "origin": "feed"
+    }
+  ],
   "removed": [
     "iqiyizyapi.com/api.php/provide/vod",
     "ikunzyapi.com/api.php/provide/vod",
