@@ -104,7 +104,7 @@ func main() {
 		for i, src := range list {
 			r := results[i]
 			vf.Sources = append(vf.Sources, model.VantageEntry{
-				ID: src.ID, API: src.API, State: r.State, LatencyMs: r.LatencyMs, PlayOK: r.PlayOK,
+				ID: src.ID, API: src.API, State: r.State, Vods: r.Vods, LatencyMs: r.LatencyMs, PlayOK: r.PlayOK,
 			})
 			if r.State == "ok" {
 				ok++
@@ -271,15 +271,21 @@ func main() {
 			st.CNChecked = cnChecked
 			if r.State != "ok" && cn.State == "ok" {
 				// the overseas vantage failed but the domestic one passed: publish
-				// it, the subscription is consumed from inside china
+				// it, the subscription is consumed from inside china. the domestic
+				// verdict already includes the play check, so trust it fully.
 				st.State = "ok"
 				st.LatencyMs = cn.LatencyMs
 				st.Searchable = true
+				st.PlayOK = true
+				st.PlayNote = ""
+				if st.Vods == 0 {
+					st.Vods = cn.Vods
+				}
 				cnRescued++
 			}
 		}
 		if s.Enabled {
-			st.History = gen.AppendCheck(oldHistory[s.ID], r.State == "ok", r.LatencyMs, now, *histLimit)
+			st.History = gen.AppendCheck(oldHistory[s.ID], st.State == "ok", st.LatencyMs, now, *histLimit)
 		} else {
 			st.History = oldHistory[s.ID]
 		}

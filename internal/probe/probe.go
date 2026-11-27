@@ -127,7 +127,13 @@ func (p payload) playCandidates(limit int) []string {
 
 func fetchOnce(c *http.Client, target string) Result {
 	start := time.Now()
-	resp, err := c.Get(target)
+	req, reqErr := http.NewRequest(http.MethodGet, target, nil)
+	if reqErr != nil {
+		return Result{State: "down"}
+	}
+	req.Header.Set("User-Agent", ua)
+	req.Header.Set("Accept", "application/json, text/plain, */*")
+	resp, err := c.Do(req)
 	if err != nil {
 		return Result{State: "down", LatencyMs: int(time.Since(start).Milliseconds())}
 	}
@@ -240,7 +246,9 @@ func Verify(c *http.Client, api string) Result {
 		return Result{State: "down"}
 	}
 	start := time.Now()
-	sequence := []string{keywords[0], keywords[0], keywords[1]}
+	// every keyword once, then one retry of the first, so a transient failure or a
+	// missing title never decides the verdict alone
+	sequence := []string{keywords[0], keywords[1], keywords[0]}
 	var best *Result
 	remember := func(r Result) {
 		if best == nil {

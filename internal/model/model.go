@@ -93,8 +93,8 @@ type TVBox struct {
 type ProbeResult struct {
 	URL       string `json:"url"`
 	State     string `json:"state"`
-	LatencyMs int    `json:"latency_ms"`
 	Vods      int    `json:"vods"`
+	LatencyMs int    `json:"latency_ms"`
 	Playable  bool   `json:"playable"`
 	CheckedAt string `json:"checked_at"`
 }
@@ -165,6 +165,7 @@ type VantageEntry struct {
 	ID        string `json:"id"`
 	API       string `json:"api"`
 	State     string `json:"state"`
+	Vods      int    `json:"vods"`
 	LatencyMs int    `json:"latency_ms"`
 	PlayOK    bool   `json:"play_ok"`
 }
