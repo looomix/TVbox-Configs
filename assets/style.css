@@ -89,6 +89,9 @@ a:hover { text-decoration: underline; }
 .mirror .btn { flex: none; }
 
 .inline-row { display: flex; gap: 8px; align-items: center; margin-top: 10px; }
+.inline-row.wide { margin: 10px 0 2px; }
+.inline-row.wide .input { flex: 1; min-width: 0; }
+.inline-row.wide .btn { flex: none; }
 .inline-row .url { flex: 1; min-width: 0; font-family: ui-monospace, SFMono-Regular, Menlo, monospace; font-size: 12px; padding: 8px 10px; background: #fbfcfe; border: 1px solid var(--line); border-radius: 9px; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
 
 /* ---------- source table ---------- */

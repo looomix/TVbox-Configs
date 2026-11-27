@@ -12,19 +12,6 @@
   var KEYWORD = '庆余年';
   var HIST_MAX = 8;
 
-  // preset source libraries offered by the one click import card
-  var PRESETS = [
-    { name: '资源族 CMS 接口清单', url: 'https://www.ziyuanzu.com/download/ziyuanzu-cms-interfaces.txt', kind: '接口' },
-    { name: 'OuonnkiTV', url: 'https://raw.githubusercontent.com/Yesbaiwan/OuonnkiTV-Source/main/tv_source/OuonnkiTV/full-noadult.json', kind: '接口' },
-    { name: 'KVideo', url: 'https://raw.githubusercontent.com/puppet680/KVideo-config/main/KVideo-config.json', kind: '接口' },
-    { name: 'LibreTV', url: 'https://raw.githubusercontent.com/haojun19980728-prog/libretv-source-list/main/libretv-sources.json', kind: '接口' },
-    { name: 'KatelyaTV', url: 'https://raw.githubusercontent.com/smallmain/moontv-aggr-config/main/full.json', kind: '接口' },
-    { name: 'DecoTV', url: 'https://raw.githubusercontent.com/DaLongZhuaZi/moontv-config/main/config.json', kind: '接口' },
-    { name: 'MoonTVPlus', url: 'https://raw.githubusercontent.com/hailowell/MoonTvConfig/main/LunaTv-config.json', kind: '接口' },
-    { name: 'LunaTV 配置清单', url: 'https://raw.githubusercontent.com/hafrey1/LunaTV-config/refs/heads/main/LunaTV-config.json', kind: '源' },
-    { name: 'CMS 状态全量清单', url: 'https://raw.githubusercontent.com/puppet680/cms-config/refs/heads/main/full_status.json', kind: '源' }
-  ];
-
   var $ = function (sel) { return document.querySelector(sel); };
   var state = {
     token: localStorage.getItem(TOKEN_KEY) || '',
@@ -122,10 +109,6 @@
 
   function loadSources() {
     return getJSON('sources/sources.json').then(function (d) { state.sources = (d && d.sources) || []; }).catch(function () { state.sources = []; });
-  }
-
-  function loadFeeds() {
-    return getJSON('sources/feeds.json').then(function (d) { state.feeds = (d && d.feeds) || []; }).catch(function () { state.feeds = []; });
   }
 
   function defaultGroups() {
@@ -309,45 +292,11 @@
     }).join('');
   }
 
-  function feedOf(url) {
-    var hit = null;
-    state.feeds.forEach(function (f) { if (f.url === url) hit = f; });
-    return hit;
-  }
-
-  function renderFeeds() {
-    var rows = PRESETS.slice();
-    state.feeds.forEach(function (f) {
-      var known = rows.some(function (r) { return r.url === f.url; });
-      if (!known) rows.push({ name: f.name || f.url, url: f.url });
-    });
-    var enabled = state.feeds.filter(function (f) { return f.enabled; }).length;
-    $('#feedCount').textContent = '已接入 ' + enabled + ' 个';
-    function row(r) {
-      var f = feedOf(r.url);
-      var on = !!(f && f.enabled);
-      return '<div class="feed-row">' +
-        '<div class="feed-main">' +
-        '<div class="n">' + esc(r.name) + '<span class="badge">' + esc(r.kind || '源') + '</span><span class="badge ' + (on ? 'on' : '') + '">' + (on ? '已接入' : '未接入') + '</span></div>' +
-        '<div class="url" title="' + esc(r.url) + '">' + esc(r.url) + '</div>' +
-        '</div>' +
-        '<button class="btn sm ' + (on ? '' : 'primary') + '" data-feed="' + esc(r.url) + '" data-on="' + (on ? '1' : '0') + '">' + (on ? '停用' : '接入') + '</button>' +
-        '</div>';
-    }
-    var primary = rows.filter(function (r) { return (r.kind || '接口') !== '源'; });
-    var extra = rows.filter(function (r) { return r.kind === '源'; });
-    $('#feeds').innerHTML = primary.map(row).join('');
-    $('#feedsMore').innerHTML = extra.map(row).join('');
-    $('#feedMoreCount').textContent = extra.length + ' 个';
-    $('#feedMoreBox').style.display = extra.length ? '' : 'none';
-  }
-
   function renderAll() {
     renderStats();
     renderMirrors();
     renderGroups();
     renderRows();
-    renderFeeds();
   }
 
   /* ---------------- probing: cloud workflow first ---------------- */
@@ -624,8 +573,6 @@
       var text = JSON.stringify(doc, null, 2) + '\n';
       return ghPutFile('sources/feeds.json', text, res.sha, (on ? 'feat: 导入源库 ' : 'chore: 停用源库 ') + (name || hostOf(url)))
         .then(function () {
-          state.feeds = feeds;
-          renderFeeds();
           return dispatchWorkflow();
         }).then(function (triggered) {
           toast(triggered ? ('已' + (on ? '导入' : '停用') + '，云端正在抓取并验证（约 2 分钟）') : '已保存，等待下一次自动更新');
@@ -640,7 +587,7 @@
   function scheduleRefresh() {
     clearTimeout(refreshTimer);
     refreshTimer = setTimeout(function () {
-      Promise.all([loadStatus(), loadSources(), loadFeeds(), loadMirrors()]).then(renderAll);
+      Promise.all([loadStatus(), loadSources(), loadMirrors()]).then(renderAll);
     }, 100000);
   }
 
@@ -713,9 +660,6 @@
     $('#btnAdd').addEventListener('click', function () { openEdit(null); });
     $('#btnToken').addEventListener('click', openToken);
     $('#pillToken').addEventListener('click', openToken);
-    $('#btnFeedsReload').addEventListener('click', function () {
-      loadFeeds().then(function () { renderFeeds(); toast('已刷新源库状态'); });
-    });
 
     $('#btnCopyPrimary').addEventListener('click', function () {
       var g = state.groups[0];
@@ -730,19 +674,6 @@
     document.querySelector('[data-copy="index"]').addEventListener('click', function () {
       copyText($('#indexUrl').textContent);
     });
-
-    document.querySelectorAll('#feeds, #feedsMore').forEach(function (box) {
-      box.addEventListener('click', onFeedClick);
-    });
-    function onFeedClick(e) {
-      var btn = e.target.closest('[data-feed]');
-      if (!btn) return;
-      var url = btn.getAttribute('data-feed');
-      var on = btn.getAttribute('data-on') === '1';
-      if (on && !confirm('停用后不再随更新抓取这个源库，已导入的源会保留在列表里。确定停用？')) return;
-      var preset = PRESETS.filter(function (p) { return p.url === url; })[0];
-      toggleFeed(url, !on, preset ? preset.name : hostOf(url));
-    }
 
     $('#btnFeedAdd').addEventListener('click', function () {
       var raw = $('#feedCustom').value.trim();
@@ -840,7 +771,7 @@
 
   /* ---------------- boot ---------------- */
 
-  Promise.all([loadStatus(), loadSources(), loadFeeds(), loadMirrors()]).then(function () {
+  Promise.all([loadStatus(), loadSources(), loadMirrors()]).then(function () {
     if (!state.sources.length && state.status) {
       state.sources = state.status.sources.map(function (s) {
         return { id: s.id, name: s.name, api: s.api, group: s.group, enabled: s.enabled, origin: s.origin };

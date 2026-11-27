@@ -42,8 +42,7 @@ api/status.json  api/mirror.json   api/index.json
 - `feeds.json` 里的每条链接都会在更新时被抓取，支持三种格式：纯文本 `名称|API|类型|可用率`、扁平 JSON 数组（`name` + `url`/`api`/`baseUrl`）、`api_site` 对象。
 - 默认接入 9 个源库：资源族 CMS 接口清单、OuonnkiTV、KVideo、LibreTV、KatelyaTV、DecoTV、MoonTVPlus、LunaTV、CMS 状态全量清单；带 `isAdult` / `is_adult` 标记或分类为成人、以及被上游停用的条目直接丢弃。
 - 抓取到的源统一清洗名称（去掉装饰符号与「资源站」后缀），标记为 `origin: feed`，网页上带「自动」标签，可单独停用或删除。
-- 去重按**域名**判断（`http/https`、`www.`、首尾斜杠、大小写都不算差异；`…?url=` 形式的代理接口按代理目标区分），重复的直接丢弃并计入 `deduped`。
-- 同名不同站会保留，名称自动补上域名后缀，客户端里不会出现两行一样的名字。
+- 去重两层：先按**域名**（`http/https`、`www.`、首尾斜杠、大小写都不算差异；`…?url=` 代理按目标域名区分），再按**中文名**——`茅台 (mtzy5.com)`、`速播 (subocj.com)` 这类同站镜像域名不同、打开内容一样，一律归并为一条，保留上一轮验证可用、或手工添加、或地址更短的那条。
 
 ### 判定规则（宁缺毋滥，防误判）
 
@@ -66,7 +65,7 @@ api/status.json  api/mirror.json   api/index.json
 - **浏览 / 筛选**：按名称、地址搜索，按「可用 / 未验证 / 失效 / 停用」和分类过滤。
 - **测试**：单条源点「测试」，由 `probe.yml` 在云端真实探测（采集接口几乎不带 CORS 头，浏览器直连会被拦），约 1 分钟返回状态、延迟与条数。
 - **新增 / 修改 / 删除**：直接提交 `sources/sources.json` 并触发一次重新生成。
-- **一键导入源库**：卡片里给出常用源库链接，点「导入」即写入 `sources/feeds.json` 并触发抓取 + 去重 + 验证；也可粘贴任意订阅链接。
+- **批量导入**：`＋ 新增源` 下方一行输入框，粘贴多条接口地址（换行 / 逗号分隔）即按域名去重后入库并触发验证；粘贴源库链接（txt / `api_site` json）则接入为自动抓取源。
 - 写操作需要令牌（只存浏览器 `localStorage`，只发给 `api.github.com`）；只读浏览不需要。
 
 > 建议用 fine-grained token，仅授权本仓库 `Contents: Read and write` 与 `Actions: Read and write`。不要把令牌写进任何文件或提交。

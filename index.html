@@ -5,7 +5,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>TVbox-Configs · 视频源管理</title>
 <meta name="description" content="每 7 天自动检测的可视化 TVBox / MoonTV 视频源配置，多镜像订阅地址，支持在线新增、导入、测试与删除。">
-<link rel="stylesheet" href="assets/style.css?v=20261128d">
+<link rel="stylesheet" href="assets/style.css?v=20261128e">
 </head>
 <body>
 <div class="wrap">
@@ -55,6 +55,10 @@
         <button class="btn ghost" id="btnToken">设置令牌</button>
       </div>
     </div>
+    <div class="inline-row wide">
+      <input class="input" id="feedCustom" placeholder="粘贴接口地址或源库链接，多条用换行 / 逗号分隔；重复的自动跳过">
+      <button class="btn primary" id="btnFeedAdd">导入</button>
+    </div>
 
     <div class="table">
       <div class="thead grid-cols">
@@ -63,23 +67,6 @@
       <div id="rows"></div>
     </div>
     <p class="hint" id="listHint">正在加载…</p>
-  </section>
-
-  <section class="card">
-    <div class="card-head">
-      <h2>接口源库 · 一键接入<span class="sub-count" id="feedCount"></span></h2>
-      <button class="btn sm" id="btnFeedsReload">刷新状态</button>
-    </div>
-    <div id="feeds"></div>
-    <details class="feed-more" id="feedMoreBox">
-      <summary>更多源配置（照旧可接入）<span class="sub-count" id="feedMoreCount"></span></summary>
-      <div id="feedsMore"></div>
-    </details>
-    <div class="inline-row">
-      <input class="input" id="feedCustom" placeholder="粘贴接口地址或源库链接（多行 / 逗号分隔）">
-      <button class="btn primary" id="btnFeedAdd">导入链接</button>
-    </div>
-    <p class="hint">接入即进入云端抓取队列：自动去重、逐条验证，未通过验证的接口不会写进订阅配置；每 7 天随更新一起刷新。</p>
   </section>
 
   <footer>
@@ -130,6 +117,6 @@
 </div>
 
 <div class="toast" id="toast"></div>
-<script src="assets/app.js?v=20261128d"></script>
+<script src="assets/app.js?v=20261128e"></script>
 </body>
 </html>

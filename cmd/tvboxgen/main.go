@@ -126,6 +126,16 @@ func main() {
 	}
 	list, dup := gen.Dedupe(kept)
 
+	// prefer the mirror that verified fine last round when names collide
+	prevOK := make(map[string]bool, len(prev.Sources))
+	for _, st := range prev.Sources {
+		if st.Enabled && st.State == "ok" {
+			prevOK[gen.NormalizeAPI(st.API)] = true
+		}
+	}
+	list, nameDup := gen.DedupeNames(list, prevOK)
+	dup += nameDup
+
 	fromFeed := 0
 	for _, s := range list {
 		if s.Origin == "feed" {
