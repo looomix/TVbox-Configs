@@ -1,0 +1,116 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>TVbox-Configs · 视频源管理</title>
+<meta name="description" content="每 7 天自动检测的可视化 TVBox 视频源配置，多镜像订阅地址，支持在线新增、修改、测试与删除。">
+<link rel="stylesheet" href="assets/style.css">
+</head>
+<body>
+<div class="wrap">
+
+  <header class="top">
+    <div class="brand">
+      <h1>TVbox-Configs</h1>
+      <p class="sub">7 天自动更新 · 多镜像订阅 · 在线视频源管理</p>
+    </div>
+    <div class="stats">
+      <span class="pill ok" id="pillAlive">可用 —</span>
+      <span class="pill bad" id="pillDead">失效 —</span>
+      <span class="pill" id="pillTime">上次更新 —</span>
+      <span class="pill" id="pillToken" title="点击设置访问令牌">🔑 只读模式</span>
+    </div>
+  </header>
+
+  <section class="card">
+    <div class="card-head">
+      <h2>订阅地址</h2>
+      <button class="btn sm primary" id="btnCopyPrimary">复制主线路</button>
+    </div>
+    <div class="mirrors" id="mirrors"></div>
+    <p class="hint">TVBox / 影视仓「设置 → 配置地址」粘贴任意一条；主线路失效时依次换用备用镜像。</p>
+    <div class="inline-row">
+      <span class="url" id="indexUrl">api/index.json</span>
+      <button class="btn sm" data-copy="#indexUrl">复制多仓入口</button>
+    </div>
+  </section>
+
+  <section class="card">
+    <div class="card-head">
+      <h2>视频源<span class="sub-count" id="listCount"></span></h2>
+      <div class="tools">
+        <input class="input" id="q" type="search" placeholder="搜索名称 / 地址 / 备注">
+        <select id="filterState">
+          <option value="all">全部状态</option>
+          <option value="alive">仅可用</option>
+          <option value="down">仅失效</option>
+          <option value="off">仅停用</option>
+        </select>
+        <select id="filterGroup"><option value="all">全部分类</option></select>
+        <button class="btn primary" id="btnAdd">＋ 新增源</button>
+        <button class="btn" id="btnDispatch" title="触发一次立即检测">立即重新生成</button>
+        <button class="btn ghost" id="btnToken">设置令牌</button>
+      </div>
+    </div>
+
+    <div class="table">
+      <div class="thead grid-cols">
+        <div>资源名称</div><div>接口地址</div><div>分类</div><div>状态</div><div>延迟</div><div>近 8 期</div><div style="text-align:right">操作</div>
+      </div>
+      <div id="rows"></div>
+    </div>
+    <p class="hint" id="listHint">正在加载…</p>
+  </section>
+
+  <footer>
+    <a href="https://github.com/looomix/TVbox-Configs" target="_blank" rel="noopener">GitHub 仓库</a>
+    · 数据来源为公开采集接口，版权归原站点所有，本项目仅做技术整理，不含成人内容。
+  </footer>
+</div>
+
+<!-- 编辑 / 新增 -->
+<div class="modal" id="modalEdit">
+  <div class="sheet">
+    <h3 id="editTitle">新增视频源</h3>
+    <label><span>名称</span><input class="input" id="fName" placeholder="例如：某某影视"></label>
+    <label><span>接口地址（CMS API）</span><input class="input" id="fApi" placeholder="https://example.com/api.php/provide/vod"></label>
+    <div class="grid2">
+      <label><span>分类</span>
+        <select id="fGroup">
+          <option>综合</option><option>影视</option><option>动漫</option><option>综艺</option><option>短剧</option><option>其他</option>
+        </select>
+      </label>
+      <label><span>状态</span>
+        <select id="fEnabled"><option value="1">启用</option><option value="0">停用</option></select>
+      </label>
+    </div>
+    <label><span>备注（可选）</span><input class="input" id="fNote" placeholder="例如：无水印 / 秒播 / 有广告"></label>
+    <div class="sheet-actions">
+      <button class="btn" id="btnTestForm">测试接口</button>
+      <button class="btn" data-close>取消</button>
+      <button class="btn primary" id="btnSave">保存并发布</button>
+    </div>
+    <p class="hint" id="editHint">保存会直接提交到仓库的 <code>sources/sources.json</code>，需要写入令牌。</p>
+  </div>
+</div>
+
+<!-- 令牌 -->
+<div class="modal" id="modalToken">
+  <div class="sheet">
+    <h3>GitHub 访问令牌</h3>
+    <label><span>Personal access token（仅本机浏览器保存）</span><input class="input" id="fToken" type="password" placeholder="ghp_… 或 github_pat_…"></label>
+    <p class="hint">建议使用 fine-grained token，只授权本仓库的 <b>Contents: Read and write</b> 与 <b>Actions: Read and write</b> 权限。令牌只写入浏览器本地存储，不会上传到别处。</p>
+    <div class="sheet-actions">
+      <button class="btn" id="btnTokenClear">清除令牌</button>
+      <button class="btn" data-close>取消</button>
+      <button class="btn primary" id="btnTokenSave">保存</button>
+    </div>
+    <p class="hint" id="tokenHint"></p>
+  </div>
+</div>
+
+<div class="toast" id="toast"></div>
+<script src="assets/app.js"></script>
+</body>
+</html>

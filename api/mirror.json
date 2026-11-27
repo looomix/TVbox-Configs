@@ -1,0 +1,36 @@
+{
+  "updated_at": "2026-11-27T05:52:02Z",
+  "file": "api/tvbox.json",
+  "mirrors": [
+    {
+      "name": "jsDelivr 主线路",
+      "url": "https://cdn.jsdelivr.net/gh/looomix/TVbox-Configs@main/api/tvbox.json",
+      "kind": "primary"
+    },
+    {
+      "name": "GitHub Pages 备用",
+      "url": "https://looomix.github.io/TVbox-Configs/api/tvbox.json",
+      "kind": "backup"
+    },
+    {
+      "name": "Raw 直连",
+      "url": "https://raw.githubusercontent.com/looomix/TVbox-Configs/main/api/tvbox.json",
+      "kind": "backup"
+    },
+    {
+      "name": "Statically CDN",
+      "url": "https://cdn.statically.io/gh/looomix/TVbox-Configs/main/api/tvbox.json",
+      "kind": "backup"
+    },
+    {
+      "name": "ghproxy 加速",
+      "url": "https://ghproxy.net/https://raw.githubusercontent.com/looomix/TVbox-Configs/main/api/tvbox.json",
+      "kind": "proxy"
+    },
+    {
+      "name": "gh-proxy 加速",
+      "url": "https://gh-proxy.com/https://raw.githubusercontent.com/looomix/TVbox-Configs/main/api/tvbox.json",
+      "kind": "proxy"
+    }
+  ]
+}

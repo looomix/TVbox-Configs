@@ -1,0 +1,321 @@
+{
+  "version": 1,
+  "updated_at": "2026-11-27",
+  "sources": [
+    {
+      "id": "1080zyk_com",
+      "name": "优质库1080zyk",
+      "api": "https://api.yyzy-tv.vip/inc/api_mac10.php",
+      "group": "综合",
+      "note": "无广告/高清无水印/秒播稳定/搜索污染",
+      "enabled": true,
+      "added_at": "2026-11-27"
+    },
+    {
+      "id": "iqiyizyapi_com",
+      "name": "爱奇艺",
+      "api": "https://iqiyizyapi.com/api.php/provide/vod",
+      "group": "综合",
+      "note": "无广告/偏爱奇艺风格/更新较慢",
+      "enabled": true,
+      "added_at": "2026-11-27"
+    },
+    {
+      "id": "dbzy_tv",
+      "name": "豆瓣",
+      "api": "https://caiji.dbzy5.com/api.php/provide/vod",
+      "group": "综合",
+      "note": "跑马灯/开头广告/国内CDN",
+      "enabled": true,
+      "added_at": "2026-11-27"
+    },
+    {
+      "id": "mtzy_me",
+      "name": "茅台",
+      "api": "https://caiji.maotaizy.cc/api.php/provide/vod",
+      "group": "综合",
+      "note": "开头5-10秒广告/蓝光秒拖/顶级画质",
+      "enabled": true,
+      "added_at": "2026-11-27"
+    },
+    {
+      "id": "ikunzy_com",
+      "name": "iKun",
+      "api": "https://ikunzyapi.com/api.php/provide/vod",
+      "group": "综合",
+      "note": "无广告/新颖/偶尔卡顿",
+      "enabled": true,
+      "added_at": "2026-11-27"
+    },
+    {
+      "id": "dyttzyapi_com",
+      "name": "电影天堂",
+      "api": "http://caiji.dyttzyapi.com/api.php/provide/vod",
+      "group": "综合",
+      "note": "纯净/无跑马灯/无插播/聚合干净",
+      "enabled": true,
+      "added_at": "2026-11-27"
+    },
+    {
+      "id": "maoyanzy_com",
+      "name": "猫眼",
+      "api": "https://api.maoyanapi.top/api.php/provide/vod",
+      "group": "综合",
+      "note": "切片/M3U8直链/高清稳定",
+      "enabled": true,
+      "added_at": "2026-11-27"
+    },
+    {
+      "id": "lzcaiji_com",
+      "name": "量子",
+      "api": "https://cj.lzcaiji.com/api.php/provide/vod",
+      "group": "综合",
+      "note": "无广告/M3U8直链/HTTPS/自家CDN",
+      "enabled": true,
+      "added_at": "2026-11-27"
+    },
+    {
+      "id": "360zy_com",
+      "name": "360",
+      "api": "https://360zyzz.com/api.php/provide/vod",
+      "group": "综合",
+      "note": "无广告/M3U8直链/中规中矩",
+      "enabled": true,
+      "added_at": "2026-11-27"
+    },
+    {
+      "id": "jszyapi_com",
+      "name": "极速",
+      "api": "https://jszyapi.com/api.php/provide/vod",
+      "group": "综合",
+      "note": "无广告/响应极快/画质一般",
+      "enabled": true,
+      "added_at": "2026-11-27"
+    },
+    {
+      "id": "moduzy_net",
+      "name": "魔都",
+      "api": "https://www.mdzyapi.com/api.php/provide/vod",
+      "group": "综合",
+      "note": "M3U8直链/有跑马灯/广告中等",
+      "enabled": true,
+      "added_at": "2026-11-27"
+    },
+    {
+      "id": "ffzyapi_com",
+      "name": "非凡",
+      "api": "https://api.ffzyapi.com/api.php/provide/vod",
+      "group": "综合",
+      "note": "HTTPS/M3U8直链/偶尔开头广告",
+      "enabled": true,
+      "added_at": "2026-11-27"
+    },
+    {
+      "id": "bfzy_tv",
+      "name": "暴风",
+      "api": "https://bfzyapi.com/api.php/provide/vod",
+      "group": "综合",
+      "note": "无广告/独家/秒拖强",
+      "enabled": true,
+      "added_at": "2026-11-27"
+    },
+    {
+      "id": "zuida_xyz",
+      "name": "最大",
+      "api": "https://api.zuidapi.com/api.php/provide/vod",
+      "group": "综合",
+      "note": "有跑马灯/开头广告/秒拖但不稳",
+      "enabled": true,
+      "added_at": "2026-11-27"
+    },
+    {
+      "id": "wujinzy_me",
+      "name": "无尽",
+      "api": "https://api.wujinapi.me/api.php/provide/vod",
+      "group": "综合",
+      "note": "开头广告/国内CDN/秒播率中",
+      "enabled": true,
+      "added_at": "2026-11-27"
+    },
+    {
+      "id": "xinlangapi_com",
+      "name": "新浪",
+      "api": "https://api.xinlangapi.com/xinlangapi.php/provide/vod",
+      "group": "综合",
+      "note": "开头广告/极速CDN/一般",
+      "enabled": true,
+      "added_at": "2026-11-27"
+    },
+    {
+      "id": "tyyszy_com",
+      "name": "天涯",
+      "api": "https://tyyszyapi.com/api.php/provide/vod",
+      "group": "综合",
+      "note": "无广告/短剧专区强/更新快",
+      "enabled": true,
+      "added_at": "2026-11-27"
+    },
+    {
+      "id": "subozy_com",
+      "name": "速播",
+      "api": "https://subocaiji.com/api.php/provide/vod",
+      "group": "综合",
+      "note": "开头广告/高清画质/更新中规",
+      "enabled": true,
+      "added_at": "2026-11-27"
+    },
+    {
+      "id": "jinyingzy_com",
+      "name": "金鹰点播",
+      "api": "https://jinyingzy.com/api.php/provide/vod",
+      "group": "综合",
+      "note": "无广告/点播类强/偏老",
+      "enabled": true,
+      "added_at": "2026-11-27"
+    },
+    {
+      "id": "p2100_net",
+      "name": "飘零",
+      "api": "https://p2100.net/api.php/provide/vod",
+      "group": "综合",
+      "note": "有跑马灯/广告中等/稳定性一般",
+      "enabled": true,
+      "added_at": "2026-11-27"
+    },
+    {
+      "id": "ukuapi88_com",
+      "name": "U酷影视",
+      "api": "https://api.ukuapi88.com/api.php/provide/vod",
+      "group": "综合",
+      "note": "无广告/丰富/偶尔卡",
+      "enabled": true,
+      "added_at": "2026-11-27"
+    },
+    {
+      "id": "guangsuapi_com",
+      "name": "光速",
+      "api": "https://api.guangsuapi.com/api.php/provide/vod",
+      "group": "综合",
+      "note": "无广告/响应快/画质中上",
+      "enabled": true,
+      "added_at": "2026-11-27"
+    },
+    {
+      "id": "hongniuzy_com",
+      "name": "红牛",
+      "api": "https://www.hongniuzy2.com/api.php/provide/vod",
+      "group": "综合",
+      "note": "开头广告/国内CDN/全网秒播",
+      "enabled": true,
+      "added_at": "2026-11-27"
+    },
+    {
+      "id": "moduapi_cc",
+      "name": "魔都动漫",
+      "api": "https://caiji.moduapi.cc/api.php/provide/vod",
+      "group": "动漫",
+      "note": "动漫专区/M3U8直链/广告少",
+      "enabled": true,
+      "added_at": "2026-11-27"
+    },
+    {
+      "id": "ryzyw_com",
+      "name": "如意",
+      "api": "https://cj.rycjapi.com/api.php/provide/vod",
+      "group": "综合",
+      "note": "开头广告/更新快/稳定性中",
+      "enabled": true,
+      "added_at": "2026-11-27"
+    },
+    {
+      "id": "haohuazy_com",
+      "name": "豪华",
+      "api": "https://hhzyapi.com/api.php/provide/vod",
+      "group": "综合",
+      "note": "开头广告/三网直连/秒拖",
+      "enabled": true,
+      "added_at": "2026-11-27"
+    },
+    {
+      "id": "bdzy1_com",
+      "name": "百度云zy",
+      "api": "https://api.apibdzy.com/api.php/provide/vod",
+      "group": "综合",
+      "note": "有跑马灯/百度云风格/广告中等",
+      "enabled": true,
+      "added_at": "2026-11-27"
+    },
+    {
+      "id": "lovedan_net",
+      "name": "艾旦影视",
+      "api": "https://lovedan.net/api.php/provide/vod",
+      "group": "综合",
+      "note": "无广告/偏小众/更新慢",
+      "enabled": true,
+      "added_at": "2026-11-27"
+    },
+    {
+      "id": "lzizy_net",
+      "name": "量子备用",
+      "api": "https://cj.lziapi.com/api.php/provide/vod",
+      "group": "综合",
+      "note": "无广告/量子备用线/速度快",
+      "enabled": true,
+      "added_at": "2026-11-27"
+    },
+    {
+      "id": "zuidazy_co",
+      "name": "最大备用",
+      "api": "https://zuidazy.me/api.php/provide/vod",
+      "group": "综合",
+      "note": "有跑马灯/备用源/广告多",
+      "enabled": true,
+      "added_at": "2026-11-27"
+    },
+    {
+      "id": "yayazy_com",
+      "name": "鸭鸭",
+      "api": "https://cj.yayazy.net/api.php/provide/vod",
+      "group": "综合",
+      "note": "有广告/秒拖/高清热播",
+      "enabled": true,
+      "added_at": "2026-11-27"
+    },
+    {
+      "id": "suonizy_net",
+      "name": "索尼",
+      "api": "https://suoniapi.com/api.php/provide/vod",
+      "group": "综合",
+      "note": "开头广告/独家三网/超清秒播",
+      "enabled": true,
+      "added_at": "2026-11-27"
+    },
+    {
+      "id": "kuaichezy_com",
+      "name": "快车",
+      "api": "https://caiji.kuaichezy.org/api.php/provide/vod",
+      "group": "综合",
+      "note": "开头广告/影视每日更新/中规",
+      "enabled": true,
+      "added_at": "2026-11-27"
+    },
+    {
+      "id": "shandianzy_com",
+      "name": "闪电",
+      "api": "https://xsd.sdzyapi.com/api.php/provide/vod",
+      "group": "综合",
+      "note": "开头广告/全网秒播/稳定性一般",
+      "enabled": true,
+      "added_at": "2026-11-27"
+    },
+    {
+      "id": "yhzy_cc",
+      "name": "樱花",
+      "api": "https://m3u8.apiyhzy.com/api.php/provide/vod",
+      "group": "综合",
+      "note": "403常见/可能失效/广告未知",
+      "enabled": true,
+      "added_at": "2026-11-27"
+    }
+  ]
+}
