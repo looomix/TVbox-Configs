@@ -1,4 +1,10 @@
 {
   "version": 1,
-  "feeds": []
+  "feeds": [
+    {
+      "name": "raw.githubusercontent.com",
+      "url": "https://raw.githubusercontent.com/Yesbaiwan/OuonnkiTV-Source/main/tv_source/OuonnkiTV/full-noadult.json",
+      "enabled": true
+    }
+  ]
 }
