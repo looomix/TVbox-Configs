@@ -53,3 +53,10 @@ jobs:
           fi
           git commit -m "chore: 刷新视频源配置 $(date -u '+%Y-%m-%d %H:%M UTC')"
           git push
+
+      - name: Purge jsDelivr cache
+        if: always()
+        run: |
+          for f in api/tvbox.json api/moontv.json api/sources.txt api/status.json api/mirror.json api/index.json; do
+            curl -s "https://purge.jsdelivr.net/gh/${GITHUB_REPOSITORY}@main/$f" > /dev/null || true
+          done
