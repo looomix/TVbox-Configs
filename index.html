@@ -5,7 +5,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>TVbox-Configs · 视频源管理</title>
 <meta name="description" content="每 7 天自动检测的可视化 TVBox 视频源配置，多镜像订阅地址，支持在线新增、修改、测试与删除。">
-<link rel="stylesheet" href="assets/style.css?v=20261127f">
+<link rel="stylesheet" href="assets/style.css?v=20261127g">
 </head>
 <body>
 <div class="wrap">
@@ -91,7 +91,7 @@
       <button class="btn" data-close>取消</button>
       <button class="btn primary" id="btnSave">保存并发布</button>
     </div>
-    <p class="hint" id="editHint">保存会直接提交到仓库的 <code>sources/sources.json</code>。测试接口：先在本机浏览器直连，跨域被拦时自动改用 GitHub Actions 云端检测（需令牌）。</p>
+    <p class="hint" id="editHint">保存会直接提交到仓库的 <code>sources/sources.json</code>。测试接口：默认走 GitHub Actions 云端检测（需令牌，约 1 分钟）；未设置令牌时只能本机直连，多数采集接口会被跨域拦截。</p>
   </div>
 </div>
 
@@ -111,6 +111,6 @@
 </div>
 
 <div class="toast" id="toast"></div>
-<script src="assets/app.js?v=20261127f"></script>
+<script src="assets/app.js?v=20261127g"></script>
 </body>
 </html>

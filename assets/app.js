@@ -275,8 +275,7 @@
 
   var PROBE_FILE = 'https://raw.githubusercontent.com/' + OWNER + '/' + REPO + '/' + BRANCH + '/api/probe.json';
   var BROWSER_PROBES = [
-    { name: '直连', build: function (u) { return u; }, wait: 4000 },
-    { name: '代理', build: function (u) { return 'https://api.allorigins.win/raw?url=' + encodeURIComponent(u); }, wait: 6000 }
+    { name: '直连', build: function (u) { return u; }, wait: 4000 }
   ];
 
   function deadline(ms) {
@@ -343,20 +342,23 @@
   }
 
   function runProbe(api, onProgress) {
-    if (onProgress) onProgress('检测中…');
-    return quickProbe(api).then(function (quick) {
-      if (quick.ok) return quick;
-      if (!state.token) {
-        quick.note = '浏览器跨域受限（设置令牌可改用云端检测）';
-        return quick;
-      }
+    // cloud first: most cms apis carry no CORS header, so the browser cannot read them
+    if (state.token) {
       if (onProgress) onProgress('云端检测中…（约 1 分钟）');
       return cloudProbe(api, onProgress).then(function (d) {
         return { ok: d.state === 'ok' || d.state === 'limited', ms: d.latency_ms, vods: d.vods, via: '云端', state: d.state };
       }).catch(function (err) {
-        quick.note = (quick.note ? quick.note + '；' : '') + err.message;
-        return quick;
+        if (onProgress) onProgress('云端不可用，改用本机浏览器…');
+        return quickProbe(api).then(function (quick) {
+          quick.note = (quick.note || '') + '；' + (err.message || err);
+          return quick;
+        });
       });
+    }
+    if (onProgress) onProgress('检测中…（未设置令牌，只能用本机浏览器）');
+    return quickProbe(api).then(function (quick) {
+      if (!quick.ok) quick.note = '未设置令牌，无法云端检测（多数采集接口不带 CORS 头）';
+      return quick;
     });
   }
 
@@ -504,7 +506,7 @@
     $('#fGroup').value = source ? groupOf(source) : '综合';
     $('#fEnabled').value = source && source.enabled === false ? '0' : '1';
     $('#fNote').value = source ? (source.note || '') : '';
-    $('#editHint').textContent = '保存会直接提交到仓库的 sources/sources.json，并在后台触发一次检测。';
+    $('#editHint').textContent = '保存会直接提交到仓库的 sources/sources.json，并在后台触发一次检测；令牌只留在本机浏览器。';
     $('#editHint').className = 'hint';
     openModal('#modalEdit');
   }
