@@ -1,7 +1,7 @@
 {
-  "url": "https://api.zuidapi.com/api.php/provide/vod",
+  "url": "https://caiji.moduapi.cc/api.php/provide/vod",
   "state": "ok",
-  "latency_ms": 460,
-  "vods": 20,
-  "checked_at": "2026-11-27T06:05:34Z"
+  "vods": 3,
+  "latency_ms": 1782,
+  "checked_at": "2026-11-27T08:01:50Z"
 }

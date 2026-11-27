@@ -41,12 +41,6 @@ type Status struct {
 	Searchable bool    `json:"searchable"`
 	Vods       int     `json:"vods"`
 	CheckedAt  string  `json:"checked_at"`
-	PlayOK     bool    `json:"play_ok"`
-	PlaySample string  `json:"play_sample,omitempty"`
-	PlayNote   string  `json:"play_note,omitempty"`
-	CNState    string  `json:"cn_state,omitempty"`
-	CNLatency  int     `json:"cn_latency_ms,omitempty"`
-	CNChecked  string  `json:"cn_checked_at,omitempty"`
 	History    []Check `json:"history"`
 }
 
@@ -62,7 +56,6 @@ type Report struct {
 	FromFeed      int      `json:"from_feed"`
 	Deduped       int      `json:"deduped"`
 	DurationMs    int64    `json:"duration_ms"`
-	Vantages      []string `json:"vantages,omitempty"`
 	Sources       []Status `json:"sources"`
 }
 
@@ -95,7 +88,6 @@ type ProbeResult struct {
 	State     string `json:"state"`
 	Vods      int    `json:"vods"`
 	LatencyMs int    `json:"latency_ms"`
-	Playable  bool   `json:"playable"`
 	CheckedAt string `json:"checked_at"`
 }
 
@@ -132,12 +124,6 @@ type FeedFile struct {
 	Feeds   []Feed `json:"feeds"`
 }
 
-// Blocklist keeps adult / disallowed sites out of every generated artifact.
-type Blocklist struct {
-	Domains []string `json:"domains"`
-	Words   []string `json:"words"`
-}
-
 // MoonSite is one entry of the MoonTV / LunaTV api_site object.
 type MoonSite struct {
 	Name   string `json:"name"`
@@ -158,52 +144,4 @@ type MirrorGroup struct {
 	Kind    string   `json:"kind"` // config | text
 	Primary string   `json:"primary"`
 	Mirrors []Mirror `json:"mirrors"`
-}
-
-// VantageEntry is one probe verdict produced from a specific network vantage.
-type VantageEntry struct {
-	ID        string `json:"id"`
-	API       string `json:"api"`
-	State     string `json:"state"`
-	Vods      int    `json:"vods"`
-	LatencyMs int    `json:"latency_ms"`
-	PlayOK    bool   `json:"play_ok"`
-}
-
-// VantageFile is api/status-<vantage>.json: a secondary network's verdicts.
-type VantageFile struct {
-	Vantage   string         `json:"vantage"`
-	CheckedAt string         `json:"checked_at"`
-	Sources   []VantageEntry `json:"sources"`
-}
-
-// SnapshotSite is the compact site entry kept in versions/<date>.json.
-type SnapshotSite struct {
-	Key   string `json:"key"`
-	Name  string `json:"name"`
-	API   string `json:"api"`
-	Group string `json:"group"`
-}
-
-// Snapshot is one generated version, used for diffing and rollback.
-type Snapshot struct {
-	Date      string         `json:"date"`
-	UpdatedAt string         `json:"updated_at"`
-	Total     int            `json:"total"`
-	Alive     int            `json:"alive"`
-	Sites     []SnapshotSite `json:"sites"`
-}
-
-// VersionRow is one line of versions/index.json.
-type VersionRow struct {
-	Date    string   `json:"date"`
-	Alive   int      `json:"alive"`
-	Total   int      `json:"total"`
-	Added   []string `json:"added,omitempty"`
-	Removed []string `json:"removed,omitempty"`
-}
-
-// VersionIndex lists every kept snapshot, newest first.
-type VersionIndex struct {
-	Versions []VersionRow `json:"versions"`
 }

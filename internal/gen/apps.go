@@ -25,9 +25,8 @@ type KVideoSite struct {
 
 // LibreSite is one entry of the LibreTV / LibreSpark custom api list.
 type LibreSite struct {
-	Name   string `json:"name"`
-	URL    string `json:"url"`
-	Detail string `json:"detail,omitempty"`
+	Name string `json:"name"`
+	URL  string `json:"url"`
 }
 
 // OuonnkiTV builds the list shape OuonnkiTV imports as 视频源.

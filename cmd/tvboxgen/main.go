@@ -1,8 +1,8 @@
-// Command tvboxgen merges local and remote source lists, verifies every
-// endpoint and regenerates the published artifacts (TVBox config, MoonTV
-// config, plain text list, health report and mirror list).
+// Command tvboxgen merges the local source list with optional remote lists,
+// checks every endpoint and writes the published artifacts (one config per
+// client, a plain text list, the health report and the mirror list).
 //
-// Run it every 7 days from a schedule, or force a refresh with -force.
+// The whole run is capped by -budget so a scheduled job always finishes fast.
 package main
 
 import (
@@ -11,6 +11,7 @@ import (
 	"os"
 	"path/filepath"
 	"strings"
+	"sync"
 	"time"
 
 	"github.com/looomix/tvbox-configs/internal/feed"
@@ -22,27 +23,28 @@ import (
 
 func main() {
 	sourcesPath := flag.String("sources", "sources/sources.json", "master source list")
-	feedsPath := flag.String("feeds", "sources/feeds.json", "remote source lists")
-	blocklistPath := flag.String("blocklist", "sources/blocklist.json", "disallowed domains and words")
+	feedsPath := flag.String("feeds", "sources/feeds.json", "optional remote source lists")
 	outDir := flag.String("out", "api", "output directory")
 	interval := flag.Duration("interval", 7*24*time.Hour, "minimum gap between two real updates")
 	force := flag.Bool("force", false, "ignore the interval and update now")
-	timeout := flag.Duration("timeout", 12*time.Second, "per request timeout")
-	workers := flag.Int("workers", 10, "parallel probes")
+	timeout := flag.Duration("timeout", 8*time.Second, "per request timeout")
+	workers := flag.Int("workers", 24, "parallel probes")
+	budget := flag.Duration("budget", 50*time.Second, "hard cap for the whole run, 0 disables it")
 	histLimit := flag.Int("history", 8, "check points kept per source")
 	owner := flag.String("owner", "looomix", "github owner used for mirror urls")
 	repo := flag.String("repo", "TVbox-Configs", "github repo used for mirror urls")
 	branch := flag.String("branch", "main", "branch used for mirror urls")
 	feedOnly := flag.Bool("feed-only", false, "only merge feeds into sources.json, do not probe")
-	probeURL := flag.String("probe", "", "probe one api url only and exit (used by the cloud test workflow)")
+	probeURL := flag.String("probe", "", "probe one api url only and exit")
 	probeOut := flag.String("probe-out", "", "write the single probe result to this json file")
-	vantage := flag.String("vantage", "", "probe only and write api/status-<vantage>.json (us / cn)")
-	rollback := flag.String("rollback", "", "rebuild every artifact from versions/<date>.json")
-	snapDir := flag.String("versions", "versions", "version snapshot directory")
 	flag.Parse()
 
-	now := time.Now()
+	start := time.Now()
 	rel := func(name string) string { return filepath.Join(*outDir, name) }
+	var deadline time.Time
+	if *budget > 0 {
+		deadline = start.Add(*budget)
+	}
 
 	// single source mode: used by the web page through the probe workflow
 	if *probeURL != "" {
@@ -54,10 +56,9 @@ func main() {
 		res := model.ProbeResult{
 			URL:       *probeURL,
 			State:     r.State,
-			LatencyMs: r.LatencyMs,
 			Vods:      r.Vods,
-			Playable:  r.Playable,
-			CheckedAt: now.UTC().Format(time.RFC3339),
+			LatencyMs: r.LatencyMs,
+			CheckedAt: start.UTC().Format(time.RFC3339),
 		}
 		if *probeOut != "" {
 			if err := gen.WriteJSON(*probeOut, res); err != nil {
@@ -66,55 +67,6 @@ func main() {
 			}
 		}
 		fmt.Printf("probe %s -> %s, %d ms, %d results\n", res.URL, res.State, res.LatencyMs, res.Vods)
-		return
-	}
-
-	// rollback mode: rebuild the published files from a dated snapshot
-	if *rollback != "" {
-		snap, err := gen.LoadSnapshot(*snapDir, *rollback)
-		if err != nil {
-			fmt.Printf("rollback: %v\n", err)
-			os.Exit(1)
-		}
-		sites := gen.SitesOfSnapshot(snap)
-		if err := writeArtifacts(*outDir, *owner, *repo, *branch, sites, snap.UpdatedAt); err != nil {
-			fmt.Printf("rollback write: %v\n", err)
-			os.Exit(1)
-		}
-		fmt.Printf("rollback done: %s, %d sites\n", snap.Date, len(sites))
-		return
-	}
-
-	// vantage mode: re-probe the current published list from another network and
-	// store the verdicts separately, so the main run can merge two viewpoints.
-	if *vantage != "" {
-		var rep model.Report
-		if err := gen.ReadJSON(rel("status.json"), &rep); err != nil {
-			fmt.Printf("vantage: read status.json: %v\n", err)
-			os.Exit(1)
-		}
-		list := make([]model.Source, 0, len(rep.Sources))
-		for _, st := range rep.Sources {
-			list = append(list, model.Source{ID: st.ID, Name: st.Name, API: st.API, Group: st.Group, Enabled: st.Enabled})
-		}
-		fmt.Printf("vantage %s: probing %d sources ...\n", *vantage, len(list))
-		results := probe.Run(list, *workers, *timeout)
-		vf := model.VantageFile{Vantage: *vantage, CheckedAt: now.UTC().Format(time.RFC3339)}
-		ok := 0
-		for i, src := range list {
-			r := results[i]
-			vf.Sources = append(vf.Sources, model.VantageEntry{
-				ID: src.ID, API: src.API, State: r.State, Vods: r.Vods, LatencyMs: r.LatencyMs, PlayOK: r.PlayOK,
-			})
-			if r.State == "ok" {
-				ok++
-			}
-		}
-		if err := gen.WriteJSON(rel("status-"+*vantage+".json"), vf); err != nil {
-			fmt.Printf("write vantage: %v\n", err)
-			os.Exit(1)
-		}
-		fmt.Printf("vantage %s done: %d/%d ok\n", *vantage, ok, len(list))
 		return
 	}
 
@@ -128,7 +80,7 @@ func main() {
 	hasPrev := gen.ReadJSON(rel("status.json"), &prev) == nil
 	if !*force && !*feedOnly && hasPrev && prev.UpdatedAt != "" {
 		if last, err := time.Parse(time.RFC3339, prev.UpdatedAt); err == nil {
-			if next := last.Add(*interval); now.Before(next) {
+			if next := last.Add(*interval); start.Before(next) {
 				fmt.Printf("skip: last update %s, next update %s\n",
 					last.Local().Format("2006-01-02 15:04"), next.Local().Format("2006-01-02 15:04"))
 				return
@@ -136,49 +88,23 @@ func main() {
 		}
 	}
 
-	var bl model.Blocklist
-	if err := gen.ReadJSON(*blocklistPath, &bl); err != nil {
-		fmt.Printf("warn: blocklist %s: %v\n", *blocklistPath, err)
-	}
-	blocker := gen.NewBlocker(bl)
-
-	// merge manual sources and remote feeds
-	var raw []model.Source
-	raw = append(raw, sf.Sources...)
-	var ff model.FeedFile
-	if err := gen.ReadJSON(*feedsPath, &ff); err == nil {
-		for _, f := range ff.Feeds {
-			if !f.Enabled || strings.TrimSpace(f.URL) == "" {
-				continue
-			}
-			if feed.RefuseFeed(f.URL) {
-				fmt.Printf("feed %s skipped: disallowed list\n", f.Name)
-				continue
-			}
-			items, err := feed.Fetch(f.URL, 40*time.Second)
-			if err != nil {
-				fmt.Printf("feed %s failed: %v\n", f.Name, err)
-				continue
-			}
-			fmt.Printf("feed %s -> %d entries\n", f.Name, len(items))
-			raw = append(raw, items...)
-		}
-	} else if !os.IsNotExist(err) {
-		fmt.Printf("warn: feed file %s: %v\n", *feedsPath, err)
-	}
-
 	removed := make(map[string]bool, len(sf.Removed))
 	for _, k := range sf.Removed {
 		removed[k] = true
 	}
 
+	// remote lists are optional; the project ships with none enabled
+	raw := append([]model.Source{}, sf.Sources...)
+	var ff model.FeedFile
+	if err := gen.ReadJSON(*feedsPath, &ff); err == nil {
+		raw = append(raw, fetchFeeds(ff, *timeout, deadline)...)
+	} else if !os.IsNotExist(err) {
+		fmt.Printf("warn: feed file %s: %v\n", *feedsPath, err)
+	}
+
 	kept := make([]model.Source, 0, len(raw))
-	blocked, gone := 0, 0
+	gone := 0
 	for _, s := range raw {
-		if blocker.Match(s) {
-			blocked++
-			continue
-		}
 		if removed[gen.NormalizeAPI(s.API)] {
 			// the user deleted this endpoint, so feeds must not bring it back
 			gone++
@@ -204,10 +130,8 @@ func main() {
 			fromFeed++
 		}
 	}
-	fmt.Printf("sources: %d total, %d blocked, %d user removed, %d duplicates removed, %d from feeds\n",
-		len(raw), blocked, gone, dup, fromFeed)
 
-	newFile := model.SourceFile{Version: 1, UpdatedAt: now.Format("2006-01-02"), Removed: sf.Removed, Sources: list}
+	newFile := model.SourceFile{Version: 1, UpdatedAt: start.Format("2006-01-02"), Removed: sf.Removed, Sources: list}
 	changed, err := gen.WriteJSONIfChanged(*sourcesPath, newFile)
 	if err != nil {
 		fmt.Printf("write %s: %v\n", *sourcesPath, err)
@@ -216,76 +140,47 @@ func main() {
 	if changed {
 		fmt.Printf("updated %s\n", *sourcesPath)
 	}
+	fmt.Printf("sources: %d read, %d deleted by user, %d duplicates removed, %d from feeds, %d to check\n",
+		len(raw), gone, dup, fromFeed, len(list))
 	if *feedOnly {
 		return
 	}
 
-	fmt.Printf("checking %d sources ...\n", len(list))
-	start := time.Now()
-	results := probe.Run(list, *workers, *timeout)
+	probeStart := time.Now()
+	results := probe.Run(list, *workers, *timeout, deadline)
 
 	oldHistory := map[string][]model.Check{}
 	for _, s := range prev.Sources {
 		oldHistory[s.ID] = s.History
 	}
 
-	cnByID, cnChecked := loadVantage(filepath.Join(*outDir, "status-cn.json"))
-
 	rep := &model.Report{
-		UpdatedAt:     now.UTC().Format(time.RFC3339),
-		NextUpdateAt:  now.Add(*interval).UTC().Format(time.RFC3339),
+		UpdatedAt:     start.UTC().Format(time.RFC3339),
+		NextUpdateAt:  start.Add(*interval).UTC().Format(time.RFC3339),
 		IntervalHours: int(interval.Hours()),
 		Total:         len(list),
 		FromFeed:      fromFeed,
 		Deduped:       dup,
 		Sources:       make([]model.Status, 0, len(list)),
 	}
-	rep.Vantages = []string{"primary"}
-	if len(cnByID) > 0 {
-		rep.Vantages = append(rep.Vantages, "cn")
-	}
-	checkedAt := now.UTC().Format(time.RFC3339)
-	cnRescued := 0
 	for i, s := range list {
 		r := results[i]
 		st := model.Status{
-			ID:        s.ID,
-			Name:      s.Name,
-			API:       s.API,
-			Group:     s.Group,
-			Note:      s.Note,
-			Origin:    s.Origin,
-			Enabled:   s.Enabled,
-			State:     r.State,
-			LatencyMs: r.LatencyMs,
-			Vods:      r.Vods,
-		}
-		st.Searchable = r.Searchable
-		st.CheckedAt = checkedAt
-		st.PlayOK = r.PlayOK
-		st.PlaySample = r.PlaySample
-		st.PlayNote = r.PlayNote
-		if cn, ok := cnByID[s.ID]; ok {
-			st.CNState = cn.State
-			st.CNLatency = cn.LatencyMs
-			st.CNChecked = cnChecked
-			if r.State != "ok" && cn.State == "ok" {
-				// the overseas vantage failed but the domestic one passed: publish
-				// it, the subscription is consumed from inside china. the domestic
-				// verdict already includes the play check, so trust it fully.
-				st.State = "ok"
-				st.LatencyMs = cn.LatencyMs
-				st.Searchable = true
-				st.PlayOK = true
-				st.PlayNote = ""
-				if st.Vods == 0 {
-					st.Vods = cn.Vods
-				}
-				cnRescued++
-			}
+			ID:         s.ID,
+			Name:       s.Name,
+			API:        s.API,
+			Group:      s.Group,
+			Note:       s.Note,
+			Origin:     s.Origin,
+			Enabled:    s.Enabled,
+			State:      r.State,
+			LatencyMs:  r.LatencyMs,
+			Vods:       r.Vods,
+			Searchable: r.Searchable,
+			CheckedAt:  start.UTC().Format(time.RFC3339),
 		}
 		if s.Enabled {
-			st.History = gen.AppendCheck(oldHistory[s.ID], st.State == "ok", st.LatencyMs, now, *histLimit)
+			st.History = gen.AppendCheck(oldHistory[s.ID], r.State == "ok", r.LatencyMs, start, *histLimit)
 		} else {
 			st.History = oldHistory[s.ID]
 		}
@@ -301,7 +196,7 @@ func main() {
 		}
 		rep.Sources = append(rep.Sources, st)
 	}
-	rep.DurationMs = time.Since(start).Milliseconds()
+	rep.DurationMs = time.Since(probeStart).Milliseconds()
 
 	sites := gen.SitesOf(rep)
 	if err := writeArtifacts(*outDir, *owner, *repo, *branch, sites, rep.UpdatedAt); err != nil {
@@ -312,23 +207,66 @@ func main() {
 		fmt.Printf("write status.json: %v\n", err)
 		os.Exit(1)
 	}
-	if row, err := gen.WriteSnapshot(*snapDir, gen.BuildSnapshot(now.Format("2006-01-02"), rep.UpdatedAt, rep.Total, rep.Alive, sites)); err == nil {
-		fmt.Printf("snapshot %s: +%d / -%d\n", row.Date, len(row.Added), len(row.Removed))
-	} else {
-		fmt.Printf("warn: snapshot: %v\n", err)
-	}
 
-	if cnRescued > 0 {
-		fmt.Printf("vantages merged: %d sources rescued by the cn vantage\n", cnRescued)
+	fmt.Printf("done: %d verified / %d unverified / %d dead, %d sites published, %.1fs total\n",
+		rep.Alive, rep.Unverified, rep.Dead, len(sites), time.Since(start).Seconds())
+	if !deadline.IsZero() && time.Now().After(deadline) {
+		fmt.Printf("warn: run passed the %s budget, lower -timeout or raise -workers\n", *budget)
 	}
-	fmt.Printf("done: %d verified / %d unverified / %d dead, %d sites published, %d ms\n",
-		rep.Alive, rep.Unverified, rep.Dead, len(sites), rep.DurationMs)
-	next, _ := time.Parse(time.RFC3339, rep.NextUpdateAt)
-	fmt.Printf("next update: %s\n", next.Local().Format("2006-01-02 15:04"))
 }
 
-// writeArtifacts renders every published file from one verified site list, so a
-// normal run and a rollback produce exactly the same set of outputs.
+// fetchFeeds downloads every enabled remote list in parallel and caps each
+// request by the remaining budget, so one slow list cannot stall the run.
+func fetchFeeds(ff model.FeedFile, timeout time.Duration, deadline time.Time) []model.Source {
+	jobs := make([]model.Feed, 0, len(ff.Feeds))
+	for _, f := range ff.Feeds {
+		if f.Enabled && strings.TrimSpace(f.URL) != "" {
+			jobs = append(jobs, f)
+		}
+	}
+	if len(jobs) == 0 {
+		return nil
+	}
+	limit := timeout * 5
+	if limit < 10*time.Second {
+		limit = 10 * time.Second
+	}
+	results := make([][]model.Source, len(jobs))
+	var wg sync.WaitGroup
+	slots := make(chan struct{}, 6)
+	for i := range jobs {
+		wg.Add(1)
+		go func(i int) {
+			defer wg.Done()
+			slots <- struct{}{}
+			defer func() { <-slots }()
+			t := limit
+			if !deadline.IsZero() {
+				if left := time.Until(deadline); left < t {
+					if left < 2*time.Second {
+						return
+					}
+					t = left
+				}
+			}
+			items, err := feed.Fetch(jobs[i].URL, t)
+			if err != nil {
+				fmt.Printf("feed %s failed: %v\n", jobs[i].Name, err)
+				return
+			}
+			fmt.Printf("feed %s -> %d entries\n", jobs[i].Name, len(items))
+			results[i] = items
+		}(i)
+	}
+	wg.Wait()
+	var out []model.Source
+	for _, r := range results {
+		out = append(out, r...)
+	}
+	return out
+}
+
+// writeArtifacts renders every published file from one verified site list.
 func writeArtifacts(outDir, owner, repo, branch string, sites []model.Site, updatedAt string) error {
 	for name, v := range gen.Artifacts(sites) {
 		if err := gen.WriteJSON(filepath.Join(outDir, name), v); err != nil {
@@ -359,22 +297,4 @@ func writeArtifacts(outDir, owner, repo, branch string, sites []model.Site, upda
 		return err
 	}
 	return gen.WriteJSON(filepath.Join(outDir, "index.json"), mirror.Index(owner, repo, branch, "api/tvbox.json"))
-}
-
-// loadVantage reads a secondary vantage report and ignores stale files, so an
-// old domestic snapshot never overrides today's verdicts.
-func loadVantage(path string) (map[string]model.VantageEntry, string) {
-	var vf model.VantageFile
-	if err := gen.ReadJSON(path, &vf); err != nil || vf.CheckedAt == "" {
-		return nil, ""
-	}
-	at, err := time.Parse(time.RFC3339, vf.CheckedAt)
-	if err != nil || time.Since(at) > 30*24*time.Hour {
-		return nil, ""
-	}
-	out := make(map[string]model.VantageEntry, len(vf.Sources))
-	for _, e := range vf.Sources {
-		out[e.ID] = e
-	}
-	return out, vf.CheckedAt
 }

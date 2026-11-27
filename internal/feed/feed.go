@@ -18,31 +18,10 @@ import (
 
 const ua = "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/120.0 Safari/537.36"
 
-var (
-	stripSuffix = []string{"影视资源站", "资源站", "采集站", "接口站", "资源", "影视站"}
-	refuseWords = []string{"adult", "nsfw", "porn", "hentai", "18+", "r18"}
-)
-
-// RefuseFeed reports whether a feed url must never be fetched.
-func RefuseFeed(rawURL string) bool {
-	u := strings.ToLower(rawURL)
-	// explicit "no adult" markers mean the list is already clean, so clear them first.
-	for _, safe := range []string{"no-adult", "no_adult", "noadult", "noadults"} {
-		u = strings.ReplaceAll(u, safe, "")
-	}
-	for _, w := range refuseWords {
-		if strings.Contains(u, w) {
-			return true
-		}
-	}
-	return false
-}
+var stripSuffix = []string{"影视资源站", "资源站", "采集站", "接口站", "资源", "影视站"}
 
 // Fetch downloads one remote list (text or json) and returns its sources.
 func Fetch(rawURL string, timeout time.Duration) ([]model.Source, error) {
-	if RefuseFeed(rawURL) {
-		return nil, fmt.Errorf("refused feed url")
-	}
 	if timeout <= 0 {
 		timeout = 40 * time.Second
 	}

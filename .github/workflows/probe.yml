@@ -18,7 +18,7 @@ concurrency:
 jobs:
   probe:
     runs-on: ubuntu-latest
-    timeout-minutes: 10
+    timeout-minutes: 5
     steps:
       - name: Checkout
         uses: actions/checkout@v4
@@ -35,7 +35,7 @@ jobs:
       - name: Probe
         env:
           TARGET: ${{ inputs.url }}
-        run: ./bin/tvboxgen -probe="$TARGET" -probe-out=api/probe.json -timeout=12s
+        run: ./bin/tvboxgen -probe="$TARGET" -probe-out=api/probe.json -timeout=10s
 
       - name: Commit result
         run: |

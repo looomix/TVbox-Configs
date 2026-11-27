@@ -1,7 +1,6 @@
-// Package probe verifies that a video CMS api endpoint is alive, searchable and
-// actually returns playable episodes. The judgement is deliberately strict:
-// one failed request is never enough to declare a source dead, and a source is
-// only reported ok when a real vod list with play urls comes back.
+// Package probe checks that a video CMS api endpoint answers with a real vod
+// list. One failed request never decides a verdict: two keywords plus the latest
+// listing are tried before a source is called dead.
 package probe
 
 import (
@@ -18,23 +17,19 @@ import (
 
 const (
 	ua      = "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/120.0 Safari/537.36"
-	maxBody = 4 << 20
+	maxBody = 2 << 20
 )
 
-// keywords are tried in order; the second keyword avoids false negatives when
-// the first title is simply missing from that site's search index.
+// keywords are tried in order; a second title avoids false negatives when the
+// first one is simply missing from that site's search index.
 var keywords = []string{"庆余年", "哪吒"}
 
+// Result is the verdict of one endpoint.
 type Result struct {
 	State      string // ok | limited | down | off
 	LatencyMs  int
 	Vods       int
 	Searchable bool
-	Playable   bool
-	PlayOK     bool     // a sampled play url really served bytes
-	PlaySample string   // the url that was sampled
-	PlayNote   string   // why the sample failed, empty when fine
-	Samples    []string `json:"-"`
 }
 
 // NewClient builds one reusable http client for probing.
@@ -44,8 +39,8 @@ func NewClient(timeout time.Duration) *http.Client {
 		Transport: &http.Transport{
 			MaxIdleConns:        128,
 			MaxIdleConnsPerHost: 4,
-			IdleConnTimeout:     60 * time.Second,
-			TLSHandshakeTimeout: 10 * time.Second,
+			IdleConnTimeout:     30 * time.Second,
+			TLSHandshakeTimeout: 5 * time.Second,
 		},
 	}
 }
@@ -76,59 +71,10 @@ type payload struct {
 	} `json:"list"`
 }
 
-// playCandidates pulls the first http url of every episode list, which is the
-// cheapest way to check that a station still serves real media.
-// playCandidates prefers real media links (m3u8 / mp4) over share pages, so a
-// detail url in vod_play_url never causes a false "not media" verdict.
-func (p payload) playCandidates(limit int) []string {
-	out := make([]string, 0, limit)
-	for _, item := range p.List {
-		for _, entry := range strings.Split(item.Play, "#") {
-			entry = strings.TrimSpace(entry)
-			u := entry
-			if i := strings.LastIndex(entry, "$"); i >= 0 {
-				u = strings.TrimSpace(entry[i+1:])
-			} else if i := strings.LastIndex(entry, "|"); i >= 0 {
-				u = strings.TrimSpace(entry[i+1:])
-			}
-			low := strings.ToLower(u)
-			if strings.HasPrefix(low, "http") && (strings.Contains(low, ".m3u8") || strings.Contains(low, ".mp4")) {
-				out = append(out, u)
-				break
-			}
-		}
-		if len(out) >= limit {
-			break
-		}
-	}
-	if len(out) > 0 {
-		return out
-	}
-	for _, item := range p.List {
-		for _, entry := range strings.Split(item.Play, "#") {
-			entry = strings.TrimSpace(entry)
-			u := entry
-			if i := strings.LastIndex(entry, "$"); i >= 0 {
-				u = strings.TrimSpace(entry[i+1:])
-			} else if i := strings.LastIndex(entry, "|"); i >= 0 {
-				u = strings.TrimSpace(entry[i+1:])
-			}
-			if strings.HasPrefix(strings.ToLower(u), "http") {
-				out = append(out, u)
-				break
-			}
-		}
-		if len(out) >= limit {
-			break
-		}
-	}
-	return out
-}
-
 func fetchOnce(c *http.Client, target string) Result {
 	start := time.Now()
-	req, reqErr := http.NewRequest(http.MethodGet, target, nil)
-	if reqErr != nil {
+	req, err := http.NewRequest(http.MethodGet, target, nil)
+	if err != nil {
 		return Result{State: "down"}
 	}
 	req.Header.Set("User-Agent", ua)
@@ -145,11 +91,11 @@ func fetchOnce(c *http.Client, target string) Result {
 	}
 	var data payload
 	if err := json.Unmarshal(body, &data); err != nil {
-		// Reachable, but not a json vod api.
+		// reachable, but not a json vod api
 		return Result{State: "limited", LatencyMs: ms}
 	}
 	if len(data.List) == 0 {
-		// Reachable json, but no result for this keyword.
+		// reachable json, but no result for this keyword
 		return Result{State: "limited", LatencyMs: ms}
 	}
 	named, playable := 0, 0
@@ -162,132 +108,34 @@ func fetchOnce(c *http.Client, target string) Result {
 		}
 	}
 	if named == 0 || playable == 0 {
-		// Names without play urls: playable content cannot be confirmed.
 		return Result{State: "limited", LatencyMs: ms, Vods: len(data.List)}
 	}
-	samples := data.playCandidates(4)
-	first := ""
-	if len(samples) > 0 {
-		first = samples[0]
-	}
-	return Result{
-		State:      "ok",
-		LatencyMs:  ms,
-		Vods:       len(data.List),
-		Searchable: true,
-		Playable:   true,
-		PlaySample: first,
-		Samples:    samples,
-	}
+	return Result{State: "ok", LatencyMs: ms, Vods: len(data.List), Searchable: true}
 }
 
-// looksMedia reports whether the first bytes really look like a video or a
-// playlist, so an html error page injected at a cdn edge is not counted.
-func looksMedia(head []byte, contentType string) bool {
-	ct := strings.ToLower(contentType)
-	for _, want := range []string{"mpegurl", "mp4", "video/", "octet-stream", "x-flv"} {
-		if strings.Contains(ct, want) {
-			return true
-		}
-	}
-	t := strings.TrimSpace(strings.ToLower(string(head)))
-	if strings.HasPrefix(t, "#extm3u") || strings.Contains(t, "ftyp") {
-		return true
-	}
-	return false
-}
-
-// CheckPlay samples up to two play urls and reports whether media bytes really
-// come back. It is strict on purpose: an api that answers but serves dead play
-// links is exactly the "接口活、播不了" case the publish rules must catch.
-func CheckPlay(c *http.Client, samples []string) (bool, string, string) {
-	if len(samples) == 0 {
-		return false, "", "no play url in response"
-	}
-	note := ""
-	for i, u := range samples {
-		if i >= 4 {
-			break
-		}
-		req, err := http.NewRequest(http.MethodGet, u, nil)
-		if err != nil {
-			note = "bad play url"
-			continue
-		}
-		req.Header.Set("User-Agent", ua)
-		req.Header.Set("Range", "bytes=0-2047")
-		req.Header.Set("Referer", "https://www.google.com/")
-		resp, err := c.Do(req)
-		if err != nil {
-			note = "play fetch failed"
-			continue
-		}
-		head, _ := io.ReadAll(io.LimitReader(resp.Body, 512))
-		ct := resp.Header.Get("Content-Type")
-		resp.Body.Close()
-		if resp.StatusCode < 400 && looksMedia(head, ct) {
-			return true, u, ""
-		}
-		if resp.StatusCode >= 400 {
-			note = "play http " + resp.Status
-		} else {
-			note = "play body is not media"
-		}
-	}
-	return false, samples[0], note
-}
-
-// Verify probes one source up to three times (second keyword included), then
-// checks that a sampled play url really serves media. A station whose api
-// answers but whose play links are dead is reported limited, never ok, so it
-// cannot reach any published config.
+// Verify decides the state of one endpoint: search first, latest listing last.
 func Verify(c *http.Client, api string) Result {
 	if strings.TrimSpace(api) == "" {
 		return Result{State: "down"}
 	}
 	start := time.Now()
-	// every keyword once, then one retry of the first, so a transient failure or a
-	// missing title never decides the verdict alone
-	sequence := []string{keywords[0], keywords[1], keywords[0]}
 	var best *Result
-	remember := func(r Result) {
-		if best == nil {
+	for _, kw := range keywords {
+		r := fetchOnce(c, testURL(api, kw))
+		if r.State == "ok" {
+			r.LatencyMs = int(time.Since(start).Milliseconds())
+			return r
+		}
+		if best == nil || rank(r.State) > rank(best.State) {
 			cp := r
 			best = &cp
 		}
 	}
-
-	for i, kw := range sequence {
-		if i > 0 {
-			time.Sleep(time.Duration(i) * time.Second)
-		}
-		r := fetchOnce(c, testURL(api, kw))
-		switch r.State {
-		case "ok":
-			if ok, sample, note := CheckPlay(c, r.Samples); ok {
-				r.PlayOK, r.PlaySample = true, sample
-				r.LatencyMs = int(time.Since(start).Milliseconds())
-				return r
-			} else {
-				r.State, r.PlayOK = "limited", false
-				r.PlaySample, r.PlayNote = sample, note
-				remember(r)
-			}
-		default:
-			remember(r)
-		}
-	}
-
-	// the search index may be off; the latest list still proves the site serves
-	// playable content, so give it one last chance.
 	if r := fetchOnce(c, listingURL(api)); r.State == "ok" {
-		if ok, sample, _ := CheckPlay(c, r.Samples); ok {
-			r.Searchable, r.PlayOK, r.PlaySample = false, true, sample
-			r.LatencyMs = int(time.Since(start).Milliseconds())
-			return r
-		}
+		r.Searchable = false
+		r.LatencyMs = int(time.Since(start).Milliseconds())
+		return r
 	}
-
 	out := Result{State: "down"}
 	if best != nil {
 		out = *best
@@ -296,8 +144,20 @@ func Verify(c *http.Client, api string) Result {
 	return out
 }
 
-// Run probes all sources with a bounded worker pool and keeps the input order.
-func Run(sources []model.Source, workers int, timeout time.Duration) []Result {
+func rank(state string) int {
+	switch state {
+	case "ok":
+		return 3
+	case "limited":
+		return 2
+	default:
+		return 1
+	}
+}
+
+// Run probes every source in parallel. Sources still unprobed when the deadline
+// passes are reported as limited, so one slow site can never stall a run.
+func Run(sources []model.Source, workers int, timeout time.Duration, deadline time.Time) []Result {
 	if workers < 1 {
 		workers = 1
 	}
@@ -314,6 +174,10 @@ func Run(sources []model.Source, workers int, timeout time.Duration) []Result {
 					results[j] = Result{State: "off"}
 					continue
 				}
+				if !deadline.IsZero() && time.Now().After(deadline) {
+					results[j] = Result{State: "limited"}
+					continue
+				}
 				results[j] = Verify(c, sources[j].API)
 			}
 		}()
@@ -323,39 +187,5 @@ func Run(sources []model.Source, workers int, timeout time.Duration) []Result {
 	}
 	close(idx)
 	wg.Wait()
-
-	// second chance: sources that just failed get one more round with a fresh
-	// client and a longer timeout, so a transient outage is never reported dead.
-	retry := make([]int, 0, len(sources))
-	for i := range results {
-		if results[i].State == "down" {
-			retry = append(retry, i)
-		}
-	}
-	if len(retry) > 0 {
-		slowWorkers := workers / 2
-		if slowWorkers < 2 {
-			slowWorkers = 2
-		}
-		jobs := make(chan int)
-		wg2 := sync.WaitGroup{}
-		for i := 0; i < slowWorkers; i++ {
-			wg2.Add(1)
-			go func() {
-				defer wg2.Done()
-				c := NewClient(timeout * 2)
-				for j := range jobs {
-					if r := Verify(c, sources[j].API); r.State != "down" {
-						results[j] = r
-					}
-				}
-			}()
-		}
-		for _, j := range retry {
-			jobs <- j
-		}
-		close(jobs)
-		wg2.Wait()
-	}
 	return results
 }

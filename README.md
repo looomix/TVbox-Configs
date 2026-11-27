@@ -1,135 +1,84 @@
 # TVbox-Configs
 
-TVBox / 影视仓 与 MoonTV / LunaTV **共用同一份已验证视频源**：每 7 天自动抓取多个公开源库、自动去重、逐条验证，只把真正能用的源写进订阅配置，并同步生成多条镜像地址。
+一个**容器型**视频源配置仓库：自带生成器、网页管理台和 9 种客户端订阅产物，**默认不包含任何视频源**。放什么源、怎么用，由使用者自己决定。
+
+- 一次生成，多客户端可用：TVBox / 影视仓、MoonTV / LunaTV、KatelyaTV、DecoTV、MoonTVPlus、OuonnkiTV、KVideo、LibreTV、纯文本清单
+- 网页即可新增、导入、测试、修改、单条删除、批量删除
+- 网页写入落到 `sources/sources.json`，云端 Action 重新生成订阅
+- 7 天一次自动检测，单次运行硬上限 45 秒
+
+## 目录
+
+```
+cmd/tvboxgen        生成器入口（Go，无第三方依赖）
+internal/probe      接口探活（CMS 搜索 + 最新列表，最多三次请求定结论）
+internal/gen        产物构造、域名与中文名去重
+internal/feed       源库拉取（纯文本 / json / api_site 三种格式）
+internal/mirror     各产物的多镜像地址
+sources/            源清单与源库清单（默认全空）
+api/                生成后的产物（勿手改）
+index.html          管理页
+```
+
+## 使用
+
+1. Fork 或克隆本仓库，在 **Settings → Pages** 选择 `main` / 根目录。
+2. 打开 `https://<用户名>.github.io/<仓库名>/`，点右上角「设置令牌」填入 PAT（fine-grained，勾选本仓库的 **Contents: Read and write** 与 **Actions: Read and write**）。
+3. 在「＋ 新增源」逐条添加，或在下方整行粘贴多个接口地址（换行 / 逗号分隔）批量导入。
+4. 保存后自动触发 `Update Configs`，约 1 分钟产物更新，订阅地址始终不变。
+
+订阅地址形如 `https://cdn.jsdelivr.net/gh/<用户名>/<仓库名>@main/api/tvbox.json`，9 个产物各配 5 条镜像，页面上一键复制。
 
 | 产物 | 用途 |
 | :--- | :--- |
 | `api/tvbox.json` | TVBox / 影视仓 单仓配置（`sites` 数组） |
-| `api/moontv.json` | MoonTV / LunaTV 源配置（`api_site` 对象，可直接粘贴导入） |
+| `api/moontv.json` | MoonTV / LunaTV 源配置（`api_site` 对象） |
 | `api/katelyatv.json` | KatelyaTV 源配置（同 MoonTV 结构） |
 | `api/decotv.json` | DecoTV 源配置（同 MoonTV 结构） |
 | `api/moontvplus.json` | MoonTVPlus 源配置（同 MoonTV 结构） |
-| `api/ouonnkitv.json` | OuonnkiTV 源清单（`id / name / url / detailUrl / timeout / isEnabled` 数组） |
-| `api/kvideo.json` | KVideo 源清单（`id / name / baseUrl / group / enabled` 数组） |
-| `api/libretv.json` | LibreTV 源清单（`name / url` 数组） |
-| `api/sources.txt` | 纯文本清单（`名称\|API\|类型\|状态`，多数客户端可一键导入） |
-| `api/status.json` | 全量检测报告：状态、延迟、近 8 期趋势、抓取与去重统计 |
+| `api/ouonnkitv.json` | OuonnkiTV 源清单（`id / name / url / detailUrl / timeout / isEnabled`） |
+| `api/kvideo.json` | KVideo 源清单（`id / name / baseUrl / group / enabled`） |
+| `api/libretv.json` | LibreTV 源清单（`name / url`） |
+| `api/sources.txt` | 纯文本清单（`名称\|API\|类型\|状态`） |
+| `api/status.json` | 全量检测报告：状态、延迟、近 8 期趋势、去重统计 |
 | `api/mirror.json` | 每个产物的 5 条镜像线路 |
 | `api/index.json` | TVBox 多仓入口（主 / 备 / 加速） |
-| `api/probe.json` | 网页「测试」按钮触发的单源云端检测结果 |
-| `api/status-cn.json` | 国内节点的独立判定（`-vantage=cn` 生成，主流程 30 天内有效） |
-| `versions/<date>.json` | 每次生成的版本快照，用于对比与回滚 |
-| `versions/index.json` | 版本列表：可用数、本次新增与剔除 |
+| `api/probe.json` | 网页「测试」按钮的单源云端检测结果 |
 
-## 订阅地址
-
-主线路（jsDelivr），同组还有 Pages 备用、Raw 直连、ghproxy、gh-proxy 四条，见网页或 `api/mirror.json`。
-
-| 客户端 | 主线路 |
-| :--- | :--- |
-| TVBox / 影视仓 | `https://cdn.jsdelivr.net/gh/looomix/TVbox-Configs@main/api/tvbox.json` |
-| MoonTV / LunaTV | `https://cdn.jsdelivr.net/gh/looomix/TVbox-Configs@main/api/moontv.json` |
-| 纯文本导入 | `https://cdn.jsdelivr.net/gh/looomix/TVbox-Configs@main/api/sources.txt` |
-| 多仓入口 | `https://looomix.github.io/TVbox-Configs/api/index.json` |
-
-## 数据流
-
-```
-sources/feeds.json      远端源库（一键导入的订阅链接，支持 txt / json）
-sources/sources.json    主源清单（网页新增 / 修改，手工维护）
-        │
-        ▼  ① 抓取 → ② 黑名单过滤 → ③ 按域名去重 → ④ 逐条验证
-   只有 state=ok 的源进入产物
-        │
-        ▼
-api/tvbox.json   api/moontv.json   api/sources.txt
-api/status.json  api/mirror.json   api/index.json
-```
-
-### 抓取与去重
-
-- `feeds.json` 里的每条链接都会在更新时被抓取，支持三种格式：纯文本 `名称|API|类型|可用率`、扁平 JSON 数组（`name` + `url`/`api`/`baseUrl`）、`api_site` 对象。
-- 默认接入 9 个源库：资源族 CMS 接口清单、OuonnkiTV、KVideo、LibreTV、KatelyaTV、DecoTV、MoonTVPlus、LunaTV、CMS 状态全量清单；带 `isAdult` / `is_adult` 标记或分类为成人、以及被上游停用的条目直接丢弃。
-- 抓取到的源统一清洗名称（去掉装饰符号与「资源站」后缀），标记为 `origin: feed`，网页上带「自动」标签，可单独停用或删除。
-- 去重两层：先按**域名**（`http/https`、`www.`、首尾斜杠、大小写都不算差异；`…?url=` 代理按目标域名区分），再按**中文名**——`茅台 (mtzy5.com)`、`速播 (subocj.com)` 这类同站镜像域名不同、打开内容一样，一律归并为一条，保留上一轮验证可用、或手工添加、或地址更短的那条。
-
-### 判定规则（宁缺毋滥，防误判）
-
-1. 每个源最多请求 **3 次**：同一关键词重试两次 + 第二个关键词一次，避免单次抖动或搜索索引缺片误杀。
-2. 只有 **HTTP 200 + 标准 JSON + list 非空 + 至少一条带 `http` 播放地址** 才记为 `ok`。
-3. 搜索无结果但站点可访问时，再查一次「最新列表」；能返回可播放条目同样判为 `ok`（`searchable` 自动置 0）。
-4. 首轮判为失效的源，会在整轮结束后用**新连接 + 双倍超时**再确认一次，确认不过才算失效。
-5. **能播才算可用**：接口返回 ok 后再抽 1~2 个 `vod_play_url`，带 `Range` 请求真实取几 KB，只有拿到 m3u8 文本或视频字节才算 ok；接口活、播放地址 404/403 的会被降级成 `limited`，不进任何配置。
-6. **两个节点判定**：云端 runner（海外）跑主判定，`-vantage=cn` 可在国内节点单独跑一遍并写 `api/status-cn.json`；主流程会合并两地结论——任一节点可用即发布，页面状态列会标 `国内✓ / 国内✗`，国内快照超过 30 天自动失效。
-7. `ok` 才写进所有配置产物；`limited`（未验证）和 `down`（失效）只在 `status.json` 里留记录，**永远不出现在订阅链接里**。
-
-### 7 天更新机制
-
-- GitHub Actions 每天 16:00 UTC（北京时间 00:00）检查一次，生成器比对 `api/status.json` 的 `updated_at`，不足 168 小时就 `skip` 退出、不产生提交。
-- 某次跑失败时，第二天会自动补跑；需要立刻刷新时，网页点「立即重新生成」或 Actions 手动 Run workflow（`force=true`）。
-- 改周期用 `-interval=72h`，网页上的「下次更新」会跟着变。
-- 每次生成都会写 `versions/<date>.json` 并更新 `versions/index.json`，保留最近 14 份；网页「版本快照」可查看/回滚。
-
-## 网页管理
-
-<https://looomix.github.io/TVbox-Configs/>
-
-- **浏览 / 筛选**：按名称、地址搜索，按「可用 / 未验证 / 失效 / 停用」和分类过滤。
-- **测试**：单条源点「测试」，由 `probe.yml` 在云端真实探测（采集接口几乎不带 CORS 头，浏览器直连会被拦），约 1 分钟返回状态、延迟与条数。
-- **新增 / 修改 / 删除**：直接提交 `sources/sources.json` 并触发一次重新生成。
-- **批量删除**：表头勾全选或多选后点「批量删除」，一次提交完成；被删掉的接口会记进 `sources/sources.json` 的 `removed`，后续抓取不会把它加回来（要恢复就重新粘一次该接口）。
-- **批量导入**：`＋ 新增源` 下方一行输入框，粘贴多条接口地址（换行 / 逗号分隔）即按域名去重后入库并触发验证；粘贴源库链接（txt / `api_site` json）则接入为自动抓取源。
-- 写操作需要令牌（只存浏览器 `localStorage`，只发给 `api.github.com`）；只读浏览不需要。
-
-> 建议用 fine-grained token，仅授权本仓库 `Contents: Read and write` 与 `Actions: Read and write`。不要把令牌写进任何文件或提交。
-
-## 本地运行
+## 命令行
 
 ```bash
-go run ./cmd/tvboxgen -feed-only      # 只抓取 + 去重，写回 sources/sources.json
-go run ./cmd/tvboxgen -force          # 立即抓取、验证、重写 api/*
-go run ./cmd/tvboxgen                 # 不足 7 天则跳过
-go run ./cmd/tvboxgen -interval=72h -workers=16 -timeout=10s -history=8
+go build -o bin/tvboxgen ./cmd/tvboxgen
+./bin/tvboxgen -force             # 立即生成一次
+./bin/tvboxgen                    # 距上次不足 7 天则跳过
+./bin/tvboxgen -feed-only         # 只把源库合并进 sources.json，不探活
+./bin/tvboxgen -probe=<接口地址>   # 只测一个接口
 ```
 
-## 文件格式
+常用参数：`-workers`（并发，默认 24）、`-timeout`（单请求，默认 8s）、`-budget`（整轮上限，默认 50s）、`-interval`（更新间隔，默认 168h）、`-history`（每源保留的检查点）。
 
-`sources/sources.json`
-
-```json
-{
-  "version": 1,
-  "updated_at": "2026-11-28",
-  "sources": [
-    { "id": "maoyan", "name": "猫眼", "api": "https://api.example.com/api.php/provide/vod",
-      "group": "综合", "enabled": true, "origin": "manual", "added_at": "2026-11-28" }
-  ]
-}
-```
-
-`sources/feeds.json`
-
-```json
-{ "version": 1, "feeds": [ { "name": "资源族 CMS 接口清单", "url": "https://…/list.txt", "enabled": true } ] }
-```
-
-`sources/blocklist.json`：`domains`（按域名后缀拦截）+ `words`（按名称/地址关键词拦截），被拦截的源不会进入 `sources.json`，也不会出现在任何产物里。
+探活判定：先按两个关键词搜索，再取最新列表；任一成功且返回真实条目即 `ok`，能连但返回空则 `limited`，连不上才 `down`。**只有 `ok` 的源会写进订阅产物**，`limited` 与 `down` 只留在 `api/status.json`。
 
 ## 免责声明
 
-- 本仓库只做技术整理：清单里的接口全部来自公开互联网，视频内容、版权与可用性由原站点负责，本项目不存储、不分发任何影音文件。
-- 不含成人内容，生成器会按 `blocklist.json` 与分类字段过滤。
-- 接口随时可能失效或变更，配置按 7 天一次的节奏自动校正，请勿用于商业用途。
+本项目仅提供配置生成与管理工具，**不存储、不转码、不代理、不分发任何音视频内容**。
+
+- 所有接口地址由仓库使用者自行录入，或从其自行配置的第三方清单抓取。本项目不筛选、不背书，也不保证任何第三方接口的合法性、可用性、安全性或内容合规性；该第三方接口的运营主体、内容版权及由此产生的法律责任，均与本项目及作者无关。
+- 使用者应确保其录入、传播与使用的接口及内容符合所在地法律法规，并符合其所用软件的许可条款。因使用本项目产生的版权纠纷、行政处罚或其他法律后果，由使用者自行承担。
+- 本项目按「现状」（AS IS）提供，不作任何明示或默示担保，包括但不限于适销性、特定用途适用性与不侵权担保。作者不对因使用或无法使用本项目造成的任何直接或间接损失承担责任。
+- 仓库内产物仅为结构化配置文本，不含任何媒体文件；本项目不承载、不缓存第三方内容。如权利人认为某条目侵权，应针对该第三方接口主张权利。
+- 禁止将本项目用于任何违法用途；如所在地法律不允许相关使用，请立即停止。
+
+## English
+
+**TVbox-Configs** is a container-style repository for video source configs: a Go generator, a static web console, and nine subscription artifacts (TVBox, MoonTV / LunaTV, KatelyaTV, DecoTV, MoonTVPlus, OuonnkiTV, KVideo, LibreTV, plus a plain text list). **It ships with no sources** — what you put in is entirely up to you.
+
+- **Setup**: fork the repo, enable GitHub Pages (`main` / root), open the site, and paste a fine-grained PAT with `Contents: read & write` and `Actions: read & write` scoped to this repository.
+- **Manage**: add sources one by one, or paste many interface URLs at once (newline / comma separated); test, edit, delete a single row, or delete a multi-selected batch. Every write lands in `sources/sources.json` and triggers one cloud run.
+- **Generate**: `go build -o bin/tvboxgen ./cmd/tvboxgen && ./bin/tvboxgen -force`. Each run is hard-capped (`-budget`, default 50s). Only endpoints that answer with a real vod list (`ok`) reach the artifacts; the rest stay in `api/status.json`.
+- **Dedupe**: by host and by normalized Chinese display name, so mirrors of the same station collapse into one entry.
+- **Disclaimer**: this project only generates and manages configuration files. It does **not** host, proxy, transcode, or distribute any media. All endpoints are supplied by the repository's own users or fetched from lists they configure; the project does not screen or endorse them and gives no warranty as to their legality, availability, security, or content rights. Users are solely responsible for complying with the laws of their jurisdiction and the license terms of the software they use. Provided "as is", without any express or implied warranty, including merchantability, fitness for a particular purpose, and non-infringement; the author accepts no liability for any direct or indirect damages arising from use of, or inability to use, this project.
 
 ## License
 
-[MIT](LICENSE)
-
-## 国内节点与回滚
-
-```bash
-go run ./cmd/tvboxgen -vantage=cn     # 用当前 api/status.json 的清单在国内网络复测，写 api/status-cn.json
-go run ./cmd/tvboxgen -rollback=2026-11-27   # 用某个版本的可播清单重写全部产物
-```
-
-网页上点「回滚」等价于触发带 `rollback` 输入的 `Update Configs`，订阅地址不变，只是内容换回那一版。
+MIT
