@@ -1,0 +1,62 @@
+[
+  {
+    "name": "魔都动漫",
+    "url": "https://caiji.moduapi.cc/api.php/provide/vod"
+  },
+  {
+    "name": "iKun",
+    "url": "https://ikunzyapi.com/api.php/provide/vod"
+  },
+  {
+    "name": "大众资源采集接口",
+    "url": "https://cdn.dzzyapi.com/api.php/provide/vod"
+  },
+  {
+    "name": "魔都",
+    "url": "https://www.mdzyapi.com/api.php/provide/vod"
+  },
+  {
+    "name": "百花",
+    "url": "https://bhziyuan.com/api.php/provide/vod"
+  },
+  {
+    "name": "猫眼",
+    "url": "https://api.maoyanapi.top/api.php/provide/vod"
+  },
+  {
+    "name": "新极品",
+    "url": "https://jipinvip1.com/api.php/provide/vod"
+  },
+  {
+    "name": "360",
+    "url": "https://360zyzz.com/api.php/provide/vod"
+  },
+  {
+    "name": "番茄",
+    "url": "https://fqzy.me/api.php/provide/vod"
+  },
+  {
+    "name": "爱奇艺",
+    "url": "https://iqiyizyapi.com/api.php/provide/vod"
+  },
+  {
+    "name": "如意",
+    "url": "https://cj.rycjapi.com/api.php/provide/vod"
+  },
+  {
+    "name": "CK-",
+    "url": "https://ckzy.me/api.php/provide/vod"
+  },
+  {
+    "name": "无水印资源网采集接口",
+    "url": "https://api.wsyzy.net/api.php/provide/vod"
+  },
+  {
+    "name": "金鹰点播",
+    "url": "https://jinyingzy.com/api.php/provide/vod"
+  },
+  {
+    "name": "红牛",
+    "url": "https://www.hongniuzy2.com/api.php/provide/vod"
+  }
+]

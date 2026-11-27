@@ -1,0 +1,65 @@
+{
+  "cache_time": 7200,
+  "api_site": {
+    "360zyzzcoma7cc": {
+      "name": "360",
+      "api": "https://360zyzz.com/api.php/provide/vod"
+    },
+    "apiwsyzynet4a1d": {
+      "name": "无水印资源网采集接口",
+      "api": "https://api.wsyzy.net/api.php/provide/vod"
+    },
+    "bhziyuancom31e9": {
+      "name": "百花",
+      "api": "https://bhziyuan.com/api.php/provide/vod"
+    },
+    "cdndzzyapicom5909": {
+      "name": "大众资源采集接口",
+      "api": "https://cdn.dzzyapi.com/api.php/provide/vod"
+    },
+    "ckzymed5b2": {
+      "name": "CK-",
+      "api": "https://ckzy.me/api.php/provide/vod"
+    },
+    "fqzyme981d": {
+      "name": "番茄",
+      "api": "https://fqzy.me/api.php/provide/vod"
+    },
+    "hongniuzycom": {
+      "name": "红牛",
+      "api": "https://www.hongniuzy2.com/api.php/provide/vod"
+    },
+    "ikunzycom": {
+      "name": "iKun",
+      "api": "https://ikunzyapi.com/api.php/provide/vod"
+    },
+    "iqiyizyapicome25f": {
+      "name": "爱奇艺",
+      "api": "https://iqiyizyapi.com/api.php/provide/vod"
+    },
+    "jinyingzycom": {
+      "name": "金鹰点播",
+      "api": "https://jinyingzy.com/api.php/provide/vod"
+    },
+    "jipinvip1com390b": {
+      "name": "新极品",
+      "api": "https://jipinvip1.com/api.php/provide/vod"
+    },
+    "maoyanzycom": {
+      "name": "猫眼",
+      "api": "https://api.maoyanapi.top/api.php/provide/vod"
+    },
+    "moduapicc": {
+      "name": "魔都动漫",
+      "api": "https://caiji.moduapi.cc/api.php/provide/vod"
+    },
+    "moduzynet": {
+      "name": "魔都",
+      "api": "https://www.mdzyapi.com/api.php/provide/vod"
+    },
+    "ryzywcom": {
+      "name": "如意",
+      "api": "https://cj.rycjapi.com/api.php/provide/vod"
+    }
+  }
+}

@@ -1,0 +1,107 @@
+[
+  {
+    "id": "moduapicc",
+    "name": "魔都动漫",
+    "baseUrl": "https://caiji.moduapi.cc/api.php/provide/vod",
+    "group": "normal",
+    "enabled": true
+  },
+  {
+    "id": "ikunzycom",
+    "name": "iKun",
+    "baseUrl": "https://ikunzyapi.com/api.php/provide/vod",
+    "group": "normal",
+    "enabled": true
+  },
+  {
+    "id": "cdndzzyapicom5909",
+    "name": "大众资源采集接口",
+    "baseUrl": "https://cdn.dzzyapi.com/api.php/provide/vod",
+    "group": "normal",
+    "enabled": true
+  },
+  {
+    "id": "moduzynet",
+    "name": "魔都",
+    "baseUrl": "https://www.mdzyapi.com/api.php/provide/vod",
+    "group": "normal",
+    "enabled": true
+  },
+  {
+    "id": "bhziyuancom31e9",
+    "name": "百花",
+    "baseUrl": "https://bhziyuan.com/api.php/provide/vod",
+    "group": "normal",
+    "enabled": true
+  },
+  {
+    "id": "maoyanzycom",
+    "name": "猫眼",
+    "baseUrl": "https://api.maoyanapi.top/api.php/provide/vod",
+    "group": "normal",
+    "enabled": true
+  },
+  {
+    "id": "jipinvip1com390b",
+    "name": "新极品",
+    "baseUrl": "https://jipinvip1.com/api.php/provide/vod",
+    "group": "normal",
+    "enabled": true
+  },
+  {
+    "id": "360zyzzcoma7cc",
+    "name": "360",
+    "baseUrl": "https://360zyzz.com/api.php/provide/vod",
+    "group": "normal",
+    "enabled": true
+  },
+  {
+    "id": "fqzyme981d",
+    "name": "番茄",
+    "baseUrl": "https://fqzy.me/api.php/provide/vod",
+    "group": "normal",
+    "enabled": true
+  },
+  {
+    "id": "iqiyizyapicome25f",
+    "name": "爱奇艺",
+    "baseUrl": "https://iqiyizyapi.com/api.php/provide/vod",
+    "group": "normal",
+    "enabled": true
+  },
+  {
+    "id": "ryzywcom",
+    "name": "如意",
+    "baseUrl": "https://cj.rycjapi.com/api.php/provide/vod",
+    "group": "normal",
+    "enabled": true
+  },
+  {
+    "id": "ckzymed5b2",
+    "name": "CK-",
+    "baseUrl": "https://ckzy.me/api.php/provide/vod",
+    "group": "normal",
+    "enabled": true
+  },
+  {
+    "id": "apiwsyzynet4a1d",
+    "name": "无水印资源网采集接口",
+    "baseUrl": "https://api.wsyzy.net/api.php/provide/vod",
+    "group": "normal",
+    "enabled": true
+  },
+  {
+    "id": "jinyingzycom",
+    "name": "金鹰点播",
+    "baseUrl": "https://jinyingzy.com/api.php/provide/vod",
+    "group": "normal",
+    "enabled": true
+  },
+  {
+    "id": "hongniuzycom",
+    "name": "红牛",
+    "baseUrl": "https://www.hongniuzy2.com/api.php/provide/vod",
+    "group": "normal",
+    "enabled": true
+  }
+]
