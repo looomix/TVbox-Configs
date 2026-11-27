@@ -1,5 +1,12 @@
 [
   {
+    "id": "suoniapicom90b7",
+    "name": "索尼",
+    "baseUrl": "https://suoniapi.com/api.php/provide/vod",
+    "group": "normal",
+    "enabled": true
+  },
+  {
     "id": "beiyongslapibfcom42b8",
     "name": "森林",
     "baseUrl": "https://beiyong.slapibf.com/api.php/provide/vod",
@@ -14,9 +21,9 @@
     "enabled": true
   },
   {
-    "id": "xingba111com649e",
-    "name": "杏吧",
-    "baseUrl": "https://xingba111.com/api.php/provide/vod",
+    "id": "apisouavzyvipa434",
+    "name": "souavZY",
+    "baseUrl": "https://api.souavzy.vip/api.php/provide/vod",
     "group": "normal",
     "enabled": true
   },
@@ -28,16 +35,16 @@
     "enabled": true
   },
   {
-    "id": "tyyszycom97b0",
-    "name": "天涯影视",
-    "baseUrl": "https://tyyszy.com/api.php/provide/vod",
+    "id": "xingba111com649e",
+    "name": "杏吧",
+    "baseUrl": "https://xingba111.com/api.php/provide/vod",
     "group": "normal",
     "enabled": true
   },
   {
-    "id": "xsdsdzyapicom9e6a",
-    "name": "闪电",
-    "baseUrl": "https://xsd.sdzyapi.com/api.php/provide/vod",
+    "id": "tyyszycom97b0",
+    "name": "天涯影视",
+    "baseUrl": "https://tyyszy.com/api.php/provide/vod",
     "group": "normal",
     "enabled": true
   },
@@ -49,16 +56,9 @@
     "enabled": true
   },
   {
-    "id": "suoniapicom90b7",
-    "name": "索尼",
-    "baseUrl": "https://suoniapi.com/api.php/provide/vod",
-    "group": "normal",
-    "enabled": true
-  },
-  {
-    "id": "1542191172327c08",
-    "name": "建安",
-    "baseUrl": "http://154.219.117.232:9981/jacloudapi.php/provide/vod",
+    "id": "xsdsdzyapicom9e6a",
+    "name": "闪电",
+    "baseUrl": "https://xsd.sdzyapi.com/api.php/provide/vod",
     "group": "normal",
     "enabled": true
   },
@@ -70,9 +70,16 @@
     "enabled": true
   },
   {
-    "id": "apisouavzyvipa434",
-    "name": "souavZY",
-    "baseUrl": "https://api.souavzy.vip/api.php/provide/vod",
+    "id": "hsckzyxyz8886",
+    "name": "黄色仓库",
+    "baseUrl": "https://hsckzy.xyz/api.php/provide/vod",
+    "group": "normal",
+    "enabled": true
+  },
+  {
+    "id": "1542191172327c08",
+    "name": "建安",
+    "baseUrl": "http://154.219.117.232:9981/jacloudapi.php/provide/vod",
     "group": "normal",
     "enabled": true
   },

@@ -1,14 +1,15 @@
 # TVbox-Configs 已验证视频源
-# 共 12 条，每行：名称|API|类型|状态
+# 共 13 条，每行：名称|API|类型|状态
+索尼|https://suoniapi.com/api.php/provide/vod|json|verified
 森林|https://beiyong.slapibf.com/api.php/provide/vod|json|verified
 金鹰点播|https://jinyingzy.com/api.php/provide/vod|json|verified
-杏吧|https://xingba111.com/api.php/provide/vod|json|verified
-CK|https://ckzy.me/api.php/provide/vod|json|verified
-天涯影视|https://tyyszy.com/api.php/provide/vod|json|verified
-闪电|https://xsd.sdzyapi.com/api.php/provide/vod|json|verified
-快车|https://caiji.kuaichezy.org/api.php/provide/vod|json|verified
-索尼|https://suoniapi.com/api.php/provide/vod|json|verified
-建安|http://154.219.117.232:9981/jacloudapi.php/provide/vod|json|verified
-非凡影视|https://cj.ffzyapi.com/api.php/provide/vod|json|verified
 souavZY|https://api.souavzy.vip/api.php/provide/vod|json|verified
+CK|https://ckzy.me/api.php/provide/vod|json|verified
+杏吧|https://xingba111.com/api.php/provide/vod|json|verified
+天涯影视|https://tyyszy.com/api.php/provide/vod|json|verified
+快车|https://caiji.kuaichezy.org/api.php/provide/vod|json|verified
+闪电|https://xsd.sdzyapi.com/api.php/provide/vod|json|verified
+非凡影视|https://cj.ffzyapi.com/api.php/provide/vod|json|verified
+黄色仓库|https://hsckzy.xyz/api.php/provide/vod|json|verified
+建安|http://154.219.117.232:9981/jacloudapi.php/provide/vod|json|verified
 茅台|https://caiji.maotaizy.cc/api.php/provide/vod|json|verified
