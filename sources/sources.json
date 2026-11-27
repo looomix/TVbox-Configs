@@ -1099,7 +1099,7 @@
     },
     {
       "id": "jyzyapicom-7013",
-      "name": "金鹰 (jyzyapi.com)",
+      "name": "金鹰 (jyzyapi.com) (jyzyapi.com)",
       "api": "https://jyzyapi.com/api.php/provide/vod",
       "group": "综合",
       "enabled": true,
@@ -1139,7 +1139,7 @@
     },
     {
       "id": "jyzyapicom-343d",
-      "name": "金鹰 (jyzyapi.com)",
+      "name": "金鹰 (jyzyapi.com) (jyzyapi.com)",
       "api": "http://jyzyapi.com/provide/vod/from/jinyingm3u8",
       "group": "综合",
       "enabled": true,
