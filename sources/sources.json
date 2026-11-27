@@ -914,14 +914,6 @@
       "origin": "feed"
     },
     {
-      "id": "jyzyapicom-7b2d",
-      "name": "金鹰 (jyzyapi.com)",
-      "api": "https://jyzyapi.com/provide/vod/from/jinyingyun/at/json",
-      "group": "综合",
-      "enabled": true,
-      "origin": "feed"
-    },
-    {
       "id": "jjpzhafreydpdnsorg-6dd0",
       "name": "U酷 (jjpz.hafrey.dpdns.org)",
       "api": "https://jjpz.hafrey.dpdns.org/?url=https://api.ukuapi.com/api.php/provide/vod",
@@ -1098,14 +1090,6 @@
       "origin": "feed"
     },
     {
-      "id": "jyzyapicom-7013",
-      "name": "金鹰 (jyzyapi.com) (jyzyapi.com)",
-      "api": "https://jyzyapi.com/api.php/provide/vod",
-      "group": "综合",
-      "enabled": true,
-      "origin": "feed"
-    },
-    {
       "id": "api1080zykucom-6ec3",
       "name": "神马云",
       "api": "https://api.1080zyku.com/inc/apijson.php",
@@ -1133,14 +1117,6 @@
       "id": "dadiapicom-2f90",
       "name": "大地资源网络",
       "api": "https://dadiapi.com/api.php/provide/vod",
-      "group": "综合",
-      "enabled": true,
-      "origin": "feed"
-    },
-    {
-      "id": "jyzyapicom-343d",
-      "name": "金鹰 (jyzyapi.com) (jyzyapi.com)",
-      "api": "http://jyzyapi.com/provide/vod/from/jinyingm3u8",
       "group": "综合",
       "enabled": true,
       "origin": "feed"

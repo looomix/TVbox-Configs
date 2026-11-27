@@ -738,14 +738,21 @@
 
   /* same key the generator uses, so deletions survive the next feed merge */
   // must stay in sync with gen.NormalizeAPI on the server
-  var API_PATH_NOISE = { at: 1, from: 1, xml: 1, json: 1, ac: 1, wd: 1, pg: 1, p: 1, t: 1, h: 1, ids: 1, page: 1 };
+  // 与后端 PathKey 同口径：参数键连同它的值一起跳过，所以
+  // /api.php/provide/vod、/provide/vod/from/x、/provide/vod/from/x/at/json 都算同一条
+  var API_PATH_NOISE = { 'api.php': 1, 'index.php': 1, at: 1, from: 1, xml: 1, json: 1, ac: 1, wd: 1, pg: 1, p: 1, t: 1, h: 1, ids: 1, page: 1 };
+  var API_PATH_PARAMS = { at: 1, from: 1, ac: 1, wd: 1, pg: 1, p: 1, t: 1, h: 1, ids: 1, page: 1 };
 
   function pathKey(rawPath) {
     var segs = String(rawPath || '').toLowerCase().replace(/^\/+|\/+$/g, '').split('/');
     var kept = [];
     for (var i = 0; i < segs.length; i++) {
-      if (!segs[i] || API_PATH_NOISE[segs[i]]) continue;
-      kept.push(segs[i]);
+      var seg = segs[i];
+      if (!seg || API_PATH_NOISE[seg]) {
+        if (API_PATH_PARAMS[seg]) i++;
+        continue;
+      }
+      kept.push(seg);
       if (kept.length === 3) break;
     }
     return kept.join('/');

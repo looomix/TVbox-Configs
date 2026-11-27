@@ -11,20 +11,36 @@ import (
 // pathNoise are the segments that only carry request parameters of one and the
 // same endpoint (/api.php/provide/vod, /api.php/provide/vod/at/xml, …).
 var pathNoise = map[string]bool{
-	"at": true, "from": true, "xml": true, "json": true, "ac": true, "wd": true,
-	"pg": true, "p": true, "t": true, "h": true, "ids": true, "page": true,
+	"api.php": true, "index.php": true, "at": true, "from": true, "xml": true, "json": true,
+	"ac": true, "wd": true, "pg": true, "p": true, "t": true, "h": true, "ids": true, "page": true,
 }
 
-// PathKey keeps the first three meaningful path segments, so two stations served
-// from one host stay apart while param variants of one endpoint still collapse.
+// pathParams are keys whose next segment is just the value of that parameter,
+// e.g. /provide/vod/from/jinyingm3u8/at/xml: the source name and the format are
+// not part of the station identity.
+var pathParams = map[string]bool{
+	"from": true, "at": true, "ac": true, "wd": true, "pg": true, "p": true, "t": true,
+	"h": true, "ids": true, "page": true,
+}
+
+// PathKey keeps the first three identity segments of a path. Parameter keys and
+// their values are skipped, so the many ways of writing one CMS library
+// (/api.php/provide/vod, /provide/vod/from/x, /provide/vod/from/x/at/json) all
+// collapse to provide/vod, while genuinely different paths on one host stay apart.
 func PathKey(rawPath string) string {
 	path := strings.ToLower(strings.Trim(strings.TrimSpace(rawPath), "/"))
 	if path == "" {
 		return ""
 	}
+	segs := strings.Split(path, "/")
 	kept := make([]string, 0, 3)
-	for _, seg := range strings.Split(path, "/") {
+	for i := 0; i < len(segs); i++ {
+		seg := segs[i]
 		if seg == "" || pathNoise[seg] {
+			// a parameter key swallows its value
+			if pathParams[seg] {
+				i++
+			}
 			continue
 		}
 		kept = append(kept, seg)
