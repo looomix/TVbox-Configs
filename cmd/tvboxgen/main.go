@@ -9,6 +9,7 @@ import (
 	"fmt"
 	"os"
 	"path/filepath"
+	"strings"
 	"time"
 
 	"github.com/looomix/tvbox-configs/internal/gen"
@@ -28,10 +29,37 @@ func main() {
 	owner := flag.String("owner", "looomix", "github owner used for mirror urls")
 	repo := flag.String("repo", "TVbox-Configs", "github repo used for mirror urls")
 	branch := flag.String("branch", "main", "branch used for mirror urls")
+	probeURL := flag.String("probe", "", "probe one api url only and exit (used by the cloud test workflow)")
+	probeOut := flag.String("probe-out", "", "write the single probe result to this json file")
 	flag.Parse()
 
 	now := time.Now()
 	rel := func(name string) string { return filepath.Join(*outDir, name) }
+
+	// single source mode: used by the web page through the probe workflow
+	if *probeURL != "" {
+		if !strings.HasPrefix(*probeURL, "http://") && !strings.HasPrefix(*probeURL, "https://") {
+			fmt.Println("probe url must start with http:// or https://")
+			os.Exit(1)
+		}
+		c := probe.NewClient(*timeout)
+		r := probe.Test(c, *probeURL)
+		res := model.ProbeResult{
+			URL:       *probeURL,
+			State:     r.State,
+			LatencyMs: r.LatencyMs,
+			Vods:      r.Vods,
+			CheckedAt: now.UTC().Format(time.RFC3339),
+		}
+		if *probeOut != "" {
+			if err := gen.WriteJSON(*probeOut, res); err != nil {
+				fmt.Printf("write %s: %v\n", *probeOut, err)
+				os.Exit(1)
+			}
+		}
+		fmt.Printf("probe %s -> %s, %d ms, %d results\n", res.URL, res.State, res.LatencyMs, res.Vods)
+		return
+	}
 
 	var sf model.SourceFile
 	if err := gen.ReadJSON(*sourcesPath, &sf); err != nil {

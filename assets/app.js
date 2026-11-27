@@ -21,8 +21,8 @@
     sources: [],
     filters: { q: '', state: 'all', group: 'all' },
     results: {},
-    editingId: null,
-    busy: false
+    pending: {},
+    editingId: null
   };
 
   /* ---------------- helpers ---------------- */
@@ -246,8 +246,9 @@
       var meta = stateMeta(st2);
       var lat = st2 && st2.enabled ? (st2.latency_ms > 0 ? st2.latency_ms + ' ms' : '—') : '—';
       var res = state.results[s.id];
-      var stateLabel = res ? (res.ok ? '测试 ' + res.vods + ' 条' : '测试失败') : meta.label;
-      var stateCls = res ? (res.ok ? 'ok' : 'bad') : meta.cls;
+      var pending = state.pending[s.id];
+      var stateLabel = pending ? '检测中' : (res ? (res.ok ? '可用 ' + res.vods + ' 条' : '测试失败') : meta.label);
+      var stateCls = pending ? 'warn' : (res ? (res.ok ? 'ok' : 'bad') : meta.cls);
       return '<div class="row grid-cols" data-id="' + esc(s.id) + '">' +
         '<div class="name-cell"><div class="n">' + esc(s.name) + '</div>' +
         '<div class="note" title="' + esc(s.note || '') + '">' + (esc(s.note || '') || '—') + '</div></div>' +
@@ -271,48 +272,107 @@
     renderRows();
   }
 
-  /* ---------------- probing ---------------- */
+  /* ---------------- probing: browser attempt first, cloud workflow second ---------------- */
 
-  function probe(api) {
+  var PROBE_FILE = 'https://raw.githubusercontent.com/' + OWNER + '/' + REPO + '/' + BRANCH + '/api/probe.json';
+  var BROWSER_PROBES = [
+    { name: '直连', build: function (u) { return u; } },
+    { name: '代理 A', build: function (u) { return 'https://api.allorigins.win/raw?url=' + encodeURIComponent(u); } },
+    { name: '代理 B', build: function (u) { return 'https://api.codetabs.com/v1/proxy?quest=' + encodeURIComponent(u); } }
+  ];
+
+  function deadline(ms) {
+    if (typeof AbortSignal !== 'undefined' && AbortSignal.timeout) return AbortSignal.timeout(ms);
+    return undefined;
+  }
+
+  function quickProbe(api) {
     var url = withParams(api);
     var t0 = performance.now();
-    var attempts = [
-      function (u) { return u; },
-      function (u) { return 'https://api.allorigins.win/raw?url=' + encodeURIComponent(u); },
-      function (u) { return 'https://api.codetabs.com/v1/proxy?quest=' + encodeURIComponent(u); }
-    ];
-    var names = ['直连', '代理 A', '代理 B'];
-
     function attempt(i) {
-      if (i >= attempts.length) {
-        return Promise.resolve({ ok: false, ms: Math.round(performance.now() - t0), vods: 0, via: '全部通道失败' });
+      if (i >= BROWSER_PROBES.length) {
+        return { ok: false, ms: Math.round(performance.now() - t0), vods: 0, via: '浏览器', note: '跨域或网络受限' };
       }
-      var opts = { cache: 'no-store' };
-      if (typeof AbortSignal !== 'undefined' && AbortSignal.timeout) opts.signal = AbortSignal.timeout(15000);
-      return fetch(attempts[i](url), opts).then(function (r) {
+      var p = BROWSER_PROBES[i];
+      return fetch(p.build(url), { cache: 'no-store', signal: deadline(8000) }).then(function (r) {
+        if (r.status !== 200) return attempt(i + 1);
         return r.text().then(function (txt) {
           var ms = Math.round(performance.now() - t0);
-          if (r.status !== 200) return attempt(i + 1);
           try {
             var j = JSON.parse(txt);
-            var vods = (j && j.list && j.list.length) || 0;
-            return { ok: vods > 0, ms: ms, vods: vods, via: names[i], reachable: true };
+            return { ok: true, ms: ms, vods: (j && j.list && j.list.length) || 0, via: p.name, state: 'ok' };
           } catch (e) {
-            return { ok: false, ms: ms, vods: 0, via: names[i], reachable: true, note: '非标准 JSON' };
+            return { ok: false, ms: ms, vods: 0, via: p.name, note: '返回内容不是标准 CMS JSON' };
           }
         });
       }).catch(function () { return attempt(i + 1); });
     }
-    return attempt(0);
+    return Promise.resolve(attempt(0));
+  }
+
+  function dispatchProbe(api) {
+    return fetch(API + '/actions/workflows/probe.yml/dispatches', {
+      method: 'POST',
+      headers: Object.assign({ 'Content-Type': 'application/json' }, authHeaders()),
+      body: JSON.stringify({ ref: BRANCH, inputs: { url: api } })
+    }).then(function (r) {
+      if (r.status !== 204) throw new Error('云端检测无法触发（HTTP ' + r.status + '），请确认令牌含 Actions 权限');
+    });
+  }
+
+  function cloudProbe(api, onProgress) {
+    var started = Date.now();
+    return dispatchProbe(api).then(function () {
+      return new Promise(function (resolve, reject) {
+        var tries = 0;
+        function poll() {
+          tries++;
+          if (tries > 22) { reject(new Error('云端检测超时，可稍后在列表里看结果')); return; }
+          setTimeout(function () {
+            fetch(PROBE_FILE + '?t=' + Date.now(), { cache: 'no-store' })
+              .then(function (r) { return r.ok ? r.json() : null; })
+              .then(function (d) {
+                if (d && d.url === api && new Date(d.checked_at).getTime() >= started - 20000) { resolve(d); return; }
+                if (onProgress) onProgress('云端检测中…');
+                poll();
+              })
+              .catch(function () { poll(); });
+          }, tries === 1 ? 12000 : 6500);
+        }
+        poll();
+      });
+    });
+  }
+
+  function runProbe(api, onProgress) {
+    if (onProgress) onProgress('检测中…');
+    return quickProbe(api).then(function (quick) {
+      if (quick.ok || !state.token) return quick;
+      if (onProgress) onProgress('云端检测中…（约 1 分钟）');
+      return cloudProbe(api, onProgress).then(function (d) {
+        return { ok: d.state === 'ok' || d.state === 'limited', ms: d.latency_ms, vods: d.vods, via: '云端', state: d.state };
+      }).catch(function (err) {
+        quick.note = (quick.note ? quick.note + '；' : '') + err.message;
+        return quick;
+      });
+    });
   }
 
   function testRow(id, api) {
-    return probe(api).then(function (res) {
+    state.pending[id] = true;
+    renderRows();
+    return runProbe(api).then(function (res) {
+      delete state.pending[id];
       state.results[id] = res;
       renderRows();
-      toast(res.ok ? ('可用，返回 ' + res.vods + ' 条 · ' + res.ms + ' ms（' + res.via + '）')
+      toast(res.ok
+        ? ('可用，返回 ' + res.vods + ' 条 · ' + res.ms + ' ms · ' + res.via)
         : ('不可用：' + (res.note || res.via) + ' · ' + res.ms + ' ms'));
       return res;
+    }, function (err) {
+      delete state.pending[id];
+      renderRows();
+      toast('检测失败：' + (err.message || err));
     });
   }
 
@@ -516,9 +576,8 @@
       var src = state.sources.filter(function (s) { return s.id === id; })[0];
       if (!src) return;
       if (act === 'test') {
-        if (state.busy) return;
-        state.busy = true;
-        testRow(id, src.api).then(function () { state.busy = false; });
+        if (state.pending[id]) return;
+        testRow(id, src.api);
       } else if (act === 'edit') {
         openEdit(src);
       } else if (act === 'del') {
@@ -541,10 +600,9 @@
       var api = $('#fApi').value.trim();
       var hint = $('#editHint');
       if (!/^https?:\/\//i.test(api)) { hint.textContent = '接口地址需以 http(s):// 开头'; hint.className = 'hint err'; return; }
-      hint.textContent = '测试中…';
       hint.className = 'hint';
-      probe(api).then(function (res) {
-        hint.textContent = res.ok ? ('可用：返回 ' + res.vods + ' 条 · ' + res.ms + ' ms（' + res.via + '）')
+      runProbe(api, function (msg) { hint.textContent = msg; }).then(function (res) {
+        hint.textContent = res.ok ? ('可用：返回 ' + res.vods + ' 条 · ' + res.ms + ' ms · ' + res.via)
           : ('不可用：' + (res.note || res.via) + ' · ' + res.ms + ' ms');
         hint.className = 'hint ' + (res.ok ? '' : 'err');
       });

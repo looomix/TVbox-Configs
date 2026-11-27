@@ -26,7 +26,8 @@ type Result struct {
 	Vods      int
 }
 
-func client(timeout time.Duration) *http.Client {
+// NewClient builds one reusable http client for probing.
+func NewClient(timeout time.Duration) *http.Client {
 	return &http.Client{
 		Timeout: timeout,
 		Transport: &http.Transport{
@@ -106,7 +107,7 @@ func Run(sources []model.Source, workers int, timeout time.Duration) []Result {
 		wg.Add(1)
 		go func() {
 			defer wg.Done()
-			c := client(timeout)
+			c := NewClient(timeout)
 			for j := range idx {
 				if !sources[j].Enabled || strings.TrimSpace(sources[j].API) == "" {
 					results[j] = Result{State: "off"}

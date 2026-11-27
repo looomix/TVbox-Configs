@@ -1,0 +1,51 @@
+name: Probe Source
+
+on:
+  workflow_dispatch:
+    inputs:
+      url:
+        description: '要检测的 CMS 接口地址'
+        required: true
+        type: string
+
+permissions:
+  contents: write
+
+concurrency:
+  group: probe-source
+  cancel-in-progress: true
+
+jobs:
+  probe:
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Setup Go
+        uses: actions/setup-go@v5
+        with:
+          go-version-file: go.mod
+          cache: true
+
+      - name: Build
+        run: go build -o bin/tvboxgen ./cmd/tvboxgen
+
+      - name: Probe
+        env:
+          TARGET: ${{ inputs.url }}
+        run: ./bin/tvboxgen -probe="$TARGET" -probe-out=api/probe.json -timeout=12s
+
+      - name: Commit result
+        run: |
+          git config --local user.name "github-actions[bot]"
+          git config --local user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add api/probe.json
+          if git diff --staged --quiet; then
+            echo "no change"
+            exit 0
+          fi
+          git commit -m "chore: 云端检测视频源结果"
+          git pull --rebase --autostash origin main
+          git push

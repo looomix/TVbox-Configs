@@ -75,6 +75,15 @@ type TVBox struct {
 	Version string   `json:"version"`
 }
 
+// ProbeResult is the single-source result written by the cloud probe workflow.
+type ProbeResult struct {
+	URL       string `json:"url"`
+	State     string `json:"state"`
+	LatencyMs int    `json:"latency_ms"`
+	Vods      int    `json:"vods"`
+	CheckedAt string `json:"checked_at"`
+}
+
 type Mirror struct {
 	Name string `json:"name"`
 	URL  string `json:"url"`

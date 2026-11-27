@@ -7,6 +7,7 @@ TVBox / 影视仓 视频源配置自动生成器：每 **7 天**检测一次公�
 | 订阅配置 | `api/tvbox.json`（单仓配置，TVBox 直接粘贴） |
 | 多仓入口 | `api/index.json`（内含主线路 / 备用 / 加速三条） |
 | 检测报告 | `api/status.json`（每个源的状态、延迟、近 8 期趋势） |
+| 单源检测 | `api/probe.json`（网页「测试」按钮触发的云端结果） |
 | 镜像清单 | `api/mirror.json` |
 | 网页管理 | <https://looomix.github.io/TVbox-Configs/>（新增 / 修改 / 测试 / 删除） |
 
@@ -56,7 +57,7 @@ api/index.json   多仓入口（主 / 备 / 加速）
 打开 <https://looomix.github.io/TVbox-Configs/> 即可：
 
 - **浏览 / 搜索**：按名称、地址、备注筛选，按状态（可用 / 失效 / 停用）和分类过滤。
-- **测试**：单条源点「测试」，页面会直连探测，失败自动切换两个公共 CORS 代理，返回条数与耗时。
+- **测试**：单条源点「测试」，先在本机浏览器直连（部分接口带 CORS 头可直接读），被跨域拦截时自动改用 `probe.yml` 在 GitHub Actions 里探测，约 1 分钟返回状态、延迟与条数。
 - **新增 / 修改 / 删除**：走 GitHub Contents API 直接提交 `sources/sources.json`，并顺手触发一次立即检测。
 - 写操作需要在页面里填入一个有该仓库写权限的令牌，令牌只存在浏览器 `localStorage`，只发给 `api.github.com`。只读浏览不需要令牌。
 
