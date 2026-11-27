@@ -960,6 +960,206 @@
       "group": "综合",
       "enabled": true,
       "origin": "feed"
+    },
+    {
+      "id": "apiyyzy-tvvip-7720",
+      "name": "优质库1080zyk",
+      "api": "https://api.yyzy-tv.vip/inc/api_mac10.php",
+      "group": "综合",
+      "enabled": true,
+      "origin": "feed"
+    },
+    {
+      "id": "360zyzzcom-eec3",
+      "name": "360 (360zyzz.com)",
+      "api": "https://360zyzz.com/api.php/provide/vod",
+      "group": "综合",
+      "enabled": true,
+      "origin": "feed"
+    },
+    {
+      "id": "xingba222com-12f6",
+      "name": "杏吧 - NSFW",
+      "api": "https://xingba222.com/api.php/provide/vod",
+      "group": "综合",
+      "enabled": true,
+      "origin": "feed"
+    },
+    {
+      "id": "dadiapicom-6f2f",
+      "name": "大地 - NSFW",
+      "api": "https://dadiapi.com/feifei",
+      "group": "综合",
+      "enabled": true,
+      "origin": "feed"
+    },
+    {
+      "id": "pzv88qzzio-c437",
+      "name": "艾旦影视",
+      "api": "https://pz.v88.qzz.io/?url=https://lovedan.net/api.php/provide/vod",
+      "group": "综合",
+      "enabled": true,
+      "origin": "feed"
+    },
+    {
+      "id": "pzv88qzzio-17de",
+      "name": "百度云zy",
+      "api": "https://pz.v88.qzz.io/?url=https://api.apibdzy.com/api.php/provide/vod",
+      "group": "综合",
+      "enabled": true,
+      "origin": "feed"
+    },
+    {
+      "id": "91jpzywcom-8f42",
+      "name": "91-精品",
+      "api": "https://91jpzyw.com/api.php/provide/vod",
+      "group": "综合",
+      "enabled": true,
+      "origin": "feed"
+    },
+    {
+      "id": "apiokzywnet-469a",
+      "name": "OK (api.okzyw.net)",
+      "api": "https://api.okzyw.net/api.php/provide/vod",
+      "group": "综合",
+      "enabled": true,
+      "origin": "feed"
+    },
+    {
+      "id": "api1080zykucom-e686",
+      "name": "1080资源库",
+      "api": "https://api.1080zyku.com/inc/api_mac10.php",
+      "group": "综合",
+      "enabled": true,
+      "origin": "feed"
+    },
+    {
+      "id": "hongniuzy3com-ef58",
+      "name": "红牛 (hongniuzy3.com)",
+      "api": "https://www.hongniuzy3.com/api.php/provide/vod",
+      "group": "综合",
+      "enabled": true,
+      "origin": "feed"
+    },
+    {
+      "id": "taopianapicom-02fd",
+      "name": "淘片",
+      "api": "https://taopianapi.com/cjapi/mc10/vod/json.html",
+      "group": "综合",
+      "enabled": true,
+      "origin": "feed"
+    },
+    {
+      "id": "sdzyapicom-1e71",
+      "name": "闪电 (sdzyapi.com)",
+      "api": "https://sdzyapi.com/api.php/provide/vod",
+      "group": "综合",
+      "enabled": true,
+      "origin": "feed"
+    },
+    {
+      "id": "maoyanzycom-4e80",
+      "name": "猫眼 (maoyanzy.com)",
+      "api": "https://maoyanzy.com/api.php/provide/vod",
+      "group": "综合",
+      "enabled": true,
+      "origin": "feed"
+    },
+    {
+      "id": "yhzycc-0a51",
+      "name": "樱花资源ᴴ",
+      "api": "https://yhzy.cc/api.php/provide/vod",
+      "group": "综合",
+      "enabled": true,
+      "origin": "feed"
+    },
+    {
+      "id": "cdndzzyapicom-3437",
+      "name": "大众资源采集接口",
+      "api": "https://cdn.dzzyapi.com/api.php/provide/vod",
+      "group": "综合",
+      "enabled": true,
+      "origin": "feed"
+    },
+    {
+      "id": "apiwujinapicc-c1dc",
+      "name": "wujinapi无尽",
+      "api": "https://api.wujinapi.cc/api.php/provide/vod",
+      "group": "综合",
+      "enabled": true,
+      "origin": "feed"
+    },
+    {
+      "id": "apiwujinapinet-a633",
+      "name": "无尽资源3",
+      "api": "https://api.wujinapi.net/api.php/provide/vod",
+      "group": "综合",
+      "enabled": true,
+      "origin": "feed"
+    },
+    {
+      "id": "jyzyapicom-7013",
+      "name": "金鹰 (jyzyapi.com)",
+      "api": "https://jyzyapi.com/api.php/provide/vod",
+      "group": "综合",
+      "enabled": true,
+      "origin": "feed"
+    },
+    {
+      "id": "api1080zykucom-6ec3",
+      "name": "神马云",
+      "api": "https://api.1080zyku.com/inc/apijson.php",
+      "group": "综合",
+      "enabled": true,
+      "origin": "feed"
+    },
+    {
+      "id": "apiukuapicom-a23a",
+      "name": "U酷 (api.ukuapi.com)",
+      "api": "https://api.ukuapi.com/api.php/provide/vod",
+      "group": "综合",
+      "enabled": true,
+      "origin": "feed"
+    },
+    {
+      "id": "yonghuffzyapi8com-493e",
+      "name": "无广1线 非凡",
+      "api": "https://yonghu.ffzyapi8.com/api.php/provide/vod/from/ffm3u8/at/json",
+      "group": "综合",
+      "enabled": true,
+      "origin": "feed"
+    },
+    {
+      "id": "dadiapicom-2f90",
+      "name": "大地资源网络",
+      "api": "https://dadiapi.com/api.php/provide/vod",
+      "group": "综合",
+      "enabled": true,
+      "origin": "feed"
+    },
+    {
+      "id": "jyzyapicom-343d",
+      "name": "金鹰 (jyzyapi.com)",
+      "api": "http://jyzyapi.com/provide/vod/from/jinyingm3u8",
+      "group": "综合",
+      "enabled": true,
+      "origin": "feed"
+    },
+    {
+      "id": "apiwsyzynet-082f",
+      "name": "无水印资源网采集接口",
+      "api": "https://api.wsyzy.net/api.php/provide/vod",
+      "group": "综合",
+      "enabled": true,
+      "origin": "feed"
+    },
+    {
+      "id": "apiyparsecom-4d83",
+      "name": "TV-步步高",
+      "api": "https://api.yparse.com/api/json",
+      "group": "综合",
+      "enabled": true,
+      "origin": "feed"
     }
   ]
 }

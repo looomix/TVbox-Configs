@@ -214,11 +214,18 @@ func main() {
 // fetchFeeds downloads every enabled remote list in parallel and caps each
 // request by the remaining budget, so one slow list cannot stall the run.
 func fetchFeeds(ff model.FeedFile, timeout time.Duration, deadline time.Time) []model.Source {
+	// one job per normalized url: pasted lists often carry a trailing slash or
+	// repeat the same address twice
 	jobs := make([]model.Feed, 0, len(ff.Feeds))
+	seen := make(map[string]bool, len(ff.Feeds))
 	for _, f := range ff.Feeds {
-		if f.Enabled && strings.TrimSpace(f.URL) != "" {
-			jobs = append(jobs, f)
+		u := strings.TrimRight(strings.TrimSpace(f.URL), "/")
+		if !f.Enabled || u == "" || seen[u] {
+			continue
 		}
+		seen[u] = true
+		f.URL = u
+		jobs = append(jobs, f)
 	}
 	if len(jobs) == 0 {
 		return nil

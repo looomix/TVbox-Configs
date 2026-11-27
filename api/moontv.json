@@ -13,13 +13,17 @@
       "name": "360",
       "api": "https://360zy.com/api.php/provide/vod"
     },
-    "91mdme0c4f": {
-      "name": "麻豆",
-      "api": "https://91md.me/api.php/provide/vod"
+    "360zyzzcomeec3": {
+      "name": "360 (360zyzz.com)",
+      "api": "https://360zyzz.com/api.php/provide/vod"
     },
     "aosikazycomf568": {
       "name": "奥斯卡",
       "api": "https://aosikazy.com/api.php/provide/vod"
+    },
+    "apiapibdzycomc80f": {
+      "name": "百度云",
+      "api": "https://api.apibdzy.com/api.php/provide/vod"
     },
     "apidanaizicom93f8": {
       "name": "大X子",
@@ -41,10 +45,6 @@
       "name": "光速",
       "api": "https://api.guangsuapi.com/api.php/provide/vod"
     },
-    "apiljcom53b7": {
-      "name": "辣椒",
-      "api": "https://apilj.com/api.php/provide/vod"
-    },
     "apilsbzy1comc1fa": {
       "name": "老色X",
       "api": "https://apilsbzy1.com/api.php/provide/vod"
@@ -56,6 +56,10 @@
     "apiniuniuzymec64e": {
       "name": "牛牛",
       "api": "https://api.niuniuzy.me/api.php/provide/vod"
+    },
+    "apiokzywnet469a": {
+      "name": "OK (api.okzyw.net)",
+      "api": "https://api.okzyw.net/api.php/provide/vod"
     },
     "apisouavzyvipa434": {
       "name": "souavZY",
@@ -73,6 +77,14 @@
       "name": "越南",
       "api": "https://api.vnzyz.com/api.php/provide/vod"
     },
+    "apiwsyzynet082f": {
+      "name": "无水印资源网采集接口",
+      "api": "https://api.wsyzy.net/api.php/provide/vod"
+    },
+    "apiwujinapiccc1dc": {
+      "name": "wujinapi无尽",
+      "api": "https://api.wujinapi.cc/api.php/provide/vod"
+    },
     "apiwujinapicomd9d6": {
       "name": "无尽影视",
       "api": "https://api.wujinapi.com/api.php/provide/vod"
@@ -81,21 +93,21 @@
       "name": "无尽",
       "api": "https://api.wujinapi.me/api.php/provide/vod"
     },
+    "apiwujinapineta633": {
+      "name": "无尽资源3",
+      "api": "https://api.wujinapi.net/api.php/provide/vod"
+    },
     "apixiaojizylive5d90": {
       "name": "小鸡",
       "api": "https://api.xiaojizy.live/provide/vod"
-    },
-    "apixinlangapicom94e2": {
-      "name": "新浪 (api.xinlangapi.com)",
-      "api": "https://api.xinlangapi.com/xinlangapi.php/provide/vod"
     },
     "apiyutucombc64": {
       "name": "玉兔",
       "api": "https://apiyutu.com/api.php/provide/vod"
     },
-    "apiyzzyapicom97cf": {
-      "name": "优质",
-      "api": "https://api.yzzy-api.com/inc/apijson.php"
+    "apiyyzytvvip7720": {
+      "name": "优质库1080zyk",
+      "api": "https://api.yyzy-tv.vip/inc/api_mac10.php"
     },
     "apizuidapicom6a3b": {
       "name": "最大",
@@ -105,21 +117,9 @@
       "name": "森林",
       "api": "https://beiyong.slapibf.com/api.php/provide/vod"
     },
-    "bfzyapicombda0": {
-      "name": "暴风",
-      "api": "https://bfzyapi.com/api.php/provide/vod"
-    },
     "bhziyuancom31e9": {
       "name": "百花",
       "api": "https://bhziyuan.com/api.php/provide/vod"
-    },
-    "caijidyttzyapicome042": {
-      "name": "电影天堂",
-      "api": "http://caiji.dyttzyapi.com/api.php/provide/vod"
-    },
-    "caijikuaichezyorgd01b": {
-      "name": "快车",
-      "api": "https://caiji.kuaichezy.org/api.php/provide/vod"
     },
     "caijimaotaizycc4b5e": {
       "name": "茅台",
@@ -129,21 +129,9 @@
       "name": "魔都动漫",
       "api": "https://caiji.moduapi.cc/api.php/provide/vod"
     },
-    "cjffzyapicom2507": {
-      "name": "非凡影视",
-      "api": "https://cj.ffzyapi.com/api.php/provide/vod"
-    },
-    "cjlzcaijicom5f94": {
-      "name": "量子",
-      "api": "https://cj.lzcaiji.com/api.php/provide/vod"
-    },
-    "cjlziapicom121f": {
-      "name": "量子影视",
-      "api": "https://cj.lziapi.com/api.php/provide/vod"
-    },
-    "cjrycjapicomc71c": {
-      "name": "如意 (cj.rycjapi.com)",
-      "api": "https://cj.rycjapi.com/api.php/provide/vod"
+    "cdndzzyapicom3437": {
+      "name": "大众资源采集接口",
+      "api": "https://cdn.dzzyapi.com/api.php/provide/vod"
     },
     "cjyayazynet8d76": {
       "name": "鸭鸭",
@@ -156,10 +144,6 @@
     "ffzy5tve124": {
       "name": "非凡 (ffzy5.tv)",
       "api": "https://ffzy5.tv/api.php/provide/vod"
-    },
-    "fhapi9com0001": {
-      "name": "番号",
-      "api": "http://fhapi9.com/api.php/provide/vod"
     },
     "fqzyme981d": {
       "name": "番茄",
@@ -185,6 +169,10 @@
       "name": "红牛 (hongniuzy2.com)",
       "api": "https://www.hongniuzy2.com/api.php/provide/vod"
     },
+    "hongniuzy3comef58": {
+      "name": "红牛 (hongniuzy3.com)",
+      "api": "https://www.hongniuzy3.com/api.php/provide/vod"
+    },
     "hsckzy888com9b7e": {
       "name": "X色仓库",
       "api": "https://hsckzy888.com/api.php/provide/vod"
@@ -201,17 +189,9 @@
       "name": "虎牙",
       "api": "https://huyazy.net/api.php/provide/vod"
     },
-    "ikunzyapicom6a63": {
-      "name": "iKun",
-      "api": "https://ikunzyapi.com/api.php/provide/vod"
-    },
     "iqiyizyapicom7443": {
       "name": "爱奇艺",
       "api": "https://iqiyizyapi.com/api.php/provide/vod"
-    },
-    "jingpinxcom5648": {
-      "name": "精品X",
-      "api": "https://www.jingpinx.com/api.php/provide/vod"
     },
     "jinyingzycom6922": {
       "name": "金鹰点播",
@@ -229,6 +209,14 @@
       "name": "极速",
       "api": "https://jszyapi.com/api.php/provide/vod"
     },
+    "jyzyapicom343d": {
+      "name": "金鹰 (jyzyapi.com)",
+      "api": "http://jyzyapi.com/provide/vod/from/jinyingm3u8"
+    },
+    "jyzyapicom7013": {
+      "name": "金鹰 (jyzyapi.com)",
+      "api": "https://jyzyapi.com/api.php/provide/vod"
+    },
     "jyzyapicom7b2d": {
       "name": "金鹰 (jyzyapi.com)",
       "api": "https://jyzyapi.com/provide/vod/from/jinyingyun/at/json"
@@ -245,9 +233,9 @@
       "name": "乐播",
       "api": "https://lbapi9.com/api.php/provide/vod"
     },
-    "m3u8apiyhzycom2a08": {
-      "name": "樱花",
-      "api": "https://m3u8.apiyhzy.com/api.php/provide/vod"
+    "maoyanzycom4e80": {
+      "name": "猫眼 (maoyanzy.com)",
+      "api": "https://maoyanzy.com/api.php/provide/vod"
     },
     "mdzyapicoma70f": {
       "name": "魔都",
@@ -261,25 +249,17 @@
       "name": "茅台 (mtzy5.com)",
       "api": "https://mtzy5.com/api.php/provide/vod"
     },
-    "naixxzycomcd03": {
-      "name": "奶香香",
-      "api": "https://naixxzy.com/api.php/provide/vod"
-    },
     "pgxdycom1404": {
       "name": "X色A-V",
       "api": "https://www.pgxdy.com/api/json.php"
     },
-    "shayuapicom0d7f": {
-      "name": "鲨鱼",
-      "api": "https://shayuapi.com/api.php/provide/vod"
+    "sdzyapicom1e71": {
+      "name": "闪电 (sdzyapi.com)",
+      "api": "https://sdzyapi.com/api.php/provide/vod"
     },
     "slapibfcom9fcc": {
       "name": "森林 (slapibf.com)",
       "api": "https://slapibf.com/api.php/provide/vod"
-    },
-    "subocaijicom33d9": {
-      "name": "速播 (subocaiji.com)",
-      "api": "https://subocaiji.com/api.php/provide/vod"
     },
     "subocjcomf010": {
       "name": "速播",
@@ -288,14 +268,6 @@
     "suboziyuannet816d": {
       "name": "速播 (suboziyuan.net)",
       "api": "https://www.suboziyuan.net/api.php/provide/vod"
-    },
-    "suoniapicom90b7": {
-      "name": "索尼",
-      "api": "https://suoniapi.com/api.php/provide/vod"
-    },
-    "suonizynet3dda": {
-      "name": "索尼 (suonizy.net)",
-      "api": "https://suonizy.net/api.php/provide/vod"
     },
     "thzy1me4752": {
       "name": "桃花",
@@ -309,21 +281,21 @@
       "name": "天涯影视",
       "api": "https://tyyszy.com/api.php/provide/vod"
     },
-    "xingba111com649e": {
-      "name": "杏吧",
-      "api": "https://xingba111.com/api.php/provide/vod"
+    "xingba222com12f6": {
+      "name": "杏吧 - NSFW",
+      "api": "https://xingba222.com/api.php/provide/vod"
     },
     "xrbspcom047a": {
       "name": "清水源",
       "api": "https://www.xrbsp.com/api/json.php"
     },
-    "xsdsdzyapicom9e6a": {
-      "name": "闪电",
-      "api": "https://xsd.sdzyapi.com/api.php/provide/vod"
+    "yhzycc0a51": {
+      "name": "樱花资源ᴴ",
+      "api": "https://yhzy.cc/api.php/provide/vod"
     },
-    "zuidazyme16c6": {
-      "name": "最大点播",
-      "api": "https://zuidazy.me/api.php/provide/vod"
+    "yonghuffzyapi8com493e": {
+      "name": "无广1线 非凡",
+      "api": "https://yonghu.ffzyapi8.com/api.php/provide/vod/from/ffm3u8/at/json"
     }
   }
 }
