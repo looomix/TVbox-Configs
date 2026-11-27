@@ -13,10 +13,6 @@
       "name": "360",
       "api": "https://360zyzz.com/api.php/provide/vod"
     },
-    "360zycomc15c": {
-      "name": "360 (360zy.com)",
-      "api": "https://360zy.com/api.php/provide/vod"
-    },
     "api1080zykucomc6d5": {
       "name": "1080资源库",
       "api": "https://api.1080zyku.com/inc/api_mac10.php"
@@ -26,16 +22,12 @@
       "api": "https://api.niuniuzy.me/api.php/provide/vod"
     },
     "apiokzywnet56b8": {
-      "name": "OK (api.okzyw.net)",
+      "name": "OK",
       "api": "https://api.okzyw.net/api.php/provide/vod"
     },
     "apisouavzyvip9f7c": {
       "name": "souav",
       "api": "https://api.souavzy.vip/api.php/provide/vod"
-    },
-    "apiukuapicomcf50": {
-      "name": "U酷 (api.ukuapi.com)",
-      "api": "https://api.ukuapi.com/api.php/provide/vod"
     },
     "apivnzyzcome8d7": {
       "name": "越南",
@@ -49,16 +41,12 @@
       "name": "wujinapi无尽",
       "api": "https://api.wujinapi.cc/api.php/provide/vod"
     },
-    "apiwujinapicomd9d6": {
-      "name": "无尽影视",
-      "api": "https://api.wujinapi.com/api.php/provide/vod"
-    },
     "apiwujinapinet768a": {
       "name": "无尽资源3",
       "api": "https://api.wujinapi.net/api.php/provide/vod"
     },
     "apiyzzyapicom97cf": {
-      "name": "优质 (api.yzzy-api.com)",
+      "name": "优质",
       "api": "https://api.yzzy-api.com/inc/apijson.php"
     },
     "bfzytv": {
@@ -78,7 +66,7 @@
       "api": "https://ckzy.me/api.php/provide/vod"
     },
     "ffzy5tve124": {
-      "name": "非凡 (ffzy5.tv)",
+      "name": "非凡",
       "api": "https://ffzy5.tv/api.php/provide/vod"
     },
     "fqzyme981d": {
@@ -93,21 +81,9 @@
       "name": "豪华",
       "api": "https://hhzyapi.com/api.php/provide/vod"
     },
-    "haohuazycomb089": {
-      "name": "豪华 (haohuazy.com)",
-      "api": "https://haohuazy.com/api.php/provide/vod"
-    },
-    "hongniuzy3com9115": {
-      "name": "红牛 (hongniuzy3.com)",
-      "api": "https://www.hongniuzy3.com/api.php/provide/vod"
-    },
     "hongniuzycom": {
       "name": "红牛",
       "api": "https://www.hongniuzy2.com/api.php/provide/vod"
-    },
-    "huyaapicom61c4": {
-      "name": "虎牙 (huyaapi.com)",
-      "api": "https://www.huyaapi.com/api.php/provide/vod"
     },
     "huyazynet7cd2": {
       "name": "虎牙",
@@ -153,10 +129,6 @@
       "name": "猫眼",
       "api": "https://api.maoyanapi.top/api.php/provide/vod"
     },
-    "maoyanzycom347f": {
-      "name": "猫眼 (maoyanzy.com)",
-      "api": "https://maoyanzy.com/api.php/provide/vod"
-    },
     "moduapicc": {
       "name": "魔都动漫",
       "api": "https://caiji.moduapi.cc/api.php/provide/vod"
@@ -164,10 +136,6 @@
     "moduzynet": {
       "name": "魔都",
       "api": "https://www.mdzyapi.com/api.php/provide/vod"
-    },
-    "mtzy5com3e9f": {
-      "name": "茅台 (mtzy5.com)",
-      "api": "https://mtzy5.com/api.php/provide/vod"
     },
     "mtzyme": {
       "name": "茅台",
@@ -177,21 +145,9 @@
       "name": "如意",
       "api": "https://cj.rycjapi.com/api.php/provide/vod"
     },
-    "sdzyapicom7ab1": {
-      "name": "闪电 (sdzyapi.com)",
-      "api": "https://sdzyapi.com/api.php/provide/vod"
-    },
     "shandianzycom": {
       "name": "闪电",
       "api": "https://xsd.sdzyapi.com/api.php/provide/vod"
-    },
-    "subocjcomf010": {
-      "name": "速播 (subocj.com)",
-      "api": "https://subocj.com/api.php/provide/vod"
-    },
-    "suboziyuannet816d": {
-      "name": "速播 (suboziyuan.net)",
-      "api": "https://www.suboziyuan.net/api.php/provide/vod"
     },
     "subozycom": {
       "name": "速播",
@@ -201,17 +157,9 @@
       "name": "索尼",
       "api": "https://suoniapi.com/api.php/provide/vod"
     },
-    "suonizynet3dda": {
-      "name": "索尼 (suonizy.net)",
-      "api": "https://suonizy.net/api.php/provide/vod"
-    },
     "tyyszycom": {
       "name": "天涯",
       "api": "https://tyyszyapi.com/api.php/provide/vod"
-    },
-    "tyyszycom13f7": {
-      "name": "天涯 (tyyszy.com)",
-      "api": "https://tyyszy.com/api.php/provide/vod"
     },
     "ukuapi88com": {
       "name": "U酷影视",
