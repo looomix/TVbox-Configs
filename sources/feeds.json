@@ -10,6 +10,11 @@
       "name": "ziyuanzu.com",
       "url": "https://www.ziyuanzu.com/download/ziyuanzu-cms-interfaces.txt",
       "enabled": true
+    },
+    {
+      "name": "ziyuanzu.com",
+      "url": "https://www.ziyuanzu.com/download/ziyuanzu-cms-interfaces.txt/https://raw.githubusercontent.com/puppet680/cms-config/refs/heads/main/full_status.json/https://raw.githubusercontent.com/hafrey1/LunaTV-config/refs/heads/main/LunaTV-config.json/https://raw.githubusercontent.com/Yesbaiwan/OuonnkiTV-Source/main/tv_source/OuonnkiTV/full-noadult.json/https://raw.githubusercontent.com/puppet680/KVideo-config/main/KVideo-config.json/https://raw.githubusercontent.com/smallmain/moontv-aggr-config/main/full.json/https://raw.githubusercontent.com/haojun19980728-prog/libretv-source-list/main/libretv-sources.json/https://raw.githubusercontent.com/DaLongZhuaZi/moontv-config/main/config.json/https://raw.githubusercontent.com/hailowell/MoonTvConfig/main/LunaTv-config.json",
+      "enabled": true
     }
   ]
 }
