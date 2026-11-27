@@ -39,7 +39,8 @@ api/status.json  api/mirror.json   api/index.json
 
 ### 抓取与去重
 
-- `feeds.json` 里的每条链接都会在更新时被抓取，支持三种格式：纯文本 `名称|API|类型|可用率`、扁平 JSON 数组（`name` + `url`/`api`）、`api_site` 对象。
+- `feeds.json` 里的每条链接都会在更新时被抓取，支持三种格式：纯文本 `名称|API|类型|可用率`、扁平 JSON 数组（`name` + `url`/`api`/`baseUrl`）、`api_site` 对象。
+- 默认接入 9 个源库：资源族 CMS 接口清单、OuonnkiTV、KVideo、LibreTV、KatelyaTV、DecoTV、MoonTVPlus、LunaTV、CMS 状态全量清单；带 `isAdult` / `is_adult` 标记或分类为成人、以及被上游停用的条目直接丢弃。
 - 抓取到的源统一清洗名称（去掉装饰符号与「资源站」后缀），标记为 `origin: feed`，网页上带「自动」标签，可单独停用或删除。
 - 去重按**域名**判断（`http/https`、`www.`、首尾斜杠、大小写都不算差异；`…?url=` 形式的代理接口按代理目标区分），重复的直接丢弃并计入 `deduped`。
 - 同名不同站会保留，名称自动补上域名后缀，客户端里不会出现两行一样的名字。

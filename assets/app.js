@@ -323,7 +323,7 @@
     });
     var enabled = state.feeds.filter(function (f) { return f.enabled; }).length;
     $('#feedCount').textContent = '已接入 ' + enabled + ' 个';
-    $('#feeds').innerHTML = rows.map(function (r) {
+    function row(r) {
       var f = feedOf(r.url);
       var on = !!(f && f.enabled);
       return '<div class="feed-row">' +
@@ -333,7 +333,13 @@
         '</div>' +
         '<button class="btn sm ' + (on ? '' : 'primary') + '" data-feed="' + esc(r.url) + '" data-on="' + (on ? '1' : '0') + '">' + (on ? '停用' : '接入') + '</button>' +
         '</div>';
-    }).join('');
+    }
+    var primary = rows.filter(function (r) { return (r.kind || '接口') !== '源'; });
+    var extra = rows.filter(function (r) { return r.kind === '源'; });
+    $('#feeds').innerHTML = primary.map(row).join('');
+    $('#feedsMore').innerHTML = extra.map(row).join('');
+    $('#feedMoreCount').textContent = extra.length + ' 个';
+    $('#feedMoreBox').style.display = extra.length ? '' : 'none';
   }
 
   function renderAll() {
@@ -725,7 +731,10 @@
       copyText($('#indexUrl').textContent);
     });
 
-    $('#feeds').addEventListener('click', function (e) {
+    document.querySelectorAll('#feeds, #feedsMore').forEach(function (box) {
+      box.addEventListener('click', onFeedClick);
+    });
+    function onFeedClick(e) {
       var btn = e.target.closest('[data-feed]');
       if (!btn) return;
       var url = btn.getAttribute('data-feed');
@@ -733,7 +742,7 @@
       if (on && !confirm('停用后不再随更新抓取这个源库，已导入的源会保留在列表里。确定停用？')) return;
       var preset = PRESETS.filter(function (p) { return p.url === url; })[0];
       toggleFeed(url, !on, preset ? preset.name : hostOf(url));
-    });
+    }
 
     $('#btnFeedAdd').addEventListener('click', function () {
       var raw = $('#feedCustom').value.trim();
