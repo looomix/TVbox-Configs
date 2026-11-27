@@ -7,13 +7,6 @@
     "enabled": true
   },
   {
-    "id": "ikunzycom",
-    "name": "iKun",
-    "baseUrl": "https://ikunzyapi.com/api.php/provide/vod",
-    "group": "normal",
-    "enabled": true
-  },
-  {
     "id": "cdndzzyapicom5909",
     "name": "大众资源采集接口",
     "baseUrl": "https://cdn.dzzyapi.com/api.php/provide/vod",
@@ -35,23 +28,23 @@
     "enabled": true
   },
   {
-    "id": "maoyanzycom",
-    "name": "猫眼",
-    "baseUrl": "https://api.maoyanapi.top/api.php/provide/vod",
-    "group": "normal",
-    "enabled": true
-  },
-  {
-    "id": "jipinvip1com390b",
-    "name": "新极品",
-    "baseUrl": "https://jipinvip1.com/api.php/provide/vod",
-    "group": "normal",
-    "enabled": true
-  },
-  {
     "id": "360zyzzcoma7cc",
     "name": "360",
     "baseUrl": "https://360zyzz.com/api.php/provide/vod",
+    "group": "normal",
+    "enabled": true
+  },
+  {
+    "id": "ikunzycom",
+    "name": "iKun",
+    "baseUrl": "https://ikunzyapi.com/api.php/provide/vod",
+    "group": "normal",
+    "enabled": true
+  },
+  {
+    "id": "haohuazycom",
+    "name": "豪华",
+    "baseUrl": "https://hhzyapi.com/api.php/provide/vod",
     "group": "normal",
     "enabled": true
   },
@@ -63,9 +56,23 @@
     "enabled": true
   },
   {
-    "id": "iqiyizyapicome25f",
-    "name": "爱奇艺",
-    "baseUrl": "https://iqiyizyapi.com/api.php/provide/vod",
+    "id": "hongniuzycom",
+    "name": "红牛",
+    "baseUrl": "https://www.hongniuzy2.com/api.php/provide/vod",
+    "group": "normal",
+    "enabled": true
+  },
+  {
+    "id": "huyazynet7cd2",
+    "name": "虎牙",
+    "baseUrl": "https://huyazy.net/api.php/provide/vod",
+    "group": "normal",
+    "enabled": true
+  },
+  {
+    "id": "jinyingzycom",
+    "name": "金鹰点播",
+    "baseUrl": "https://jinyingzy.com/api.php/provide/vod",
     "group": "normal",
     "enabled": true
   },
@@ -73,6 +80,34 @@
     "id": "ryzywcom",
     "name": "如意",
     "baseUrl": "https://cj.rycjapi.com/api.php/provide/vod",
+    "group": "normal",
+    "enabled": true
+  },
+  {
+    "id": "1080zykcom",
+    "name": "优质库1080zyk",
+    "baseUrl": "https://api.yyzy-tv.vip/inc/api_mac10.php",
+    "group": "normal",
+    "enabled": true
+  },
+  {
+    "id": "ffzy5tve124",
+    "name": "非凡",
+    "baseUrl": "https://ffzy5.tv/api.php/provide/vod",
+    "group": "normal",
+    "enabled": true
+  },
+  {
+    "id": "iqiyizyapicome25f",
+    "name": "爱奇艺",
+    "baseUrl": "https://iqiyizyapi.com/api.php/provide/vod",
+    "group": "normal",
+    "enabled": true
+  },
+  {
+    "id": "bdzy1com",
+    "name": "百度云zy",
+    "baseUrl": "https://api.apibdzy.com/api.php/provide/vod",
     "group": "normal",
     "enabled": true
   },
@@ -91,16 +126,65 @@
     "enabled": true
   },
   {
-    "id": "jinyingzycom",
-    "name": "金鹰点播",
-    "baseUrl": "https://jinyingzy.com/api.php/provide/vod",
+    "id": "wujinzyme",
+    "name": "无尽",
+    "baseUrl": "https://api.wujinapi.me/api.php/provide/vod",
     "group": "normal",
     "enabled": true
   },
   {
-    "id": "hongniuzycom",
-    "name": "红牛",
-    "baseUrl": "https://www.hongniuzy2.com/api.php/provide/vod",
+    "id": "maoyanzycom",
+    "name": "猫眼",
+    "baseUrl": "https://api.maoyanapi.top/api.php/provide/vod",
+    "group": "normal",
+    "enabled": true
+  },
+  {
+    "id": "guangsuapicom",
+    "name": "光速",
+    "baseUrl": "https://api.guangsuapi.com/api.php/provide/vod",
+    "group": "normal",
+    "enabled": true
+  },
+  {
+    "id": "apiniuniuzymec64e",
+    "name": "牛牛",
+    "baseUrl": "https://api.niuniuzy.me/api.php/provide/vod",
+    "group": "normal",
+    "enabled": true
+  },
+  {
+    "id": "yayazycom",
+    "name": "鸭鸭",
+    "baseUrl": "https://cj.yayazy.net/api.php/provide/vod",
+    "group": "normal",
+    "enabled": true
+  },
+  {
+    "id": "jszyapicom",
+    "name": "极速",
+    "baseUrl": "https://jszyapi.com/api.php/provide/vod",
+    "group": "normal",
+    "enabled": true
+  },
+  {
+    "id": "tyyszycom",
+    "name": "天涯",
+    "baseUrl": "https://tyyszyapi.com/api.php/provide/vod",
+    "group": "normal",
+    "enabled": true
+  },
+  {
+    "id": "ukuapi88com",
+    "name": "U酷影视",
+    "baseUrl": "https://api.ukuapi88.com/api.php/provide/vod",
+    "group": "normal",
+    "enabled": true
+  },
+  {
+    "id": "jipinvip1com390b",
+    "name": "新极品",
+    "baseUrl": "https://jipinvip1.com/api.php/provide/vod",
     "group": "normal",
     "enabled": true
   }

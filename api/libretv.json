@@ -4,10 +4,6 @@
     "url": "https://caiji.moduapi.cc/api.php/provide/vod"
   },
   {
-    "name": "iKun",
-    "url": "https://ikunzyapi.com/api.php/provide/vod"
-  },
-  {
     "name": "大众资源采集接口",
     "url": "https://cdn.dzzyapi.com/api.php/provide/vod"
   },
@@ -20,28 +16,52 @@
     "url": "https://bhziyuan.com/api.php/provide/vod"
   },
   {
-    "name": "猫眼",
-    "url": "https://api.maoyanapi.top/api.php/provide/vod"
-  },
-  {
-    "name": "新极品",
-    "url": "https://jipinvip1.com/api.php/provide/vod"
-  },
-  {
     "name": "360",
     "url": "https://360zyzz.com/api.php/provide/vod"
+  },
+  {
+    "name": "iKun",
+    "url": "https://ikunzyapi.com/api.php/provide/vod"
+  },
+  {
+    "name": "豪华",
+    "url": "https://hhzyapi.com/api.php/provide/vod"
   },
   {
     "name": "番茄",
     "url": "https://fqzy.me/api.php/provide/vod"
   },
   {
-    "name": "爱奇艺",
-    "url": "https://iqiyizyapi.com/api.php/provide/vod"
+    "name": "红牛",
+    "url": "https://www.hongniuzy2.com/api.php/provide/vod"
+  },
+  {
+    "name": "虎牙",
+    "url": "https://huyazy.net/api.php/provide/vod"
+  },
+  {
+    "name": "金鹰点播",
+    "url": "https://jinyingzy.com/api.php/provide/vod"
   },
   {
     "name": "如意",
     "url": "https://cj.rycjapi.com/api.php/provide/vod"
+  },
+  {
+    "name": "优质库1080zyk",
+    "url": "https://api.yyzy-tv.vip/inc/api_mac10.php"
+  },
+  {
+    "name": "非凡",
+    "url": "https://ffzy5.tv/api.php/provide/vod"
+  },
+  {
+    "name": "爱奇艺",
+    "url": "https://iqiyizyapi.com/api.php/provide/vod"
+  },
+  {
+    "name": "百度云zy",
+    "url": "https://api.apibdzy.com/api.php/provide/vod"
   },
   {
     "name": "CK-",
@@ -52,11 +72,39 @@
     "url": "https://api.wsyzy.net/api.php/provide/vod"
   },
   {
-    "name": "金鹰点播",
-    "url": "https://jinyingzy.com/api.php/provide/vod"
+    "name": "无尽",
+    "url": "https://api.wujinapi.me/api.php/provide/vod"
   },
   {
-    "name": "红牛",
-    "url": "https://www.hongniuzy2.com/api.php/provide/vod"
+    "name": "猫眼",
+    "url": "https://api.maoyanapi.top/api.php/provide/vod"
+  },
+  {
+    "name": "光速",
+    "url": "https://api.guangsuapi.com/api.php/provide/vod"
+  },
+  {
+    "name": "牛牛",
+    "url": "https://api.niuniuzy.me/api.php/provide/vod"
+  },
+  {
+    "name": "鸭鸭",
+    "url": "https://cj.yayazy.net/api.php/provide/vod"
+  },
+  {
+    "name": "极速",
+    "url": "https://jszyapi.com/api.php/provide/vod"
+  },
+  {
+    "name": "天涯",
+    "url": "https://tyyszyapi.com/api.php/provide/vod"
+  },
+  {
+    "name": "U酷影视",
+    "url": "https://api.ukuapi88.com/api.php/provide/vod"
+  },
+  {
+    "name": "新极品",
+    "url": "https://jipinvip1.com/api.php/provide/vod"
   }
 ]

@@ -1,20 +1,14 @@
 {
   "date": "2026-11-27",
-  "updated_at": "2026-11-27T07:37:43Z",
+  "updated_at": "2026-11-27T07:44:04Z",
   "total": 53,
-  "alive": 15,
+  "alive": 27,
   "sites": [
     {
       "key": "moduapicc",
       "name": "魔都动漫",
       "api": "https://caiji.moduapi.cc/api.php/provide/vod",
       "group": "动漫"
-    },
-    {
-      "key": "ikunzycom",
-      "name": "iKun",
-      "api": "https://ikunzyapi.com/api.php/provide/vod",
-      "group": "综合"
     },
     {
       "key": "cdndzzyapicom-5909",
@@ -35,21 +29,21 @@
       "group": "综合"
     },
     {
-      "key": "maoyanzycom",
-      "name": "猫眼",
-      "api": "https://api.maoyanapi.top/api.php/provide/vod",
-      "group": "综合"
-    },
-    {
-      "key": "jipinvip1com-390b",
-      "name": "新极品",
-      "api": "https://jipinvip1.com/api.php/provide/vod",
-      "group": "综合"
-    },
-    {
       "key": "360zyzzcom-a7cc",
       "name": "360",
       "api": "https://360zyzz.com/api.php/provide/vod",
+      "group": "综合"
+    },
+    {
+      "key": "ikunzycom",
+      "name": "iKun",
+      "api": "https://ikunzyapi.com/api.php/provide/vod",
+      "group": "综合"
+    },
+    {
+      "key": "haohuazycom",
+      "name": "豪华",
+      "api": "https://hhzyapi.com/api.php/provide/vod",
       "group": "综合"
     },
     {
@@ -59,15 +53,51 @@
       "group": "综合"
     },
     {
-      "key": "iqiyizyapicom-e25f",
-      "name": "爱奇艺",
-      "api": "https://iqiyizyapi.com/api.php/provide/vod",
+      "key": "hongniuzycom",
+      "name": "红牛",
+      "api": "https://www.hongniuzy2.com/api.php/provide/vod",
+      "group": "综合"
+    },
+    {
+      "key": "huyazynet-7cd2",
+      "name": "虎牙",
+      "api": "https://huyazy.net/api.php/provide/vod",
+      "group": "综合"
+    },
+    {
+      "key": "jinyingzycom",
+      "name": "金鹰点播",
+      "api": "https://jinyingzy.com/api.php/provide/vod",
       "group": "综合"
     },
     {
       "key": "ryzywcom",
       "name": "如意",
       "api": "https://cj.rycjapi.com/api.php/provide/vod",
+      "group": "综合"
+    },
+    {
+      "key": "1080zykcom",
+      "name": "优质库1080zyk",
+      "api": "https://api.yyzy-tv.vip/inc/api_mac10.php",
+      "group": "综合"
+    },
+    {
+      "key": "ffzy5tv-e124",
+      "name": "非凡",
+      "api": "https://ffzy5.tv/api.php/provide/vod",
+      "group": "综合"
+    },
+    {
+      "key": "iqiyizyapicom-e25f",
+      "name": "爱奇艺",
+      "api": "https://iqiyizyapi.com/api.php/provide/vod",
+      "group": "综合"
+    },
+    {
+      "key": "bdzy1com",
+      "name": "百度云zy",
+      "api": "https://api.apibdzy.com/api.php/provide/vod",
       "group": "综合"
     },
     {
@@ -83,15 +113,57 @@
       "group": "综合"
     },
     {
-      "key": "jinyingzycom",
-      "name": "金鹰点播",
-      "api": "https://jinyingzy.com/api.php/provide/vod",
+      "key": "wujinzyme",
+      "name": "无尽",
+      "api": "https://api.wujinapi.me/api.php/provide/vod",
       "group": "综合"
     },
     {
-      "key": "hongniuzycom",
-      "name": "红牛",
-      "api": "https://www.hongniuzy2.com/api.php/provide/vod",
+      "key": "maoyanzycom",
+      "name": "猫眼",
+      "api": "https://api.maoyanapi.top/api.php/provide/vod",
+      "group": "综合"
+    },
+    {
+      "key": "guangsuapicom",
+      "name": "光速",
+      "api": "https://api.guangsuapi.com/api.php/provide/vod",
+      "group": "综合"
+    },
+    {
+      "key": "apiniuniuzyme-c64e",
+      "name": "牛牛",
+      "api": "https://api.niuniuzy.me/api.php/provide/vod",
+      "group": "综合"
+    },
+    {
+      "key": "yayazycom",
+      "name": "鸭鸭",
+      "api": "https://cj.yayazy.net/api.php/provide/vod",
+      "group": "综合"
+    },
+    {
+      "key": "jszyapicom",
+      "name": "极速",
+      "api": "https://jszyapi.com/api.php/provide/vod",
+      "group": "综合"
+    },
+    {
+      "key": "tyyszycom",
+      "name": "天涯",
+      "api": "https://tyyszyapi.com/api.php/provide/vod",
+      "group": "综合"
+    },
+    {
+      "key": "ukuapi88com",
+      "name": "U酷影视",
+      "api": "https://api.ukuapi88.com/api.php/provide/vod",
+      "group": "综合"
+    },
+    {
+      "key": "jipinvip1com-390b",
+      "name": "新极品",
+      "api": "https://jipinvip1.com/api.php/provide/vod",
       "group": "综合"
     }
   ]
