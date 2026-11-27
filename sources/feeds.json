@@ -5,6 +5,11 @@
       "name": "raw.githubusercontent.com",
       "url": "https://raw.githubusercontent.com/Yesbaiwan/OuonnkiTV-Source/main/tv_source/OuonnkiTV/full-noadult.json",
       "enabled": true
+    },
+    {
+      "name": "ziyuanzu.com",
+      "url": "https://www.ziyuanzu.com/download/ziyuanzu-cms-interfaces.txt",
+      "enabled": true
     }
   ]
 }
