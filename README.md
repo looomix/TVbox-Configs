@@ -20,7 +20,6 @@ TVBox / 影视仓 视频源配置自动生成器：每 **7 天**检测一次公�
 | jsDelivr 主线路 | `https://cdn.jsdelivr.net/gh/looomix/TVbox-Configs@main/api/tvbox.json` |
 | GitHub Pages 备用 | `https://looomix.github.io/TVbox-Configs/api/tvbox.json` |
 | Raw 直连 | `https://raw.githubusercontent.com/looomix/TVbox-Configs/main/api/tvbox.json` |
-| Statically CDN | `https://cdn.statically.io/gh/looomix/TVbox-Configs/main/api/tvbox.json` |
 | ghproxy 加速 | `https://ghproxy.net/https://raw.githubusercontent.com/looomix/TVbox-Configs/main/api/tvbox.json` |
 | gh-proxy 加速 | `https://gh-proxy.com/https://raw.githubusercontent.com/looomix/TVbox-Configs/main/api/tvbox.json` |
 

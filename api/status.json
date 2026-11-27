@@ -1,11 +1,11 @@
 {
-  "updated_at": "2026-11-27T05:52:02Z",
-  "next_update_at": "2026-12-04T05:52:02Z",
+  "updated_at": "2026-11-27T06:10:34Z",
+  "next_update_at": "2026-12-04T06:10:34Z",
   "interval_hours": 168,
   "total": 35,
   "alive": 16,
   "dead": 19,
-  "duration_ms": 25381,
+  "duration_ms": 29083,
   "sources": [
     {
       "id": "1080zyk_com",
@@ -15,15 +15,20 @@
       "note": "无广告/高清无水印/秒播稳定/搜索污染",
       "enabled": true,
       "state": "ok",
-      "latency_ms": 1016,
+      "latency_ms": 1314,
       "searchable": true,
       "vods": 20,
-      "checked_at": "2026-11-27T05:52:02Z",
+      "checked_at": "2026-11-27T06:10:34Z",
       "history": [
         {
           "t": "2026-11-27T13:52:02+08:00",
           "ok": true,
           "ms": 1016
+        },
+        {
+          "t": "2026-11-27T14:10:34+08:00",
+          "ok": true,
+          "ms": 1314
         }
       ]
     },
@@ -35,15 +40,20 @@
       "note": "无广告/偏爱奇艺风格/更新较慢",
       "enabled": true,
       "state": "ok",
-      "latency_ms": 1591,
+      "latency_ms": 1376,
       "searchable": true,
       "vods": 2,
-      "checked_at": "2026-11-27T05:52:02Z",
+      "checked_at": "2026-11-27T06:10:34Z",
       "history": [
         {
           "t": "2026-11-27T13:52:02+08:00",
           "ok": true,
           "ms": 1591
+        },
+        {
+          "t": "2026-11-27T14:10:34+08:00",
+          "ok": true,
+          "ms": 1376
         }
       ]
     },
@@ -55,15 +65,20 @@
       "note": "跑马灯/开头广告/国内CDN",
       "enabled": true,
       "state": "down",
-      "latency_ms": 99,
+      "latency_ms": 172,
       "searchable": false,
       "vods": 0,
-      "checked_at": "2026-11-27T05:52:02Z",
+      "checked_at": "2026-11-27T06:10:34Z",
       "history": [
         {
           "t": "2026-11-27T13:52:02+08:00",
           "ok": false,
           "ms": 99
+        },
+        {
+          "t": "2026-11-27T14:10:34+08:00",
+          "ok": false,
+          "ms": 172
         }
       ]
     },
@@ -75,15 +90,20 @@
       "note": "开头5-10秒广告/蓝光秒拖/顶级画质",
       "enabled": true,
       "state": "limited",
-      "latency_ms": 1766,
+      "latency_ms": 1358,
       "searchable": false,
       "vods": 0,
-      "checked_at": "2026-11-27T05:52:02Z",
+      "checked_at": "2026-11-27T06:10:34Z",
       "history": [
         {
           "t": "2026-11-27T13:52:02+08:00",
           "ok": true,
           "ms": 1766
+        },
+        {
+          "t": "2026-11-27T14:10:34+08:00",
+          "ok": true,
+          "ms": 1358
         }
       ]
     },
@@ -95,15 +115,20 @@
       "note": "无广告/新颖/偶尔卡顿",
       "enabled": true,
       "state": "down",
-      "latency_ms": 361,
+      "latency_ms": 433,
       "searchable": false,
       "vods": 0,
-      "checked_at": "2026-11-27T05:52:02Z",
+      "checked_at": "2026-11-27T06:10:34Z",
       "history": [
         {
           "t": "2026-11-27T13:52:02+08:00",
           "ok": false,
           "ms": 361
+        },
+        {
+          "t": "2026-11-27T14:10:34+08:00",
+          "ok": false,
+          "ms": 433
         }
       ]
     },
@@ -115,15 +140,20 @@
       "note": "纯净/无跑马灯/无插播/聚合干净",
       "enabled": true,
       "state": "down",
-      "latency_ms": 10000,
+      "latency_ms": 1224,
       "searchable": false,
       "vods": 0,
-      "checked_at": "2026-11-27T05:52:02Z",
+      "checked_at": "2026-11-27T06:10:34Z",
       "history": [
         {
           "t": "2026-11-27T13:52:02+08:00",
           "ok": false,
           "ms": 10000
+        },
+        {
+          "t": "2026-11-27T14:10:34+08:00",
+          "ok": false,
+          "ms": 1224
         }
       ]
     },
@@ -135,15 +165,20 @@
       "note": "切片/M3U8直链/高清稳定",
       "enabled": true,
       "state": "ok",
-      "latency_ms": 586,
+      "latency_ms": 483,
       "searchable": true,
       "vods": 1,
-      "checked_at": "2026-11-27T05:52:02Z",
+      "checked_at": "2026-11-27T06:10:34Z",
       "history": [
         {
           "t": "2026-11-27T13:52:02+08:00",
           "ok": true,
           "ms": 586
+        },
+        {
+          "t": "2026-11-27T14:10:34+08:00",
+          "ok": true,
+          "ms": 483
         }
       ]
     },
@@ -155,15 +190,20 @@
       "note": "无广告/M3U8直链/HTTPS/自家CDN",
       "enabled": true,
       "state": "down",
-      "latency_ms": 6263,
+      "latency_ms": 8552,
       "searchable": false,
       "vods": 0,
-      "checked_at": "2026-11-27T05:52:02Z",
+      "checked_at": "2026-11-27T06:10:34Z",
       "history": [
         {
           "t": "2026-11-27T13:52:02+08:00",
           "ok": false,
           "ms": 6263
+        },
+        {
+          "t": "2026-11-27T14:10:34+08:00",
+          "ok": false,
+          "ms": 8552
         }
       ]
     },
@@ -175,15 +215,20 @@
       "note": "无广告/M3U8直链/中规中矩",
       "enabled": true,
       "state": "ok",
-      "latency_ms": 1305,
+      "latency_ms": 1381,
       "searchable": true,
       "vods": 3,
-      "checked_at": "2026-11-27T05:52:02Z",
+      "checked_at": "2026-11-27T06:10:34Z",
       "history": [
         {
           "t": "2026-11-27T13:52:02+08:00",
           "ok": true,
           "ms": 1305
+        },
+        {
+          "t": "2026-11-27T14:10:34+08:00",
+          "ok": true,
+          "ms": 1381
         }
       ]
     },
@@ -195,15 +240,20 @@
       "note": "无广告/响应极快/画质一般",
       "enabled": true,
       "state": "down",
-      "latency_ms": 2980,
+      "latency_ms": 12001,
       "searchable": false,
       "vods": 0,
-      "checked_at": "2026-11-27T05:52:02Z",
+      "checked_at": "2026-11-27T06:10:34Z",
       "history": [
         {
           "t": "2026-11-27T13:52:02+08:00",
           "ok": false,
           "ms": 2980
+        },
+        {
+          "t": "2026-11-27T14:10:34+08:00",
+          "ok": false,
+          "ms": 12001
         }
       ]
     },
@@ -215,15 +265,20 @@
       "note": "M3U8直链/有跑马灯/广告中等",
       "enabled": true,
       "state": "ok",
-      "latency_ms": 852,
+      "latency_ms": 1680,
       "searchable": true,
       "vods": 3,
-      "checked_at": "2026-11-27T05:52:02Z",
+      "checked_at": "2026-11-27T06:10:34Z",
       "history": [
         {
           "t": "2026-11-27T13:52:02+08:00",
           "ok": true,
           "ms": 852
+        },
+        {
+          "t": "2026-11-27T14:10:34+08:00",
+          "ok": true,
+          "ms": 1680
         }
       ]
     },
@@ -235,15 +290,20 @@
       "note": "HTTPS/M3U8直链/偶尔开头广告",
       "enabled": true,
       "state": "down",
-      "latency_ms": 3365,
+      "latency_ms": 2350,
       "searchable": false,
       "vods": 0,
-      "checked_at": "2026-11-27T05:52:02Z",
+      "checked_at": "2026-11-27T06:10:34Z",
       "history": [
         {
           "t": "2026-11-27T13:52:02+08:00",
           "ok": false,
           "ms": 3365
+        },
+        {
+          "t": "2026-11-27T14:10:34+08:00",
+          "ok": false,
+          "ms": 2350
         }
       ]
     },
@@ -255,15 +315,20 @@
       "note": "无广告/独家/秒拖强",
       "enabled": true,
       "state": "down",
-      "latency_ms": 10000,
+      "latency_ms": 12001,
       "searchable": false,
       "vods": 0,
-      "checked_at": "2026-11-27T05:52:02Z",
+      "checked_at": "2026-11-27T06:10:34Z",
       "history": [
         {
           "t": "2026-11-27T13:52:02+08:00",
           "ok": false,
           "ms": 10000
+        },
+        {
+          "t": "2026-11-27T14:10:34+08:00",
+          "ok": false,
+          "ms": 12001
         }
       ]
     },
@@ -275,15 +340,20 @@
       "note": "有跑马灯/开头广告/秒拖但不稳",
       "enabled": true,
       "state": "ok",
-      "latency_ms": 1811,
+      "latency_ms": 660,
       "searchable": true,
       "vods": 20,
-      "checked_at": "2026-11-27T05:52:02Z",
+      "checked_at": "2026-11-27T06:10:34Z",
       "history": [
         {
           "t": "2026-11-27T13:52:02+08:00",
           "ok": true,
           "ms": 1811
+        },
+        {
+          "t": "2026-11-27T14:10:34+08:00",
+          "ok": true,
+          "ms": 660
         }
       ]
     },
@@ -295,15 +365,20 @@
       "note": "开头广告/国内CDN/秒播率中",
       "enabled": true,
       "state": "down",
-      "latency_ms": 1154,
+      "latency_ms": 1591,
       "searchable": false,
       "vods": 0,
-      "checked_at": "2026-11-27T05:52:02Z",
+      "checked_at": "2026-11-27T06:10:34Z",
       "history": [
         {
           "t": "2026-11-27T13:52:02+08:00",
           "ok": false,
           "ms": 1154
+        },
+        {
+          "t": "2026-11-27T14:10:34+08:00",
+          "ok": false,
+          "ms": 1591
         }
       ]
     },
@@ -315,15 +390,20 @@
       "note": "开头广告/极速CDN/一般",
       "enabled": true,
       "state": "down",
-      "latency_ms": 10000,
+      "latency_ms": 12001,
       "searchable": false,
       "vods": 0,
-      "checked_at": "2026-11-27T05:52:02Z",
+      "checked_at": "2026-11-27T06:10:34Z",
       "history": [
         {
           "t": "2026-11-27T13:52:02+08:00",
           "ok": false,
           "ms": 10000
+        },
+        {
+          "t": "2026-11-27T14:10:34+08:00",
+          "ok": false,
+          "ms": 12001
         }
       ]
     },
@@ -335,15 +415,20 @@
       "note": "无广告/短剧专区强/更新快",
       "enabled": true,
       "state": "limited",
-      "latency_ms": 1253,
+      "latency_ms": 988,
       "searchable": false,
       "vods": 0,
-      "checked_at": "2026-11-27T05:52:02Z",
+      "checked_at": "2026-11-27T06:10:34Z",
       "history": [
         {
           "t": "2026-11-27T13:52:02+08:00",
           "ok": true,
           "ms": 1253
+        },
+        {
+          "t": "2026-11-27T14:10:34+08:00",
+          "ok": true,
+          "ms": 988
         }
       ]
     },
@@ -355,15 +440,20 @@
       "note": "开头广告/高清画质/更新中规",
       "enabled": true,
       "state": "down",
-      "latency_ms": 10000,
+      "latency_ms": 12000,
       "searchable": false,
       "vods": 0,
-      "checked_at": "2026-11-27T05:52:02Z",
+      "checked_at": "2026-11-27T06:10:34Z",
       "history": [
         {
           "t": "2026-11-27T13:52:02+08:00",
           "ok": false,
           "ms": 10000
+        },
+        {
+          "t": "2026-11-27T14:10:34+08:00",
+          "ok": false,
+          "ms": 12000
         }
       ]
     },
@@ -375,15 +465,20 @@
       "note": "无广告/点播类强/偏老",
       "enabled": true,
       "state": "ok",
-      "latency_ms": 1185,
+      "latency_ms": 1223,
       "searchable": true,
       "vods": 8,
-      "checked_at": "2026-11-27T05:52:02Z",
+      "checked_at": "2026-11-27T06:10:34Z",
       "history": [
         {
           "t": "2026-11-27T13:52:02+08:00",
           "ok": true,
           "ms": 1185
+        },
+        {
+          "t": "2026-11-27T14:10:34+08:00",
+          "ok": true,
+          "ms": 1223
         }
       ]
     },
@@ -395,15 +490,20 @@
       "note": "有跑马灯/广告中等/稳定性一般",
       "enabled": true,
       "state": "limited",
-      "latency_ms": 1179,
+      "latency_ms": 2435,
       "searchable": false,
       "vods": 0,
-      "checked_at": "2026-11-27T05:52:02Z",
+      "checked_at": "2026-11-27T06:10:34Z",
       "history": [
         {
           "t": "2026-11-27T13:52:02+08:00",
           "ok": true,
           "ms": 1179
+        },
+        {
+          "t": "2026-11-27T14:10:34+08:00",
+          "ok": true,
+          "ms": 2435
         }
       ]
     },
@@ -415,15 +515,20 @@
       "note": "无广告/丰富/偶尔卡",
       "enabled": true,
       "state": "ok",
-      "latency_ms": 1509,
+      "latency_ms": 1030,
       "searchable": true,
       "vods": 3,
-      "checked_at": "2026-11-27T05:52:02Z",
+      "checked_at": "2026-11-27T06:10:34Z",
       "history": [
         {
           "t": "2026-11-27T13:52:02+08:00",
           "ok": true,
           "ms": 1509
+        },
+        {
+          "t": "2026-11-27T14:10:34+08:00",
+          "ok": true,
+          "ms": 1030
         }
       ]
     },
@@ -435,15 +540,20 @@
       "note": "无广告/响应快/画质中上",
       "enabled": true,
       "state": "down",
-      "latency_ms": 838,
+      "latency_ms": 1752,
       "searchable": false,
       "vods": 0,
-      "checked_at": "2026-11-27T05:52:02Z",
+      "checked_at": "2026-11-27T06:10:34Z",
       "history": [
         {
           "t": "2026-11-27T13:52:02+08:00",
           "ok": false,
           "ms": 838
+        },
+        {
+          "t": "2026-11-27T14:10:34+08:00",
+          "ok": false,
+          "ms": 1752
         }
       ]
     },
@@ -455,15 +565,20 @@
       "note": "开头广告/国内CDN/全网秒播",
       "enabled": true,
       "state": "ok",
-      "latency_ms": 1060,
+      "latency_ms": 857,
       "searchable": true,
       "vods": 8,
-      "checked_at": "2026-11-27T05:52:02Z",
+      "checked_at": "2026-11-27T06:10:34Z",
       "history": [
         {
           "t": "2026-11-27T13:52:02+08:00",
           "ok": true,
           "ms": 1060
+        },
+        {
+          "t": "2026-11-27T14:10:34+08:00",
+          "ok": true,
+          "ms": 857
         }
       ]
     },
@@ -475,15 +590,20 @@
       "note": "动漫专区/M3U8直链/广告少",
       "enabled": true,
       "state": "ok",
-      "latency_ms": 1048,
+      "latency_ms": 2118,
       "searchable": true,
       "vods": 3,
-      "checked_at": "2026-11-27T05:52:02Z",
+      "checked_at": "2026-11-27T06:10:34Z",
       "history": [
         {
           "t": "2026-11-27T13:52:02+08:00",
           "ok": true,
           "ms": 1048
+        },
+        {
+          "t": "2026-11-27T14:10:34+08:00",
+          "ok": true,
+          "ms": 2118
         }
       ]
     },
@@ -495,15 +615,20 @@
       "note": "开头广告/更新快/稳定性中",
       "enabled": true,
       "state": "down",
-      "latency_ms": 979,
+      "latency_ms": 1016,
       "searchable": false,
       "vods": 0,
-      "checked_at": "2026-11-27T05:52:02Z",
+      "checked_at": "2026-11-27T06:10:34Z",
       "history": [
         {
           "t": "2026-11-27T13:52:02+08:00",
           "ok": false,
           "ms": 979
+        },
+        {
+          "t": "2026-11-27T14:10:34+08:00",
+          "ok": false,
+          "ms": 1016
         }
       ]
     },
@@ -515,15 +640,20 @@
       "note": "开头广告/三网直连/秒拖",
       "enabled": true,
       "state": "ok",
-      "latency_ms": 992,
+      "latency_ms": 1040,
       "searchable": true,
       "vods": 8,
-      "checked_at": "2026-11-27T05:52:02Z",
+      "checked_at": "2026-11-27T06:10:34Z",
       "history": [
         {
           "t": "2026-11-27T13:52:02+08:00",
           "ok": true,
           "ms": 992
+        },
+        {
+          "t": "2026-11-27T14:10:34+08:00",
+          "ok": true,
+          "ms": 1040
         }
       ]
     },
@@ -535,15 +665,20 @@
       "note": "有跑马灯/百度云风格/广告中等",
       "enabled": true,
       "state": "ok",
-      "latency_ms": 2173,
+      "latency_ms": 2686,
       "searchable": true,
       "vods": 2,
-      "checked_at": "2026-11-27T05:52:02Z",
+      "checked_at": "2026-11-27T06:10:34Z",
       "history": [
         {
           "t": "2026-11-27T13:52:02+08:00",
           "ok": true,
           "ms": 2173
+        },
+        {
+          "t": "2026-11-27T14:10:34+08:00",
+          "ok": true,
+          "ms": 2686
         }
       ]
     },
@@ -555,15 +690,20 @@
       "note": "无广告/偏小众/更新慢",
       "enabled": true,
       "state": "down",
-      "latency_ms": 1762,
+      "latency_ms": 1833,
       "searchable": false,
       "vods": 0,
-      "checked_at": "2026-11-27T05:52:02Z",
+      "checked_at": "2026-11-27T06:10:34Z",
       "history": [
         {
           "t": "2026-11-27T13:52:02+08:00",
           "ok": false,
           "ms": 1762
+        },
+        {
+          "t": "2026-11-27T14:10:34+08:00",
+          "ok": false,
+          "ms": 1833
         }
       ]
     },
@@ -575,15 +715,20 @@
       "note": "无广告/量子备用线/速度快",
       "enabled": true,
       "state": "down",
-      "latency_ms": 10000,
+      "latency_ms": 600,
       "searchable": false,
       "vods": 0,
-      "checked_at": "2026-11-27T05:52:02Z",
+      "checked_at": "2026-11-27T06:10:34Z",
       "history": [
         {
           "t": "2026-11-27T13:52:02+08:00",
           "ok": false,
           "ms": 10000
+        },
+        {
+          "t": "2026-11-27T14:10:34+08:00",
+          "ok": false,
+          "ms": 600
         }
       ]
     },
@@ -595,15 +740,20 @@
       "note": "有跑马灯/备用源/广告多",
       "enabled": true,
       "state": "down",
-      "latency_ms": 257,
+      "latency_ms": 254,
       "searchable": false,
       "vods": 0,
-      "checked_at": "2026-11-27T05:52:02Z",
+      "checked_at": "2026-11-27T06:10:34Z",
       "history": [
         {
           "t": "2026-11-27T13:52:02+08:00",
           "ok": false,
           "ms": 257
+        },
+        {
+          "t": "2026-11-27T14:10:34+08:00",
+          "ok": false,
+          "ms": 254
         }
       ]
     },
@@ -615,15 +765,20 @@
       "note": "有广告/秒拖/高清热播",
       "enabled": true,
       "state": "limited",
-      "latency_ms": 1036,
+      "latency_ms": 1161,
       "searchable": false,
       "vods": 0,
-      "checked_at": "2026-11-27T05:52:02Z",
+      "checked_at": "2026-11-27T06:10:34Z",
       "history": [
         {
           "t": "2026-11-27T13:52:02+08:00",
           "ok": true,
           "ms": 1036
+        },
+        {
+          "t": "2026-11-27T14:10:34+08:00",
+          "ok": true,
+          "ms": 1161
         }
       ]
     },
@@ -635,15 +790,20 @@
       "note": "开头广告/独家三网/超清秒播",
       "enabled": true,
       "state": "down",
-      "latency_ms": 10000,
+      "latency_ms": 12001,
       "searchable": false,
       "vods": 0,
-      "checked_at": "2026-11-27T05:52:02Z",
+      "checked_at": "2026-11-27T06:10:34Z",
       "history": [
         {
           "t": "2026-11-27T13:52:02+08:00",
           "ok": false,
           "ms": 10000
+        },
+        {
+          "t": "2026-11-27T14:10:34+08:00",
+          "ok": false,
+          "ms": 12001
         }
       ]
     },
@@ -655,15 +815,20 @@
       "note": "开头广告/影视每日更新/中规",
       "enabled": true,
       "state": "down",
-      "latency_ms": 10000,
+      "latency_ms": 12000,
       "searchable": false,
       "vods": 0,
-      "checked_at": "2026-11-27T05:52:02Z",
+      "checked_at": "2026-11-27T06:10:34Z",
       "history": [
         {
           "t": "2026-11-27T13:52:02+08:00",
           "ok": false,
           "ms": 10000
+        },
+        {
+          "t": "2026-11-27T14:10:34+08:00",
+          "ok": false,
+          "ms": 12000
         }
       ]
     },
@@ -675,15 +840,20 @@
       "note": "开头广告/全网秒播/稳定性一般",
       "enabled": true,
       "state": "down",
-      "latency_ms": 10000,
+      "latency_ms": 12000,
       "searchable": false,
       "vods": 0,
-      "checked_at": "2026-11-27T05:52:02Z",
+      "checked_at": "2026-11-27T06:10:34Z",
       "history": [
         {
           "t": "2026-11-27T13:52:02+08:00",
           "ok": false,
           "ms": 10000
+        },
+        {
+          "t": "2026-11-27T14:10:34+08:00",
+          "ok": false,
+          "ms": 12000
         }
       ]
     },
@@ -695,15 +865,20 @@
       "note": "403常见/可能失效/广告未知",
       "enabled": true,
       "state": "down",
-      "latency_ms": 10000,
+      "latency_ms": 12000,
       "searchable": false,
       "vods": 0,
-      "checked_at": "2026-11-27T05:52:02Z",
+      "checked_at": "2026-11-27T06:10:34Z",
       "history": [
         {
           "t": "2026-11-27T13:52:02+08:00",
           "ok": false,
           "ms": 10000
+        },
+        {
+          "t": "2026-11-27T14:10:34+08:00",
+          "ok": false,
+          "ms": 12000
         }
       ]
     }

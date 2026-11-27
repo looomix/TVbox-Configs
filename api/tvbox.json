@@ -13,76 +13,21 @@
       "group": "综合"
     },
     {
-      "key": "moduzynet",
-      "name": "魔都",
+      "key": "zuidaxyz",
+      "name": "最大",
       "type": 3,
-      "api": "https://www.mdzyapi.com/api.php/provide/vod",
+      "api": "https://api.zuidapi.com/api.php/provide/vod",
       "searchable": 1,
       "quickSearch": 1,
       "filterable": 1,
       "ext": "",
       "group": "综合"
-    },
-    {
-      "key": "haohuazycom",
-      "name": "豪华",
-      "type": 3,
-      "api": "https://hhzyapi.com/api.php/provide/vod",
-      "searchable": 1,
-      "quickSearch": 1,
-      "filterable": 1,
-      "ext": "",
-      "group": "综合"
-    },
-    {
-      "key": "1080zykcom",
-      "name": "优质库1080zyk",
-      "type": 3,
-      "api": "https://api.yyzy-tv.vip/inc/api_mac10.php",
-      "searchable": 1,
-      "quickSearch": 1,
-      "filterable": 1,
-      "ext": "",
-      "group": "综合"
-    },
-    {
-      "key": "moduapicc",
-      "name": "魔都动漫",
-      "type": 3,
-      "api": "https://caiji.moduapi.cc/api.php/provide/vod",
-      "searchable": 1,
-      "quickSearch": 1,
-      "filterable": 1,
-      "ext": "",
-      "group": "动漫"
     },
     {
       "key": "hongniuzycom",
       "name": "红牛",
       "type": 3,
       "api": "https://www.hongniuzy2.com/api.php/provide/vod",
-      "searchable": 1,
-      "quickSearch": 1,
-      "filterable": 1,
-      "ext": "",
-      "group": "综合"
-    },
-    {
-      "key": "jinyingzycom",
-      "name": "金鹰点播",
-      "type": 3,
-      "api": "https://jinyingzy.com/api.php/provide/vod",
-      "searchable": 1,
-      "quickSearch": 1,
-      "filterable": 1,
-      "ext": "",
-      "group": "综合"
-    },
-    {
-      "key": "360zycom",
-      "name": "360",
-      "type": 3,
-      "api": "https://360zyzz.com/api.php/provide/vod",
       "searchable": 1,
       "quickSearch": 1,
       "filterable": 1,
@@ -101,6 +46,39 @@
       "group": "综合"
     },
     {
+      "key": "haohuazycom",
+      "name": "豪华",
+      "type": 3,
+      "api": "https://hhzyapi.com/api.php/provide/vod",
+      "searchable": 1,
+      "quickSearch": 1,
+      "filterable": 1,
+      "ext": "",
+      "group": "综合"
+    },
+    {
+      "key": "jinyingzycom",
+      "name": "金鹰点播",
+      "type": 3,
+      "api": "https://jinyingzy.com/api.php/provide/vod",
+      "searchable": 1,
+      "quickSearch": 1,
+      "filterable": 1,
+      "ext": "",
+      "group": "综合"
+    },
+    {
+      "key": "1080zykcom",
+      "name": "优质库1080zyk",
+      "type": 3,
+      "api": "https://api.yyzy-tv.vip/inc/api_mac10.php",
+      "searchable": 1,
+      "quickSearch": 1,
+      "filterable": 1,
+      "ext": "",
+      "group": "综合"
+    },
+    {
       "key": "iqiyizyapicom",
       "name": "爱奇艺",
       "type": 3,
@@ -112,15 +90,37 @@
       "group": "综合"
     },
     {
-      "key": "zuidaxyz",
-      "name": "最大",
+      "key": "360zycom",
+      "name": "360",
       "type": 3,
-      "api": "https://api.zuidapi.com/api.php/provide/vod",
+      "api": "https://360zyzz.com/api.php/provide/vod",
       "searchable": 1,
       "quickSearch": 1,
       "filterable": 1,
       "ext": "",
       "group": "综合"
+    },
+    {
+      "key": "moduzynet",
+      "name": "魔都",
+      "type": 3,
+      "api": "https://www.mdzyapi.com/api.php/provide/vod",
+      "searchable": 1,
+      "quickSearch": 1,
+      "filterable": 1,
+      "ext": "",
+      "group": "综合"
+    },
+    {
+      "key": "moduapicc",
+      "name": "魔都动漫",
+      "type": 3,
+      "api": "https://caiji.moduapi.cc/api.php/provide/vod",
+      "searchable": 1,
+      "quickSearch": 1,
+      "filterable": 1,
+      "ext": "",
+      "group": "动漫"
     },
     {
       "key": "bdzy1com",

@@ -121,7 +121,6 @@
       { name: 'jsDelivr 主线路', kind: 'primary', url: 'https://cdn.jsdelivr.net/gh/' + OWNER + '/' + REPO + '@' + BRANCH + '/api/tvbox.json' },
       { name: 'GitHub Pages 备用', kind: 'backup', url: 'https://' + OWNER + '.github.io/' + REPO + '/api/tvbox.json' },
       { name: 'Raw 直连', kind: 'backup', url: raw },
-      { name: 'Statically CDN', kind: 'backup', url: 'https://cdn.statically.io/gh/' + OWNER + '/' + REPO + '/' + BRANCH + '/api/tvbox.json' },
       { name: 'ghproxy 加速', kind: 'proxy', url: 'https://ghproxy.net/' + raw },
       { name: 'gh-proxy 加速', kind: 'proxy', url: 'https://gh-proxy.com/' + raw }
     ];

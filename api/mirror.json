@@ -1,5 +1,5 @@
 {
-  "updated_at": "2026-11-27T05:52:02Z",
+  "updated_at": "2026-11-27T06:10:34Z",
   "file": "api/tvbox.json",
   "mirrors": [
     {
@@ -15,11 +15,6 @@
     {
       "name": "Raw 直连",
       "url": "https://raw.githubusercontent.com/looomix/TVbox-Configs/main/api/tvbox.json",
-      "kind": "backup"
-    },
-    {
-      "name": "Statically CDN",
-      "url": "https://cdn.statically.io/gh/looomix/TVbox-Configs/main/api/tvbox.json",
       "kind": "backup"
     },
     {
