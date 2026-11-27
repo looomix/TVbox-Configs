@@ -5,6 +5,10 @@
       "name": "优质库1080zyk",
       "api": "https://api.yyzy-tv.vip/inc/api_mac10.php"
     },
+    "1542191172320255": {
+      "name": "建安",
+      "api": "http://154.219.117.232:9981/jacloudapi.php/provide/vod"
+    },
     "360zycom": {
       "name": "360",
       "api": "https://360zyzz.com/api.php/provide/vod"
@@ -13,17 +17,45 @@
       "name": "360 (360zy.com)",
       "api": "https://360zy.com/api.php/provide/vod"
     },
+    "api1080zykucomc6d5": {
+      "name": "1080资源库",
+      "api": "https://api.1080zyku.com/inc/api_mac10.php"
+    },
     "apiniuniuzymec64e": {
       "name": "牛牛",
       "api": "https://api.niuniuzy.me/api.php/provide/vod"
+    },
+    "apiokzywnet56b8": {
+      "name": "OK (api.okzyw.net)",
+      "api": "https://api.okzyw.net/api.php/provide/vod"
+    },
+    "apisouavzyvip9f7c": {
+      "name": "souav",
+      "api": "https://api.souavzy.vip/api.php/provide/vod"
+    },
+    "apiukuapicomcf50": {
+      "name": "U酷 (api.ukuapi.com)",
+      "api": "https://api.ukuapi.com/api.php/provide/vod"
     },
     "apivnzyzcome8d7": {
       "name": "越南",
       "api": "https://api.vnzyz.com/api.php/provide/vod"
     },
+    "apiwsyzynet4a1d": {
+      "name": "无水印资源网采集接口",
+      "api": "https://api.wsyzy.net/api.php/provide/vod"
+    },
+    "apiwujinapicc9f92": {
+      "name": "wujinapi无尽",
+      "api": "https://api.wujinapi.cc/api.php/provide/vod"
+    },
     "apiwujinapicomd9d6": {
       "name": "无尽影视",
       "api": "https://api.wujinapi.com/api.php/provide/vod"
+    },
+    "apiwujinapinet768a": {
+      "name": "无尽资源3",
+      "api": "https://api.wujinapi.net/api.php/provide/vod"
     },
     "apiyzzyapicom97cf": {
       "name": "优质 (api.yzzy-api.com)",
@@ -36,6 +68,10 @@
     "bhziyuancom31e9": {
       "name": "百花",
       "api": "https://bhziyuan.com/api.php/provide/vod"
+    },
+    "cdndzzyapicom5909": {
+      "name": "大众资源采集接口",
+      "api": "https://cdn.dzzyapi.com/api.php/provide/vod"
     },
     "ckzymed5b2": {
       "name": "CK-",
@@ -60,6 +96,10 @@
     "haohuazycomb089": {
       "name": "豪华 (haohuazy.com)",
       "api": "https://haohuazy.com/api.php/provide/vod"
+    },
+    "hongniuzy3com9115": {
+      "name": "红牛 (hongniuzy3.com)",
+      "api": "https://www.hongniuzy3.com/api.php/provide/vod"
     },
     "hongniuzycom": {
       "name": "红牛",
@@ -113,6 +153,10 @@
       "name": "猫眼",
       "api": "https://api.maoyanapi.top/api.php/provide/vod"
     },
+    "maoyanzycom347f": {
+      "name": "猫眼 (maoyanzy.com)",
+      "api": "https://maoyanzy.com/api.php/provide/vod"
+    },
     "moduapicc": {
       "name": "魔都动漫",
       "api": "https://caiji.moduapi.cc/api.php/provide/vod"
@@ -132,6 +176,10 @@
     "ryzywcom": {
       "name": "如意",
       "api": "https://cj.rycjapi.com/api.php/provide/vod"
+    },
+    "sdzyapicom7ab1": {
+      "name": "闪电 (sdzyapi.com)",
+      "api": "https://sdzyapi.com/api.php/provide/vod"
     },
     "shandianzycom": {
       "name": "闪电",
@@ -161,6 +209,10 @@
       "name": "天涯",
       "api": "https://tyyszyapi.com/api.php/provide/vod"
     },
+    "tyyszycom13f7": {
+      "name": "天涯 (tyyszy.com)",
+      "api": "https://tyyszy.com/api.php/provide/vod"
+    },
     "ukuapi88com": {
       "name": "U酷影视",
       "api": "https://api.ukuapi88.com/api.php/provide/vod"
@@ -169,6 +221,10 @@
       "name": "无尽",
       "api": "https://api.wujinapi.me/api.php/provide/vod"
     },
+    "xingba111com38e3": {
+      "name": "杏吧",
+      "api": "https://xingba111.com/api.php/provide/vod"
+    },
     "xinlangapicom": {
       "name": "新浪",
       "api": "https://api.xinlangapi.com/xinlangapi.php/provide/vod"
@@ -176,6 +232,14 @@
     "yayazycom": {
       "name": "鸭鸭",
       "api": "https://cj.yayazy.net/api.php/provide/vod"
+    },
+    "yhzyccb3a5": {
+      "name": "樱花资源ᴴ",
+      "api": "https://yhzy.cc/api.php/provide/vod"
+    },
+    "yonghuffzyapi8combfb1": {
+      "name": "无广1线 非凡",
+      "api": "https://yonghu.ffzyapi8.com/api.php/provide/vod/from/ffm3u8/at/json"
     },
     "zuidaxyz": {
       "name": "最大",
