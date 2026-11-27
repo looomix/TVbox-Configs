@@ -95,7 +95,15 @@ func NameKey(name string) string {
 		}
 	}
 	key := b.String()
-	for _, suffix := range []string{"影视资源站", "资源站", "采集站", "接口站", "影视站", "资源", "影视"} {
+	// drop the noise words that upstream lists append to the same station
+	for _, noise := range []string{"高清", "无广告", "无广", "无水印", "精品", "线路", "采集", "接口", "资源", "影视", "点播", "备用", "站", "网", "库", "zyk", "线"} {
+		key = strings.ReplaceAll(key, noise, "")
+	}
+	key = trimMirrorNoise(key)
+	for _, suffix := range []string{
+		"影视资源站", "资源采集接口", "采集接口", "资源站", "采集站", "接口站", "影视站",
+		"资源库", "资源网", "资源", "影视", "点播", "无广告", "无广", "无水印", "备用", "高清", "精品", "线路", "线",
+	} {
 		if strings.HasSuffix(key, suffix) && len([]rune(key)) > len([]rune(suffix))+1 {
 			key = strings.TrimSuffix(key, suffix)
 		}
@@ -153,4 +161,49 @@ func DedupeNames(list []model.Source, preferOK map[string]bool) ([]model.Source,
 		out = append(out, survivor)
 	}
 	return out, removed
+}
+
+// trimMirrorNoise removes the host prefix and the copy numbers that upstream
+// lists bolt onto a station name (wujinapi无尽 -> 无尽, 无尽3 -> 无尽).
+func trimMirrorNoise(key string) string {
+	runes := []rune(key)
+	hasCJK := false
+	for _, r := range runes {
+		if unicode.Is(unicode.Han, r) {
+			hasCJK = true
+			break
+		}
+	}
+	if !hasCJK {
+		return key
+	}
+	// leading ascii host word, e.g. "wujinapi无尽"
+	lead := 0
+	for lead < len(runes) && runes[lead] < 128 && runes[lead] != 0 {
+		lead++
+	}
+	if lead >= 4 && lead < len(runes) {
+		runes = runes[lead:]
+	}
+	// trailing copy number, e.g. "无尽3"
+	end := len(runes)
+	for end > 0 && runes[end-1] >= '0' && runes[end-1] <= '9' {
+		end--
+	}
+	if end > 0 {
+		runes = runes[:end]
+	}
+	// leading copy number, e.g. "1非凡"
+	start := 0
+	for start < len(runes) && runes[start] >= '0' && runes[start] <= '9' {
+		start++
+	}
+	if start > 0 && start < len(runes) {
+		runes = runes[start:]
+	}
+	out := string(runes)
+	if out == "" {
+		return key
+	}
+	return out
 }
