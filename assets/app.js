@@ -276,9 +276,8 @@
 
   var PROBE_FILE = 'https://raw.githubusercontent.com/' + OWNER + '/' + REPO + '/' + BRANCH + '/api/probe.json';
   var BROWSER_PROBES = [
-    { name: '直连', build: function (u) { return u; } },
-    { name: '代理 A', build: function (u) { return 'https://api.allorigins.win/raw?url=' + encodeURIComponent(u); } },
-    { name: '代理 B', build: function (u) { return 'https://api.codetabs.com/v1/proxy?quest=' + encodeURIComponent(u); } }
+    { name: '直连', build: function (u) { return u; }, wait: 4000 },
+    { name: '代理', build: function (u) { return 'https://api.allorigins.win/raw?url=' + encodeURIComponent(u); }, wait: 6000 }
   ];
 
   function deadline(ms) {
@@ -294,7 +293,7 @@
         return { ok: false, ms: Math.round(performance.now() - t0), vods: 0, via: '浏览器', note: '跨域或网络受限' };
       }
       var p = BROWSER_PROBES[i];
-      return fetch(p.build(url), { cache: 'no-store', signal: deadline(8000) }).then(function (r) {
+      return fetch(p.build(url), { cache: 'no-store', signal: deadline(p.wait) }).then(function (r) {
         if (r.status !== 200) return attempt(i + 1);
         return r.text().then(function (txt) {
           var ms = Math.round(performance.now() - t0);
