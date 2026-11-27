@@ -5,7 +5,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>TVbox-Configs · 视频源管理</title>
 <meta name="description" content="每 7 天自动检测的可视化 TVBox / MoonTV 视频源配置，多镜像订阅地址，支持在线新增、导入、测试与删除。">
-<link rel="stylesheet" href="assets/style.css?v=20261128b">
+<link rel="stylesheet" href="assets/style.css?v=20261128c">
 </head>
 <body>
 <div class="wrap">
@@ -67,15 +67,15 @@
 
   <section class="card">
     <div class="card-head">
-      <h2>一键导入源库<span class="sub-count" id="feedCount"></span></h2>
+      <h2>接口源库 · 一键接入<span class="sub-count" id="feedCount"></span></h2>
       <button class="btn sm" id="btnFeedsReload">刷新状态</button>
     </div>
     <div id="feeds"></div>
     <div class="inline-row">
-      <input class="input" id="feedCustom" placeholder="粘贴订阅链接（txt 或含 api_site / sites 的 json）">
+      <input class="input" id="feedCustom" placeholder="粘贴接口地址或源库链接（多行 / 逗号分隔）">
       <button class="btn primary" id="btnFeedAdd">导入链接</button>
     </div>
-    <p class="hint">导入即加入云端抓取列表：自动去重、逐条验证，未通过验证的源不会写进订阅配置；每 7 天随更新一起刷新。</p>
+    <p class="hint">接入即进入云端抓取队列：自动去重、逐条验证，未通过验证的接口不会写进订阅配置；每 7 天随更新一起刷新。</p>
   </section>
 
   <footer>
@@ -126,6 +126,6 @@
 </div>
 
 <div class="toast" id="toast"></div>
-<script src="assets/app.js?v=20261128b"></script>
+<script src="assets/app.js?v=20261128c"></script>
 </body>
 </html>

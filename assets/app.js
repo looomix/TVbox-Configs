@@ -14,9 +14,15 @@
 
   // preset source libraries offered by the one click import card
   var PRESETS = [
-    { name: '资源族 CMS 接口清单', url: 'https://www.ziyuanzu.com/download/ziyuanzu-cms-interfaces.txt' },
-    { name: 'CMS 状态全量清单', url: 'https://raw.githubusercontent.com/puppet680/cms-config/refs/heads/main/full_status.json' },
-    { name: 'LunaTV 配置清单', url: 'https://raw.githubusercontent.com/hafrey1/LunaTV-config/refs/heads/main/LunaTV-config.json' }
+    { name: '资源族 CMS 接口清单', url: 'https://www.ziyuanzu.com/download/ziyuanzu-cms-interfaces.txt', kind: '接口' },
+    { name: 'OuonnkiTV', url: 'https://raw.githubusercontent.com/Yesbaiwan/OuonnkiTV-Source/main/tv_source/OuonnkiTV/full-noadult.json', kind: '接口' },
+    { name: 'KVideo', url: 'https://raw.githubusercontent.com/puppet680/KVideo-config/main/KVideo-config.json', kind: '接口' },
+    { name: 'LibreTV', url: 'https://raw.githubusercontent.com/haojun19980728-prog/libretv-source-list/main/libretv-sources.json', kind: '接口' },
+    { name: 'KatelyaTV', url: 'https://raw.githubusercontent.com/smallmain/moontv-aggr-config/main/full.json', kind: '接口' },
+    { name: 'DecoTV', url: 'https://raw.githubusercontent.com/DaLongZhuaZi/moontv-config/main/config.json', kind: '接口' },
+    { name: 'MoonTVPlus', url: 'https://raw.githubusercontent.com/hailowell/MoonTvConfig/main/LunaTv-config.json', kind: '接口' },
+    { name: 'LunaTV 配置清单', url: 'https://raw.githubusercontent.com/hafrey1/LunaTV-config/refs/heads/main/LunaTV-config.json', kind: '源' },
+    { name: 'CMS 状态全量清单', url: 'https://raw.githubusercontent.com/puppet680/cms-config/refs/heads/main/full_status.json', kind: '源' }
   ];
 
   var $ = function (sel) { return document.querySelector(sel); };
@@ -316,16 +322,16 @@
       if (!known) rows.push({ name: f.name || f.url, url: f.url });
     });
     var enabled = state.feeds.filter(function (f) { return f.enabled; }).length;
-    $('#feedCount').textContent = '已启用 ' + enabled + ' 个';
+    $('#feedCount').textContent = '已接入 ' + enabled + ' 个';
     $('#feeds').innerHTML = rows.map(function (r) {
       var f = feedOf(r.url);
       var on = !!(f && f.enabled);
       return '<div class="feed-row">' +
         '<div class="feed-main">' +
-        '<div class="n">' + esc(r.name) + '<span class="badge ' + (on ? 'on' : '') + '">' + (on ? '已启用' : '未导入') + '</span></div>' +
+        '<div class="n">' + esc(r.name) + '<span class="badge">' + esc(r.kind || '源') + '</span><span class="badge ' + (on ? 'on' : '') + '">' + (on ? '已接入' : '未接入') + '</span></div>' +
         '<div class="url" title="' + esc(r.url) + '">' + esc(r.url) + '</div>' +
         '</div>' +
-        '<button class="btn sm ' + (on ? '' : 'primary') + '" data-feed="' + esc(r.url) + '" data-on="' + (on ? '1' : '0') + '">' + (on ? '停用' : '导入') + '</button>' +
+        '<button class="btn sm ' + (on ? '' : 'primary') + '" data-feed="' + esc(r.url) + '" data-on="' + (on ? '1' : '0') + '">' + (on ? '停用' : '接入') + '</button>' +
         '</div>';
     }).join('');
   }
@@ -542,6 +548,60 @@
     });
   }
 
+  function addInterfaces(lines) {
+    if (!state.token) { openToken(); return; }
+    var known = {};
+    state.sources.forEach(function (s) { known[hostKey(s.api)] = true; });
+    var fresh = [], dup = 0;
+    lines.forEach(function (api) {
+      var key = hostKey(api);
+      if (known[key]) { dup++; return; }
+      known[key] = true;
+      fresh.push({
+        id: slug(key, api),
+        name: key,
+        api: api,
+        group: '综合',
+        note: '',
+        enabled: true,
+        origin: 'manual',
+        added_at: new Date().toISOString().slice(0, 10)
+      });
+    });
+    if (!fresh.length) { toast(dup ? ('这些接口都已存在（' + dup + ' 个重复）') : '没有可用的接口地址'); return; }
+    ghGetFile('sources/sources.json').then(function (res) {
+      var doc = res.doc || {};
+      var list = doc.sources || (doc.sources = []);
+      var exist = {};
+      list.forEach(function (s) { exist[s.id] = true; });
+      fresh.forEach(function (f) {
+        var id = f.id;
+        while (exist[id]) id = id + '-' + Math.random().toString(36).slice(2, 4);
+        exist[id] = true;
+        f.id = id;
+        list.push(f);
+      });
+      if (!doc.version) doc.version = 1;
+      doc.updated_at = new Date().toISOString().slice(0, 10);
+      var text = JSON.stringify(doc, null, 2) + '\n';
+      return ghPutFile('sources/sources.json', text, res.sha, 'feat: 新增 ' + fresh.length + ' 个视频接口').then(function () {
+        state.sources = list;
+        return dispatchWorkflow();
+      }).then(function (triggered) {
+        renderAll();
+        toast('已加入 ' + fresh.length + ' 个接口' + (dup ? '（跳过 ' + dup + ' 个重复）' : '') +
+          (triggered ? '，后台开始验证（约 2 分钟）' : '，等待下一次自动更新'));
+        scheduleRefresh();
+      });
+    }).catch(function (err) { toast(err.message || '写入失败'); });
+  }
+
+  function hostKey(url) {
+    var h = '';
+    try { h = new URL(url).hostname.toLowerCase().replace(/^www\./, ''); } catch (e) { h = url.toLowerCase(); }
+    return h;
+  }
+
   function hostOf(url) {
     try { return new URL(url).hostname.replace(/^www\./, ''); } catch (e) { return url; }
   }
@@ -676,9 +736,20 @@
     });
 
     $('#btnFeedAdd').addEventListener('click', function () {
-      var url = $('#feedCustom').value.trim();
-      if (!/^https?:\/\//i.test(url)) { toast('请填写 http(s) 开头的订阅链接'); return; }
-      toggleFeed(url, true, hostOf(url));
+      var raw = $('#feedCustom').value.trim();
+      if (!raw) { toast('请填入接口地址或源库链接'); return; }
+      var parts = raw.split(/[\n,，、]+/).map(function (x) { return x.trim(); }).filter(Boolean);
+      var looksInterface = parts.length > 1 || parts.some(function (u) {
+        return /api\.php|provide\/vod|ac=detail|inc\/api/i.test(u);
+      });
+      if (looksInterface) {
+        var bad = parts.filter(function (u) { return !/^https?:\/\//i.test(u); });
+        if (bad.length) { toast('有 ' + bad.length + ' 条不是 http(s) 地址，已忽略'); }
+        addInterfaces(parts.filter(function (u) { return /^https?:\/\//i.test(u); }));
+      } else {
+        if (!/^https?:\/\//i.test(parts[0])) { toast('请填写 http(s) 开头的接口或链接'); return; }
+        toggleFeed(parts[0], true, hostOf(parts[0]));
+      }
       $('#feedCustom').value = '';
     });
 

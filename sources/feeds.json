@@ -15,6 +15,36 @@
       "name": "LunaTV 配置清单",
       "url": "https://raw.githubusercontent.com/hafrey1/LunaTV-config/refs/heads/main/LunaTV-config.json",
       "enabled": true
+    },
+    {
+      "name": "OuonnkiTV 视频源",
+      "url": "https://raw.githubusercontent.com/Yesbaiwan/OuonnkiTV-Source/main/tv_source/OuonnkiTV/full-noadult.json",
+      "enabled": true
+    },
+    {
+      "name": "KVideo 视频源",
+      "url": "https://raw.githubusercontent.com/puppet680/KVideo-config/main/KVideo-config.json",
+      "enabled": true
+    },
+    {
+      "name": "KatelyaTV 视频源",
+      "url": "https://raw.githubusercontent.com/smallmain/moontv-aggr-config/main/full.json",
+      "enabled": true
+    },
+    {
+      "name": "LibreTV 视频源",
+      "url": "https://raw.githubusercontent.com/haojun19980728-prog/libretv-source-list/main/libretv-sources.json",
+      "enabled": true
+    },
+    {
+      "name": "DecoTV 视频源",
+      "url": "https://raw.githubusercontent.com/DaLongZhuaZi/moontv-config/main/config.json",
+      "enabled": true
+    },
+    {
+      "name": "MoonTVPlus 视频源",
+      "url": "https://raw.githubusercontent.com/hailowell/MoonTvConfig/main/LunaTv-config.json",
+      "enabled": true
     }
   ]
 }

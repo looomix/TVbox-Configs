@@ -26,6 +26,10 @@ var (
 // RefuseFeed reports whether a feed url must never be fetched.
 func RefuseFeed(rawURL string) bool {
 	u := strings.ToLower(rawURL)
+	// explicit "no adult" markers mean the list is already clean, so clear them first.
+	for _, safe := range []string{"no-adult", "no_adult", "noadult", "noadults"} {
+		u = strings.ReplaceAll(u, safe, "")
+	}
 	for _, w := range refuseWords {
 		if strings.Contains(u, w) {
 			return true
@@ -101,6 +105,24 @@ type item struct {
 	BaseURL  string `json:"baseUrl"`
 	Category string `json:"category"`
 	Type     string `json:"type"`
+	IsAdult  bool   `json:"isAdult"`
+	IsAdult2 bool   `json:"is_adult"`
+	Enabled  *bool  `json:"enabled"`
+	Enabled2 *bool  `json:"isEnabled"`
+}
+
+// adult reports whether an entry is flagged as adult content by upstream lists.
+func (it item) adult() bool { return it.IsAdult || it.IsAdult2 }
+
+// disabled reports an explicit upstream kill switch; nil means enabled.
+func (it item) disabled() bool {
+	if it.Enabled != nil {
+		return !*it.Enabled
+	}
+	if it.Enabled2 != nil {
+		return !*it.Enabled2
+	}
+	return false
 }
 
 func (it item) api() string {
@@ -139,7 +161,7 @@ func parseJSON(data []byte) ([]model.Source, bool) {
 			if json.Unmarshal(r, &it) != nil {
 				continue
 			}
-			if forbiddenCategory(it.Category) || forbiddenCategory(it.Type) {
+			if it.adult() || it.disabled() || forbiddenCategory(it.Category) || forbiddenCategory(it.Type) {
 				continue
 			}
 			api := it.api()
@@ -174,7 +196,7 @@ func parseJSON(data []byte) ([]model.Source, bool) {
 					if b, err := json.Marshal(entry); err == nil {
 						_ = json.Unmarshal(b, &it)
 					}
-					if forbiddenCategory(it.Category) || forbiddenCategory(it.Type) {
+					if it.adult() || it.disabled() || forbiddenCategory(it.Category) || forbiddenCategory(it.Type) {
 						continue
 					}
 					api := it.api()
