@@ -65,8 +65,6 @@ window.TVBOX_I18N = { en: {
   " 个源可用 (": " sources alive (",
   "%)，已剔除 ": "%), removed ",
   " 个失效地址": " dead endpoints",
-  " · 过滤 ": " · filtered ",
-  " 个成人内容源": " adult sources",
   "复制": "Copy",
   "文本": "Text",
   "配置": "Config",
