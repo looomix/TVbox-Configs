@@ -36,6 +36,7 @@ func main() {
 	repo := flag.String("repo", dRepo, "github repo used for mirror urls")
 	branch := flag.String("branch", dBranch, "branch used for mirror urls")
 	feedOnly := flag.Bool("feed-only", false, "only merge feeds into sources.json, do not probe")
+	allowNSFW := flag.Bool("allow-nsfw", false, "keep adult-labelled stations in the published artifacts")
 	probeURL := flag.String("probe", "", "probe one api url only and exit")
 	probeOut := flag.String("probe-out", "", "write the single probe result to this json file")
 	flag.Parse()
@@ -120,6 +121,11 @@ func main() {
 	// one entry per endpoint: the link decides, display names are never merged
 	list, dup := gen.Dedupe(kept)
 
+	filtered := 0
+	if !*allowNSFW {
+		list, filtered = gen.FilterNSFW(list)
+	}
+
 	fromFeed := 0
 	for _, s := range list {
 		if s.Origin == "feed" {
@@ -136,8 +142,8 @@ func main() {
 	if changed {
 		fmt.Printf("updated %s\n", *sourcesPath)
 	}
-	fmt.Printf("sources: %d read, %d deleted by user, %d duplicates removed, %d from feeds, %d to check\n",
-		len(raw), gone, dup, fromFeed, len(list))
+	fmt.Printf("sources: %d read, %d deleted by user, %d duplicates removed, %d filtered, %d from feeds, %d to check\n",
+		len(raw), gone, dup, filtered, fromFeed, len(list))
 	if *feedOnly {
 		return
 	}
@@ -157,6 +163,7 @@ func main() {
 		Total:         len(list),
 		FromFeed:      fromFeed,
 		Deduped:       dup,
+		Filtered:      filtered,
 		Sources:       make([]model.Status, 0, len(list)),
 	}
 	for i, s := range list {
@@ -294,6 +301,17 @@ func writeArtifacts(outDir, owner, repo, branch string, sites []model.Site, upda
 	if err := gen.WriteText(filepath.Join(outDir, "sources.txt"), gen.TXT(sites)); err != nil {
 		return err
 	}
+	// A plain multi-warehouse list is accepted by TVBox builds that do not read
+	// the JSON index. Each line is "<name>,<config url>".
+	mirrors := mirror.List(owner, repo, branch, "api/tvbox.json")
+	var multi strings.Builder
+	multi.WriteString("# TVbox-Configs 多仓入口（名称,单仓配置地址）\n")
+	for _, m := range mirrors[:3] {
+		multi.WriteString(m.Name + "," + m.URL + "\n")
+	}
+	if err := gen.WriteText(filepath.Join(outDir, "tvbox.txt"), multi.String()); err != nil {
+		return err
+	}
 
 	files := []struct{ file, kind string }{
 		{"tvbox.json", "config"},
@@ -305,6 +323,7 @@ func writeArtifacts(outDir, owner, repo, branch string, sites []model.Site, upda
 		{"kvideo.json", "config"},
 		{"libretv.json", "config"},
 		{"sources.txt", "text"},
+		{"tvbox.txt", "text"},
 	}
 	groups := make([]model.MirrorGroup, 0, len(files))
 	for _, f := range files {
