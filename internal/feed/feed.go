@@ -67,7 +67,9 @@ func Parse(data []byte) []model.Source {
 	text := strings.TrimPrefix(string(data), "\ufeff")
 	trimmed := strings.TrimSpace(text)
 	if strings.HasPrefix(trimmed, "{") || strings.HasPrefix(trimmed, "[") {
-		if items, ok := parseJSON(data); ok {
+		// 必须传去 BOM、去空白后的内容：encoding/json 不跳过 UTF-8 BOM，
+		// 传原始 data 会让带 BOM 的 JSON 解析失败并回退成 0 条。
+		if items, ok := parseJSON([]byte(trimmed)); ok {
 			return items
 		}
 	}
