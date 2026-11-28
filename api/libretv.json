@@ -1,13 +1,5 @@
 [
   {
-    "name": "黄色仓库",
-    "url": "https://hsckzy.xyz/api.php/provide/vod"
-  },
-  {
-    "name": "X色仓库",
-    "url": "https://hsckzy888.com/api.php/provide/vod"
-  },
-  {
     "name": "金鹰",
     "url": "https://jyzyapi.com/provide/vod"
   },
@@ -42,10 +34,6 @@
   {
     "name": "红牛 (hongniuzy3.com)",
     "url": "https://www.hongniuzy3.com/api.php/provide/vod"
-  },
-  {
-    "name": "老色X",
-    "url": "https://apilsbzy1.com/api.php/provide/vod"
   },
   {
     "name": "无尽影视",
@@ -94,10 +82,6 @@
   {
     "name": "魔都",
     "url": "https://www.mdzyapi.com/api.php/provide/vod"
-  },
-  {
-    "name": "souavZY",
-    "url": "https://api.souavzy.vip/api.php/provide/vod"
   },
   {
     "name": "光速",
@@ -152,10 +136,6 @@
     "url": "https://api.niuniuzy.me/api.php/provide/vod"
   },
   {
-    "name": "番号",
-    "url": "http://fhapi9.com/api.php/provide/vod"
-  },
-  {
     "name": "优质库1080zyk",
     "url": "https://api.yyzy-tv.vip/inc/api_mac10.php"
   },
@@ -208,20 +188,12 @@
     "url": "https://aosikazy.com/api.php/provide/vod"
   },
   {
-    "name": "杏吧 - NSFW",
-    "url": "https://xingba222.com/api.php/provide/vod"
-  },
-  {
     "name": "最大",
     "url": "https://api.zuidapi.com/api.php/provide/vod"
   },
   {
     "name": "无水印资源网采集接口",
     "url": "https://api.wsyzy.net/api.php/provide/vod"
-  },
-  {
-    "name": "杏吧",
-    "url": "https://xingba111.com/api.php/provide/vod"
   },
   {
     "name": "索尼",
@@ -244,20 +216,12 @@
     "url": "https://maoyanzy.com/api.php/provide/vod"
   },
   {
-    "name": "白嫖",
-    "url": "https://www.kxgav.com/api/json.php"
-  },
-  {
     "name": "百花",
     "url": "https://bhziyuan.com/api.php/provide/vod"
   },
   {
     "name": "暴风",
     "url": "https://bfzyapi.com/api.php/provide/vod"
-  },
-  {
-    "name": "X色A-V",
-    "url": "https://www.pgxdy.com/api/json.php"
   },
   {
     "name": "乐播",
@@ -270,10 +234,6 @@
   {
     "name": "速播",
     "url": "https://subocj.com/api.php/provide/vod"
-  },
-  {
-    "name": "清水源",
-    "url": "https://www.xrbsp.com/api/json.php"
   },
   {
     "name": "辣椒",
@@ -296,36 +256,8 @@
     "url": "https://cj.ffzyapi.com/api.php/provide/vod"
   },
   {
-    "name": "搜A-V",
-    "url": "https://api.souavzyw.net/api.php/provide/vod"
-  },
-  {
     "name": "建安",
     "url": "http://154.219.117.232:9981/jacloudapi.php/provide/vod"
-  },
-  {
-    "name": "樱花资源ᴴ",
-    "url": "https://yhzy.cc/api.php/provide/vod"
-  },
-  {
-    "name": "樱花",
-    "url": "https://m3u8.apiyhzy.com/api.php/provide/vod"
-  },
-  {
-    "name": "麻豆",
-    "url": "https://91md.me/api.php/provide/vod"
-  },
-  {
-    "name": "小鸡",
-    "url": "https://api.xiaojizy.live/provide/vod"
-  },
-  {
-    "name": "新极品",
-    "url": "https://jipinvip1.com/api.php/provide/vod"
-  },
-  {
-    "name": "精品X",
-    "url": "https://www.jingpinx.com/api.php/provide/vod"
   },
   {
     "name": "量子影视",
@@ -336,20 +268,8 @@
     "url": "https://haohuazy.com/api.php/provide/vod"
   },
   {
-    "name": "香系源",
-    "url": "https://www.gdlsp.com/api/json.php"
-  },
-  {
-    "name": "美少女",
-    "url": "https://www.msnii.com/api/json.php"
-  },
-  {
     "name": "360",
     "url": "https://360zy.com/api.php/provide/vod"
-  },
-  {
-    "name": "大X子",
-    "url": "https://apidanaizi.com/api.php/provide/vod"
   },
   {
     "name": "如意 (cj.rycjapi.com)",
@@ -368,10 +288,6 @@
     "url": "https://thzy1.me/api.php/provide/vod"
   },
   {
-    "name": "奶香香",
-    "url": "https://naixxzy.com/api.php/provide/vod"
-  },
-  {
     "name": "茅台",
     "url": "https://caiji.maotaizy.cc/api.php/provide/vod"
   },
@@ -382,9 +298,5 @@
   {
     "name": "茅台 (mtzy5.com)",
     "url": "https://mtzy5.com/api.php/provide/vod"
-  },
-  {
-    "name": "黑料",
-    "url": "https://heiliaozyapi.com/api.php/provide/vod"
   }
 ]
