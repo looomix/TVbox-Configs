@@ -1,19 +1,5 @@
 [
   {
-    "id": "hsckzyxyz8886",
-    "name": "黄色仓库",
-    "baseUrl": "https://hsckzy.xyz/api.php/provide/vod",
-    "group": "normal",
-    "enabled": true
-  },
-  {
-    "id": "hsckzy888com9b7e",
-    "name": "X色仓库",
-    "baseUrl": "https://hsckzy888.com/api.php/provide/vod",
-    "group": "normal",
-    "enabled": true
-  },
-  {
     "id": "jyzyapicomf2b1",
     "name": "金鹰",
     "baseUrl": "https://jyzyapi.com/provide/vod",
@@ -73,13 +59,6 @@
     "id": "hongniuzy3comef58",
     "name": "红牛 (hongniuzy3.com)",
     "baseUrl": "https://www.hongniuzy3.com/api.php/provide/vod",
-    "group": "normal",
-    "enabled": true
-  },
-  {
-    "id": "apilsbzy1comc1fa",
-    "name": "老色X",
-    "baseUrl": "https://apilsbzy1.com/api.php/provide/vod",
     "group": "normal",
     "enabled": true
   },
@@ -164,13 +143,6 @@
     "id": "mdzyapicoma70f",
     "name": "魔都",
     "baseUrl": "https://www.mdzyapi.com/api.php/provide/vod",
-    "group": "normal",
-    "enabled": true
-  },
-  {
-    "id": "apisouavzyvipa434",
-    "name": "souavZY",
-    "baseUrl": "https://api.souavzy.vip/api.php/provide/vod",
     "group": "normal",
     "enabled": true
   },
@@ -266,13 +238,6 @@
     "enabled": true
   },
   {
-    "id": "fhapi9com0001",
-    "name": "番号",
-    "baseUrl": "http://fhapi9.com/api.php/provide/vod",
-    "group": "normal",
-    "enabled": true
-  },
-  {
     "id": "apiyyzytvvip7720",
     "name": "优质库1080zyk",
     "baseUrl": "https://api.yyzy-tv.vip/inc/api_mac10.php",
@@ -364,13 +329,6 @@
     "enabled": true
   },
   {
-    "id": "xingba222com12f6",
-    "name": "杏吧 - NSFW",
-    "baseUrl": "https://xingba222.com/api.php/provide/vod",
-    "group": "normal",
-    "enabled": true
-  },
-  {
     "id": "apizuidapicom6a3b",
     "name": "最大",
     "baseUrl": "https://api.zuidapi.com/api.php/provide/vod",
@@ -381,13 +339,6 @@
     "id": "apiwsyzynet082f",
     "name": "无水印资源网采集接口",
     "baseUrl": "https://api.wsyzy.net/api.php/provide/vod",
-    "group": "normal",
-    "enabled": true
-  },
-  {
-    "id": "xingba111com649e",
-    "name": "杏吧",
-    "baseUrl": "https://xingba111.com/api.php/provide/vod",
     "group": "normal",
     "enabled": true
   },
@@ -427,13 +378,6 @@
     "enabled": true
   },
   {
-    "id": "kxgavcomba11",
-    "name": "白嫖",
-    "baseUrl": "https://www.kxgav.com/api/json.php",
-    "group": "normal",
-    "enabled": true
-  },
-  {
     "id": "bhziyuancom31e9",
     "name": "百花",
     "baseUrl": "https://bhziyuan.com/api.php/provide/vod",
@@ -444,13 +388,6 @@
     "id": "bfzyapicombda0",
     "name": "暴风",
     "baseUrl": "https://bfzyapi.com/api.php/provide/vod",
-    "group": "normal",
-    "enabled": true
-  },
-  {
-    "id": "pgxdycom1404",
-    "name": "X色A-V",
-    "baseUrl": "https://www.pgxdy.com/api/json.php",
     "group": "normal",
     "enabled": true
   },
@@ -472,13 +409,6 @@
     "id": "subocjcomf010",
     "name": "速播",
     "baseUrl": "https://subocj.com/api.php/provide/vod",
-    "group": "normal",
-    "enabled": true
-  },
-  {
-    "id": "xrbspcom047a",
-    "name": "清水源",
-    "baseUrl": "https://www.xrbsp.com/api/json.php",
     "group": "normal",
     "enabled": true
   },
@@ -518,58 +448,9 @@
     "enabled": true
   },
   {
-    "id": "apisouavzywnetd2ca",
-    "name": "搜A-V",
-    "baseUrl": "https://api.souavzyw.net/api.php/provide/vod",
-    "group": "normal",
-    "enabled": true
-  },
-  {
     "id": "1542191172327c08",
     "name": "建安",
     "baseUrl": "http://154.219.117.232:9981/jacloudapi.php/provide/vod",
-    "group": "normal",
-    "enabled": true
-  },
-  {
-    "id": "yhzycc0a51",
-    "name": "樱花资源ᴴ",
-    "baseUrl": "https://yhzy.cc/api.php/provide/vod",
-    "group": "normal",
-    "enabled": true
-  },
-  {
-    "id": "m3u8apiyhzycom2a08",
-    "name": "樱花",
-    "baseUrl": "https://m3u8.apiyhzy.com/api.php/provide/vod",
-    "group": "normal",
-    "enabled": true
-  },
-  {
-    "id": "91mdme0c4f",
-    "name": "麻豆",
-    "baseUrl": "https://91md.me/api.php/provide/vod",
-    "group": "normal",
-    "enabled": true
-  },
-  {
-    "id": "apixiaojizylive5d90",
-    "name": "小鸡",
-    "baseUrl": "https://api.xiaojizy.live/provide/vod",
-    "group": "normal",
-    "enabled": true
-  },
-  {
-    "id": "jipinvip1com390b",
-    "name": "新极品",
-    "baseUrl": "https://jipinvip1.com/api.php/provide/vod",
-    "group": "normal",
-    "enabled": true
-  },
-  {
-    "id": "jingpinxcom5648",
-    "name": "精品X",
-    "baseUrl": "https://www.jingpinx.com/api.php/provide/vod",
     "group": "normal",
     "enabled": true
   },
@@ -588,30 +469,9 @@
     "enabled": true
   },
   {
-    "id": "gdlspcom0a36",
-    "name": "香系源",
-    "baseUrl": "https://www.gdlsp.com/api/json.php",
-    "group": "normal",
-    "enabled": true
-  },
-  {
-    "id": "msniicom6305",
-    "name": "美少女",
-    "baseUrl": "https://www.msnii.com/api/json.php",
-    "group": "normal",
-    "enabled": true
-  },
-  {
     "id": "360zycomc15c",
     "name": "360",
     "baseUrl": "https://360zy.com/api.php/provide/vod",
-    "group": "normal",
-    "enabled": true
-  },
-  {
-    "id": "apidanaizicom93f8",
-    "name": "大X子",
-    "baseUrl": "https://apidanaizi.com/api.php/provide/vod",
     "group": "normal",
     "enabled": true
   },
@@ -644,13 +504,6 @@
     "enabled": true
   },
   {
-    "id": "naixxzycomcd03",
-    "name": "奶香香",
-    "baseUrl": "https://naixxzy.com/api.php/provide/vod",
-    "group": "normal",
-    "enabled": true
-  },
-  {
     "id": "caijimaotaizycc4b5e",
     "name": "茅台",
     "baseUrl": "https://caiji.maotaizy.cc/api.php/provide/vod",
@@ -668,13 +521,6 @@
     "id": "mtzy5com3e9f",
     "name": "茅台 (mtzy5.com)",
     "baseUrl": "https://mtzy5.com/api.php/provide/vod",
-    "group": "normal",
-    "enabled": true
-  },
-  {
-    "id": "heiliaozyapicom57f4",
-    "name": "黑料",
-    "baseUrl": "https://heiliaozyapi.com/api.php/provide/vod",
     "group": "normal",
     "enabled": true
   }
