@@ -159,6 +159,11 @@ func join(api, query string) string {
 // first. Many CMS deployments accept only a subset of them (search disabled,
 // videolist only, xml by default), so trying several is what stops a healthy
 // station from being called dead.
+//
+// The keyword query is tried first on purpose: a station that answers it really
+// does support search, which is what the published "searchable" flag claims. A
+// listing-only station falls through to the plain shapes and is reported as not
+// searchable instead of every site being advertised as searchable.
 func variants(api string) []string {
 	base := strings.TrimSpace(api)
 	if base == "" {
@@ -179,8 +184,8 @@ func variants(api string) []string {
 	base = strings.TrimRight(clean.String(), "/")
 
 	out := []string{
-		join(base, "ac=detail&pg=1"),
 		join(base, "wd="+url.QueryEscape(keywords[0])+"&ac=detail"),
+		join(base, "ac=detail&pg=1"),
 		join(base, "ac=videolist&pg=1"),
 		join(base, "ac=detail&pg=1&at=json"),
 		base,
@@ -340,7 +345,10 @@ func judgeItems(list []item) outcome {
 	if playable == 0 {
 		return outcome{kind: "limited", reason: ReasonNoPlay, rank: 5, vods: len(list)}
 	}
-	return outcome{kind: "ok", reason: "", rank: 6, vods: len(list), search: 1}
+	// search stays 0 here: only the caller knows whether this response answered
+	// a keyword query or a plain listing. Setting it unconditionally made every
+	// published site claim "searchable", which hides sites with search disabled.
+	return outcome{kind: "ok", reason: "", rank: 6, vods: len(list)}
 }
 
 // fetchOnce performs one request. Certificate failures are retried once with
@@ -408,8 +416,9 @@ func do(c *http.Client, ctx context.Context, target string) (*http.Response, err
 // order and stops at the first usable one. A non-zero deadline stops the
 // remaining requests, so a loose budget is never overshot by a single source.
 func Verify(c *http.Client, api string, deadline time.Time) Result {
+	// An empty address is a broken record, not a station that refused to serve.
 	if strings.TrimSpace(api) == "" {
-		return Result{State: "down", Reason: ReasonBadURL}
+		return Result{State: "limited", Reason: ReasonBadURL}
 	}
 	start := time.Now()
 	if deadline.IsZero() || deadline.After(start.Add(perSourceCap)) {
@@ -420,6 +429,7 @@ func Verify(c *http.Client, api string, deadline time.Time) Result {
 	var best outcome
 	found := false
 	unreachable := 0
+	serverHits := 0
 	for _, target := range candidates(api) {
 		if time.Now().After(deadline) {
 			break
@@ -431,26 +441,35 @@ func Verify(c *http.Client, api string, deadline time.Time) Result {
 		if o.kind == "ok" {
 			return finalize(o)
 		}
-		// 同一个目标的连续网络层失败（DNS/证书/超时）换请求形态也不会有
-		// 不同结果，确认两次后收手，把预算留给其他源。
-		if o.kind == "unreachable" {
+		if o.kind == "server" {
+			serverHits++
+		}
+		// 连续的网络层失败（DNS/证书/超时）说明换请求形态也没用，确认两次
+		// 后收手，把预算留给其他源。关键词请求走的是站点的搜索代码路径，
+		// 慢或挂住不代表列表也取不到，所以它不参与这个计数。
+		if o.kind == "unreachable" && !strings.Contains(target, "wd=") {
 			unreachable++
 			if unreachable >= 2 {
 				break
 			}
-		} else {
+		} else if o.kind != "unreachable" {
 			unreachable = 0
 		}
 	}
 	if !found {
 		return Result{State: "limited", Reason: ReasonBudget}
 	}
-	// Down is reserved for explicit refusals only.
+	// Down is reserved for explicit refusals only: the endpoint is gone, or the
+	// server fails on every shape we tried. A single 5xx among several shapes is
+	// usually a gateway/CDN hiccup and must not remove the source.
 	if best.kind == "notfound" {
 		return Result{State: "down", Reason: ReasonNotFound, LatencyMs: best.ms}
 	}
 	if best.kind == "server" {
-		return Result{State: "down", Reason: ReasonServer, LatencyMs: best.ms}
+		if serverHits >= 2 {
+			return Result{State: "down", Reason: ReasonServer, LatencyMs: best.ms}
+		}
+		best.kind = "limited"
 	}
 	return finalize(best)
 }
@@ -492,7 +511,10 @@ func Run(sources []model.Source, workers int, timeout time.Duration, deadline ti
 			defer wg.Done()
 			c := NewClient(timeout)
 			for j := range idx {
-				if !sources[j].Enabled || strings.TrimSpace(sources[j].API) == "" {
+				// Disabled entries are the user's own choice, so "off" is exact.
+				// An empty address stays a probe verdict (bad_url) instead of
+				// pretending the source was switched off.
+				if !sources[j].Enabled {
 					results[j] = Result{State: "off"}
 					continue
 				}
