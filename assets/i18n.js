@@ -76,7 +76,7 @@ window.TVBOX_I18N = { en: {
   "还没有源：点「＋ 新增源」逐条添加，或在上方整行粘贴多个接口地址批量导入。": "No sources yet: click \"+ Add source\" or paste multiple API URLs above to import in bulk.",
   "自动抓取 ": "Auto-fetched ",
   " 条 · 去重 ": " · deduped ",
-  " 条 · 列表按延迟从低到高；只有验证通过的源才会写进订阅；「改」需要令牌。": " · sorted by latency; only verified sources are published; \"Edit\" requires a token.",
+  " 条 · 列表按可用、未验证、失效排序，同状态内延迟从低到高；只有可用源才会写进订阅；「改」需要令牌。": " · sorted alive → unverified → dead, by latency within each group; only alive sources are published; \"Edit\" requires a token.",
   "点击接口地址可复制；「改」需要令牌。": "Click an API URL to copy; \"Edit\" requires a token.",
   "检测中": "Checking",
   "选择": "Select",
