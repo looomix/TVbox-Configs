@@ -4,8 +4,8 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>TVbox-Configs · 视频源管理</title>
-<meta name="description" content="每 7 天自动检测的可视化 TVBox / MoonTV 视频源配置，多镜像订阅地址，支持在线新增、导入、测试与删除。">
-<link rel="stylesheet" href="assets/style.css?v=20261128a">
+<meta name="description" content="TVBox / 影视仓及多种自建影视站的视频源订阅与可视化管理">
+<link rel="stylesheet" href="assets/style.css?v=20261128b">
 </head>
 <body>
 <div class="wrap">
@@ -13,32 +13,44 @@
   <header class="top">
     <div class="brand">
       <h1>TVbox-Configs</h1>
-      <p class="sub">7 天自动更新 · 自动去重 · 一个源库供全部客户端读取</p>
+      <p class="sub">自动检测 · 去重过滤 · 一处维护，多端订阅</p>
     </div>
     <div class="stats">
       <span class="pill ok" id="pillAlive">可用 —</span>
       <span class="pill warn" id="pillUnverified">未验证 —</span>
       <span class="pill bad" id="pillDead">失效 —</span>
       <span class="pill" id="pillTime">上次更新 —</span>
-      <span class="pill" id="pillToken" title="点击设置访问令牌">🔑 只读模式</span>
+      <span class="pill action" id="pillToken" title="点击设置访问令牌">🔑 只读模式</span>
     </div>
   </header>
+
+  <section class="card hero">
+    <div class="card-head">
+      <h2>快速导入</h2>
+      <span class="tag primary">TVBox / 影视仓</span>
+    </div>
+    <p class="hero-tip">把下面这条 <b>单仓配置地址</b> 填进「设置 → 配置地址」。其他客户端的文件在下方「订阅地址」中选取。</p>
+    <div class="quick-url" id="primaryUrl">https://ghproxy.net/https://raw.githubusercontent.com/looomix/TVbox-Configs/main/api/tvbox.json</div>
+    <div class="quick-actions">
+      <button class="btn primary" id="btnCopyPrimary">复制首选线路</button>
+      <button class="btn" id="btnCopyMulti">复制多仓 TXT</button>
+    </div>
+    <p class="hint">打不开时换下方同组的备用线路。若导入后首页空白，请确认没有把 MoonTV、纯文本清单或多仓入口填进单仓配置地址。</p>
+  </section>
 
   <section class="card">
     <div class="card-head">
       <h2>订阅地址</h2>
-      <button class="btn sm primary" id="btnCopyPrimary">复制 TVBox 主线路</button>
+      <span class="hint">按客户端选择，每条含 4 条线路</span>
     </div>
     <div id="mirrorGroups"></div>
-    <p class="hint"><b>重要：TVBox / 影视仓的「配置地址」只填「TVBox / 影视仓 单仓配置」那条 .json 链接</b>；同页面其他产物是 MoonTV、KVideo 等其他客户端用的，填进 TVBox 会显示空白。如果你的客户端支持多仓，可改用下方的 TXT 入口。主线路失效时换用同组的备用镜像。</p>
     <div class="inline-row">
       <span class="url" id="indexUrl">api/index.json</span>
       <button class="btn sm" data-copy="index">复制多仓入口</button>
-      <button class="btn sm" id="btnCopyMulti">复制多仓 TXT</button>
     </div>
   </section>
 
-  <section class="card">
+  <section class="card sources">
     <div class="card-head">
       <h2>视频源<span class="sub-count" id="listCount"></span></h2>
       <div class="tools">
@@ -77,14 +89,12 @@
     </div>
   </section>
 
-
   <footer>
     <a id="repoLink" href="https://github.com/looomix/TVbox-Configs" target="_blank" rel="noopener">GitHub 仓库</a>
-    · 本项目只提供配置生成工具，不承载、不代理任何第三方内容；接口与内容版权归原站点所有。
+    · 本项目只生成配置文本，不承载、不代理任何第三方内容；接口与内容版权归原站点所有。
   </footer>
 </div>
 
-<!-- 编辑 / 新增 -->
 <div class="modal" id="modalEdit">
   <div class="sheet">
     <h3 id="editTitle">新增视频源</h3>
@@ -106,16 +116,15 @@
       <button class="btn" data-close>取消</button>
       <button class="btn primary" id="btnSave">保存并发布</button>
     </div>
-    <p class="hint" id="editHint">保存会直接提交到仓库的 sources/sources.json，并在后台触发一次检测；令牌只留在本机浏览器。</p>
+    <p class="hint" id="editHint">保存会提交到 sources/sources.json，并触发一次检测；令牌只留在本机浏览器。</p>
   </div>
 </div>
 
-<!-- 令牌 -->
 <div class="modal" id="modalToken">
   <div class="sheet">
     <h3>GitHub 访问令牌</h3>
-    <label><span>Personal access token（仅本机浏览器保存）</span><input class="input" id="fToken" type="password" placeholder="ghp_… 或 github_pat_…"></label>
-    <p class="hint">建议使用 fine-grained token，只授权本仓库的 <b>Contents: Read and write</b> 与 <b>Actions: Read and write</b> 权限。令牌只写入浏览器本地存储，不会上传到别处。</p>
+    <label><span>Personal access token（仅本机浏览器保存）</span><input class="input" id="fToken" type="password" placeholder="github_pat_…"></label>
+    <p class="hint">建议 fine-grained token，仅授权本仓库的 <b>Contents: Read and write</b> 与 <b>Actions: Read and write</b>。令牌只写入浏览器本地存储。</p>
     <div class="sheet-actions">
       <button class="btn" id="btnTokenClear">清除令牌</button>
       <button class="btn" data-close>取消</button>
@@ -126,6 +135,6 @@
 </div>
 
 <div class="toast" id="toast"></div>
-<script src="assets/app.js?v=20261128a"></script>
+<script src="assets/app.js?v=20261128b"></script>
 </body>
 </html>
