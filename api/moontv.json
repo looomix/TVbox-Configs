@@ -17,10 +17,6 @@
       "name": "360 (360zyzz.com)",
       "api": "https://360zyzz.com/api.php/provide/vod"
     },
-    "91mdme0c4f": {
-      "name": "麻豆",
-      "api": "https://91md.me/api.php/provide/vod"
-    },
     "aosikazycomf568": {
       "name": "奥斯卡",
       "api": "https://aosikazy.com/api.php/provide/vod"
@@ -32,10 +28,6 @@
     "api1080zykucome686": {
       "name": "1080资源库",
       "api": "https://api.1080zyku.com/inc/api_mac10.php"
-    },
-    "apidanaizicom93f8": {
-      "name": "大X子",
-      "api": "https://apidanaizi.com/api.php/provide/vod"
     },
     "apiddapicce1a7": {
       "name": "滴滴",
@@ -57,10 +49,6 @@
       "name": "辣椒",
       "api": "https://apilj.com/api.php/provide/vod"
     },
-    "apilsbzy1comc1fa": {
-      "name": "老色X",
-      "api": "https://apilsbzy1.com/api.php/provide/vod"
-    },
     "apimaoyanapitopd5a0": {
       "name": "猫眼",
       "api": "https://api.maoyanapi.top/api.php/provide/vod"
@@ -72,14 +60,6 @@
     "apiokzywnet469a": {
       "name": "OK (api.okzyw.net)",
       "api": "https://api.okzyw.net/api.php/provide/vod"
-    },
-    "apisouavzyvipa434": {
-      "name": "souavZY",
-      "api": "https://api.souavzy.vip/api.php/provide/vod"
-    },
-    "apisouavzywnetd2ca": {
-      "name": "搜A-V",
-      "api": "https://api.souavzyw.net/api.php/provide/vod"
     },
     "apiukuapi88coma4de": {
       "name": "U酷影视",
@@ -112,10 +92,6 @@
     "apiwujinapineta633": {
       "name": "无尽资源3",
       "api": "https://api.wujinapi.net/api.php/provide/vod"
-    },
-    "apixiaojizylive5d90": {
-      "name": "小鸡",
-      "api": "https://api.xiaojizy.live/provide/vod"
     },
     "apixinlangapicom94e2": {
       "name": "新浪 (api.xinlangapi.com)",
@@ -201,25 +177,13 @@
       "name": "非凡 (ffzy5.tv)",
       "api": "https://ffzy5.tv/api.php/provide/vod"
     },
-    "fhapi9com0001": {
-      "name": "番号",
-      "api": "http://fhapi9.com/api.php/provide/vod"
-    },
     "fqzyme981d": {
       "name": "番茄",
       "api": "https://fqzy.me/api.php/provide/vod"
     },
-    "gdlspcom0a36": {
-      "name": "香系源",
-      "api": "https://www.gdlsp.com/api/json.php"
-    },
     "haohuazycomb089": {
       "name": "豪华 (haohuazy.com)",
       "api": "https://haohuazy.com/api.php/provide/vod"
-    },
-    "heiliaozyapicom57f4": {
-      "name": "黑料",
-      "api": "https://heiliaozyapi.com/api.php/provide/vod"
     },
     "hhzyapicom7ebb": {
       "name": "豪华",
@@ -232,14 +196,6 @@
     "hongniuzy3comef58": {
       "name": "红牛 (hongniuzy3.com)",
       "api": "https://www.hongniuzy3.com/api.php/provide/vod"
-    },
-    "hsckzy888com9b7e": {
-      "name": "X色仓库",
-      "api": "https://hsckzy888.com/api.php/provide/vod"
-    },
-    "hsckzyxyz8886": {
-      "name": "黄色仓库",
-      "api": "https://hsckzy.xyz/api.php/provide/vod"
     },
     "huyaapicom61c4": {
       "name": "虎牙 (huyaapi.com)",
@@ -257,17 +213,9 @@
       "name": "爱奇艺",
       "api": "https://iqiyizyapi.com/api.php/provide/vod"
     },
-    "jingpinxcom5648": {
-      "name": "精品X",
-      "api": "https://www.jingpinx.com/api.php/provide/vod"
-    },
     "jinyingzycom6922": {
       "name": "金鹰点播",
       "api": "https://jinyingzy.com/api.php/provide/vod"
-    },
-    "jipinvip1com390b": {
-      "name": "新极品",
-      "api": "https://jipinvip1.com/api.php/provide/vod"
     },
     "jkunzyapicomdb76": {
       "name": "JKUN",
@@ -281,17 +229,9 @@
       "name": "金鹰",
       "api": "https://jyzyapi.com/provide/vod"
     },
-    "kxgavcomba11": {
-      "name": "白嫖",
-      "api": "https://www.kxgav.com/api/json.php"
-    },
     "lbapi9comaffa": {
       "name": "乐播",
       "api": "https://lbapi9.com/api.php/provide/vod"
-    },
-    "m3u8apiyhzycom2a08": {
-      "name": "樱花",
-      "api": "https://m3u8.apiyhzy.com/api.php/provide/vod"
     },
     "maoyanzycom4e80": {
       "name": "猫眼 (maoyanzy.com)",
@@ -301,21 +241,9 @@
       "name": "魔都",
       "api": "https://www.mdzyapi.com/api.php/provide/vod"
     },
-    "msniicom6305": {
-      "name": "美少女",
-      "api": "https://www.msnii.com/api/json.php"
-    },
     "mtzy5com3e9f": {
       "name": "茅台 (mtzy5.com)",
       "api": "https://mtzy5.com/api.php/provide/vod"
-    },
-    "naixxzycomcd03": {
-      "name": "奶香香",
-      "api": "https://naixxzy.com/api.php/provide/vod"
-    },
-    "pgxdycom1404": {
-      "name": "X色A-V",
-      "api": "https://www.pgxdy.com/api/json.php"
     },
     "sdzyapicom1e71": {
       "name": "闪电 (sdzyapi.com)",
@@ -361,25 +289,9 @@
       "name": "天涯影视",
       "api": "https://tyyszy.com/api.php/provide/vod"
     },
-    "xingba111com649e": {
-      "name": "杏吧",
-      "api": "https://xingba111.com/api.php/provide/vod"
-    },
-    "xingba222com12f6": {
-      "name": "杏吧 - NSFW",
-      "api": "https://xingba222.com/api.php/provide/vod"
-    },
-    "xrbspcom047a": {
-      "name": "清水源",
-      "api": "https://www.xrbsp.com/api/json.php"
-    },
     "xsdsdzyapicom9e6a": {
       "name": "闪电",
       "api": "https://xsd.sdzyapi.com/api.php/provide/vod"
-    },
-    "yhzycc0a51": {
-      "name": "樱花资源ᴴ",
-      "api": "https://yhzy.cc/api.php/provide/vod"
     },
     "yonghuffzyapi8com493e": {
       "name": "无广1线 非凡",
