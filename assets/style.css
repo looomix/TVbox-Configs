@@ -199,7 +199,6 @@ button, input, select { font-family: inherit; }
 .dot.ok { color: var(--ok); } .dot.ok i { background: var(--ok); }
 .dot.warn { color: var(--warn); } .dot.warn i { background: var(--warn); }
 .dot.bad { color: var(--bad); } .dot.bad i { background: var(--bad); }
-.dot.off { color: var(--muted); } .dot.off i { background: #c3cbd8; }
 .spark { display: inline-flex; gap: 3px; align-items: center; }
 .spark span { width: 6px; height: 13px; border-radius: 2px; background: #e5eaf1; }
 .spark span.on { background: #b6e4d0; }
