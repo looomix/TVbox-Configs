@@ -1,2 +1,13 @@
 # TVbox-Configs 已验证视频源
-# 共 0 条，每行：名称|API|类型|状态
+# 共 11 条，每行：名称|API|类型|状态
+森林|https://beiyong.slapibf.com/api.php/provide/vod|json|verified
+155-|https://155api.com/api.php/provide/vod|json|verified
+乐播|https://lbapi9.com/api.php/provide/vod|json|verified
+豆豆|https://api.douapi.cc/api.php/provide/vod|json|verified
+滴滴|https://api.ddapi.cc/api.php/provide/vod|json|verified
+辣椒|https://apilj.com/api.php/provide/vod|json|verified
+鲨鱼|https://shayuapi.com/api.php/provide/vod|json|verified
+jkun|https://jkunzyapi.com/api.php/provide/vod|json|verified
+桃花|https://thzy1.me/api.php/provide/vod|json|verified
+奥斯卡|https://aosikazy.com/api.php/provide/vod|json|verified
+玉兔|https://apiyutu.com/api.php/provide/vod|json|verified
