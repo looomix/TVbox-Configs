@@ -12,13 +12,9 @@ Aggregates video API endpoints from public lists, probes and deduplicates them, 
 
 - [Quick start](#quick-start)
 - [Features](#features)
-- [Verdict rules](#verdict-rules)
-- [Subscription URLs](#subscription-urls)
 - [Client matrix](#client-matrix)
 - [Self-host](#self-host)
 - [Admin page](#admin-page)
-- [Command line](#command-line)
-- [File map](#file-map)
 - [Disclaimer](#disclaimer)
 
 ---
@@ -49,7 +45,7 @@ If it fails, try the backups in order:
 | Capability | Details |
 | :-- | :-- |
 | Auto aggregation | Fetches endpoints from public lists and manual entries, verifying each against a real CMS list response |
-| Quality filtering | Probes and deduplicates sources; only verified ones are published, with the last 8 check results kept |
+| Quality checks | Probes and deduplicates sources; only verified ones are published, with the last 8 check results kept |
 | Multi-client | One source list feeds TVBox / YSC, MoonTV family, OuonnkiTV / KVideo / LibreTV and plain-text output |
 | Visual admin | Static page for add, bulk import, test, edit and delete, with language switcher, badges and probe summary |
 | Cloud generation | Page writes `sources/sources.json`; GitHub Actions regenerates and publishes automatically |
@@ -57,27 +53,7 @@ If it fails, try the backups in order:
 
 ---
 
-## Verdict rules
-
-Probes run on GitHub Actions (an overseas datacenter), which is not your local network. The verdict is therefore conservative: **a source is only marked dead when the site explicitly refuses to serve it; network-level failures never count as dead.**
-
-| State | Condition | Published |
-| :-- | :-- | :-- |
-| Alive | A valid vod list with at least one playable link | Yes |
-| Unverified | Host reachable, but no usable list: not an API, empty list, no playable link, 403/rate limit, DNS/TLS/timeout/connection error | No |
-| Dead | The site explicitly refuses: HTTP 404/410, or every request shape of the endpoint returns 5xx | No |
-
-Each endpoint is tried with a keyword search, `?ac=detail&pg=1`, `?ac=videolist&pg=1`, a forced JSON request and the bare address; both JSON and Apple CMS XML are understood; certificate errors get one insecure retry; proxy endpoints (`?url=…`) receive the parameters inside the target URL. The keyword query comes first, so the published `searchable` flag reflects real search support — listing-only stations are flagged 0 instead of everything being flagged 1.
-
-**Unverified does not mean dead**: geo blocking, cross-border latency and broken certificates can stop the probe while the source still works for you. Hover the state badge to see the exact reason.
-
----
-
-## Subscription URLs
-
-All sources are Apple CMS `provide/vod` endpoints marked `type 1` (no jar plugin). TVBox and YSC share the same URL. Multi-repo clients can use `api/tvbox.txt`; the full entry index is `api/index.json`.
-
-### Client matrix
+## Client matrix
 
 | File | Clients | How to import |
 | :-- | :-- | :-- |
@@ -87,7 +63,7 @@ All sources are Apple CMS `provide/vod` endpoints marked `type 1` (no jar plugin
 | `api/sources.txt` | Clients accepting a plain `name\|API` list | Plain text |
 | `api/tvbox.txt` | Multi-repo TVBox / YSC | Multi-repo TXT index |
 
-> `api/status.json`, `api/mirror.json`, `api/index.json` and `api/probe.json` are internal data — **do not** paste them into a client's config URL. Check for leading/trailing spaces, and delete the old config before re-importing to clear cache.
+> `api/status.json`, `api/mirror.json`, `api/index.json` and `api/probe.json` are internal data — **do not** paste them into a client's config URL.
 
 ---
 
@@ -114,35 +90,6 @@ All sources are Apple CMS `provide/vod` endpoints marked `type 1` (no jar plugin
 | Self-host | Fork → Actions → Pages checklist |
 
 Feed URLs are a one-shot import queue: the cloud fetches and merges them, then removes them from `sources/feeds.json`; deleting all sources clears the queue too. The page writes `sources/sources.json` and the cloud regenerates subscriptions. Without a token the page is read-only for browsing and testing.
-
----
-
-## Command line
-
-```bash
-go build -o bin/tvboxgen ./cmd/tvboxgen
-
-./bin/tvboxgen -force                 # generate immediately (ignore the 7-day interval)
-./bin/tvboxgen -feed-only             # merge feeds only, no probing
-./bin/tvboxgen -probe=<endpoint>      # test a single endpoint
-```
-
-Common flags: `-workers` (parallel probes), `-timeout` (per-request timeout), `-budget` (total run cap), `-interval` (minimum update gap), `-history` (check points kept). Probing relies on real CMS list responses; only `ok` sources enter subscriptions.
-
----
-
-## File map
-
-| Path | Purpose |
-| :-- | :-- |
-| `sources/sources.json` | Master source list (includes the deletion blocklist) |
-| `sources/feeds.json` | One-shot feed import queue, cleared after fetching |
-| `api/tvbox.json` / `moontv.json` / `list.json` | Per-client subscription configs |
-| `api/sources.txt` / `tvbox.txt` | Plain-text list / multi-repo index |
-| `api/status.json` / `mirror.json` / `index.json` / `probe.json` | Status, route index and probe result (internal) |
-| `index.html` + `assets/` | Static admin page (HTML / styles / logic / i18n dictionary) |
-| `cmd/tvboxgen` + `internal/` | Go generator and internal packages |
-| `.github/workflows/` | Cloud generation and single-source probe workflows |
 
 ---
 
