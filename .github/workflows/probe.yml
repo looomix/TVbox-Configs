@@ -36,7 +36,7 @@ jobs:
       - name: Probe
         env:
           TARGET: ${{ inputs.url }}
-        run: ./bin/tvboxgen -probe="$TARGET" -probe-out=api/probe.json -timeout=10s
+        run: ./bin/tvboxgen -probe="$TARGET" -probe-out=api/probe.json -timeout=12s
 
       - name: Commit result
         run: |
