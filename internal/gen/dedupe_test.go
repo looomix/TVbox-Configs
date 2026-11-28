@@ -8,14 +8,14 @@ import (
 
 func TestNormalizeAPI(t *testing.T) {
 	cases := []struct{ raw, want string }{
-		{"https://www.360zy.com/api.php/provide/vod", "360zy.com/api.php/provide/vod"},
-		{"https://360zy.com/api.php/provide/vod/at/xml", "360zy.com/api.php/provide/vod"},
-		{"https://360zy.com/API.php/provide/vod/", "360zy.com/api.php/provide/vod"},
-		{"http://360zy.com:8080/api.php/provide/vod?ac=detail", "360zy.com/api.php/provide/vod"},
-		{"https://360zy.com/api.php/vod2", "360zy.com/api.php/vod2"},
-		{"https://360zy.com/inc/api.php", "360zy.com/inc/api.php"},
+		{"https://www.360zy.com/api.php/provide/vod", "360zy.com/provide/vod"},
+		{"https://360zy.com/api.php/provide/vod/at/xml", "360zy.com/provide/vod"},
+		{"https://360zy.com/API.php/provide/vod/", "360zy.com/provide/vod"},
+		{"http://360zy.com:8080/api.php/provide/vod?ac=detail", "360zy.com/provide/vod"},
+		{"https://360zy.com/api.php/vod2", "360zy.com/vod2"},
+		{"https://360zy.com/inc/api.php", "360zy.com/inc"},
 		{"https://360zy.com/", "360zy.com"},
-		{"https://proxy.example.com/api?url=https://a.com/api.php/provide/vod", "proxy.example.com|a.com/api.php/provide/vod"},
+		{"https://proxy.example.com/api?url=https://a.com/api.php/provide/vod", "proxy.example.com|a.com/provide/vod"},
 		{"", ""},
 	}
 	for _, c := range cases {
