@@ -42,9 +42,6 @@ func adultText(name, api string) bool {
 // NSFW reports whether one source is labelled as an adult-only station.
 func NSFW(s model.Source) bool { return adultText(s.Name, s.API) }
 
-// StatusNSFW checks a probe status record before it is turned into a site.
-func StatusNSFW(s model.Status) bool { return adultText(s.Name, s.API) }
-
 // FilterNSFW removes adult-only stations, keeping the order and returning the
 // number of entries that were dropped.
 func FilterNSFW(list []model.Source) ([]model.Source, int) {
