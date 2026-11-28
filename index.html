@@ -5,7 +5,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>TVbox-Configs · 视频源管理</title>
 <meta name="description" content="每 7 天自动检测的可视化 TVBox / MoonTV 视频源配置，多镜像订阅地址，支持在线新增、导入、测试与删除。">
-<link rel="stylesheet" href="assets/style.css?v=20261127i">
+<link rel="stylesheet" href="assets/style.css?v=20261128a">
 </head>
 <body>
 <div class="wrap">
@@ -30,10 +30,11 @@
       <button class="btn sm primary" id="btnCopyPrimary">复制 TVBox 主线路</button>
     </div>
     <div id="mirrorGroups"></div>
-    <p class="hint">TVBox / 影视仓「设置 → 配置地址」贴 TVBox 那条；MoonTV 后台「视频源配置」可粘贴 MoonTV 那条或纯文本清单。主线路失效时换用同组的备用镜像。</p>
+    <p class="hint"><b>重要：TVBox / 影视仓的「配置地址」只填「TVBox / 影视仓 单仓配置」那条 .json 链接</b>；同页面其他产物是 MoonTV、KVideo 等其他客户端用的，填进 TVBox 会显示空白。如果你的客户端支持多仓，可改用下方的 TXT 入口。主线路失效时换用同组的备用镜像。</p>
     <div class="inline-row">
       <span class="url" id="indexUrl">api/index.json</span>
       <button class="btn sm" data-copy="index">复制多仓入口</button>
+      <button class="btn sm" id="btnCopyMulti">复制多仓 TXT</button>
     </div>
   </section>
 
@@ -125,6 +126,6 @@
 </div>
 
 <div class="toast" id="toast"></div>
-<script src="assets/app.js?v=20261127i"></script>
+<script src="assets/app.js?v=20261128a"></script>
 </body>
 </html>
