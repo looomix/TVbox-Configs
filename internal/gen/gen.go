@@ -110,9 +110,13 @@ func SitesOf(rep *model.Report) []model.Site {
 			continue
 		}
 		sites = append(sites, model.Site{
-			Key:         keyOf(s.ID, s.Name, s.API, used, false),
-			Name:        s.Name,
-			Type:        3,
+			Key: keyOf(s.ID, s.Name, s.API, used, false),
+			Name: s.Name,
+			// All sources here are Apple CMS provide/vod JSON endpoints.
+			// In TVBox, type 1 = CMS JSON API; type 3 = Spider plugin (needs a
+			// csp_* class + jar). Using 3 makes the app load these as plugins
+			// and show empty lists, so it must be 1.
+			Type:        1,
 			API:         s.API,
 			Searchable:  boolInt(s.Searchable),
 			QuickSearch: boolInt(s.Searchable),
