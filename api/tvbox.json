@@ -2,28 +2,6 @@
   "spider": "",
   "sites": [
     {
-      "key": "hsckzyxyz-8886",
-      "name": "黄色仓库",
-      "type": 3,
-      "api": "https://hsckzy.xyz/api.php/provide/vod",
-      "searchable": 1,
-      "quickSearch": 1,
-      "filterable": 1,
-      "ext": "",
-      "group": "综合"
-    },
-    {
-      "key": "hsckzy888com-9b7e",
-      "name": "X色仓库",
-      "type": 3,
-      "api": "https://hsckzy888.com/api.php/provide/vod",
-      "searchable": 1,
-      "quickSearch": 1,
-      "filterable": 1,
-      "ext": "",
-      "group": "综合"
-    },
-    {
       "key": "jyzyapicom-f2b1",
       "name": "金鹰",
       "type": 3,
@@ -116,17 +94,6 @@
       "name": "红牛 (hongniuzy3.com)",
       "type": 3,
       "api": "https://www.hongniuzy3.com/api.php/provide/vod",
-      "searchable": 1,
-      "quickSearch": 1,
-      "filterable": 1,
-      "ext": "",
-      "group": "综合"
-    },
-    {
-      "key": "apilsbzy1com-c1fa",
-      "name": "老色X",
-      "type": 3,
-      "api": "https://apilsbzy1.com/api.php/provide/vod",
       "searchable": 1,
       "quickSearch": 1,
       "filterable": 1,
@@ -259,17 +226,6 @@
       "name": "魔都",
       "type": 3,
       "api": "https://www.mdzyapi.com/api.php/provide/vod",
-      "searchable": 1,
-      "quickSearch": 1,
-      "filterable": 1,
-      "ext": "",
-      "group": "综合"
-    },
-    {
-      "key": "apisouavzyvip-a434",
-      "name": "souavZY",
-      "type": 3,
-      "api": "https://api.souavzy.vip/api.php/provide/vod",
       "searchable": 1,
       "quickSearch": 1,
       "filterable": 1,
@@ -420,17 +376,6 @@
       "group": "综合"
     },
     {
-      "key": "fhapi9com-0001",
-      "name": "番号",
-      "type": 3,
-      "api": "http://fhapi9.com/api.php/provide/vod",
-      "searchable": 1,
-      "quickSearch": 1,
-      "filterable": 1,
-      "ext": "",
-      "group": "综合"
-    },
-    {
       "key": "apiyyzy-tvvip-7720",
       "name": "优质库1080zyk",
       "type": 3,
@@ -574,17 +519,6 @@
       "group": "综合"
     },
     {
-      "key": "xingba222com-12f6",
-      "name": "杏吧 - NSFW",
-      "type": 3,
-      "api": "https://xingba222.com/api.php/provide/vod",
-      "searchable": 1,
-      "quickSearch": 1,
-      "filterable": 1,
-      "ext": "",
-      "group": "综合"
-    },
-    {
       "key": "apizuidapicom-6a3b",
       "name": "最大",
       "type": 3,
@@ -602,17 +536,6 @@
       "api": "https://api.wsyzy.net/api.php/provide/vod",
       "searchable": 0,
       "quickSearch": 0,
-      "filterable": 1,
-      "ext": "",
-      "group": "综合"
-    },
-    {
-      "key": "xingba111com-649e",
-      "name": "杏吧",
-      "type": 3,
-      "api": "https://xingba111.com/api.php/provide/vod",
-      "searchable": 1,
-      "quickSearch": 1,
       "filterable": 1,
       "ext": "",
       "group": "综合"
@@ -673,17 +596,6 @@
       "group": "综合"
     },
     {
-      "key": "kxgavcom-ba11",
-      "name": "白嫖",
-      "type": 3,
-      "api": "https://www.kxgav.com/api/json.php",
-      "searchable": 1,
-      "quickSearch": 1,
-      "filterable": 1,
-      "ext": "",
-      "group": "综合"
-    },
-    {
       "key": "bhziyuancom-31e9",
       "name": "百花",
       "type": 3,
@@ -699,17 +611,6 @@
       "name": "暴风",
       "type": 3,
       "api": "https://bfzyapi.com/api.php/provide/vod",
-      "searchable": 1,
-      "quickSearch": 1,
-      "filterable": 1,
-      "ext": "",
-      "group": "综合"
-    },
-    {
-      "key": "pgxdycom-1404",
-      "name": "X色A-V",
-      "type": 3,
-      "api": "https://www.pgxdy.com/api/json.php",
       "searchable": 1,
       "quickSearch": 1,
       "filterable": 1,
@@ -743,17 +644,6 @@
       "name": "速播",
       "type": 3,
       "api": "https://subocj.com/api.php/provide/vod",
-      "searchable": 1,
-      "quickSearch": 1,
-      "filterable": 1,
-      "ext": "",
-      "group": "综合"
-    },
-    {
-      "key": "xrbspcom-047a",
-      "name": "清水源",
-      "type": 3,
-      "api": "https://www.xrbsp.com/api/json.php",
       "searchable": 1,
       "quickSearch": 1,
       "filterable": 1,
@@ -816,87 +706,10 @@
       "group": "综合"
     },
     {
-      "key": "apisouavzywnet-d2ca",
-      "name": "搜A-V",
-      "type": 3,
-      "api": "https://api.souavzyw.net/api.php/provide/vod",
-      "searchable": 1,
-      "quickSearch": 1,
-      "filterable": 1,
-      "ext": "",
-      "group": "综合"
-    },
-    {
       "key": "154219117232-7c08",
       "name": "建安",
       "type": 3,
       "api": "http://154.219.117.232:9981/jacloudapi.php/provide/vod",
-      "searchable": 1,
-      "quickSearch": 1,
-      "filterable": 1,
-      "ext": "",
-      "group": "综合"
-    },
-    {
-      "key": "yhzycc-0a51",
-      "name": "樱花资源ᴴ",
-      "type": 3,
-      "api": "https://yhzy.cc/api.php/provide/vod",
-      "searchable": 1,
-      "quickSearch": 1,
-      "filterable": 1,
-      "ext": "",
-      "group": "综合"
-    },
-    {
-      "key": "m3u8apiyhzycom-2a08",
-      "name": "樱花",
-      "type": 3,
-      "api": "https://m3u8.apiyhzy.com/api.php/provide/vod",
-      "searchable": 0,
-      "quickSearch": 0,
-      "filterable": 1,
-      "ext": "",
-      "group": "综合"
-    },
-    {
-      "key": "91mdme-0c4f",
-      "name": "麻豆",
-      "type": 3,
-      "api": "https://91md.me/api.php/provide/vod",
-      "searchable": 1,
-      "quickSearch": 1,
-      "filterable": 1,
-      "ext": "",
-      "group": "综合"
-    },
-    {
-      "key": "apixiaojizylive-5d90",
-      "name": "小鸡",
-      "type": 3,
-      "api": "https://api.xiaojizy.live/provide/vod",
-      "searchable": 1,
-      "quickSearch": 1,
-      "filterable": 1,
-      "ext": "",
-      "group": "综合"
-    },
-    {
-      "key": "jipinvip1com-390b",
-      "name": "新极品",
-      "type": 3,
-      "api": "https://jipinvip1.com/api.php/provide/vod",
-      "searchable": 1,
-      "quickSearch": 1,
-      "filterable": 1,
-      "ext": "",
-      "group": "综合"
-    },
-    {
-      "key": "jingpinxcom-5648",
-      "name": "精品X",
-      "type": 3,
-      "api": "https://www.jingpinx.com/api.php/provide/vod",
       "searchable": 1,
       "quickSearch": 1,
       "filterable": 1,
@@ -926,43 +739,10 @@
       "group": "综合"
     },
     {
-      "key": "gdlspcom-0a36",
-      "name": "香系源",
-      "type": 3,
-      "api": "https://www.gdlsp.com/api/json.php",
-      "searchable": 1,
-      "quickSearch": 1,
-      "filterable": 1,
-      "ext": "",
-      "group": "综合"
-    },
-    {
-      "key": "msniicom-6305",
-      "name": "美少女",
-      "type": 3,
-      "api": "https://www.msnii.com/api/json.php",
-      "searchable": 1,
-      "quickSearch": 1,
-      "filterable": 1,
-      "ext": "",
-      "group": "综合"
-    },
-    {
       "key": "360zycom-c15c",
       "name": "360",
       "type": 3,
       "api": "https://360zy.com/api.php/provide/vod",
-      "searchable": 1,
-      "quickSearch": 1,
-      "filterable": 1,
-      "ext": "",
-      "group": "综合"
-    },
-    {
-      "key": "apidanaizicom-93f8",
-      "name": "大X子",
-      "type": 3,
-      "api": "https://apidanaizi.com/api.php/provide/vod",
       "searchable": 1,
       "quickSearch": 1,
       "filterable": 1,
@@ -1014,17 +794,6 @@
       "group": "综合"
     },
     {
-      "key": "naixxzycom-cd03",
-      "name": "奶香香",
-      "type": 3,
-      "api": "https://naixxzy.com/api.php/provide/vod",
-      "searchable": 0,
-      "quickSearch": 0,
-      "filterable": 1,
-      "ext": "",
-      "group": "综合"
-    },
-    {
       "key": "caijimaotaizycc-4b5e",
       "name": "茅台",
       "type": 3,
@@ -1053,17 +822,6 @@
       "api": "https://mtzy5.com/api.php/provide/vod",
       "searchable": 0,
       "quickSearch": 0,
-      "filterable": 1,
-      "ext": "",
-      "group": "综合"
-    },
-    {
-      "key": "heiliaozyapicom-57f4",
-      "name": "黑料",
-      "type": 3,
-      "api": "https://heiliaozyapi.com/api.php/provide/vod",
-      "searchable": 1,
-      "quickSearch": 1,
       "filterable": 1,
       "ext": "",
       "group": "综合"
