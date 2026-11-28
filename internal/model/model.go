@@ -54,6 +54,7 @@ type Report struct {
 	Dead          int      `json:"dead"`
 	FromFeed      int      `json:"from_feed"`
 	Deduped       int      `json:"deduped"`
+	Filtered      int      `json:"filtered"` // adult-only stations excluded by default
 	DurationMs    int64    `json:"duration_ms"`
 	Sources       []Status `json:"sources"`
 }
