@@ -102,8 +102,11 @@ func main() {
 	}
 	raw := append([]model.Source{}, sf.Sources...)
 	var ff model.FeedFile
+	var consumed []string
 	if err := gen.ReadJSON(*feedsPath, &ff); err == nil {
-		raw = append(raw, fetchFeeds(ff, *timeout, feedDeadline)...)
+		var fetched []model.Source
+		fetched, consumed = fetchFeeds(ff, *timeout, feedDeadline)
+		raw = append(raw, fetched...)
 	} else if !os.IsNotExist(err) {
 		fmt.Printf("warn: feed file %s: %v\n", *feedsPath, err)
 	}
@@ -144,6 +147,10 @@ func main() {
 	}
 	fmt.Printf("sources: %d read, %d deleted by user, %d duplicates removed, %d filtered, %d from feeds, %d to check\n",
 		len(raw), gone, dup, filtered, fromFeed, len(list))
+
+	// 订阅链接是一次性导入队列：抓取合并进 sources.json 后立刻清空。
+	// 永久保存会让文件无限累积，还会在用户删源后把同一批源重新抓回来。
+	consumeFeeds(*feedsPath, ff, consumed)
 	if *feedOnly {
 		return
 	}
@@ -220,7 +227,9 @@ func main() {
 
 // fetchFeeds downloads every enabled remote list in parallel and caps each
 // request by the remaining budget, so one slow list cannot stall the run.
-func fetchFeeds(ff model.FeedFile, timeout time.Duration, deadline time.Time) []model.Source {
+// It also returns the normalized URLs that were fetched successfully.
+func fetchFeeds(ff model.FeedFile, timeout time.Duration, deadline time.Time) ([]model.Source, []string) {
+	var consumed []string
 	// one job per normalized url: pasted lists often carry a trailing slash or
 	// repeat the same address twice
 	jobs := make([]model.Feed, 0, len(ff.Feeds))
@@ -235,13 +244,14 @@ func fetchFeeds(ff model.FeedFile, timeout time.Duration, deadline time.Time) []
 		jobs = append(jobs, f)
 	}
 	if len(jobs) == 0 {
-		return nil
+		return nil, nil
 	}
 	limit := timeout * 5
 	if limit < 10*time.Second {
 		limit = 10 * time.Second
 	}
 	results := make([][]model.Source, len(jobs))
+	fetched := make([]bool, len(jobs))
 	var wg sync.WaitGroup
 	slots := make(chan struct{}, 6)
 	for i := range jobs {
@@ -266,14 +276,50 @@ func fetchFeeds(ff model.FeedFile, timeout time.Duration, deadline time.Time) []
 			}
 			fmt.Printf("feed %s -> %d entries\n", jobs[i].Name, len(items))
 			results[i] = items
+			fetched[i] = true
 		}(i)
 	}
 	wg.Wait()
 	var out []model.Source
+	for i := range jobs {
+		if fetched[i] {
+			consumed = append(consumed, jobs[i].URL)
+		}
+	}
 	for _, r := range results {
 		out = append(out, r...)
 	}
-	return out
+	return out, consumed
+}
+
+// consumeFeeds removes successfully fetched feeds from the one-shot queue and
+// writes the rest back. Failed feeds stay so the next run can retry them; once
+// every feed is consumed the file becomes {"feeds":[]} instead of accumulating.
+func consumeFeeds(path string, ff model.FeedFile, consumed []string) {
+	if len(ff.Feeds) == 0 || len(consumed) == 0 {
+		return
+	}
+	done := make(map[string]bool, len(consumed))
+	for _, u := range consumed {
+		done[u] = true
+	}
+	left := make([]model.Feed, 0, len(ff.Feeds))
+	for _, f := range ff.Feeds {
+		if done[strings.TrimRight(strings.TrimSpace(f.URL), "/")] {
+			continue
+		}
+		left = append(left, f)
+	}
+	if len(left) == len(ff.Feeds) {
+		return
+	}
+	doc := model.FeedFile{Version: ff.Version, Feeds: left}
+	if doc.Version == 0 {
+		doc.Version = 1
+	}
+	if err := gen.WriteJSON(path, doc); err != nil {
+		fmt.Printf("warn: update %s: %v\n", path, err)
+	}
 }
 
 // repoDefaults reads the repository identity from the environment, so a fork's
