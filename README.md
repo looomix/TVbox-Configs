@@ -1,8 +1,8 @@
 # TVbox-Configs
 
 [![update](https://img.shields.io/github/actions/workflow/status/looomix/TVbox-Configs/update.yml?label=update&style=flat-square)](https://github.com/looomix/TVbox-Configs/actions/workflows/update.yml)
-[![sites](https://img.shields.io/badge/sites-75-blue?style=flat-square)](https://github.com/looomix/TVbox-Configs/blob/main/api/tvbox.json)
-[![sources](https://img.shields.io/badge/sources-119-blue?style=flat-square)](https://github.com/looomix/TVbox-Configs/blob/main/sources/sources.json)
+[![sites](https://img.shields.io/badge/sites-54-blue?style=flat-square)](https://github.com/looomix/TVbox-Configs/blob/main/api/tvbox.json)
+[![sources](https://img.shields.io/badge/sources-71-blue?style=flat-square)](https://github.com/looomix/TVbox-Configs/blob/main/sources/sources.json)
 [![links](https://img.shields.io/badge/links-25-blue?style=flat-square)](https://github.com/looomix/TVbox-Configs/blob/main/api/mirror.json)
 [![Go](https://img.shields.io/badge/Go-1.23%2B-00ADD8?logo=go&style=flat-square)](https://go.dev/)
 [![last commit](https://img.shields.io/github/last-commit/looomix/TVbox-Configs?style=flat-square)](https://github.com/looomix/TVbox-Configs/commits/main)
@@ -21,13 +21,9 @@
 
 - [快速开始](#快速开始)
 - [功能特性](#功能特性)
-- [检测规则](#检测规则)
-- [订阅地址](#订阅地址)
 - [客户端对照](#客户端对照)
 - [自己部署](#自己部署)
 - [管理页](#管理页)
-- [命令行](#命令行)
-- [文件说明](#文件说明)
 - [免责声明](#免责声明)
 
 ---
@@ -58,7 +54,7 @@ https://ghproxy.net/https://raw.githubusercontent.com/looomix/TVbox-Configs/main
 | 能力 | 说明 |
 | :-- | :-- |
 | 自动聚合 | 从公开清单与手动录入抓取接口，逐条按真实 CMS 列表返回验证 |
-| 质量过滤 | 探活、去重；仅验证通过的源进入订阅，保留最近 8 期历史 |
+| 质量校验 | 探活、去重；仅验证通过的源进入订阅，保留最近 8 期历史 |
 | 多端订阅 | 一处维护，同时输出 TVBox / 影视仓单仓、MoonTV 系、OuonnkiTV / KVideo / LibreTV、纯文本清单 |
 | 可视化管理 | 静态管理页支持新增、批量导入、测试、修改、删除，中英文切换，状态徽章与探测摘要 |
 | 云端生成 | 网页写入 `sources/sources.json` 后由 GitHub Actions 自动重新生成并发布 |
@@ -66,29 +62,7 @@ https://ghproxy.net/https://raw.githubusercontent.com/looomix/TVbox-Configs/main
 
 ---
 
-## 检测规则
-
-探测在 GitHub Actions（境外机房）执行，与你的本机网络环境不同。因此判定采取保守策略：**只有站点明确拒绝服务才标为失效，网络层不可达不会被判死。**
-
-| 状态 | 判定条件 | 进入订阅 |
-| :-- | :-- | :-- |
-| 可用 | 返回有效 vod 列表，且至少一条含可播放链接 | 是 |
-| 未验证 | 能连通，但未拿到可用列表：返回内容不是接口、空列表、无播放链接、403/限流、域名/证书/超时/连接异常 | 否 |
-| 失效 | 站点明确拒绝：HTTP 404/410，或同一接口的多种请求形态都返回 5xx | 否 |
-
-每个接口会依次尝试关键词搜索、`?ac=detail&pg=1`、`?ac=videolist&pg=1`、强制 JSON、裸地址等形态；同时支持 JSON 与苹果 CMS XML；证书异常会自动降级重试一次；`?url=` 代理形式的参数会正确写入内部目标地址。关键词搜索排在第一位，因此发布配置里的 `searchable` 标记反映的是真实可搜性——只支持列表的站点会被标成 0，而不是一律标 1。
-
-**未验证不等于失效**：跨境访问、地域限制、证书异常都会让探测端取不到数据，但你在本地仍可能正常播放。鼠标悬停状态标签可查看具体原因。
-
----
-
-## 订阅地址
-
-所有源均为苹果 CMS `provide/vod` 接口，统一标记 `type 1`（无需 jar 插件）。TVBox 与影视仓共用同一条地址。
-
-多仓客户端可用 `api/tvbox.txt`；完整入口索引见 `api/index.json`。
-
-### 客户端对照
+## 客户端对照
 
 | 文件 | 适用客户端 | 导入方式 |
 | :-- | :-- | :-- |
@@ -98,7 +72,7 @@ https://ghproxy.net/https://raw.githubusercontent.com/looomix/TVbox-Configs/main
 | `api/sources.txt` | 支持 `名称\|API` 的客户端 | 纯文本清单 |
 | `api/tvbox.txt` | 支持多仓的 TVBox / 影视仓 | 多仓 TXT 入口 |
 
-> `api/status.json`、`api/mirror.json`、`api/index.json`、`api/probe.json` 为内部数据，**不要**填进客户端配置地址。链接首尾不要有空格；改地址后删除旧配置重导入以清缓存。
+> `api/status.json`、`api/mirror.json`、`api/index.json`、`api/probe.json` 为内部数据，**不要**填进客户端配置地址。
 
 ---
 
@@ -125,35 +99,6 @@ https://ghproxy.net/https://raw.githubusercontent.com/looomix/TVbox-Configs/main
 | 自己部署 | Fork → Actions → Pages 步骤指引 |
 
 源库链接为一次性导入队列：云端抓取合并后即从 `sources/feeds.json` 移除，删空全部源时队列同步清空。网页写入 `sources/sources.json`，云端重新生成订阅。未设置令牌时为只读模式，可浏览与测试。
-
----
-
-## 命令行
-
-```bash
-go build -o bin/tvboxgen ./cmd/tvboxgen
-
-./bin/tvboxgen -force                 # 立即生成（忽略 7 天间隔）
-./bin/tvboxgen -feed-only             # 只合并源库，不探活
-./bin/tvboxgen -probe=<接口地址>       # 测试单个接口
-```
-
-常用参数：`-workers`（并发探活数）、`-timeout`（单请求超时）、`-budget`（总时长上限）、`-interval`（最小更新间隔）、`-history`（保留历史期数）。探活以真实 CMS 列表返回为准，仅 `ok` 的源进入订阅。
-
----
-
-## 文件说明
-
-| 路径 | 作用 |
-| :-- | :-- |
-| `sources/sources.json` | 源清单主数据（含删除黑名单） |
-| `sources/feeds.json` | 一次性源库导入队列，抓取后自动清空 |
-| `api/tvbox.json` / `moontv.json` / `list.json` | 各客户端订阅配置 |
-| `api/sources.txt` / `tvbox.txt` | 纯文本清单 / 多仓入口 |
-| `api/status.json` / `mirror.json` / `index.json` / `probe.json` | 运行状态、线路索引、探测结果（内部数据） |
-| `index.html` + `assets/` | 静态管理页（HTML / 样式 / 逻辑 / 中英文词典） |
-| `cmd/tvboxgen` + `internal/` | Go 生成器与内部模块 |
-| `.github/workflows/` | 云端生成与单源探测工作流 |
 
 ---
 
