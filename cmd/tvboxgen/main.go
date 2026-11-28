@@ -277,7 +277,7 @@ func fetchFeeds(ff model.FeedFile, timeout time.Duration, deadline time.Time) []
 }
 
 // repoDefaults reads the repository identity from the environment, so a fork's
-// own pages and jsDelivr links are generated instead of the upstream ones.
+// own subscription links are generated instead of the upstream ones.
 func repoDefaults() (owner, repo, branch string) {
 	owner, repo, branch = "looomix", "TVbox-Configs", "main"
 	if full := strings.TrimSpace(os.Getenv("GITHUB_REPOSITORY")); full != "" {
@@ -316,12 +316,7 @@ func writeArtifacts(outDir, owner, repo, branch string, sites []model.Site, upda
 	files := []struct{ file, kind string }{
 		{"tvbox.json", "config"},
 		{"moontv.json", "config"},
-		{"katelyatv.json", "config"},
-		{"decotv.json", "config"},
-		{"moontvplus.json", "config"},
-		{"ouonnkitv.json", "config"},
-		{"kvideo.json", "config"},
-		{"libretv.json", "config"},
+		{"list.json", "config"},
 		{"sources.txt", "text"},
 		{"tvbox.txt", "text"},
 	}
