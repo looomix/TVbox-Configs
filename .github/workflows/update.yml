@@ -21,7 +21,7 @@ concurrency:
 jobs:
   update:
     runs-on: ubuntu-latest
-    timeout-minutes: 5
+    timeout-minutes: 8
     steps:
       - name: Checkout
         uses: actions/checkout@v4
@@ -41,7 +41,7 @@ jobs:
         run: |
           REPO_NAME="${GITHUB_REPOSITORY#*/}"
           BRANCH_NAME="${GITHUB_REF_NAME:-main}"
-          ./bin/tvboxgen -force=$FORCE -workers=24 -timeout=6s -budget=45s -history=8 \
+          ./bin/tvboxgen -force=$FORCE -workers=16 -timeout=10s -budget=240s -history=8 \
             -owner="${GITHUB_REPOSITORY%%/*}" -repo="$REPO_NAME" -branch="$BRANCH_NAME"
 
       - name: Commit and push
