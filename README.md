@@ -9,7 +9,7 @@
 [![Stars](https://img.shields.io/github/stars/looomix/TVbox-Configs?style=flat-square)](https://github.com/looomix/TVbox-Configs/stargazers)
 [![license](https://img.shields.io/badge/license-MIT-green?style=flat-square)](LICENSE)
 
-从公开清单聚合视频接口，自动探活、去重、过滤，生成多客户端可直接导入的订阅配置。
+从公开清单聚合视频接口，自动探活、去重，生成多客户端可直接导入的订阅配置。
 
 [中文](README.md) · [English](README_EN.md) · [在线管理页](https://looomix.github.io/TVbox-Configs/) · [实时状态](api/status.json)
 
@@ -58,7 +58,7 @@ https://ghproxy.net/https://raw.githubusercontent.com/looomix/TVbox-Configs/main
 | 能力 | 说明 |
 | :-- | :-- |
 | 自动聚合 | 从公开清单与手动录入抓取接口，逐条按真实 CMS 列表返回验证 |
-| 质量过滤 | 探活、去重、过滤成人内容；仅验证通过的源进入订阅，保留最近 8 期历史 |
+| 质量过滤 | 探活、去重；仅验证通过的源进入订阅，保留最近 8 期历史 |
 | 多端订阅 | 一处维护，同时输出 TVBox / 影视仓单仓、MoonTV 系、OuonnkiTV / KVideo / LibreTV、纯文本清单 |
 | 可视化管理 | 静态管理页支持新增、批量导入、测试、修改、删除，中英文切换，状态徽章与探测摘要 |
 | 云端生成 | 网页写入 `sources/sources.json` 后由 GitHub Actions 自动重新生成并发布 |
@@ -136,7 +136,6 @@ go build -o bin/tvboxgen ./cmd/tvboxgen
 ./bin/tvboxgen -force                 # 立即生成（忽略 7 天间隔）
 ./bin/tvboxgen -feed-only             # 只合并源库，不探活
 ./bin/tvboxgen -probe=<接口地址>       # 测试单个接口
-./bin/tvboxgen -force -allow-nsfw     # 保留成人内容源
 ```
 
 常用参数：`-workers`（并发探活数）、`-timeout`（单请求超时）、`-budget`（总时长上限）、`-interval`（最小更新间隔）、`-history`（保留历史期数）。探活以真实 CMS 列表返回为准，仅 `ok` 的源进入订阅。
