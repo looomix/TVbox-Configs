@@ -48,7 +48,7 @@ jobs:
         run: |
           git config --local user.name "github-actions[bot]"
           git config --local user.email "41898282+github-actions[bot]@users.noreply.github.com"
-          git add api sources
+          git add -A api sources
           if git diff --staged --quiet; then
             echo "no changes, nothing to commit"
             exit 0
@@ -56,11 +56,3 @@ jobs:
           git commit -m "chore: 刷新视频源配置 $(date -u '+%Y-%m-%d %H:%M UTC')"
           git pull --rebase --autostash origin main
           git push
-
-      - name: Purge jsDelivr cache
-        if: always()
-        run: |
-          for f in api/tvbox.json api/moontv.json api/katelyatv.json api/decotv.json api/moontvplus.json api/ouonnkitv.json api/kvideo.json api/libretv.json api/sources.txt api/tvbox.txt api/status.json api/mirror.json api/index.json; do
-            curl -s --max-time 8 "https://purge.jsdelivr.net/gh/${GITHUB_REPOSITORY}@main/$f" > /dev/null &
-          done
-          wait
