@@ -110,7 +110,7 @@ func SitesOf(rep *model.Report) []model.Site {
 			continue
 		}
 		sites = append(sites, model.Site{
-			Key: keyOf(s.ID, s.Name, s.API, used, false),
+			Key:  keyOf(s.ID, s.Name, s.API, used, false),
 			Name: s.Name,
 			// All sources here are Apple CMS provide/vod JSON endpoints.
 			// In TVBox, type 1 = CMS JSON API; type 3 = Spider plugin (needs a
@@ -129,6 +129,9 @@ func SitesOf(rep *model.Report) []model.Site {
 }
 
 // TVBox builds the single-repository config consumable by TVBox / 影视仓.
+// type 1 = CMS JSON API (no jar). Both TVBox and 影视仓 share this kernel and
+// expect type 1 for Apple CMS provide/vod endpoints; type 3 means a Spider
+// plugin and needs a csp_* class + jar, so it must NOT be used here.
 func TVBox(sites []model.Site) *model.TVBox {
 	return &model.TVBox{
 		Sites:   sites,
