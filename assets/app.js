@@ -331,8 +331,7 @@
       var total = c.alive + c.unverified + failed;
       var rate = total ? Math.round(c.alive * 100 / total) : 0;
       probe.textContent = t('最近一次探测：') + c.alive + '/' + total + t(' 个源可用 (') + rate +
-        t('%)，已剔除 ') + failed + t(' 个失效地址') +
-        (st.filtered ? t(' · 过滤 ') + st.filtered + t(' 个成人内容源') : '');
+        t('%)，已剔除 ') + failed + t(' 个失效地址');
     }
   }
 
