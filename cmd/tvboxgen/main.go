@@ -38,7 +38,6 @@ func main() {
 	repo := flag.String("repo", dRepo, "github repo used for mirror urls")
 	branch := flag.String("branch", dBranch, "branch used for mirror urls")
 	feedOnly := flag.Bool("feed-only", false, "only merge feeds into sources.json, do not probe")
-	allowNSFW := flag.Bool("allow-nsfw", false, "keep adult-labelled stations in the published artifacts")
 	probeURL := flag.String("probe", "", "probe one api url only and exit")
 	probeOut := flag.String("probe-out", "", "write the single probe result to this json file")
 	flag.Parse()
@@ -127,13 +126,8 @@ func main() {
 	// one entry per endpoint: the link decides, display names are never merged
 	allList, dup := gen.Dedupe(kept)
 
-	// 过滤只在"探活 + 发布"这条链路上生效，不能写回 sources.json：
-	// 否则用户手动加的源一旦命中成人关键词就会被永久删除，-allow-nsfw 也找不回。
+	// 不做内容过滤：源是用户自己的清单，去重之后原样进入探活与发布。
 	list := allList
-	filtered := 0
-	if !*allowNSFW {
-		list, filtered = gen.FilterNSFW(allList)
-	}
 
 	fromFeed := 0
 	for _, s := range list {
@@ -152,8 +146,8 @@ func main() {
 	if changed {
 		fmt.Printf("updated %s\n", *sourcesPath)
 	}
-	fmt.Printf("sources: %d read, %d deleted by user, %d duplicates removed, %d filtered, %d from feeds, %d to check\n",
-		len(raw), gone, dup, filtered, fromFeed, len(list))
+	fmt.Printf("sources: %d read, %d deleted by user, %d duplicates removed, %d from feeds, %d to check\n",
+		len(raw), gone, dup, fromFeed, len(list))
 
 	// 订阅链接是一次性导入队列：抓取合并进 sources.json 后立刻清空。
 	// 永久保存会让文件无限累积，还会在用户删源后把同一批源重新抓回来。
@@ -177,7 +171,6 @@ func main() {
 		Total:         len(list),
 		FromFeed:      fromFeed,
 		Deduped:       dup,
-		Filtered:      filtered,
 		Sources:       make([]model.Status, 0, len(list)),
 	}
 	for i, s := range list {
