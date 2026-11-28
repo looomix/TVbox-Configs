@@ -97,11 +97,9 @@ func Dedupe(list []model.Source) ([]model.Source, int) {
 			name = HostOf(s.API)
 		}
 		lower := strings.ToLower(name)
-		if names[lower] > 0 {
-			names[lower]++
-			name = fmt.Sprintf("%s (%s)", name, HostOf(s.API))
-		} else {
-			names[lower] = 1
+		names[lower]++
+		if names[lower] > 1 {
+			name = fmt.Sprintf("%s (%s %d)", name, HostOf(s.API), names[lower])
 		}
 
 		id := strings.TrimSpace(s.ID)
