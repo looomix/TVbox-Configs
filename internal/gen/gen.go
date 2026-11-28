@@ -105,7 +105,7 @@ func SitesOf(rep *model.Report) []model.Site {
 		if s.Origin == "" {
 			s.Origin = "manual"
 		}
-		if !s.Enabled || s.State != "ok" {
+		if !s.Enabled || s.State != "ok" || StatusNSFW(s) {
 			continue
 		}
 		sites = append(sites, model.Site{
