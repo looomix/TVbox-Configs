@@ -79,8 +79,9 @@ func keyOf(id, name, api string, used map[string]bool, strict bool) string {
 	if k == "" {
 		k = "cms"
 	}
+	keyBase := k
 	for i := 2; used[k]; i++ {
-		k = fmt.Sprintf("%s%d", strings.TrimSuffix(k, fmt.Sprintf("%d", i-1)), i)
+		k = fmt.Sprintf("%s%d", keyBase, i)
 	}
 	used[k] = true
 	return k
