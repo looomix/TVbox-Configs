@@ -1,10 +1,4 @@
 {
   "version": 1,
-  "feeds": [
-    {
-      "name": "ziyuanzu.com",
-      "url": "https://www.ziyuanzu.com/download/ziyuanzu-cms-interfaces.txt",
-      "enabled": true
-    }
-  ]
+  "feeds": []
 }

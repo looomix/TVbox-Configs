@@ -1,6 +1,415 @@
 {
   "version": 1,
-  "sources": [],
+  "sources": [
+    {
+      "id": "360zycom-333a",
+      "name": "360",
+      "api": "https://360zy.com/api.php/provide/vod",
+      "group": "综合",
+      "enabled": true,
+      "origin": "feed"
+    },
+    {
+      "id": "cjyayazynet-36ff",
+      "name": "鸭鸭",
+      "api": "https://cj.yayazy.net/api.php/provide/vod",
+      "group": "综合",
+      "enabled": true,
+      "origin": "feed"
+    },
+    {
+      "id": "apiguangsuapicom-c3dd",
+      "name": "光速",
+      "api": "https://api.guangsuapi.com/api.php/provide/vod",
+      "group": "综合",
+      "enabled": true,
+      "origin": "feed"
+    },
+    {
+      "id": "tyyszyapicom-1250",
+      "name": "天涯",
+      "api": "https://tyyszyapi.com/api.php/provide/vod",
+      "group": "综合",
+      "enabled": true,
+      "origin": "feed"
+    },
+    {
+      "id": "haohuazycom-3cf6",
+      "name": "豪华",
+      "api": "https://haohuazy.com/api.php/provide/vod",
+      "group": "综合",
+      "enabled": true,
+      "origin": "feed"
+    },
+    {
+      "id": "jipinvip1com-71c5",
+      "name": "新极品",
+      "api": "https://jipinvip1.com/api.php/provide/vod",
+      "group": "综合",
+      "enabled": true,
+      "origin": "feed"
+    },
+    {
+      "id": "apiwujinapime-5b17",
+      "name": "无尽",
+      "api": "https://api.wujinapi.me/api.php/provide/vod",
+      "group": "综合",
+      "enabled": true,
+      "origin": "feed"
+    },
+    {
+      "id": "bfzyapicom-e396",
+      "name": "暴风",
+      "api": "https://bfzyapi.com/api.php/provide/vod",
+      "group": "综合",
+      "enabled": true,
+      "origin": "feed"
+    },
+    {
+      "id": "zuidazyme-e023",
+      "name": "最大",
+      "api": "http://zuidazy.me/api.php/provide/vod",
+      "group": "综合",
+      "enabled": true,
+      "origin": "feed"
+    },
+    {
+      "id": "jszyapicom-1d31",
+      "name": "极速",
+      "api": "https://jszyapi.com/api.php/provide/vod",
+      "group": "综合",
+      "enabled": true,
+      "origin": "feed"
+    },
+    {
+      "id": "iqiyizyapicom-fe5d",
+      "name": "爱奇艺",
+      "api": "https://iqiyizyapi.com/api.php/provide/vod",
+      "group": "综合",
+      "enabled": true,
+      "origin": "feed"
+    },
+    {
+      "id": "apiniuniuzyme-512b",
+      "name": "牛牛",
+      "api": "https://api.niuniuzy.me/api.php/provide/vod",
+      "group": "综合",
+      "enabled": true,
+      "origin": "feed"
+    },
+    {
+      "id": "apimaoyanapitop-d965",
+      "name": "猫眼",
+      "api": "https://api.maoyanapi.top/api.php/provide/vod",
+      "group": "综合",
+      "enabled": true,
+      "origin": "feed"
+    },
+    {
+      "id": "suonizynet-b5a2",
+      "name": "索尼",
+      "api": "https://suonizy.net/api.php/provide/vod",
+      "group": "综合",
+      "enabled": true,
+      "origin": "feed"
+    },
+    {
+      "id": "hongniuzy2com-c32e",
+      "name": "红牛",
+      "api": "http://hongniuzy2.com/api.php/provide/vod",
+      "group": "综合",
+      "enabled": true,
+      "origin": "feed"
+    },
+    {
+      "id": "mtzy5com-9196",
+      "name": "茅台",
+      "api": "https://mtzy5.com/api.php/provide/vod",
+      "group": "综合",
+      "enabled": true,
+      "origin": "feed"
+    },
+    {
+      "id": "huyazynet-1b8a",
+      "name": "虎牙",
+      "api": "https://huyazy.net/api.php/provide/vod",
+      "group": "综合",
+      "enabled": true,
+      "origin": "feed"
+    },
+    {
+      "id": "dbzytv-b83a",
+      "name": "豆瓣",
+      "api": "https://dbzy.tv/api.php/provide/vod",
+      "group": "综合",
+      "enabled": true,
+      "origin": "feed"
+    },
+    {
+      "id": "subocjcom-7ee9",
+      "name": "速播",
+      "api": "https://subocj.com/api.php/provide/vod",
+      "group": "综合",
+      "enabled": true,
+      "origin": "feed"
+    },
+    {
+      "id": "suboziyuannet-3b5c",
+      "name": "速播 (suboziyuan.net 2)",
+      "api": "https://www.suboziyuan.net/api.php/provide/vod",
+      "group": "综合",
+      "enabled": true,
+      "origin": "feed"
+    },
+    {
+      "id": "jyzyapicom-f2b1",
+      "name": "金鹰",
+      "api": "https://jyzyapi.com/provide/vod",
+      "group": "综合",
+      "enabled": true,
+      "origin": "feed"
+    },
+    {
+      "id": "ffzy5tv-0d43",
+      "name": "非凡",
+      "api": "https://ffzy5.tv/api.php/provide/vod",
+      "group": "综合",
+      "enabled": true,
+      "origin": "feed"
+    },
+    {
+      "id": "p2100net-c74a",
+      "name": "飘零影院",
+      "api": "https://p2100.net/api.php/provide/vod",
+      "group": "综合",
+      "enabled": true,
+      "origin": "feed"
+    },
+    {
+      "id": "mdzyapicom-f19e",
+      "name": "魔都",
+      "api": "https://www.mdzyapi.com/api.php/provide/vod",
+      "group": "综合",
+      "enabled": true,
+      "origin": "feed"
+    },
+    {
+      "id": "dadiapicom-c875",
+      "name": "大地",
+      "api": "https://dadiapi.com/api.php",
+      "group": "综合",
+      "enabled": true,
+      "origin": "feed"
+    },
+    {
+      "id": "ikunzyapicom-b67a",
+      "name": "爱坤",
+      "api": "https://ikunzyapi.com/api.php/provide/vod",
+      "group": "综合",
+      "enabled": true,
+      "origin": "feed"
+    },
+    {
+      "id": "slapibfcom-0dc8",
+      "name": "森林",
+      "api": "https://slapibf.com/api.php/provide/vod",
+      "group": "综合",
+      "enabled": true,
+      "origin": "feed"
+    },
+    {
+      "id": "m3u8apiyhzycom-cb88",
+      "name": "樱花",
+      "api": "https://m3u8.apiyhzy.com/api.php/provide/vod",
+      "group": "综合",
+      "enabled": true,
+      "origin": "feed"
+    },
+    {
+      "id": "xxavscom-ef06",
+      "name": "湿乐园",
+      "api": "https://xxavs.com/api.php/provide/vod",
+      "group": "综合",
+      "enabled": true,
+      "origin": "feed"
+    },
+    {
+      "id": "fqzyme-3689",
+      "name": "番茄",
+      "api": "https://fqzy.me/api.php/provide/vod",
+      "group": "综合",
+      "enabled": true,
+      "origin": "feed"
+    },
+    {
+      "id": "bhziyuancom-9ae9",
+      "name": "百花",
+      "api": "https://bhziyuan.com/api.php/provide/vod",
+      "group": "综合",
+      "enabled": true,
+      "origin": "feed"
+    },
+    {
+      "id": "xxibaozywcom-705f",
+      "name": "细胞网",
+      "api": "https://www.xxibaozyw.com/api.php/provide/vod",
+      "group": "综合",
+      "enabled": true,
+      "origin": "feed"
+    },
+    {
+      "id": "caijisemaozynet-dfe0",
+      "name": "色猫",
+      "api": "https://caiji.semaozy.net/inc/api.php",
+      "group": "综合",
+      "enabled": true,
+      "origin": "feed"
+    },
+    {
+      "id": "apivnzyzcom-f211",
+      "name": "越南",
+      "api": "https://api.vnzyz.com/api.php/provide/vod",
+      "group": "综合",
+      "enabled": true,
+      "origin": "feed"
+    },
+    {
+      "id": "xiangjiaozywcom-18d1",
+      "name": "香蕉",
+      "api": "https://www.xiangjiaozyw.com/api.php/provide/vod",
+      "group": "综合",
+      "enabled": true,
+      "origin": "feed"
+    },
+    {
+      "id": "hsckzy888com-c558",
+      "name": "X色仓库",
+      "api": "https://hsckzy888.com/api.php/provide/vod",
+      "group": "综合",
+      "enabled": true,
+      "origin": "feed"
+    },
+    {
+      "id": "apiokzycom-0b2f",
+      "name": "ok",
+      "api": "https://api.okzy.com/api.php/provide/vod",
+      "group": "综合",
+      "enabled": true,
+      "origin": "feed"
+    },
+    {
+      "id": "apiukuzycom-b0c5",
+      "name": "u酷",
+      "api": "https://api.ukuzy.com/api.php/provide/vod",
+      "group": "综合",
+      "enabled": true,
+      "origin": "feed"
+    },
+    {
+      "id": "apiyzzycom-868d",
+      "name": "优质",
+      "api": "https://api.yzzy.com/api.php/provide/vod",
+      "group": "综合",
+      "enabled": true,
+      "origin": "feed"
+    },
+    {
+      "id": "apiryzycom-9b5c",
+      "name": "如意",
+      "api": "https://api.ryzy.com/api.php/provide/vod",
+      "group": "综合",
+      "enabled": true,
+      "origin": "feed"
+    },
+    {
+      "id": "apikczycom-fdf3",
+      "name": "快车",
+      "api": "https://api.kczy.com/api.php/provide/vod",
+      "group": "综合",
+      "enabled": true,
+      "origin": "feed"
+    },
+    {
+      "id": "apixlzycom-8dd2",
+      "name": "新浪",
+      "api": "https://api.xlzy.com/api.php/provide/vod",
+      "group": "综合",
+      "enabled": true,
+      "origin": "feed"
+    },
+    {
+      "id": "apihnzy2com-c627",
+      "name": "红牛 (api.hnzy2.com 2)",
+      "api": "https://api.hnzy2.com/api.php/provide/vod",
+      "group": "综合",
+      "enabled": true,
+      "origin": "feed"
+    },
+    {
+      "id": "apijyzycom-e6cb",
+      "name": "金鹰 (api.jyzy.com 2)",
+      "api": "https://api.jyzy.com/api.php/provide/vod",
+      "group": "综合",
+      "enabled": true,
+      "origin": "feed"
+    },
+    {
+      "id": "apisdzycom-0b2f",
+      "name": "闪电",
+      "api": "https://api.sdzy.com/api.php/provide/vod",
+      "group": "综合",
+      "enabled": true,
+      "origin": "feed"
+    },
+    {
+      "id": "apiyjzycom-bd87",
+      "name": "雅集",
+      "api": "https://api.yjzy.com/api.php/provide/vod",
+      "group": "综合",
+      "enabled": true,
+      "origin": "feed"
+    },
+    {
+      "id": "apickzycom-36c4",
+      "name": "ck",
+      "api": "https://api.ckzy.com/api.php/provide/vod",
+      "group": "综合",
+      "enabled": true,
+      "origin": "feed"
+    },
+    {
+      "id": "apiapibdzycom-e19b",
+      "name": "百度云",
+      "api": "https://api.apibdzy.com/api.php/provide/vod",
+      "group": "综合",
+      "enabled": true,
+      "origin": "feed"
+    },
+    {
+      "id": "lovedannet-14a4",
+      "name": "艾旦",
+      "api": "https://lovedan.net/api.php/provide/vod",
+      "group": "综合",
+      "enabled": true,
+      "origin": "feed"
+    },
+    {
+      "id": "xrbspcom-047a",
+      "name": "清水源",
+      "api": "https://www.xrbsp.com/api/json.php",
+      "group": "综合",
+      "enabled": true,
+      "origin": "feed"
+    },
+    {
+      "id": "gdlspcom-0a36",
+      "name": "香系源",
+      "api": "https://www.gdlsp.com/api/json.php",
+      "group": "综合",
+      "enabled": true,
+      "origin": "feed"
+    }
+  ],
   "removed": [
     "lbapiby.com/provide/vod",
     "155api.com/provide/vod",

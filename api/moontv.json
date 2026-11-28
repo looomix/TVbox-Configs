@@ -1,4 +1,135 @@
 {
   "cache_time": 7200,
-  "api_site": {}
+  "api_site": {
+    "360zycom333a": {
+      "name": "360",
+      "api": "https://360zy.com/api.php/provide/vod",
+      "detail": "https://360zy.com"
+    },
+    "apiguangsuapicomc3dd": {
+      "name": "光速",
+      "api": "https://api.guangsuapi.com/api.php/provide/vod",
+      "detail": "https://api.guangsuapi.com"
+    },
+    "apimaoyanapitopd965": {
+      "name": "猫眼",
+      "api": "https://api.maoyanapi.top/api.php/provide/vod",
+      "detail": "https://api.maoyanapi.top"
+    },
+    "apiniuniuzyme512b": {
+      "name": "牛牛",
+      "api": "https://api.niuniuzy.me/api.php/provide/vod",
+      "detail": "https://api.niuniuzy.me"
+    },
+    "apivnzyzcomf211": {
+      "name": "越南",
+      "api": "https://api.vnzyz.com/api.php/provide/vod",
+      "detail": "https://api.vnzyz.com"
+    },
+    "apiwujinapime5b17": {
+      "name": "无尽",
+      "api": "https://api.wujinapi.me/api.php/provide/vod",
+      "detail": "https://api.wujinapi.me"
+    },
+    "bfzyapicome396": {
+      "name": "暴风",
+      "api": "https://bfzyapi.com/api.php/provide/vod",
+      "detail": "https://bfzyapi.com"
+    },
+    "bhziyuancom9ae9": {
+      "name": "百花",
+      "api": "https://bhziyuan.com/api.php/provide/vod",
+      "detail": "https://bhziyuan.com"
+    },
+    "cjyayazynet36ff": {
+      "name": "鸭鸭",
+      "api": "https://cj.yayazy.net/api.php/provide/vod",
+      "detail": "https://cj.yayazy.net"
+    },
+    "ffzy5tv0d43": {
+      "name": "非凡",
+      "api": "https://ffzy5.tv/api.php/provide/vod",
+      "detail": "https://ffzy5.tv"
+    },
+    "fqzyme3689": {
+      "name": "番茄",
+      "api": "https://fqzy.me/api.php/provide/vod",
+      "detail": "https://fqzy.me"
+    },
+    "haohuazycom3cf6": {
+      "name": "豪华",
+      "api": "https://haohuazy.com/api.php/provide/vod",
+      "detail": "https://haohuazy.com"
+    },
+    "hongniuzy2comc32e": {
+      "name": "红牛",
+      "api": "http://hongniuzy2.com/api.php/provide/vod",
+      "detail": "http://hongniuzy2.com"
+    },
+    "huyazynet1b8a": {
+      "name": "虎牙",
+      "api": "https://huyazy.net/api.php/provide/vod",
+      "detail": "https://huyazy.net"
+    },
+    "ikunzyapicomb67a": {
+      "name": "爱坤",
+      "api": "https://ikunzyapi.com/api.php/provide/vod",
+      "detail": "https://ikunzyapi.com"
+    },
+    "iqiyizyapicomfe5d": {
+      "name": "爱奇艺",
+      "api": "https://iqiyizyapi.com/api.php/provide/vod",
+      "detail": "https://iqiyizyapi.com"
+    },
+    "jszyapicom1d31": {
+      "name": "极速",
+      "api": "https://jszyapi.com/api.php/provide/vod",
+      "detail": "https://jszyapi.com"
+    },
+    "jyzyapicomf2b1": {
+      "name": "金鹰",
+      "api": "https://jyzyapi.com/provide/vod",
+      "detail": "https://jyzyapi.com"
+    },
+    "mdzyapicomf19e": {
+      "name": "魔都",
+      "api": "https://www.mdzyapi.com/api.php/provide/vod",
+      "detail": "https://www.mdzyapi.com"
+    },
+    "mtzy5com9196": {
+      "name": "茅台",
+      "api": "https://mtzy5.com/api.php/provide/vod",
+      "detail": "https://mtzy5.com"
+    },
+    "slapibfcom0dc8": {
+      "name": "森林",
+      "api": "https://slapibf.com/api.php/provide/vod",
+      "detail": "https://slapibf.com"
+    },
+    "subocjcom7ee9": {
+      "name": "速播",
+      "api": "https://subocj.com/api.php/provide/vod",
+      "detail": "https://subocj.com"
+    },
+    "suboziyuannet3b5c": {
+      "name": "速播 (suboziyuan.net 2)",
+      "api": "https://www.suboziyuan.net/api.php/provide/vod",
+      "detail": "https://www.suboziyuan.net"
+    },
+    "suonizynetb5a2": {
+      "name": "索尼",
+      "api": "https://suonizy.net/api.php/provide/vod",
+      "detail": "https://suonizy.net"
+    },
+    "tyyszyapicom1250": {
+      "name": "天涯",
+      "api": "https://tyyszyapi.com/api.php/provide/vod",
+      "detail": "https://tyyszyapi.com"
+    },
+    "zuidazymee023": {
+      "name": "最大",
+      "api": "http://zuidazy.me/api.php/provide/vod",
+      "detail": "http://zuidazy.me"
+    }
+  }
 }
