@@ -116,6 +116,11 @@
       "api": "https://cj.yayazy.net/api.php/provide/vod",
       "detail": "https://cj.yayazy.net"
     },
+    "dadiapicom6f2f": {
+      "name": "大地 - NSFW",
+      "api": "https://dadiapi.com/feifei",
+      "detail": "https://dadiapi.com"
+    },
     "dadiapicomc875": {
       "name": "大地",
       "api": "https://dadiapi.com/api.php",
@@ -131,6 +136,11 @@
       "api": "https://fqzy.me/api.php/provide/vod",
       "detail": "https://fqzy.me"
     },
+    "gdlspcom0a36": {
+      "name": "香系源",
+      "api": "https://www.gdlsp.com/api/json.php",
+      "detail": "https://www.gdlsp.com"
+    },
     "haohuazycom3cf6": {
       "name": "豪华",
       "api": "https://haohuazy.com/api.php/provide/vod",
@@ -145,6 +155,11 @@
       "name": "红牛",
       "api": "http://hongniuzy2.com/api.php/provide/vod",
       "detail": "http://hongniuzy2.com"
+    },
+    "hsckzy888comc558": {
+      "name": "X色仓库",
+      "api": "https://hsckzy888.com/api.php/provide/vod",
+      "detail": "https://hsckzy888.com"
     },
     "huyazynet1b8a": {
       "name": "虎牙",
@@ -166,6 +181,11 @@
       "api": "https://jinyingzy.com/api.php/provide/vod",
       "detail": "https://jinyingzy.com"
     },
+    "jipinvip1com71c5": {
+      "name": "新极品",
+      "api": "https://jipinvip1.com/api.php/provide/vod",
+      "detail": "https://jipinvip1.com"
+    },
     "jszyapicom1d31": {
       "name": "极速",
       "api": "https://jszyapi.com/api.php/provide/vod",
@@ -180,6 +200,11 @@
       "name": "艾旦",
       "api": "https://lovedan.net/api.php/provide/vod",
       "detail": "https://lovedan.net"
+    },
+    "m3u8apiyhzycomcb88": {
+      "name": "樱花",
+      "api": "https://m3u8.apiyhzy.com/api.php/provide/vod",
+      "detail": "https://m3u8.apiyhzy.com"
     },
     "mdzyapicomf19e": {
       "name": "魔都",
@@ -225,6 +250,16 @@
       "name": "天涯",
       "api": "https://tyyszyapi.com/api.php/provide/vod",
       "detail": "https://tyyszyapi.com"
+    },
+    "xingba222comb774": {
+      "name": "杏吧 - NSFW",
+      "api": "https://xingba222.com/api.php/provide/vod",
+      "detail": "https://xingba222.com"
+    },
+    "xrbspcom047a": {
+      "name": "清水源",
+      "api": "https://www.xrbsp.com/api/json.php",
+      "detail": "https://www.xrbsp.com"
     },
     "xsdsdzyapicomde41": {
       "name": "闪电 (xsd.sdzyapi.com 2)",
