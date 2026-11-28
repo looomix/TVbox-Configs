@@ -12,6 +12,7 @@ Aggregates video API endpoints from public lists, probes and deduplicates them, 
 
 - [Quick start](#quick-start)
 - [Features](#features)
+- [Verdict rules](#verdict-rules)
 - [Subscription URLs](#subscription-urls)
 - [Client matrix](#client-matrix)
 - [Self-host](#self-host)
@@ -53,6 +54,22 @@ If it fails, try the backups in order:
 | Visual admin | Static page for add, bulk import, test, edit and delete, with language switcher, badges and probe summary |
 | Cloud generation | Page writes `sources/sources.json`; GitHub Actions regenerates and publishes automatically |
 | One-shot feeds | Feed URLs are removed after being fetched and merged; failures are retried; deleting all sources clears the queue |
+
+---
+
+## Verdict rules
+
+Probes run on GitHub Actions (an overseas datacenter), which is not your local network. The verdict is therefore conservative: **a source is only marked dead when the site explicitly refuses to serve it; network-level failures never count as dead.**
+
+| State | Condition | Published |
+| :-- | :-- | :-- |
+| Alive | A valid vod list with at least one playable link | Yes |
+| Unverified | Host reachable, but no usable list: not an API, empty list, no playable link, 403/rate limit, DNS/TLS/timeout/connection error | No |
+| Dead | The site explicitly refuses: HTTP 404/410, or a persistent 5xx | No |
+
+Each endpoint is tried with `?ac=detail&pg=1`, a keyword search, `?ac=videolist&pg=1`, a forced JSON request and the bare address; both JSON and Apple CMS XML are understood; certificate errors get one insecure retry; proxy endpoints (`?url=…`) receive the parameters inside the target URL.
+
+**Unverified does not mean dead**: geo blocking, cross-border latency and broken certificates can stop the probe while the source still works for you. Hover the state badge to see the exact reason.
 
 ---
 
