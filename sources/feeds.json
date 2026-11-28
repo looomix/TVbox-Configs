@@ -1,4 +1,10 @@
 {
   "version": 1,
-  "feeds": []
+  "feeds": [
+    {
+      "name": "raw.githubusercontent.com",
+      "url": "https://raw.githubusercontent.com/looomix/tv-box/refs/heads/main/20260610.json",
+      "enabled": true
+    }
+  ]
 }
