@@ -1,21 +1,5 @@
 [
   {
-    "id": "hsckzyxyz8886",
-    "name": "黄色仓库",
-    "url": "https://hsckzy.xyz/api.php/provide/vod",
-    "detailUrl": "https://hsckzy.xyz/api.php/provide/vod",
-    "timeout": 5000,
-    "isEnabled": true
-  },
-  {
-    "id": "hsckzy888com9b7e",
-    "name": "X色仓库",
-    "url": "https://hsckzy888.com/api.php/provide/vod",
-    "detailUrl": "https://hsckzy888.com/api.php/provide/vod",
-    "timeout": 5000,
-    "isEnabled": true
-  },
-  {
     "id": "jyzyapicomf2b1",
     "name": "金鹰",
     "url": "https://jyzyapi.com/provide/vod",
@@ -84,14 +68,6 @@
     "name": "红牛 (hongniuzy3.com)",
     "url": "https://www.hongniuzy3.com/api.php/provide/vod",
     "detailUrl": "https://www.hongniuzy3.com/api.php/provide/vod",
-    "timeout": 5000,
-    "isEnabled": true
-  },
-  {
-    "id": "apilsbzy1comc1fa",
-    "name": "老色X",
-    "url": "https://apilsbzy1.com/api.php/provide/vod",
-    "detailUrl": "https://apilsbzy1.com/api.php/provide/vod",
     "timeout": 5000,
     "isEnabled": true
   },
@@ -188,14 +164,6 @@
     "name": "魔都",
     "url": "https://www.mdzyapi.com/api.php/provide/vod",
     "detailUrl": "https://www.mdzyapi.com/api.php/provide/vod",
-    "timeout": 5000,
-    "isEnabled": true
-  },
-  {
-    "id": "apisouavzyvipa434",
-    "name": "souavZY",
-    "url": "https://api.souavzy.vip/api.php/provide/vod",
-    "detailUrl": "https://api.souavzy.vip/api.php/provide/vod",
     "timeout": 5000,
     "isEnabled": true
   },
@@ -304,14 +272,6 @@
     "isEnabled": true
   },
   {
-    "id": "fhapi9com0001",
-    "name": "番号",
-    "url": "http://fhapi9.com/api.php/provide/vod",
-    "detailUrl": "http://fhapi9.com/api.php/provide/vod",
-    "timeout": 5000,
-    "isEnabled": true
-  },
-  {
     "id": "apiyyzytvvip7720",
     "name": "优质库1080zyk",
     "url": "https://api.yyzy-tv.vip/inc/api_mac10.php",
@@ -416,14 +376,6 @@
     "isEnabled": true
   },
   {
-    "id": "xingba222com12f6",
-    "name": "杏吧 - NSFW",
-    "url": "https://xingba222.com/api.php/provide/vod",
-    "detailUrl": "https://xingba222.com/api.php/provide/vod",
-    "timeout": 5000,
-    "isEnabled": true
-  },
-  {
     "id": "apizuidapicom6a3b",
     "name": "最大",
     "url": "https://api.zuidapi.com/api.php/provide/vod",
@@ -436,14 +388,6 @@
     "name": "无水印资源网采集接口",
     "url": "https://api.wsyzy.net/api.php/provide/vod",
     "detailUrl": "https://api.wsyzy.net/api.php/provide/vod",
-    "timeout": 5000,
-    "isEnabled": true
-  },
-  {
-    "id": "xingba111com649e",
-    "name": "杏吧",
-    "url": "https://xingba111.com/api.php/provide/vod",
-    "detailUrl": "https://xingba111.com/api.php/provide/vod",
     "timeout": 5000,
     "isEnabled": true
   },
@@ -488,14 +432,6 @@
     "isEnabled": true
   },
   {
-    "id": "kxgavcomba11",
-    "name": "白嫖",
-    "url": "https://www.kxgav.com/api/json.php",
-    "detailUrl": "https://www.kxgav.com/api/json.php",
-    "timeout": 5000,
-    "isEnabled": true
-  },
-  {
     "id": "bhziyuancom31e9",
     "name": "百花",
     "url": "https://bhziyuan.com/api.php/provide/vod",
@@ -508,14 +444,6 @@
     "name": "暴风",
     "url": "https://bfzyapi.com/api.php/provide/vod",
     "detailUrl": "https://bfzyapi.com/api.php/provide/vod",
-    "timeout": 5000,
-    "isEnabled": true
-  },
-  {
-    "id": "pgxdycom1404",
-    "name": "X色A-V",
-    "url": "https://www.pgxdy.com/api/json.php",
-    "detailUrl": "https://www.pgxdy.com/api/json.php",
     "timeout": 5000,
     "isEnabled": true
   },
@@ -540,14 +468,6 @@
     "name": "速播",
     "url": "https://subocj.com/api.php/provide/vod",
     "detailUrl": "https://subocj.com/api.php/provide/vod",
-    "timeout": 5000,
-    "isEnabled": true
-  },
-  {
-    "id": "xrbspcom047a",
-    "name": "清水源",
-    "url": "https://www.xrbsp.com/api/json.php",
-    "detailUrl": "https://www.xrbsp.com/api/json.php",
     "timeout": 5000,
     "isEnabled": true
   },
@@ -592,66 +512,10 @@
     "isEnabled": true
   },
   {
-    "id": "apisouavzywnetd2ca",
-    "name": "搜A-V",
-    "url": "https://api.souavzyw.net/api.php/provide/vod",
-    "detailUrl": "https://api.souavzyw.net/api.php/provide/vod",
-    "timeout": 5000,
-    "isEnabled": true
-  },
-  {
     "id": "1542191172327c08",
     "name": "建安",
     "url": "http://154.219.117.232:9981/jacloudapi.php/provide/vod",
     "detailUrl": "http://154.219.117.232:9981/jacloudapi.php/provide/vod",
-    "timeout": 5000,
-    "isEnabled": true
-  },
-  {
-    "id": "yhzycc0a51",
-    "name": "樱花资源ᴴ",
-    "url": "https://yhzy.cc/api.php/provide/vod",
-    "detailUrl": "https://yhzy.cc/api.php/provide/vod",
-    "timeout": 5000,
-    "isEnabled": true
-  },
-  {
-    "id": "m3u8apiyhzycom2a08",
-    "name": "樱花",
-    "url": "https://m3u8.apiyhzy.com/api.php/provide/vod",
-    "detailUrl": "https://m3u8.apiyhzy.com/api.php/provide/vod",
-    "timeout": 5000,
-    "isEnabled": true
-  },
-  {
-    "id": "91mdme0c4f",
-    "name": "麻豆",
-    "url": "https://91md.me/api.php/provide/vod",
-    "detailUrl": "https://91md.me/api.php/provide/vod",
-    "timeout": 5000,
-    "isEnabled": true
-  },
-  {
-    "id": "apixiaojizylive5d90",
-    "name": "小鸡",
-    "url": "https://api.xiaojizy.live/provide/vod",
-    "detailUrl": "https://api.xiaojizy.live/provide/vod",
-    "timeout": 5000,
-    "isEnabled": true
-  },
-  {
-    "id": "jipinvip1com390b",
-    "name": "新极品",
-    "url": "https://jipinvip1.com/api.php/provide/vod",
-    "detailUrl": "https://jipinvip1.com/api.php/provide/vod",
-    "timeout": 5000,
-    "isEnabled": true
-  },
-  {
-    "id": "jingpinxcom5648",
-    "name": "精品X",
-    "url": "https://www.jingpinx.com/api.php/provide/vod",
-    "detailUrl": "https://www.jingpinx.com/api.php/provide/vod",
     "timeout": 5000,
     "isEnabled": true
   },
@@ -672,34 +536,10 @@
     "isEnabled": true
   },
   {
-    "id": "gdlspcom0a36",
-    "name": "香系源",
-    "url": "https://www.gdlsp.com/api/json.php",
-    "detailUrl": "https://www.gdlsp.com/api/json.php",
-    "timeout": 5000,
-    "isEnabled": true
-  },
-  {
-    "id": "msniicom6305",
-    "name": "美少女",
-    "url": "https://www.msnii.com/api/json.php",
-    "detailUrl": "https://www.msnii.com/api/json.php",
-    "timeout": 5000,
-    "isEnabled": true
-  },
-  {
     "id": "360zycomc15c",
     "name": "360",
     "url": "https://360zy.com/api.php/provide/vod",
     "detailUrl": "https://360zy.com/api.php/provide/vod",
-    "timeout": 5000,
-    "isEnabled": true
-  },
-  {
-    "id": "apidanaizicom93f8",
-    "name": "大X子",
-    "url": "https://apidanaizi.com/api.php/provide/vod",
-    "detailUrl": "https://apidanaizi.com/api.php/provide/vod",
     "timeout": 5000,
     "isEnabled": true
   },
@@ -736,14 +576,6 @@
     "isEnabled": true
   },
   {
-    "id": "naixxzycomcd03",
-    "name": "奶香香",
-    "url": "https://naixxzy.com/api.php/provide/vod",
-    "detailUrl": "https://naixxzy.com/api.php/provide/vod",
-    "timeout": 5000,
-    "isEnabled": true
-  },
-  {
     "id": "caijimaotaizycc4b5e",
     "name": "茅台",
     "url": "https://caiji.maotaizy.cc/api.php/provide/vod",
@@ -764,14 +596,6 @@
     "name": "茅台 (mtzy5.com)",
     "url": "https://mtzy5.com/api.php/provide/vod",
     "detailUrl": "https://mtzy5.com/api.php/provide/vod",
-    "timeout": 5000,
-    "isEnabled": true
-  },
-  {
-    "id": "heiliaozyapicom57f4",
-    "name": "黑料",
-    "url": "https://heiliaozyapi.com/api.php/provide/vod",
-    "detailUrl": "https://heiliaozyapi.com/api.php/provide/vod",
     "timeout": 5000,
     "isEnabled": true
   }
