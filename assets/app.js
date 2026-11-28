@@ -219,6 +219,28 @@
     return null;
   }
 
+  // 后端 reason 码 → 可读提示。用户能看到“为什么没通过”，而不是笼统的失效。
+  var REASON_TEXT = {
+    not_api: '返回内容不是视频接口',
+    empty: '接口正常但没有内容',
+    no_playable: '有结果但没有可播放链接',
+    forbidden: '站点拒绝访问（403 或限流）',
+    http_404: '接口不存在（404）',
+    http_5xx: '站点服务器错误',
+    timeout: '连接超时',
+    dns: '域名无法解析',
+    tls: '证书异常',
+    conn: '连接被拒绝或中断',
+    budget: '本次检测未完成',
+    bad_url: '接口地址无效'
+  };
+
+  function reasonText(reason) {
+    if (!reason) return '';
+    var key = REASON_TEXT[reason];
+    return key ? t(key) : String(reason);
+  }
+
   // 只有三种对外状态：可用、未验证、失效。
   // 无探测记录、已停用、探测失败一律归为失效——它们不会进入订阅。
   function stateMeta(st) {
@@ -247,7 +269,8 @@
   function renderStats() {
     var st = state.status;
     // 以源清单为准：状态文件缺记录的源同样计入失效，保证计数与列表一致。
-    var srcs = (state.sources && state.sources.length) ? state.sources : (st ? st.sources : []);
+    // 但 status 本身没加载出来时不统计，徽章保持 "—"，避免整页误显示成全失效。
+    var srcs = st ? ((state.sources && state.sources.length) ? state.sources : st.sources) : [];
     var alive = 0, unverified = 0, dead = 0, off = 0;
     srcs.forEach(function (s) {
       var r = statusOf(s.id);
@@ -295,7 +318,8 @@
         ' · ' + t('下次 ') + fmtTime(st.next_update_at);
     }
     if (probe) {
-      var total = st.total || 0;
+      // 分母用三类之和，停用源不计入，否则可用率会被拉低。
+      var total = (st.alive || 0) + (st.unverified || 0) + (st.dead || 0) || (st.total || 0);
       var alive = st.alive || 0;
       var rate = total ? Math.round(alive * 100 / total) : 0;
       probe.textContent = t('最近一次探测：') + alive + '/' + total + t(' 个源可用 (') + rate +
@@ -434,8 +458,13 @@
         ? st2.latency_ms + ' ms' : '—';
       var res = state.results[s.id];
       var pending = state.pending[s.id];
-      var stateLabel = pending ? t('检测中') : (res ? (res.ok ? t('可用 ') + res.vods + t(' 条') : t('测试失败')) : meta.label);
-      var stateCls = pending ? 'warn' : (res ? (res.ok ? 'ok' : 'bad') : meta.cls);
+      var stateLabel = pending ? t('检测中')
+        : res ? (res.ok ? t('可用 ') + res.vods + t(' 条') : (res.state === 'limited' ? t('未验证') : t('失效')))
+          : meta.label;
+      var stateCls = pending ? 'warn'
+        : res ? (res.ok ? 'ok' : (res.state === 'limited' ? 'warn' : 'bad')) : meta.cls;
+      // 悬停显示原因：能区分“真失效”和“探测端到不了”。
+      var hint = res && !res.ok ? (res.reason ? reasonText(res.reason) : (res.note || '')) : reasonText(st2 && st2.reason);
       var auto = s.origin === 'feed';
       var checked = state.selected[s.id] ? ' checked' : '';
       return '<div class="row grid-cols" data-id="' + esc(s.id) + '">' +
@@ -443,7 +472,7 @@
         '<div class="name-cell"><div class="n"><span class="txt" title="' + esc(s.name) + '">' + esc(s.name) + '</span>' + (auto ? t('<span class="badge on">自动</span>') : '') + '</div></div>' +
         '<div class="api-cell" data-act="copy" data-url="' + esc(s.api) + t('" title="点击复制：') + esc(s.api) + '">' + esc(s.api) + '</div>' +
         '<div><span class="badge">' + esc(t(groupOf(s))) + '</span></div>' +
-        '<div class="c-state"><span class="dot ' + stateCls + '"><i></i>' + esc(stateLabel) +
+        '<div class="c-state"><span class="dot ' + stateCls + '"' + (hint ? ' title="' + esc(hint) + '"' : '') + '><i></i>' + esc(stateLabel) +
           '</span></div>' +
         '<div class="c-lat">' + lat + '</div>' +
         '<div class="c-spark">' + spark(st2 && st2.history) + '</div>' +
@@ -576,11 +605,12 @@
           var j = JSON.parse(txt);
           return { ok: true, ms: ms, vods: (j && j.list && j.list.length) || 0, via: t('直连'), state: 'ok' };
         } catch (e) {
-          return { ok: false, ms: ms, vods: 0, via: t('直连'), note: t('返回内容不是标准 CMS JSON') };
+          return { ok: false, ms: ms, vods: 0, via: t('直连'), state: 'limited', reason: 'not_api', note: t('返回内容不是标准 CMS JSON') };
         }
       });
     }).catch(function () {
-      return { ok: false, ms: Math.round(performance.now() - t0), vods: 0, via: t('直连'), note: t('跨域或网络受限') };
+      // 浏览器跨域失败只说明本机取不到，不能据此判定源失效。
+      return { ok: false, ms: Math.round(performance.now() - t0), vods: 0, via: t('直连'), state: 'limited', reason: 'conn', note: t('跨域或网络受限') };
     });
   }
 
@@ -622,7 +652,7 @@
     if (state.token) {
       if (onProgress) onProgress(t('云端检测中…（约 1 分钟）'));
       return cloudProbe(api, onProgress).then(function (d) {
-        return { ok: d.state === 'ok', ms: d.latency_ms, vods: d.vods, via: t('云端'), state: d.state };
+        return { ok: d.state === 'ok', ms: d.latency_ms, vods: d.vods, via: t('云端'), state: d.state, reason: d.reason };
       }).catch(function (err) {
         if (onProgress) onProgress(t('云端不可用，改用本机浏览器…'));
         return quickProbe(api).then(function (quick) {
@@ -647,7 +677,8 @@
       renderRows();
       toast(res.ok
         ? (t('可用，返回 ') + res.vods + t(' 条 · ') + res.ms + ' ms · ' + res.via)
-        : (t('未通过验证：') + (res.note || res.via) + ' · ' + res.ms + ' ms'));
+        : ((res.state === 'limited' ? t('未验证：') : t('失效：')) +
+           (res.reason ? reasonText(res.reason) : (res.note || res.via))));
       return res;
     }, function (err) {
       delete state.pending[id];
@@ -1158,8 +1189,10 @@
       if (!/^https?:\/\//i.test(api)) { hint.textContent = t('接口地址需以 http(s):// 开头'); hint.className = 'hint err'; return; }
       hint.className = 'hint';
       runProbe(api, function (msg) { hint.textContent = msg; }).then(function (res) {
-        hint.textContent = res.ok ? (t('可用：返回 ') + res.vods + t(' 条 · ') + res.ms + ' ms · ' + res.via)
-          : (t('未通过验证：') + (res.note || res.via) + ' · ' + res.ms + ' ms');
+        hint.textContent = res.ok
+          ? (t('可用：返回 ') + res.vods + t(' 条 · ') + res.ms + ' ms · ' + res.via)
+          : ((res.state === 'limited' ? t('未验证：') : t('失效：')) +
+             (res.reason ? reasonText(res.reason) : (res.note || res.via)));
         hint.className = 'hint ' + (res.ok ? '' : 'err');
       });
     });
