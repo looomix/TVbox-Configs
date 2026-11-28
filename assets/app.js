@@ -219,12 +219,12 @@
     return null;
   }
 
+  // 只有三种对外状态：可用、未验证、失效。
+  // 无探测记录、已停用、探测失败一律归为失效——它们不会进入订阅。
   function stateMeta(st) {
-    if (!st) return { cls: 'warn', label: t('待检测'), rank: 3 };
-    if (!st.enabled) return { cls: 'off', label: t('停用'), rank: 6 };
-    if (st.state === 'ok') return { cls: 'ok', label: t('可用'), rank: 0 };
-    if (st.state === 'limited') return { cls: 'warn', label: t('未验证'), rank: 2 };
-    return { cls: 'bad', label: t('失效'), rank: 4 };
+    if (st && st.enabled && st.state === 'ok') return { cls: 'ok', label: t('可用') };
+    if (st && st.enabled && st.state === 'limited') return { cls: 'warn', label: t('未验证') };
+    return { cls: 'bad', label: t('失效') };
   }
 
   function groupOf(s) {
@@ -246,12 +246,14 @@
 
   function renderStats() {
     var st = state.status;
-    var srcs = st ? st.sources : [];
+    // 以源清单为准：状态文件缺记录的源同样计入失效，保证计数与列表一致。
+    var srcs = (state.sources && state.sources.length) ? state.sources : (st ? st.sources : []);
     var alive = 0, unverified = 0, dead = 0, off = 0;
     srcs.forEach(function (s) {
-      if (!s.enabled) { off++; return; }
-      if (s.state === 'ok') alive++;
-      else if (s.state === 'limited') unverified++;
+      var r = statusOf(s.id);
+      if (!r || !r.enabled) { if (r && !r.enabled) off++; dead++; return; }
+      if (r.state === 'ok') alive++;
+      else if (r.state === 'limited') unverified++;
       else dead++;
     });
     $('#pillAlive').textContent = t('可用 ') + (st ? alive : '—');
@@ -385,11 +387,11 @@
       var unverified = st && st.enabled && st.state === 'limited';
       if (state.filters.state === 'alive' && !alive) return false;
       if (state.filters.state === 'unverified' && !unverified) return false;
-      if (state.filters.state === 'down' && !(st && st.enabled && st.state === 'down')) return false;
-      if (state.filters.state === 'off' && !(st && !st.enabled)) return false;
+      // 失效 = 非可用且非未验证，包含停用与无探测记录。
+      if (state.filters.state === 'down' && (alive || unverified)) return false;
       return true;
     }).sort(function (a, b) {
-      // 可达的源按延迟从低到高；连不上的沉到最后，未测过的排在它们前面
+      // 可用/未验证按延迟从低到高；失效（含停用、未记录）沉到最后
       var sa = statusOf(a.id);
       var sb = statusOf(b.id);
       var ba = latencyBucket(sa);
@@ -403,15 +405,14 @@
   }
 
   function latencyOf(st) {
-    if (st && typeof st.latency_ms === 'number' && st.latency_ms > 0) return st.latency_ms;
+    if (st && st.enabled && (st.state === 'ok' || st.state === 'limited') &&
+        typeof st.latency_ms === 'number' && st.latency_ms > 0) return st.latency_ms;
     return Infinity;
   }
 
   function latencyBucket(st) {
-    if (!st || !st.enabled) return 2;
-    if (st.state === 'ok' || st.state === 'limited') return 0;
-    if (st.state === 'down') return 2;
-    return 1;
+    if (st && st.enabled && (st.state === 'ok' || st.state === 'limited')) return 0;
+    return 1; // 失效统一沉底，不再显示/按其耗时排序
   }
 
   function renderRows() {
@@ -428,7 +429,9 @@
     $('#rows').innerHTML = list.map(function (s) {
       var st2 = statusOf(s.id);
       var meta = stateMeta(st2);
-      var lat = st2 && st2.enabled ? (st2.latency_ms > 0 ? st2.latency_ms + ' ms' : '—') : '—';
+      // 只有可用/未验证才是有意义的响应速度；失效不再显示探测耗时。
+      var lat = (st2 && st2.enabled && (st2.state === 'ok' || st2.state === 'limited') && st2.latency_ms > 0)
+        ? st2.latency_ms + ' ms' : '—';
       var res = state.results[s.id];
       var pending = state.pending[s.id];
       var stateLabel = pending ? t('检测中') : (res ? (res.ok ? t('可用 ') + res.vods + t(' 条') : t('测试失败')) : meta.label);
