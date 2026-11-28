@@ -104,9 +104,6 @@ func SitesOf(rep *model.Report) []model.Site {
 	sites := make([]model.Site, 0, len(list))
 	used := map[string]bool{}
 	for _, s := range list {
-		if s.Origin == "" {
-			s.Origin = "manual"
-		}
 		if !s.Enabled || s.State != "ok" {
 			continue
 		}
