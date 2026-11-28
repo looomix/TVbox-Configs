@@ -69,6 +69,8 @@ type payload struct {
 	List []struct {
 		Name string `json:"vod_name"`
 		Play string `json:"vod_play_url"`
+		Down string `json:"vod_down_url"`
+		URL  string `json:"vod_url"`
 	} `json:"list"`
 }
 
@@ -110,7 +112,8 @@ func fetchOnce(c *http.Client, target string, deadline time.Time) Result {
 		if strings.TrimSpace(item.Name) != "" {
 			named++
 		}
-		if strings.Contains(strings.ToLower(item.Play), "http") {
+		links := item.Play + item.Down + item.URL
+		if strings.Contains(strings.ToLower(links), "http") {
 			playable++
 		}
 	}
