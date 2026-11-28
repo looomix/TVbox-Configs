@@ -1,105 +1,57 @@
 package gen
 
-import (
-	"github.com/looomix/tvbox-configs/internal/model"
-)
+import "github.com/looomix/tvbox-configs/internal/model"
 
-// OuonnkiSite is one entry of the OuonnkiTV (LibreTV based) source list.
-type OuonnkiSite struct {
+// ClientSource is one superset entry accepted by OuonnkiTV, KVideo and LibreTV.
+// Each client reads the fields it knows and ignores the rest, so all three can
+// subscribe to the same file.
+type ClientSource struct {
 	ID        string `json:"id"`
 	Name      string `json:"name"`
 	URL       string `json:"url"`
-	DetailURL string `json:"detailUrl,omitempty"`
+	BaseURL   string `json:"baseUrl"`
+	DetailURL string `json:"detailUrl"`
 	Timeout   int    `json:"timeout"`
+	Group     string `json:"group"`
+	Enabled   bool   `json:"enabled"`
 	IsEnabled bool   `json:"isEnabled"`
 }
 
-// KVideoSite is one entry of the KVideo source list.
-type KVideoSite struct {
-	ID      string `json:"id"`
-	Name    string `json:"name"`
-	BaseURL string `json:"baseUrl"`
-	Group   string `json:"group"`
-	Enabled bool   `json:"enabled"`
-}
-
-// LibreSite is one entry of the LibreTV / LibreSpark custom api list.
-type LibreSite struct {
-	Name string `json:"name"`
-	URL  string `json:"url"`
-}
-
-// OuonnkiTV builds the list shape OuonnkiTV imports as 视频源.
-func OuonnkiTV(sites []model.Site) []OuonnkiSite {
+// ClientList builds the shared list for the three JSON-array clients.
+func ClientList(sites []model.Site) []ClientSource {
 	used := map[string]bool{}
-	out := make([]OuonnkiSite, 0, len(sites))
+	out := make([]ClientSource, 0, len(sites))
 	for _, s := range sites {
-		detail := s.API
-		out = append(out, OuonnkiSite{
+		out = append(out, ClientSource{
 			ID:        keyOf(s.Key, s.Name, s.API, used, true),
 			Name:      s.Name,
 			URL:       s.API,
-			DetailURL: detail,
+			BaseURL:   s.API,
+			DetailURL: s.API,
 			Timeout:   5000,
+			Group:     "normal",
+			Enabled:   true,
 			IsEnabled: true,
 		})
 	}
 	return out
 }
 
-// KVideo builds the list shape KVideo reads.
-func KVideo(sites []model.Site) []KVideoSite {
-	used := map[string]bool{}
-	out := make([]KVideoSite, 0, len(sites))
-	for _, s := range sites {
-		out = append(out, KVideoSite{
-			ID:      keyOf(s.Key, s.Name, s.API, used, true),
-			Name:    s.Name,
-			BaseURL: s.API,
-			Group:   "normal",
-			Enabled: true,
-		})
-	}
-	return out
-}
-
-// LibreTV builds the custom api list LibreTV / LibreSpark accepts.
-func LibreTV(sites []model.Site) []LibreSite {
-	out := make([]LibreSite, 0, len(sites))
-	for _, s := range sites {
-		out = append(out, LibreSite{Name: s.Name, URL: s.API})
-	}
-	return out
-}
-
-// Artifacts maps every published file to the client it serves. MoonTV and its
-// three rebrands (KatelyaTV / DecoTV / MoonTVPlus) share one schema, so they get
-// one file each: the url stays stable per app while the content stays identical.
+// Artifacts maps each published config file to its content. MoonTV and its
+// rebrands share one schema, and the three array clients share one list.
 func Artifacts(sites []model.Site) map[string]any {
-	moon := MoonTV(sites)
 	return map[string]any{
-		"tvbox.json":      TVBox(sites),
-		"moontv.json":     moon,
-		"katelyatv.json":  moon,
-		"decotv.json":     moon,
-		"moontvplus.json": moon,
-		"ouonnkitv.json":  OuonnkiTV(sites),
-		"kvideo.json":     KVideo(sites),
-		"libretv.json":    LibreTV(sites),
+		"tvbox.json":  TVBox(sites),
+		"moontv.json": MoonTV(sites),
+		"list.json":   ClientList(sites),
 	}
 }
 
-// Labels are the human readable titles of every artifact, used by the mirror
-// groups and the web page.
+// Labels are the human readable titles used by the web page and mirror.json.
 var Labels = map[string]string{
-	"tvbox.json":      "TVBox / 影视仓 单仓配置",
-	"moontv.json":     "MoonTV / LunaTV 视频源",
-	"katelyatv.json":  "KatelyaTV 视频源",
-	"decotv.json":     "DecoTV 视频源",
-	"moontvplus.json": "MoonTVPlus 视频源",
-	"ouonnkitv.json":  "OuonnkiTV 视频源",
-	"kvideo.json":     "KVideo 视频源",
-	"libretv.json":    "LibreTV 视频源",
-	"sources.txt":     "纯文本源清单（可粘贴导入）",
-	"tvbox.txt":       "TVBox / 影视仓 多仓 TXT 入口",
+	"tvbox.json":  "TVBox / 影视仓 单仓配置",
+	"moontv.json": "MoonTV / LunaTV / KatelyaTV / DecoTV / MoonTVPlus 视频源",
+	"list.json":   "OuonnkiTV / KVideo / LibreTV 通用源清单",
+	"sources.txt": "纯文本源清单（可粘贴导入）",
+	"tvbox.txt":   "TVBox / 影视仓 多仓 TXT 入口",
 }
