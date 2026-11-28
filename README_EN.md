@@ -49,7 +49,7 @@ If it fails, try the backups in order:
 | Capability | Details |
 | :-- | :-- |
 | Auto aggregation | Fetches endpoints from public lists and manual entries, verifying each against a real CMS list response |
-| Quality filtering | Probes, deduplicates and filters adult sources; only verified ones are published, with the last 8 check results kept |
+| Quality filtering | Probes and deduplicates sources; only verified ones are published, with the last 8 check results kept |
 | Multi-client | One source list feeds TVBox / YSC, MoonTV family, OuonnkiTV / KVideo / LibreTV and plain-text output |
 | Visual admin | Static page for add, bulk import, test, edit and delete, with language switcher, badges and probe summary |
 | Cloud generation | Page writes `sources/sources.json`; GitHub Actions regenerates and publishes automatically |
@@ -125,7 +125,6 @@ go build -o bin/tvboxgen ./cmd/tvboxgen
 ./bin/tvboxgen -force                 # generate immediately (ignore the 7-day interval)
 ./bin/tvboxgen -feed-only             # merge feeds only, no probing
 ./bin/tvboxgen -probe=<endpoint>      # test a single endpoint
-./bin/tvboxgen -force -allow-nsfw     # keep adult sources
 ```
 
 Common flags: `-workers` (parallel probes), `-timeout` (per-request timeout), `-budget` (total run cap), `-interval` (minimum update gap), `-history` (check points kept). Probing relies on real CMS list responses; only `ok` sources enter subscriptions.
