@@ -168,8 +168,14 @@
   }
 
   function loadMirrors() {
+    function clean(groups) {
+      var valid = (groups || []).filter(function (g) {
+        return g.primary && g.primary.indexOf('jsdelivr') < 0 && g.mirrors && g.mirrors.length;
+      });
+      return valid.length ? valid : defaultGroups();
+    }
     return getJSON('api/mirror.json').then(function (d) {
-      state.groups = (d && d.files && d.files.length) ? d.files : defaultGroups();
+      state.groups = clean(d && d.files);
     }).catch(function () { state.groups = defaultGroups(); });
   }
 
