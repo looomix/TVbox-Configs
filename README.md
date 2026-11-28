@@ -9,79 +9,137 @@
 [![Stars](https://img.shields.io/github/stars/looomix/TVbox-Configs?style=flat-square)](https://github.com/looomix/TVbox-Configs/stargazers)
 [![license](https://img.shields.io/badge/license-MIT-green?style=flat-square)](LICENSE)
 
-从公开来源自动聚合视频接口，生成 TVBox / 影视仓 / MoonTV 等客户端可直接导入的订阅配置。
-每 168 小时（7 天）自动探活更新 · 实时数值见[管理页](https://looomix.github.io/TVbox-Configs/)与 [`api/status.json`](api/status.json)。
-最近一次探测：75/119 个源可用（63%），剔除 34 个失效地址，过滤 23 个成人内容源。
+从公开清单聚合视频接口，自动探活、去重、过滤，生成多客户端可直接导入的订阅配置。
 
-中文 | [English](README_EN.md) | [部署](#自己部署) · [功能特性](#功能特性) · [导入地址](#导入地址) · [客户端](#其他客户端) · [免责声明](#免责声明)
+[中文](README.md) · [English](README_EN.md) · [在线管理页](https://looomix.github.io/TVbox-Configs/) · [实时状态](api/status.json)
 
-> 徽章中的 sites / sources / links 为最近一次生成的快照；实时值以管理页与 `api/status.json` 为准。
+> 徽章数值为最近一次生成快照；实时数据以管理页与 `api/status.json` 为准。
 
-## 功能特性
+---
 
-- Go 生成器 + 静态管理页：探活、去重、过滤后生成订阅，只有验证通过的源进入配置。
-- 源来自公开清单与手动录入，逐条按真实 CMS 列表返回验证，保留最近 8 期历史。
-- 默认过滤成人内容源，本地可用 `-allow-nsfw` 关闭。
-- 一处维护，多端订阅：TVBox / 影视仓单仓、MoonTV 系、OuonnkiTV / KVideo / LibreTV、纯文本清单。
-- 管理页支持新增、批量导入、测试、修改、删除源，数据写入 `sources/sources.json` 后由云端 Action 重新生成。
-- 源库链接是一次性导入队列：云端抓取后即写入 `sources/sources.json` 并从 `sources/feeds.json` 移除，失败的重试到成功为止；删空全部源时同步清空队列，不会越积越多。
-- 管理页提供中英文切换、运行状态徽章与探测摘要；订阅地址按客户端分组，每条含 5 条线路。
+## 目录
 
-## 导入地址
+- [快速开始](#快速开始)
+- [功能特性](#功能特性)
+- [订阅地址](#订阅地址)
+- [客户端对照](#客户端对照)
+- [自己部署](#自己部署)
+- [管理页](#管理页)
+- [命令行](#命令行)
+- [文件说明](#文件说明)
+- [免责声明](#免责声明)
 
-所有源都是苹果CMS `provide/vod` 接口，统一标为 `type 1`（无需 jar）。TVBox 与影视仓同源、共用这套协议，**用同一条地址**：
+---
+
+## 快速开始
+
+**只需一步**：复制下面的地址，填入 TVBox / 影视仓的「设置 → 配置地址」。
 
 ```
 https://ghproxy.net/https://raw.githubusercontent.com/looomix/TVbox-Configs/main/api/tvbox.json
 ```
 
-按顺序替换线路：
+打不开时按顺序换备用线路：
 
-```
-https://gh-proxy.org/https://raw.githubusercontent.com/looomix/TVbox-Configs/main/api/tvbox.json
-https://ghfast.top/https://raw.githubusercontent.com/looomix/TVbox-Configs/main/api/tvbox.json
-https://raw.githubusercontent.com/looomix/TVbox-Configs/main/api/tvbox.json
-https://looomix.github.io/TVbox-Configs/api/tvbox.json
-```
+| 线路 | 地址 |
+| :-- | :-- |
+| gh-proxy | `https://gh-proxy.org/https://raw.githubusercontent.com/looomix/TVbox-Configs/main/api/tvbox.json` |
+| ghfast | `https://ghfast.top/https://raw.githubusercontent.com/looomix/TVbox-Configs/main/api/tvbox.json` |
+| Raw 直连 | `https://raw.githubusercontent.com/looomix/TVbox-Configs/main/api/tvbox.json` |
+| Pages | `https://looomix.github.io/TVbox-Configs/api/tvbox.json` |
 
-影视仓导入注意：① 确认客户端版本支持「无 jar 的接口源」，过旧版本需升级；② 导入后在「仓库管理」里点选启用该仓库；③ 换地址先删除旧配置，并清缓存后重导入（影视仓默认有约 3 天缓存）；④ 若 ghproxy 提示地址无效，直接用 `raw.githubusercontent.com` 或 `looomix.github.io` 直链；⑤ 仍无法导入时，浏览器打开直链、**全选复制 JSON 文本**，在影视仓「本地导入 / 粘贴配置」里贴入，可完全绕过 URL 校验。支持多仓的客户端可用 `api/tvbox.txt`。
+**影视仓提示**：① 使用支持「无 jar 接口源」的版本；② 导入后在「仓库管理」启用该仓库；③ 换地址先删旧配置并清缓存（约 3 天缓存）；④ 若 ghproxy 被拒，改用 Raw / Pages 直链；⑤ 仍失败时，浏览器打开直链全选复制 JSON，在「本地导入 / 粘贴配置」贴入。
 
-### 其他客户端
+---
 
-| 文件 | 适用客户端 | 用法 |
+## 功能特性
+
+| 能力 | 说明 |
+| :-- | :-- |
+| 自动聚合 | 从公开清单与手动录入抓取接口，逐条按真实 CMS 列表返回验证 |
+| 质量过滤 | 探活、去重、过滤成人内容；仅验证通过的源进入订阅，保留最近 8 期历史 |
+| 多端订阅 | 一处维护，同时输出 TVBox / 影视仓单仓、MoonTV 系、OuonnkiTV / KVideo / LibreTV、纯文本清单 |
+| 可视化管理 | 静态管理页支持新增、批量导入、测试、修改、删除，中英文切换，状态徽章与探测摘要 |
+| 云端生成 | 网页写入 `sources/sources.json` 后由 GitHub Actions 自动重新生成并发布 |
+| 一次性订阅 | 源库链接抓取合并后即移除，失败项自动重试；删空全部源时队列同步清空，不会累积 |
+
+---
+
+## 订阅地址
+
+所有源均为苹果 CMS `provide/vod` 接口，统一标记 `type 1`（无需 jar 插件）。TVBox 与影视仓共用同一条地址。
+
+多仓客户端可用 `api/tvbox.txt`；完整入口索引见 `api/index.json`。
+
+### 客户端对照
+
+| 文件 | 适用客户端 | 导入方式 |
 | :-- | :-- | :-- |
-| `api/moontv.json` | MoonTV / LunaTV / KatelyaTV / DecoTV / MoonTVPlus | 在「视频源配置 / 配置文件」里**粘贴 JSON 内容**；这类项目多数不支持 URL 订阅 |
-| `api/list.json` | OuonnkiTV / KVideo / LibreTV | 源清单订阅地址（数组格式） |
-| `api/sources.txt` | 支持粘贴 `名称\|API` 清单的客户端 | 纯文本 |
-| `api/tvbox.txt` | TVBox / 影视仓多仓 TXT 入口 | 多仓导入 |
+| `api/tvbox.json` | TVBox / 影视仓 | 单仓配置地址 |
+| `api/moontv.json` | MoonTV / LunaTV / KatelyaTV / DecoTV / MoonTVPlus | 粘贴 JSON 内容（多数不支持 URL 订阅） |
+| `api/list.json` | OuonnkiTV / KVideo / LibreTV | 数组格式源清单订阅 |
+| `api/sources.txt` | 支持 `名称\|API` 的客户端 | 纯文本清单 |
+| `api/tvbox.txt` | 支持多仓的 TVBox / 影视仓 | 多仓 TXT 入口 |
 
-`api/status.json`、`api/mirror.json`、`api/index.json`、`api/probe.json` 是内部数据，**不要**填进客户端配置地址。填入前确认链接无首尾空格；TVBox 类客户端改地址后需删除旧配置重导入以清缓存。
+> `api/status.json`、`api/mirror.json`、`api/index.json`、`api/probe.json` 为内部数据，**不要**填进客户端配置地址。链接首尾不要有空格；改地址后删除旧配置重导入以清缓存。
+
+---
 
 ## 自己部署
 
-1. Fork 本仓库。
-2. 进入 **Actions**，点绿色按钮启用工作流。
+1. **Fork** 本仓库。
+2. 进入 **Actions**，启用工作流。
 3. **Settings → Pages**：Source 选 `Deploy from a branch`，Branch 选 `main`、`/ (root)`，保存。
 4. 仓库设为 **Public**；创建 fine-grained token，仅授权本仓库 `Contents: Read and write` 与 `Actions: Read and write`，在管理页「设置令牌」中填入。
-5. 在管理页新增或导入源，等待 `Update Configs` 完成；订阅链接中的用户名会自动跟随你的仓库。
+5. 在管理页新增或导入源，等待 `Update Configs` 完成。订阅链接中的用户名会自动跟随你的仓库。
+
+---
 
 ## 管理页
 
 `https://<用户名>.github.io/<仓库名>/`
 
-顶部显示运行状态徽章、更新与探测摘要，可切换中英文；按客户端分组展示订阅地址及备用线路。可新增、批量导入、测试、修改、删除源；删除记录会阻止同一接口被重新加回。源库链接为一次性导入：云端抓取合并后即从 `sources/feeds.json` 移除，删空全部源时队列同步清空，不会累积历史链接。网页写入 `sources/sources.json`，云端重新生成订阅。
+| 区域 | 用途 |
+| :-- | :-- |
+| 运行状态总览 | 查看更新/探测摘要、站点与源数量、线路数、Stars、最近提交 |
+| 快速导入 | 复制 TVBox / 影视仓首选单仓地址与多仓 TXT |
+| 订阅地址 | 按客户端分组，每条含 5 条加速/直连线路 |
+| 视频源 | 搜索、筛选、测试、编辑、删除、批量导入；删除记录阻止同一接口被重新加回 |
+| 自己部署 | Fork → Actions → Pages 步骤指引 |
+
+源库链接为一次性导入队列：云端抓取合并后即从 `sources/feeds.json` 移除，删空全部源时队列同步清空。网页写入 `sources/sources.json`，云端重新生成订阅。未设置令牌时为只读模式，可浏览与测试。
+
+---
 
 ## 命令行
 
 ```bash
 go build -o bin/tvboxgen ./cmd/tvboxgen
-./bin/tvboxgen -force                 # 立即生成
+
+./bin/tvboxgen -force                 # 立即生成（忽略 7 天间隔）
 ./bin/tvboxgen -feed-only             # 只合并源库，不探活
-./bin/tvboxgen -probe=<接口地址>       # 测单个接口
+./bin/tvboxgen -probe=<接口地址>       # 测试单个接口
 ./bin/tvboxgen -force -allow-nsfw     # 保留成人内容源
 ```
 
-常用参数：`-workers`、`-timeout`、`-budget`、`-interval`、`-history`。探活以真实 CMS 列表返回为准；仅 `ok` 的源进入订阅。
+常用参数：`-workers`（并发探活数）、`-timeout`（单请求超时）、`-budget`（总时长上限）、`-interval`（最小更新间隔）、`-history`（保留历史期数）。探活以真实 CMS 列表返回为准，仅 `ok` 的源进入订阅。
+
+---
+
+## 文件说明
+
+| 路径 | 作用 |
+| :-- | :-- |
+| `sources/sources.json` | 源清单主数据（含删除黑名单） |
+| `sources/feeds.json` | 一次性源库导入队列，抓取后自动清空 |
+| `api/tvbox.json` / `moontv.json` / `list.json` | 各客户端订阅配置 |
+| `api/sources.txt` / `tvbox.txt` | 纯文本清单 / 多仓入口 |
+| `api/status.json` / `mirror.json` / `index.json` / `probe.json` | 运行状态、线路索引、探测结果（内部数据） |
+| `index.html` + `assets/` | 静态管理页（HTML / 样式 / 逻辑 / 中英文词典） |
+| `cmd/tvboxgen` + `internal/` | Go 生成器与内部模块 |
+| `.github/workflows/` | 云端生成与单源探测工作流 |
+
+---
 
 ## 免责声明
 
@@ -90,6 +148,8 @@ go build -o bin/tvboxgen ./cmd/tvboxgen
 使用者应自行确认其录入、订阅、传播和使用的接口及内容符合所在地法律法规、平台规则与相关服务条款，并自行承担由此产生的全部责任与风险。任何因使用或无法使用本项目、因依赖仓库内配置文本、或因第三方接口的内容或失效而导致的损失、纠纷、行政处罚、第三方索赔或其他后果，均由使用者自行承担；项目作者与贡献者在法律允许的最大范围内不承担任何责任，包括但不限于直接损失、间接损失、数据丢失、设备损坏及可得利益损失。
 
 本项目按「现状」（AS IS）提供，不作任何明示或默示担保，包括但不限于适销性、特定用途适用性、准确性、持续可用性与不侵权担保。若权利人认为某条目侵犯其权益，应向对应第三方接口的运营主体主张权利；本项目不控制、不托管该接口及其内容。禁止将本项目用于任何违法用途；如所在地法律不允许相关使用，请立即停止。
+
+---
 
 ## License
 
