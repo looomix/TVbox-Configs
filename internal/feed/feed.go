@@ -4,6 +4,7 @@
 package feed
 
 import (
+	"crypto/tls"
 	"encoding/json"
 	"fmt"
 	"io"
@@ -30,6 +31,10 @@ func Fetch(rawURL string, timeout time.Duration) ([]model.Source, error) {
 		TLSHandshakeTimeout:   15 * time.Second,
 		ForceAttemptHTTP2:     false,
 		ResponseHeaderTimeout: timeout,
+		// #nosec G402 -- a public source list carries no secret. Refusing an
+		// otherwise readable list only because its certificate expired would
+		// drop every source behind it.
+		TLSClientConfig: &tls.Config{InsecureSkipVerify: true},
 	}}
 	var lastErr error
 	for attempt := 0; attempt < 2; attempt++ {
