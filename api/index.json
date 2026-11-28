@@ -2,16 +2,16 @@
   "name": "TVbox-Configs 订阅总入口",
   "urls": [
     {
-      "name": "jsDelivr 主线路",
-      "url": "https://cdn.jsdelivr.net/gh/looomix/TVbox-Configs@main/api/tvbox.json"
+      "name": "ghproxy 加速",
+      "url": "https://ghproxy.net/https://raw.githubusercontent.com/looomix/TVbox-Configs/main/api/tvbox.json"
+    },
+    {
+      "name": "Raw 直连",
+      "url": "https://raw.githubusercontent.com/looomix/TVbox-Configs/main/api/tvbox.json"
     },
     {
       "name": "GitHub Pages 备用",
       "url": "https://looomix.github.io/TVbox-Configs/api/tvbox.json"
-    },
-    {
-      "name": "ghproxy 加速",
-      "url": "https://ghproxy.net/https://raw.githubusercontent.com/looomix/TVbox-Configs/main/api/tvbox.json"
     }
   ]
 }
