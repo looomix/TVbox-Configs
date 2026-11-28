@@ -1,11 +1,43 @@
 # TVbox-Configs
 
-一个**容器型**视频源配置仓库：自带生成器、网页管理台和 9 种客户端订阅产物，**默认不包含任何视频源**。放什么源、怎么用，由使用者自己决定。
+一个**容器型**视频源配置仓库：自带生成器、网页管理台和 10 种客户端订阅产物。源清单由内置的公开源库自动抓取并逐条探活，只有验证通过的条目才写进订阅；放什么源、怎么用，最终由使用者自己决定。
 
-- 一次生成，多客户端可用：TVBox / 影视仓、MoonTV / LunaTV、KatelyaTV、DecoTV、MoonTVPlus、OuonnkiTV、KVideo、LibreTV、纯文本清单
+- 一次生成，多客户端可用：TVBox / 影视仓、MoonTV / LunaTV、KatelyaTV、DecoTV、MoonTVPlus、OuonnkiTV、KVideo、LibreTV、纯文本清单、多仓 TXT
 - 网页即可新增、导入、测试、修改、单条删除、批量删除
 - 网页写入落到 `sources/sources.json`，云端 Action 重新生成订阅
 - 7 天一次自动检测，单次运行硬上限 45 秒
+- 默认过滤成人内容源（部分 TVBox 编译会隐藏这类站点，导致整仓看起来空白）；需要时本地加 `-allow-nsfw` 可保留
+
+## TVBox / 影视仓 导入（先读这段）
+
+**只把 `api/tvbox.json` 填进「设置 → 配置地址」**：
+
+```
+https://cdn.jsdelivr.net/gh/looomix/TVbox-Configs@main/api/tvbox.json
+```
+
+备用线路（主线路打不开时二选一）：
+
+```
+https://looomix.github.io/TVbox-Configs/api/tvbox.json
+https://raw.githubusercontent.com/looomix/TVbox-Configs/main/api/tvbox.json
+```
+
+客户端支持多仓时，也可以填 TXT 入口（内容是上面三条线路，选一条加载）：
+
+```
+https://raw.githubusercontent.com/looomix/TVbox-Configs/main/api/tvbox.txt
+```
+
+**不要把** `api/index.json`、`api/mirror.json`、`api/status.json`、`api/moontv.json`、`api/kvideo.json` 等填进 TVBox 的配置地址——它们不是单仓配置，客户端解析不出 `sites`，表现就是「首页空白 / 全部无内容」。
+
+导入后若仍空白，按顺序排查：
+
+1. 手机浏览器直接打开上面的 URL，必须看到以 `{"spider":...` 开头的 JSON，而不是 HTML 网页或 404。
+2. 确认链接首尾没有空格；TVBox 会清缓存，切换配置后重启应用或清一次缓存再刷新。
+3. 电视 DNS 改成 `114.114.114.114` 或 `223.5.5.5`；很多采集接口在运营商 DNS 下解析失败。
+4. 在配置里看站点数量；若显示 0，去仓库 Actions 看 `Update Configs` 是否成功、以及 `api/status.json` 里 `alive` 是否大于 0。
+5. 点开某个站点仍无列表，是第三方采集接口自身失效，换同组其他站点，或到管理页点「测试」筛掉失效源。
 
 ## 目录
 
@@ -15,7 +47,7 @@ internal/probe      接口探活（CMS 搜索 + 最新列表，最多三次请�
 internal/gen        产物构造、接口地址去重（域名 + 路径前缀，不看名称）
 internal/feed       源库拉取（纯文本 / json / api_site 三种格式）
 internal/mirror     各产物的多镜像地址
-sources/            源清单与源库清单（默认全空）
+sources/            源清单与源库清单（内置公开源库，可在网页里增删）
 api/                生成后的产物（勿手改）
 index.html          管理页
 ```
@@ -71,11 +103,12 @@ index.html          管理页
 | 订阅链接 404 | 仓库是 Private | Settings → General → Danger Zone → 改为 Public |
 | 保存/删除提示 403、401 | 令牌权限或过期 | 重新生成令牌：Contents 与 Actions 都要 Read and write，且只勾你这一个仓库 |
 | 网页里显示的不是自己的链接 | 用的是旧版代码 | Sync fork 后跑一次 Update Configs |
-| 刚打开网页一片「0 条」 | 仓库默认不含任何源 | 正常现象，按第 5 步自己加源 |
+| 刚打开网页一片「0 条」 | 源库抓取失败或还没跑过生成 | 去 Actions 手动跑一次 `Update Configs`，刷新页面 |
+| TVBox 里首页空白、全部无内容 | 把多仓入口 / 其他客户端产物填进了单仓配置地址 | 只填 `api/tvbox.json`，见文首「TVBox / 影视仓 导入」 |
 
 > 两个工作流分工：**Update Configs** 每天 16:00 UTC 检查一次、也是「立即重新生成」按钮触发的那个；**测试单个源** 只在你点表格里的「测试」时被网页自动调用，不需要手动点。
 
-订阅地址形如 `https://cdn.jsdelivr.net/gh/<用户名>/<仓库名>@main/api/tvbox.json`，9 个产物各配 5 条镜像，页面上一键复制。
+订阅地址形如 `https://cdn.jsdelivr.net/gh/<用户名>/<仓库名>@main/api/tvbox.json`，10 个产物各配 5 条镜像，页面上一键复制。
 
 | 产物 | 用途 |
 | :--- | :--- |
@@ -88,6 +121,7 @@ index.html          管理页
 | `api/kvideo.json` | KVideo 源清单（`id / name / baseUrl / group / enabled`） |
 | `api/libretv.json` | LibreTV 源清单（`name / url`） |
 | `api/sources.txt` | 纯文本清单（`名称\|API\|类型\|状态`） |
+| `api/tvbox.txt` | TVBox / 影视仓 多仓 TXT 入口（`名称,单仓地址`） |
 | `api/status.json` | 全量检测报告：状态、延迟、近 8 期趋势、去重统计 |
 | `api/mirror.json` | 每个产物的 5 条镜像线路 |
 | `api/index.json` | TVBox 多仓入口（主 / 备 / 加速） |
@@ -107,6 +141,7 @@ go build -o bin/tvboxgen ./cmd/tvboxgen
 ./bin/tvboxgen                    # 距上次不足 7 天则跳过
 ./bin/tvboxgen -feed-only         # 只把源库合并进 sources.json，不探活
 ./bin/tvboxgen -probe=<接口地址>   # 只测一个接口
+./bin/tvboxgen -force -allow-nsfw  # 本地生成时保留成人内容源（默认过滤）
 ```
 
 常用参数：`-workers`（并发，默认 24）、`-timeout`（单请求，默认 8s）、`-budget`（整轮上限，默认 50s）、`-interval`（更新间隔，默认 168h）、`-history`（每源保留的检查点）。
@@ -125,7 +160,7 @@ go build -o bin/tvboxgen ./cmd/tvboxgen
 
 ## English
 
-**TVbox-Configs** is a container-style repository for video source configs: a Go generator, a static web console, and nine subscription artifacts (TVBox, MoonTV / LunaTV, KatelyaTV, DecoTV, MoonTVPlus, OuonnkiTV, KVideo, LibreTV, plus a plain text list). **It ships with no sources** — what you put in is entirely up to you.
+**TVbox-Configs** is a container-style repository for video source configs: a Go generator, a static web console, and ten subscription artifacts (TVBox, MoonTV / LunaTV, KatelyaTV, DecoTV, MoonTVPlus, OuonnkiTV, KVideo, LibreTV, a plain text list, and a multi-warehouse TXT). Sources are fetched from public lists and verified before publishing; adult-only stations are filtered by default. What you put in is ultimately up to you.
 
 - **Setup (5 steps, no code change)**:
   1. **Fork** the repo into your own account.
