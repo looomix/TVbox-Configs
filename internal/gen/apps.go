@@ -101,4 +101,5 @@ var Labels = map[string]string{
 	"kvideo.json":     "KVideo 视频源",
 	"libretv.json":    "LibreTV 视频源",
 	"sources.txt":     "纯文本源清单（可粘贴导入）",
+	"tvbox.txt":       "TVBox / 影视仓 多仓 TXT 入口",
 }
