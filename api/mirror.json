@@ -297,6 +297,39 @@
           "kind": "proxy"
         }
       ]
+    },
+    {
+      "file": "api/tvbox.txt",
+      "label": "TVBox / 影视仓 多仓 TXT 入口",
+      "kind": "text",
+      "primary": "https://cdn.jsdelivr.net/gh/looomix/TVbox-Configs@main/api/tvbox.txt",
+      "mirrors": [
+        {
+          "name": "jsDelivr 主线路",
+          "url": "https://cdn.jsdelivr.net/gh/looomix/TVbox-Configs@main/api/tvbox.txt",
+          "kind": "primary"
+        },
+        {
+          "name": "GitHub Pages 备用",
+          "url": "https://looomix.github.io/TVbox-Configs/api/tvbox.txt",
+          "kind": "backup"
+        },
+        {
+          "name": "Raw 直连",
+          "url": "https://raw.githubusercontent.com/looomix/TVbox-Configs/main/api/tvbox.txt",
+          "kind": "backup"
+        },
+        {
+          "name": "ghproxy 加速",
+          "url": "https://ghproxy.net/https://raw.githubusercontent.com/looomix/TVbox-Configs/main/api/tvbox.txt",
+          "kind": "proxy"
+        },
+        {
+          "name": "gh-proxy 加速",
+          "url": "https://gh-proxy.com/https://raw.githubusercontent.com/looomix/TVbox-Configs/main/api/tvbox.txt",
+          "kind": "proxy"
+        }
+      ]
     }
   ]
 }
