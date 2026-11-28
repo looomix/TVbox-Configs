@@ -26,6 +26,33 @@ a { color: var(--accent); text-decoration: none; }
 a:hover { text-decoration: underline; }
 .wrap { max-width: 1120px; margin: 0 auto; padding: 24px 16px 56px; }
 
+/* top navigation & language switch */
+.topnav { display: flex; flex-wrap: wrap; gap: 12px; align-items: center; justify-content: space-between; margin-bottom: 16px; padding-bottom: 12px; border-bottom: 1px solid var(--line); }
+.nav-links { display: flex; flex-wrap: wrap; gap: 6px 14px; }
+.nav-links a { color: var(--muted); font-size: 13px; font-weight: 550; }
+.nav-links a:hover { color: var(--accent); }
+.lang-switch { display: inline-flex; align-items: center; gap: 2px; font-size: 12.5px; }
+.lang-switch button { font: inherit; cursor: pointer; border: 0; background: none; color: var(--muted); padding: 3px 6px; border-radius: 6px; }
+.lang-switch button:hover { color: var(--accent); }
+.lang-switch button.on { color: var(--accent); font-weight: 650; background: #eaf1ff; }
+.lang-switch .sep { color: #c9cfda; }
+
+/* status badges */
+.status-card { padding-top: 14px; padding-bottom: 14px; }
+.badge-row { display: flex; flex-wrap: wrap; gap: 6px; margin-bottom: 10px; }
+.bdg { display: inline-flex; align-items: stretch; overflow: hidden; border-radius: 5px; font-family: ui-monospace, Menlo, Consolas, monospace; font-size: 11.5px; line-height: 1.4; text-decoration: none; }
+.bdg-k { background: #4a5361; color: #fff; padding: 3px 7px; white-space: nowrap; }
+.bdg-v { background: #e7ebf1; color: #3a4453; padding: 3px 7px; white-space: nowrap; }
+.bdg-v.blue { background: #3b82f6; color: #fff; }
+.bdg-v.green { background: #2ea36b; color: #fff; }
+.bdg-v.red { background: #d9483f; color: #fff; }
+.status-desc { margin: 0 0 4px; font-size: 14px; font-weight: 600; color: #243b5e; }
+.status-line { margin: 2px 0 0; font-size: 12.5px; color: var(--muted); }
+
+/* deploy steps */
+.steps { margin: 0; padding-left: 20px; color: #44506a; font-size: 13px; }
+.steps li { margin: 4px 0; }
+
 /* header */
 .top { display: flex; flex-wrap: wrap; gap: 16px; align-items: center; justify-content: space-between; margin-bottom: 18px; }
 .brand h1 { margin: 0; font-size: 22px; letter-spacing: -.3px; }
@@ -169,6 +196,9 @@ footer { padding-top: 4px; text-align: center; color: var(--muted); font-size: 1
   .wrap { padding: 16px 12px 44px; }
   .card { padding: 14px; }
   .stats { width: 100%; }
+  .topnav { align-items: flex-start; }
+  .nav-links { gap: 6px 10px; }
+  .status-desc { font-size: 13px; }
   .tools, .tools .input, .tools select { width: 100%; }
   .thead { display: none; }
   .row { display: block; min-width: 0; margin-bottom: 9px; padding: 12px; border: 1px solid var(--line); border-radius: 11px; background: #fff; }
