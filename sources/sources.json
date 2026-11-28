@@ -408,6 +408,166 @@
       "group": "综合",
       "enabled": true,
       "origin": "feed"
+    },
+    {
+      "id": "caijidyttzyapicom-6955",
+      "name": "电影天堂",
+      "api": "http://caiji.dyttzyapi.com/api.php/provide/vod",
+      "group": "综合",
+      "enabled": true,
+      "origin": "feed"
+    },
+    {
+      "id": "cjlzcaijicom-1c4d",
+      "name": "量子",
+      "api": "https://cj.lzcaiji.com/api.php/provide/vod",
+      "group": "综合",
+      "enabled": true,
+      "origin": "feed"
+    },
+    {
+      "id": "360zyzzcom-d671",
+      "name": "360 (360zyzz.com 2)",
+      "api": "https://360zyzz.com/api.php/provide/vod",
+      "group": "综合",
+      "enabled": true,
+      "origin": "feed"
+    },
+    {
+      "id": "apiffzyapicom-18ee",
+      "name": "非凡 (api.ffzyapi.com 2)",
+      "api": "https://api.ffzyapi.com/api.php/provide/vod",
+      "group": "综合",
+      "enabled": true,
+      "origin": "feed"
+    },
+    {
+      "id": "apixinlangapicom-94e2",
+      "name": "新浪 (api.xinlangapi.com 2)",
+      "api": "https://api.xinlangapi.com/xinlangapi.php/provide/vod",
+      "group": "综合",
+      "enabled": true,
+      "origin": "feed"
+    },
+    {
+      "id": "subocaijicom-2e8e",
+      "name": "速播 (subocaiji.com 2)",
+      "api": "https://subocaiji.com/api.php/provide/vod",
+      "group": "综合",
+      "enabled": true,
+      "origin": "feed"
+    },
+    {
+      "id": "apiukuapi88com-5c8f",
+      "name": "U酷影视",
+      "api": "https://api.ukuapi88.com/api.php/provide/vod",
+      "group": "综合",
+      "enabled": true,
+      "origin": "feed"
+    },
+    {
+      "id": "cjrycjapicom-1977",
+      "name": "如意 (cj.rycjapi.com 2)",
+      "api": "https://cj.rycjapi.com/api.php/provide/vod",
+      "group": "综合",
+      "enabled": true,
+      "origin": "feed"
+    },
+    {
+      "id": "hhzyapicom-0fd9",
+      "name": "豪华 (hhzyapi.com 2)",
+      "api": "https://hhzyapi.com/api.php/provide/vod",
+      "group": "综合",
+      "enabled": true,
+      "origin": "feed"
+    },
+    {
+      "id": "apizuidapicom-a691",
+      "name": "最大 (api.zuidapi.com 2)",
+      "api": "https://api.zuidapi.com/api.php/provide/vod",
+      "group": "综合",
+      "enabled": true,
+      "origin": "feed"
+    },
+    {
+      "id": "caijimoduapicc-c774",
+      "name": "魔都动漫",
+      "api": "https://caiji.moduapi.cc/api.php/provide/vod",
+      "group": "动漫",
+      "enabled": true,
+      "origin": "feed"
+    },
+    {
+      "id": "jinyingzycom-8e28",
+      "name": "金鹰点播",
+      "api": "https://jinyingzy.com/api.php/provide/vod",
+      "group": "综合",
+      "enabled": true,
+      "origin": "feed"
+    },
+    {
+      "id": "apiyyzy-tvvip-7720",
+      "name": "优质库1080zyk",
+      "api": "https://api.yyzy-tv.vip/inc/api_mac10.php",
+      "group": "综合",
+      "enabled": true,
+      "origin": "feed"
+    },
+    {
+      "id": "caijimaotaizycc-c199",
+      "name": "茅台 (caiji.maotaizy.cc 2)",
+      "api": "https://caiji.maotaizy.cc/api.php/provide/vod",
+      "group": "综合",
+      "enabled": true,
+      "origin": "feed"
+    },
+    {
+      "id": "cjlziapicom-e175",
+      "name": "量子备用",
+      "api": "https://cj.lziapi.com/api.php/provide/vod",
+      "group": "综合",
+      "enabled": true,
+      "origin": "feed"
+    },
+    {
+      "id": "suoniapicom-3e78",
+      "name": "索尼 (suoniapi.com 2)",
+      "api": "https://suoniapi.com/api.php/provide/vod",
+      "group": "综合",
+      "enabled": true,
+      "origin": "feed"
+    },
+    {
+      "id": "caijikuaichezyorg-28a3",
+      "name": "快车 (caiji.kuaichezy.org 2)",
+      "api": "https://caiji.kuaichezy.org/api.php/provide/vod",
+      "group": "综合",
+      "enabled": true,
+      "origin": "feed"
+    },
+    {
+      "id": "xsdsdzyapicom-de41",
+      "name": "闪电 (xsd.sdzyapi.com 2)",
+      "api": "https://xsd.sdzyapi.com/api.php/provide/vod",
+      "group": "综合",
+      "enabled": true,
+      "origin": "feed"
+    },
+    {
+      "id": "xingba222com-b774",
+      "name": "杏吧 - NSFW",
+      "api": "https://xingba222.com/api.php/provide/vod",
+      "group": "综合",
+      "enabled": true,
+      "origin": "feed"
+    },
+    {
+      "id": "dadiapicom-6f2f",
+      "name": "大地 - NSFW",
+      "api": "https://dadiapi.com/feifei",
+      "group": "综合",
+      "enabled": true,
+      "origin": "feed"
     }
   ],
   "removed": [

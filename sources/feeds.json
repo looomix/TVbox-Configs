@@ -1,20 +1,4 @@
 {
   "version": 1,
-  "feeds": [
-    {
-      "name": "raw.githubusercontent.com",
-      "url": "https://raw.githubusercontent.com/puppet680/KVideo-config/refs/heads/main/adult.json/",
-      "enabled": true
-    },
-    {
-      "name": "raw.githubusercontent.com",
-      "url": "https://raw.githubusercontent.com/puppet680/cms-config/refs/heads/main/full_status.json/",
-      "enabled": true
-    },
-    {
-      "name": "ziyuanzu.com",
-      "url": "https://www.ziyuanzu.com/download/ziyuanzu-cms-interfaces.txt",
-      "enabled": true
-    }
-  ]
+  "feeds": []
 }
