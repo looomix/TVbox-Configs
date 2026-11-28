@@ -64,8 +64,9 @@
     status: null,
     groups: [],
     sources: [],
+    sourcesLoaded: false,
     removed: [],
-    feeds: [],
+    counts: null,
     filters: { q: '', state: 'all', group: 'all' },
     results: {},
     pending: {},
@@ -150,7 +151,7 @@
 
   function copyText(text) {
     if (navigator.clipboard && window.isSecureContext) {
-      navigator.clipboard.writeText(text).then(function () { toast('已复制'); }, function () { toast('复制失败，请手动选择'); });
+      navigator.clipboard.writeText(text).then(function () { toast(t('已复制')); }, function () { toast(t('复制失败，请手动选择')); });
       return;
     }
     var ta = document.createElement('textarea');
@@ -159,7 +160,7 @@
     ta.style.opacity = '0';
     document.body.appendChild(ta);
     ta.select();
-    try { document.execCommand('copy'); toast('已复制'); } catch (e) { toast('复制失败'); }
+    try { document.execCommand('copy'); toast(t('已复制')); } catch (e) { toast(t('复制失败')); }
     document.body.removeChild(ta);
   }
 
@@ -173,7 +174,8 @@
     return getJSON('sources/sources.json').then(function (d) {
       state.sources = (d && d.sources) || [];
       state.removed = (d && d.removed) || [];
-    }).catch(function () { state.sources = []; state.removed = []; });
+      state.sourcesLoaded = true;
+    }).catch(function () { state.sources = []; state.removed = []; state.sourcesLoaded = false; });
   }
 
   function defaultGroups() {
@@ -251,17 +253,19 @@
 
   function groupOf(s) {
     var st = statusOf(s.id);
-    return s.group || (st && st.group) || t('综合');
+    // 分类是数据，必须返回原始中文值：返回翻译后的文本会让英文界面把
+    // “General” 写进 sources.json，也会让下拉框选不中任何选项。
+    return s.group || (st && st.group) || '综合';
   }
 
   function spark(history) {
     var items = (history || []).slice(-HIST_MAX);
     var pad = HIST_MAX - items.length;
     var out = '';
-    for (var i = 0; i < pad; i++) out += t('<span title="无记录"></span>');
+    for (var i = 0; i < pad; i++) out += '<span title="' + esc(t('无记录')) + '"></span>';
     items.forEach(function (c, idx) {
       var now = idx === items.length - 1 ? ' now' : '';
-      out += '<span class="' + (c.ok ? 'on' : '') + now + '" title="' + esc((c.t || '').slice(0, 10)) + ' · ' + (c.ok ? t('通') : t('断')) + ' · ' + (c.ms || 0) + 'ms"></span>';
+      out += '<span class="' + (c.ok ? 'on' : 'off') + now + '" title="' + esc((c.t || '').slice(0, 10)) + ' · ' + (c.ok ? t('通') : t('断')) + ' · ' + (c.ms || 0) + 'ms"></span>';
     });
     return '<span class="spark">' + out + '</span>';
   }
@@ -269,8 +273,9 @@
   function renderStats() {
     var st = state.status;
     // 以源清单为准：状态文件缺记录的源同样计入失效，保证计数与列表一致。
-    // 但 status 本身没加载出来时不统计，徽章保持 "—"，避免整页误显示成全失效。
-    var srcs = st ? ((state.sources && state.sources.length) ? state.sources : st.sources) : [];
+    // 只有清单读取失败时才退回状态文件；清单读到了空数组就是 0 条，
+    // 不能拿旧状态把数字撑起来。status 没加载出来时保持 "—"。
+    var srcs = state.sourcesLoaded ? state.sources : (st ? (st.sources || []) : []);
     var alive = 0, unverified = 0, dead = 0, off = 0;
     srcs.forEach(function (s) {
       var r = statusOf(s.id);
@@ -279,6 +284,8 @@
       else if (r.state === 'limited') unverified++;
       else dead++;
     });
+    // 徽章和统计行都读这一份数字，避免同一个页面出现两套口径。
+    state.counts = st ? { alive: alive, unverified: unverified, dead: dead, off: off } : null;
     $('#pillAlive').textContent = t('可用 ') + (st ? alive : '—');
     $('#pillUnverified').textContent = t('未验证 ') + (st ? unverified : '—');
     $('#pillDead').textContent = t('失效 ') + (st ? dead : '—');
@@ -301,14 +308,15 @@
 
   function renderBadges() {
     var st = state.status;
-    setBadge('bdgSites', st ? String(st.alive) : '—', 'blue');
-    setBadge('bdgSources', st ? String(st.total) : '—', 'blue');
+    var c = state.counts;
+    setBadge('bdgSites', c ? String(c.alive) : '—', 'blue');
+    setBadge('bdgSources', c ? String((state.sources && state.sources.length) || (st && st.total) || 0) : '—', 'blue');
     var linkCount = state.groups.reduce(function (n, g) { return n + ((g.mirrors || []).length || 0); }, 0);
     setBadge('bdgLinks', linkCount ? String(linkCount) : '—', 'blue');
 
     var line = $('#statusLine');
     var probe = $('#probeLine');
-    if (!st) {
+    if (!st || !c) {
       if (line) line.textContent = t('正在读取运行状态…');
       if (probe) probe.textContent = t('正在读取探测结果…');
       return;
@@ -319,11 +327,11 @@
     }
     if (probe) {
       // 分母用三类之和，停用源不计入，否则可用率会被拉低。
-      var total = (st.alive || 0) + (st.unverified || 0) + (st.dead || 0) || (st.total || 0);
-      var alive = st.alive || 0;
-      var rate = total ? Math.round(alive * 100 / total) : 0;
-      probe.textContent = t('最近一次探测：') + alive + '/' + total + t(' 个源可用 (') + rate +
-        t('%)，已剔除 ') + (st.dead || 0) + t(' 个失效地址') +
+      var failed = Math.max(0, c.dead - c.off);
+      var total = c.alive + c.unverified + failed;
+      var rate = total ? Math.round(c.alive * 100 / total) : 0;
+      probe.textContent = t('最近一次探测：') + c.alive + '/' + total + t(' 个源可用 (') + rate +
+        t('%)，已剔除 ') + failed + t(' 个失效地址') +
         (st.filtered ? t(' · 过滤 ') + st.filtered + t(' 个成人内容源') : '');
     }
   }
@@ -346,7 +354,13 @@
     }
     var starsLink = $('#bdgStarsLink');
     if (starsLink) starsLink.href = 'https://github.com/' + OWNER + '/' + REPO + '/stargazers';
-    meta(API, function (d) { state.meta.stars = d.stargazers_count; renderRepoMeta(); });
+    meta(API, function (d) {
+      // 只有拿到真实数字才更新：限流或异常响应会把徽章写成 "undefined"。
+      if (typeof d.stargazers_count === 'number') {
+        state.meta.stars = d.stargazers_count;
+        renderRepoMeta();
+      }
+    });
     meta(API + '/commits?per_page=1', function (d) {
       if (d && d[0]) {
         state.meta.commitAt = d[0].commit && d[0].commit.author && d[0].commit.author.date;
@@ -372,17 +386,17 @@
         return '<div class="mirror">' +
           '<span class="tag ' + (m.kind === 'primary' ? 'primary' : '') + '">' + esc(t(m.name)) + '</span>' +
           '<span class="url" title="' + esc(m.url) + '">' + esc(m.url) + '</span>' +
-          '<button class="btn tiny copy-url" data-url="' + esc(m.url) + t('">复制</button>') +
+          '<button class="btn tiny copy-url" data-url="' + esc(m.url) + '">' + esc(t('复制')) + '</button>' +
           '</div>';
       }).join('');
       return '<div class="mgroup">' +
         '<div class="mgroup-head">' +
         '<span class="mgroup-title">' + esc(t(g.label)) + '</span>' +
         '<span class="badge">' + (g.kind === 'text' ? t('文本') : t('配置')) + '</span>' +
-        '<button class="btn tiny primary copy-url" data-url="' + esc(g.primary) + t('">复制</button>') +
+        '<button class="btn tiny primary copy-url" data-url="' + esc(g.primary) + '">' + esc(t('复制')) + '</button>' +
         '</div>' +
         '<div class="primary-url" title="' + esc(g.primary) + '">' + esc(g.primary) + '</div>' +
-        (others.length ? t('<details><summary>其他 ') + others.length + t(' 条镜像</summary>') + rows + '</details>' : '') +
+        (others.length ? '<details><summary>' + esc(t('其他 ')) + others.length + esc(t(' 条镜像')) + '</summary>' + rows + '</details>' : '') +
         '</div>';
     }).join('');
     $('#indexUrl').textContent = 'https://' + OWNER + '.github.io/' + REPO + '/api/index.json';
@@ -468,18 +482,20 @@
       var auto = s.origin === 'feed';
       var checked = state.selected[s.id] ? ' checked' : '';
       return '<div class="row grid-cols" data-id="' + esc(s.id) + '">' +
-        '<div class="c-check"><input type="checkbox" data-sel="' + esc(s.id) + '"' + checked + t(' aria-label="选择 ') + esc(s.name) + '"></div>' +
-        '<div class="name-cell"><div class="n"><span class="txt" title="' + esc(s.name) + '">' + esc(s.name) + '</span>' + (auto ? t('<span class="badge on">自动</span>') : '') + '</div></div>' +
-        '<div class="api-cell" data-act="copy" data-url="' + esc(s.api) + t('" title="点击复制：') + esc(s.api) + '">' + esc(s.api) + '</div>' +
+        '<div class="c-check"><input type="checkbox" data-sel="' + esc(s.id) + '"' + checked +
+        ' aria-label="' + esc(t('选择')) + ' ' + esc(s.name) + '"></div>' +
+        '<div class="name-cell"><div class="n"><span class="txt" title="' + esc(s.name) + '">' + esc(s.name) + '</span>' +
+        (auto ? '<span class="badge on">' + esc(t('自动')) + '</span>' : '') + '</div></div>' +
+        '<div class="api-cell" data-act="copy" data-url="' + esc(s.api) + '" title="' + esc(t('点击复制：')) + esc(s.api) + '">' + esc(s.api) + '</div>' +
         '<div><span class="badge">' + esc(t(groupOf(s))) + '</span></div>' +
         '<div class="c-state"><span class="dot ' + stateCls + '"' + (hint ? ' title="' + esc(hint) + '"' : '') + '><i></i>' + esc(stateLabel) +
           '</span></div>' +
         '<div class="c-lat">' + lat + '</div>' +
         '<div class="c-spark">' + spark(st2 && st2.history) + '</div>' +
         '<div class="ops">' +
-        t('<button class="btn tiny" data-act="test">测试</button>') +
-        t('<button class="btn tiny" data-act="edit">改</button>') +
-        t('<button class="btn tiny" data-act="del">删</button>') +
+        '<button class="btn tiny" data-act="test">' + esc(t('测试')) + '</button>' +
+        '<button class="btn tiny" data-act="edit">' + esc(t('改')) + '</button>' +
+        '<button class="btn tiny" data-act="del">' + esc(t('删')) + '</button>' +
         '</div></div>';
     }).join('');
     syncSelection();
@@ -559,7 +575,7 @@
         });
       }).then(function (res) {
         renderAll();
-        toast('已删除 ' + ids.length + t(' 个源') + (res.cleared ? t('，已清空源库订阅') : '') +
+        toast(t('已删除 ') + ids.length + t(' 个源') + (res.cleared ? t('，已清空源库订阅') : '') +
           (res.triggered ? t('，后台正在重新生成（约 2 分钟）') : t('，等待下一次自动更新')));
         scheduleRefresh();
       });
@@ -601,12 +617,14 @@
       if (r.status !== 200) throw new Error('HTTP ' + r.status);
       return r.text().then(function (txt) {
         var ms = Math.round(performance.now() - t0);
-        try {
-          var j = JSON.parse(txt);
-          return { ok: true, ms: ms, vods: (j && j.list && j.list.length) || 0, via: t('直连'), state: 'ok' };
-        } catch (e) {
+        var j = null;
+        try { j = JSON.parse(txt); } catch (e) { j = null; }
+        // 只有真正的 list 数组才算通过：能解析成 JSON 的错误响应（{"code":0,
+        // "msg":"…"}）不能当成可用，否则本机测试会给源打上假阳性。
+        if (!j || !Array.isArray(j.list)) {
           return { ok: false, ms: ms, vods: 0, via: t('直连'), state: 'limited', reason: 'not_api', note: t('返回内容不是标准 CMS JSON') };
         }
+        return { ok: j.list.length > 0, ms: ms, vods: j.list.length, via: t('直连'), state: j.list.length ? 'ok' : 'limited', reason: j.list.length ? '' : 'empty' };
       });
     }).catch(function () {
       // 浏览器跨域失败只说明本机取不到，不能据此判定源失效。
@@ -683,7 +701,7 @@
     }, function (err) {
       delete state.pending[id];
       renderRows();
-      toast('检测失败：' + (err.message || err));
+      toast(t('检测失败：') + (err.message || err));
     });
   }
 
@@ -833,7 +851,7 @@
         });
       }).then(function (cleared) {
         renderAll();
-        toast('已删除并提交' + (cleared ? t('，已清空源库订阅') : ''));
+        toast(t('已删除并提交') + (cleared ? t('，已清空源库订阅') : ''));
         scheduleRefresh();
       });
     });
@@ -852,7 +870,7 @@
         id: stableId(api),
         name: hostKey(api),
         api: api,
-        group: t('综合'),
+        group: '综合',
         note: '',
         enabled: true,
         origin: 'manual',
@@ -886,7 +904,7 @@
         return dispatchWorkflow();
       }).then(function (triggered) {
         renderAll();
-        toast('已加入 ' + fresh.length + t(' 个接口') + (dup ? t('（跳过 ') + dup + t(' 个重复）') : '') +
+        toast(t('已加入 ') + fresh.length + t(' 个接口') + (dup ? t('（跳过 ') + dup + t(' 个重复）') : '') +
           (triggered ? t('，后台开始验证（约 2 分钟）') : t('，等待下一次自动更新')));
         scheduleRefresh();
       });
@@ -1038,10 +1056,11 @@
     openModal('#modalEdit');
   }
 
-  function slug(name, api) {
+  // Id-safe hostname: only [a-z0-9-], used as the stable id prefix.
+  function slug(api) {
     var host = '';
     try { host = new URL(api).hostname.replace(/^www\./, ''); } catch (e) { host = ''; }
-    var base = (host || name || 'source').toLowerCase().replace(/[^a-z0-9]+/g, '-').replace(/^-|-$/g, '');
+    var base = (host || 'source').toLowerCase().replace(/[^a-z0-9]+/g, '-').replace(/^-|-$/g, '');
     return base || 'source';
   }
 
@@ -1052,7 +1071,7 @@
     var h = 0;
     for (var i = 0; i < key.length; i++) h = ((h << 5) - h + key.charCodeAt(i)) | 0;
     var suffix = (h >>> 0).toString(36);
-    return (slug('', api) + '-' + suffix).slice(0, 64);
+    return (slug(api) + '-' + suffix).slice(0, 64);
   }
 
   function submitEdit() {
@@ -1061,7 +1080,7 @@
     var hint = $('#editHint');
     if (!name) { hint.textContent = t('请填写名称'); hint.className = 'hint err'; return; }
     if (!/^https?:\/\//i.test(api)) { hint.textContent = t('接口地址需以 http(s):// 开头'); hint.className = 'hint err'; return; }
-    var id = state.editingId || slug(name, api);
+    var id = state.editingId || stableId(api);
     var exists = state.sources.some(function (s) { return s.id === id && s.id !== state.editingId; });
     if (exists) id = id + '-' + Math.random().toString(36).slice(2, 5);
     var payload = {
@@ -1140,9 +1159,9 @@
 
     $('#btnFeedAdd').addEventListener('click', function () {
       var raw = $('#feedCustom').value.trim();
-      if (!raw) { toast('请填入接口地址或源库链接'); return; }
+      if (!raw) { toast(t('请填入接口地址或源库链接')); return; }
       var urls = splitUrls(raw);
-      if (!urls.length) { toast('没有识别到 http(s) 链接'); return; }
+      if (!urls.length) { toast(t('没有识别到 http(s) 链接')); return; }
       var ifaces = [], feeds = [];
       urls.forEach(function (u) {
         if (/api\.php|provide\/vod|ac=detail|inc\/api|\/vod/i.test(u)) ifaces.push(u);
@@ -1206,7 +1225,7 @@
       localStorage.setItem(TOKEN_KEY, token);
       fetch(API + '/contents/sources/sources.json?ref=' + BRANCH, { headers: authHeaders(), cache: 'no-store' })
         .then(function (r) {
-          if (r.ok) { toast('令牌已保存，可编辑'); closeModal('#modalToken'); renderStats(); }
+          if (r.ok) { toast(t('令牌已保存，可编辑')); closeModal('#modalToken'); renderStats(); }
           else { $('#tokenHint').textContent = t('令牌权限不足（HTTP ') + r.status + t('），需要 Contents: Read and write'); }
         })
         .catch(function () { $('#tokenHint').textContent = t('校验失败，请检查网络或令牌'); });
@@ -1246,7 +1265,9 @@
 
   applyLang();
   Promise.all([loadStatus(), loadSources(), loadMirrors()]).then(function () {
-    if (!state.sources.length && state.status) {
+    // 只有源清单读取失败时才用状态文件兜底。清单本身是空数组（用户删光了）
+    // 时必须保持为空，否则旧状态里的源会被重新显示出来，删了等于没删。
+    if (!state.sourcesLoaded && state.status) {
       state.sources = state.status.sources.map(function (s) {
         return { id: s.id, name: s.name, api: s.api, group: s.group, enabled: s.enabled, origin: s.origin };
       });
