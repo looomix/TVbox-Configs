@@ -88,8 +88,8 @@ func keyOf(id, name, api string, used map[string]bool, strict bool) string {
 }
 
 // SitesOf builds the site list shared by every published format: only sources
-// that were positively verified (state ok) are included. Adult filtering is
-// decided by the caller via the prepared status list, not repeated here.
+// that were positively verified (state ok) are included. No content is filtered
+// here — the prepared status list is published as-is.
 func SitesOf(rep *model.Report) []model.Site {
 	list := append([]model.Status{}, rep.Sources...)
 	sort.SliceStable(list, func(i, j int) bool {
