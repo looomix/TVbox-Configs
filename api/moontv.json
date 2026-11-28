@@ -6,6 +6,11 @@
       "api": "https://360zy.com/api.php/provide/vod",
       "detail": "https://360zy.com"
     },
+    "apiapibdzycome19b": {
+      "name": "百度云",
+      "api": "https://api.apibdzy.com/api.php/provide/vod",
+      "detail": "https://api.apibdzy.com"
+    },
     "apiguangsuapicomc3dd": {
       "name": "光速",
       "api": "https://api.guangsuapi.com/api.php/provide/vod",
@@ -45,6 +50,11 @@
       "name": "鸭鸭",
       "api": "https://cj.yayazy.net/api.php/provide/vod",
       "detail": "https://cj.yayazy.net"
+    },
+    "dadiapicomc875": {
+      "name": "大地",
+      "api": "https://dadiapi.com/api.php",
+      "detail": "https://dadiapi.com"
     },
     "ffzy5tv0d43": {
       "name": "非凡",
@@ -90,6 +100,11 @@
       "name": "金鹰",
       "api": "https://jyzyapi.com/provide/vod",
       "detail": "https://jyzyapi.com"
+    },
+    "lovedannet14a4": {
+      "name": "艾旦",
+      "api": "https://lovedan.net/api.php/provide/vod",
+      "detail": "https://lovedan.net"
     },
     "mdzyapicomf19e": {
       "name": "魔都",
