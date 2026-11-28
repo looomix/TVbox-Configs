@@ -13,7 +13,8 @@ func List(owner, repo, branch, file string) []model.Mirror {
 	raw := fmt.Sprintf("https://raw.githubusercontent.com/%s/%s/%s/%s", owner, repo, branch, file)
 	ms := []model.Mirror{
 		{Name: "ghproxy 加速", Kind: "primary", URL: "https://ghproxy.net/" + raw},
-		{Name: "gh-proxy 加速", Kind: "backup", URL: "https://gh-proxy.com/" + raw},
+		{Name: "gh-proxy 加速", Kind: "backup", URL: "https://gh-proxy.org/" + raw},
+		{Name: "ghfast 加速", Kind: "backup", URL: "https://ghfast.top/" + raw},
 		{Name: "Raw 直连", Kind: "backup", URL: raw},
 		{Name: "GitHub Pages 备用", Kind: "backup", URL: fmt.Sprintf("https://%s.github.io/%s/%s", owner, repo, file)},
 	}
