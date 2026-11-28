@@ -177,7 +177,7 @@ window.TVBOX_I18N = { en: {
   "订阅地址": "Subscriptions",
   "视频源": "Sources",
   "部署": "Deploy",
-  "自动检测 · 去重过滤 · 一处维护，多端订阅": "Auto-check · Dedupe · Maintain once, serve every client",
+  "自动检测 · 去重 · 一处维护，多端订阅": "Auto-check · Dedupe · Maintain once, serve every client",
   "可用 —": "Alive —",
   "未验证 —": "Unverified —",
   "失效 —": "Dead —",

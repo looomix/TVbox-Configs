@@ -62,9 +62,10 @@ const (
 	ReasonBudget    = "budget" // run budget ran out before a verdict
 )
 
-// keywords are tried in order; a second title avoids false negatives when the
-// first one is simply missing from that site's index.
-var keywords = []string{"庆余年", "哪吒"}
+// searchKeyword is a mainstream title that most indexes carry. The keyword query
+// is what proves a station supports search, so it must stay Chinese: an English
+// title would be treated as an unknown string and return nothing.
+const searchKeyword = "庆余年"
 
 // Result is the verdict of one endpoint.
 type Result struct {
@@ -184,7 +185,7 @@ func variants(api string) []string {
 	base = strings.TrimRight(clean.String(), "/")
 
 	out := []string{
-		join(base, "wd="+url.QueryEscape(keywords[0])+"&ac=detail"),
+		join(base, "wd="+url.QueryEscape(searchKeyword)+"&ac=detail"),
 		join(base, "ac=detail&pg=1"),
 		join(base, "ac=videolist&pg=1"),
 		join(base, "ac=detail&pg=1&at=json"),
@@ -221,6 +222,20 @@ func candidates(api string) []string {
 		return []string{base}
 	}
 	return dedupeStrings(out)
+}
+
+// isKeyword reports whether target carries the keyword-search request. A proxy
+// endpoint keeps the parameters inside its url= value, so wd arrives
+// percent-encoded and a plain substring check on the raw url would miss it.
+func isKeyword(target string) bool {
+	if strings.Contains(target, "wd=") {
+		return true
+	}
+	u, err := url.Parse(target)
+	if err != nil {
+		return false
+	}
+	return strings.Contains(u.Query().Get("url"), "wd=")
 }
 
 func dedupeStrings(in []string) []string {
@@ -392,7 +407,7 @@ func fetchOnce(c, plain *http.Client, target string, deadline time.Time) outcome
 	}
 	o := parseBody(body)
 	o.ms = ms
-	if strings.Contains(target, "wd=") && o.kind == "ok" {
+	if isKeyword(target) && o.kind == "ok" {
 		o.search = 1
 	}
 	return o
@@ -447,7 +462,7 @@ func Verify(c *http.Client, api string, deadline time.Time) Result {
 		// 连续的网络层失败（DNS/证书/超时）说明换请求形态也没用，确认两次
 		// 后收手，把预算留给其他源。关键词请求走的是站点的搜索代码路径，
 		// 慢或挂住不代表列表也取不到，所以它不参与这个计数。
-		if o.kind == "unreachable" && !strings.Contains(target, "wd=") {
+		if o.kind == "unreachable" && !isKeyword(target) {
 			unreachable++
 			if unreachable >= 2 {
 				break

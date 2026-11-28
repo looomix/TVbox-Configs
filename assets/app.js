@@ -407,6 +407,9 @@
     var groups = {};
     state.sources.forEach(function (s) { groups[groupOf(s)] = true; });
     var opts = ['all'].concat(Object.keys(groups).sort());
+    // 当前选中的分类被删光时要退回「全部分类」，否则下拉框选不中任何
+    // 选项，列表会一直空着，看起来像源全丢了。
+    if (opts.indexOf(state.filters.group) < 0) state.filters.group = 'all';
     $('#filterGroup').innerHTML = opts.map(function (g) {
       return '<option value="' + esc(g) + '">' + (g === 'all' ? t('全部分类') : esc(t(g))) + '</option>';
     }).join('');
@@ -880,30 +883,44 @@
     ghGetFile('sources/sources.json').then(function (res) {
       var doc = res.doc || {};
       var list = doc.sources || (doc.sources = []);
+      var keys = {};
+      fresh.forEach(function (f) { keys[apiKey(f.api)] = true; });
+      var unblocked = 0;
       if (doc.removed && doc.removed.length) {
-        var keys = {};
-        fresh.forEach(function (f) { keys[apiKey(f.api)] = true; });
+        var before = doc.removed.length;
         doc.removed = doc.removed.filter(function (k) { return !keys[k]; });
+        unblocked = before - doc.removed.length;
         state.removed = doc.removed;
       }
       var exist = {};
-      list.forEach(function (s) { exist[s.id] = true; });
+      var existKey = {};
+      list.forEach(function (s) { exist[s.id] = true; existKey[apiKey(s.api)] = true; });
+      var added = 0;
       fresh.forEach(function (f) {
+        // 页面里的清单可能比仓库旧：仓库已有的同一条接口不能再加一遍，
+        // 否则要等云端去重才消失。
+        if (existKey[apiKey(f.api)]) return;
         var id = f.id;
         while (exist[id]) id = id + '-' + Math.random().toString(36).slice(2, 4);
         exist[id] = true;
+        existKey[apiKey(f.api)] = true;
         f.id = id;
         list.push(f);
+        added++;
       });
+      if (!added && !unblocked) {
+        toast(t('这些接口都已存在，无需重复添加'));
+        return null;
+      }
       if (!doc.version) doc.version = 1;
       doc.updated_at = new Date().toISOString().slice(0, 10);
       var text = JSON.stringify(doc, null, 2) + '\n';
-      return ghPutFile('sources/sources.json', text, res.sha, 'feat: 新增 ' + fresh.length + t(' 个视频接口')).then(function () {
+      return ghPutFile('sources/sources.json', text, res.sha, 'feat: 新增 ' + added + t(' 个视频接口')).then(function () {
         state.sources = list;
         return dispatchWorkflow();
       }).then(function (triggered) {
         renderAll();
-        toast(t('已加入 ') + fresh.length + t(' 个接口') + (dup ? t('（跳过 ') + dup + t(' 个重复）') : '') +
+        toast(t('已加入 ') + added + t(' 个接口') + (dup ? t('（跳过 ') + dup + t(' 个重复）') : '') +
           (triggered ? t('，后台开始验证（约 2 分钟）') : t('，等待下一次自动更新')));
         scheduleRefresh();
       });

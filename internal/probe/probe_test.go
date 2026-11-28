@@ -252,6 +252,11 @@ func TestCandidatesProxyURL(t *testing.T) {
 	if r.State != "ok" {
 		t.Fatalf("proxy endpoint must verify, got %+v", r)
 	}
+	// The parameters travel percent-encoded inside url=; the searchable flag
+	// must still be detected from the decoded inner url.
+	if !r.Searchable {
+		t.Fatalf("proxy endpoint answering a keyword query must be searchable, got %+v", r)
+	}
 	mu.Lock()
 	defer mu.Unlock()
 	found := false
