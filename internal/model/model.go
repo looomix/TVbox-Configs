@@ -35,7 +35,8 @@ type Status struct {
 	Note       string  `json:"note,omitempty"`
 	Origin     string  `json:"origin,omitempty"`
 	Enabled    bool    `json:"enabled"`
-	State      string  `json:"state"` // ok | limited | down | off
+	State      string  `json:"state"`            // ok | limited | down | off
+	Reason     string  `json:"reason,omitempty"` // why it is not ok, machine readable
 	LatencyMs  int     `json:"latency_ms"`
 	Searchable bool    `json:"searchable"`
 	Vods       int     `json:"vods"`
@@ -86,6 +87,7 @@ type TVBox struct {
 type ProbeResult struct {
 	URL       string `json:"url"`
 	State     string `json:"state"`
+	Reason    string `json:"reason,omitempty"`
 	Vods      int    `json:"vods"`
 	LatencyMs int    `json:"latency_ms"`
 	CheckedAt string `json:"checked_at"`
