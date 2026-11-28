@@ -14,7 +14,7 @@ func MoonTV(sites []model.Site) *model.MoonConfig {
 	apiSite := make(map[string]model.MoonSite, len(sites))
 	for _, s := range sites {
 		key := keyOf(s.Key, s.Name, s.API, used, true)
-		apiSite[key] = model.MoonSite{Name: s.Name, API: s.API}
+		apiSite[key] = model.MoonSite{Name: s.Name, API: s.API, Detail: siteRoot(s.API)}
 	}
 	return &model.MoonConfig{CacheTime: 7200, APISite: apiSite}
 }
