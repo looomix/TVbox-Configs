@@ -4,37 +4,33 @@
 
 ## 导入地址
 
-TVBox / 影视仓的「设置 → 配置地址」只填**单仓配置**：
+所有源都是苹果CMS `provide/vod` 接口，统一标为 `type 1`（无需 jar）。TVBox 与影视仓同源、共用这套协议，**用同一条地址**：
 
 ```
 https://ghproxy.net/https://raw.githubusercontent.com/looomix/TVbox-Configs/main/api/tvbox.json
 ```
 
-备用线路（按顺序试）：
+按顺序替换线路：
 
 ```
-https://gh-proxy.com/https://raw.githubusercontent.com/looomix/TVbox-Configs/main/api/tvbox.json
+https://gh-proxy.org/https://raw.githubusercontent.com/looomix/TVbox-Configs/main/api/tvbox.json
+https://ghfast.top/https://raw.githubusercontent.com/looomix/TVbox-Configs/main/api/tvbox.json
 https://raw.githubusercontent.com/looomix/TVbox-Configs/main/api/tvbox.json
 https://looomix.github.io/TVbox-Configs/api/tvbox.json
 ```
 
-支持多仓的客户端可填 TXT 入口：
+影视仓导入注意：① 确认客户端版本支持「无 jar 的接口源」，过旧版本需升级；② 导入后在「仓库管理」里点选启用该仓库；③ 换地址先删除旧配置，并清缓存后重导入（影视仓默认有约 3 天缓存）；④ 若 ghproxy 提示地址无效，直接用 `raw.githubusercontent.com` 或 `looomix.github.io` 直链；⑤ 仍无法导入时，浏览器打开直链、**全选复制 JSON 文本**，在影视仓「本地导入 / 粘贴配置」里贴入，可完全绕过 URL 校验。支持多仓的客户端可用 `api/tvbox.txt`。
 
-```
-https://ghproxy.net/https://raw.githubusercontent.com/looomix/TVbox-Configs/main/api/tvbox.txt
-```
+**其他客户端：**
 
-其他客户端按各自后台要求选择：
+| 文件 | 适用客户端 | 用法 |
+| :-- | :-- | :-- |
+| `api/moontv.json` | MoonTV / LunaTV / KatelyaTV / DecoTV / MoonTVPlus | 在「视频源配置 / 配置文件」里**粘贴 JSON 内容**；这类项目多数不支持 URL 订阅 |
+| `api/list.json` | OuonnkiTV / KVideo / LibreTV | 源清单订阅地址（数组格式） |
+| `api/sources.txt` | 支持粘贴 `名称\|API` 清单的客户端 | 纯文本 |
+| `api/tvbox.txt` | TVBox / 影视仓多仓 TXT 入口 | 多仓导入 |
 
-| 文件 | 适用客户端 |
-| :-- | :-- |
-| `api/tvbox.json` | TVBox / 影视仓单仓配置 |
-| `api/moontv.json` | MoonTV / LunaTV / KatelyaTV / DecoTV / MoonTVPlus |
-| `api/list.json` | OuonnkiTV / KVideo / LibreTV |
-| `api/sources.txt` | 支持粘贴 `名称\|API` 清单的客户端 |
-| `api/tvbox.txt` | TVBox / 影视仓多仓 TXT 入口 |
-
-`api/status.json`、`api/mirror.json`、`api/index.json`、`api/probe.json` 是内部数据，**不要**填进客户端配置地址。填错文件是首页空白的最常见原因；其次检查链接首尾空格、清缓存、换 DNS。
+`api/status.json`、`api/mirror.json`、`api/index.json`、`api/probe.json` 是内部数据，**不要**填进客户端配置地址。填入前确认链接无首尾空格；TVBox 类客户端改地址后需删除旧配置重导入以清缓存。
 
 ## 自己部署
 
