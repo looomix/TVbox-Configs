@@ -455,6 +455,19 @@
 
   /* ---------------- batch delete ---------------- */
 
+  // 源清单被删空时，把一次性导入队列也清空：否则后台下次更新会按旧订阅
+  // 把刚删掉的源重新抓回来。返回是否真的清空过，供提示使用。
+  function clearFeedsIfEmpty(remaining) {
+    if (remaining > 0) return Promise.resolve(false);
+    return ghGetFile('sources/feeds.json').then(function (res) {
+      var doc = res.doc;
+      if (!doc || !doc.feeds || !doc.feeds.length) return false;
+      var empty = { version: doc.version || 1, feeds: [] };
+      return ghPutFile('sources/feeds.json', JSON.stringify(empty, null, 2) + '\n', res.sha, 'chore: 源已删空，清空源库订阅')
+        .then(function () { return true; });
+    });
+  }
+
   function selectedIds() {
     var live = {};
     state.sources.forEach(function (s) { live[s.id] = true; });
@@ -509,10 +522,13 @@
         state.removed = doc.removed || [];
         ids.forEach(function (id) { delete state.results[id]; delete state.pending[id]; });
         state.selected = {};
-        return dispatchWorkflow();
-      }).then(function (triggered) {
+        return clearFeedsIfEmpty(doc.sources.length).then(function (cleared) {
+          return dispatchWorkflow().then(function (triggered) { return { triggered: triggered, cleared: cleared }; });
+        });
+      }).then(function (res) {
         renderAll();
-        toast('已删除 ' + ids.length + t(' 个源') + (triggered ? t('，后台正在重新生成（约 2 分钟）') : t('，等待下一次自动更新')));
+        toast('已删除 ' + ids.length + t(' 个源') + (res.cleared ? t('，已清空源库订阅') : '') +
+          (res.triggered ? t('，后台正在重新生成（约 2 分钟）') : t('，等待下一次自动更新')));
         scheduleRefresh();
       });
     }).catch(function (err) {
@@ -778,10 +794,12 @@
         state.sources = doc.sources;
         state.removed = doc.removed || [];
         delete state.results[id];
-        return dispatchWorkflow();
-      }).then(function () {
+        return clearFeedsIfEmpty(doc.sources.length).then(function (cleared) {
+          return dispatchWorkflow().then(function () { return cleared; });
+        });
+      }).then(function (cleared) {
         renderAll();
-        toast('已删除并提交');
+        toast('已删除并提交' + (cleared ? t('，已清空源库订阅') : ''));
         scheduleRefresh();
       });
     });
@@ -900,11 +918,21 @@
     ghGetFile('sources/feeds.json').then(function (res) {
       var doc = res.doc || { version: 1, feeds: [] };
       var feeds = doc.feeds || (doc.feeds = []);
-      var clean = feeds.filter(function (f) { return validFeedUrl(f.url); });
+      var seen = {};
+      var clean = [];
+      feeds.filter(function (f) { return validFeedUrl(f.url); }).forEach(function (f) {
+        var k = feedKey(f.url);
+        if (seen[k]) return;
+        seen[k] = true;
+        clean.push(f);
+      });
       urls.forEach(function (u) {
-        var hit = null;
-        for (var i = 0; i < clean.length; i++) if (clean[i].url === u) { hit = clean[i]; break; }
-        if (hit) { hit.enabled = true; return; }
+        var k = feedKey(u);
+        if (seen[k]) {
+          for (var i = 0; i < clean.length; i++) if (feedKey(clean[i].url) === k) { clean[i].enabled = true; break; }
+          return;
+        }
+        seen[k] = true;
         clean.push({ name: hostOf(u), url: u, enabled: true });
       });
       doc.feeds = clean;
@@ -918,6 +946,17 @@
     }).catch(function (err) {
       toast(err.message || t('操作失败'));
     });
+  }
+
+  // 与后端 fetchFeeds 同口径：规范化后判重，避免同一链接带不带尾斜杠
+  // 被当成两条，时间久了越积越多。
+  function feedKey(raw) {
+    try {
+      var u = new URL(String(raw || '').trim());
+      return u.protocol + '//' + u.hostname.toLowerCase().replace(/^www\./, '') + u.pathname.replace(/\/+$/, '');
+    } catch (e) {
+      return String(raw || '').trim().toLowerCase().replace(/\/+$/, '');
+    }
   }
 
   function validFeedUrl(u) {
