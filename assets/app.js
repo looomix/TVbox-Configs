@@ -91,7 +91,6 @@
 
   function getJSON(path) {
     var local = path + (path.indexOf('?') >= 0 ? '&' : '?') + 't=' + Date.now();
-    var remote = 'https://cdn.jsdelivr.net/gh/' + OWNER + '/' + REPO + '@' + BRANCH + '/' + path;
     function once(url) {
       // 冷启动时 CDN 首个请求可能超过 10 秒，超时就放弃这次尝试，避免整页卡在「正在加载」
       var ctl = window.AbortController ? new AbortController() : null;
@@ -111,7 +110,8 @@
       return once(url).catch(function () { return once(url); });
     }
     var raw = 'https://raw.githubusercontent.com/' + OWNER + '/' + REPO + '/' + BRANCH + '/' + path;
-    return grab(local).catch(function () { return grab(remote).catch(function () { return grab(raw); }); });
+    var proxy = 'https://ghproxy.net/' + raw;
+    return grab(local).catch(function () { return grab(raw).catch(function () { return grab(proxy); }); });
   }
 
   function withParams(api) {
@@ -150,26 +150,20 @@
   function defaultGroups() {
     var files = [
       { file: 'api/tvbox.json', label: 'TVBox / 影视仓 单仓配置', kind: 'config' },
-      { file: 'api/moontv.json', label: 'MoonTV / LunaTV 视频源', kind: 'config' },
+      { file: 'api/moontv.json', label: 'MoonTV / LunaTV / KatelyaTV / DecoTV / MoonTVPlus 视频源', kind: 'config' },
+      { file: 'api/list.json', label: 'OuonnkiTV / KVideo / LibreTV 通用源清单', kind: 'config' },
       { file: 'api/sources.txt', label: '纯文本源清单（可粘贴导入）', kind: 'text' },
       { file: 'api/tvbox.txt', label: 'TVBox / 影视仓 多仓 TXT 入口', kind: 'text' }
     ];
     return files.map(function (f) {
       var raw = 'https://raw.githubusercontent.com/' + OWNER + '/' + REPO + '/' + BRANCH + '/' + f.file;
-      var del = 'https://cdn.jsdelivr.net/gh/' + OWNER + '/' + REPO + '@' + BRANCH + '/' + f.file;
-      return {
-        file: f.file,
-        label: f.label,
-        kind: f.kind,
-        primary: del,
-        mirrors: [
-          { name: 'jsDelivr 主线路', kind: 'primary', url: del },
-          { name: 'GitHub Pages 备用', kind: 'backup', url: 'https://' + OWNER + '.github.io/' + REPO + '/' + f.file },
-          { name: 'Raw 直连', kind: 'backup', url: raw },
-          { name: 'ghproxy 加速', kind: 'proxy', url: 'https://ghproxy.net/' + raw },
-          { name: 'gh-proxy 加速', kind: 'proxy', url: 'https://gh-proxy.com/' + raw }
-        ]
-      };
+      var ms = [
+        { name: 'ghproxy 加速', kind: 'primary', url: 'https://ghproxy.net/' + raw },
+        { name: 'gh-proxy 加速', kind: 'backup', url: 'https://gh-proxy.com/' + raw },
+        { name: 'Raw 直连', kind: 'backup', url: raw },
+        { name: 'GitHub Pages 备用', kind: 'backup', url: 'https://' + OWNER + '.github.io/' + REPO + '/' + f.file }
+      ];
+      return { file: f.file, label: f.label, kind: f.kind, primary: ms[0].url, mirrors: ms };
     });
   }
 
@@ -230,13 +224,8 @@
     $('#pillTime').textContent = '更新 ' + (st ? relTime(st.updated_at) : '—');
     $('#pillTime').title = st ? ('上次 ' + fmtTime(st.updated_at) + ' · 下次 ' + fmtTime(st.next_update_at) + ' · 停用 ' + off + ' 条') : '';
     var pill = $('#pillToken');
-    if (state.token) {
-      pill.textContent = '🔑 可编辑';
-      pill.style.color = '#17a673';
-    } else {
-      pill.textContent = '🔑 只读模式';
-      pill.style.color = '';
-    }
+    pill.textContent = state.token ? '🔑 可编辑' : '🔑 只读模式';
+    pill.classList.toggle('ok', !!state.token);
   }
 
   function renderMirrors() {
@@ -244,7 +233,7 @@
       var others = (g.mirrors || []).filter(function (m) { return m.url !== g.primary; });
       var rows = others.map(function (m) {
         return '<div class="mirror">' +
-          '<span class="tag ' + (m.kind === 'proxy' ? 'proxy' : '') + '">' + esc(m.name) + '</span>' +
+          '<span class="tag ' + (m.kind === 'primary' ? 'primary' : '') + '">' + esc(m.name) + '</span>' +
           '<span class="url" title="' + esc(m.url) + '">' + esc(m.url) + '</span>' +
           '<button class="btn tiny copy-url" data-url="' + esc(m.url) + '">复制</button>' +
           '</div>';
@@ -260,6 +249,8 @@
         '</div>';
     }).join('');
     $('#indexUrl').textContent = 'https://' + OWNER + '.github.io/' + REPO + '/api/index.json';
+    var primary = $('#primaryUrl');
+    if (primary) primary.textContent = state.groups[0] ? state.groups[0].primary : primary.textContent;
   }
 
   function renderGroups() {
@@ -951,7 +942,7 @@
 
     $('#btnCopyPrimary').addEventListener('click', function () {
       var g = state.groups[0];
-      copyText(g ? g.primary : ('https://cdn.jsdelivr.net/gh/' + OWNER + '/' + REPO + '@' + BRANCH + '/api/tvbox.json'));
+      copyText(g ? g.primary : ('https://ghproxy.net/https://raw.githubusercontent.com/' + OWNER + '/' + REPO + '/' + BRANCH + '/api/tvbox.json'));
     });
 
     $('#mirrorGroups').addEventListener('click', function (e) {
@@ -964,7 +955,7 @@
     });
 
     $('#btnCopyMulti').addEventListener('click', function () {
-      copyText('https://raw.githubusercontent.com/' + OWNER + '/' + REPO + '/' + BRANCH + '/api/tvbox.txt');
+      copyText('https://ghproxy.net/https://raw.githubusercontent.com/' + OWNER + '/' + REPO + '/' + BRANCH + '/api/tvbox.txt');
     });
 
     $('#btnFeedAdd').addEventListener('click', function () {
