@@ -948,15 +948,10 @@
     });
   }
 
-  // 与后端 fetchFeeds 同口径：规范化后判重，避免同一链接带不带尾斜杠
-  // 被当成两条，时间久了越积越多。
+  // 与后端 fetchFeeds / consumeFeeds 完全同口径：去首尾空白 + 去尾斜杠。
+  // 大小写、www、query 都保留，避免把 ?url= 不同的代理源误合并成一条。
   function feedKey(raw) {
-    try {
-      var u = new URL(String(raw || '').trim());
-      return u.protocol + '//' + u.hostname.toLowerCase().replace(/^www\./, '') + u.pathname.replace(/\/+$/, '');
-    } catch (e) {
-      return String(raw || '').trim().toLowerCase().replace(/\/+$/, '');
-    }
+    return String(raw || '').trim().replace(/\/+$/, '');
   }
 
   function validFeedUrl(u) {
@@ -1169,10 +1164,10 @@
     $('#btnSave').addEventListener('click', submitEdit);
 
     $('#btnTokenSave').addEventListener('click', function () {
-      var t = $('#fToken').value.trim();
-      if (!t) { $('#tokenHint').textContent = t('请填写令牌'); return; }
-      state.token = t;
-      localStorage.setItem(TOKEN_KEY, t);
+      var token = $('#fToken').value.trim();
+      if (!token) { $('#tokenHint').textContent = t('请填写令牌'); return; }
+      state.token = token;
+      localStorage.setItem(TOKEN_KEY, token);
       fetch(API + '/contents/sources/sources.json?ref=' + BRANCH, { headers: authHeaders(), cache: 'no-store' })
         .then(function (r) {
           if (r.ok) { toast('令牌已保存，可编辑'); closeModal('#modalToken'); renderStats(); }
