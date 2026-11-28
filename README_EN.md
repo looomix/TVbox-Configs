@@ -15,6 +15,7 @@ Auto-refresh every 168 hours (7 days). Live numbers are shown on the [admin page
 - Adult content sources are filtered by default; use `-allow-nsfw` locally to keep them.
 - Maintain once, subscribe everywhere: TVBox / YSC single repo, MoonTV family, OuonnkiTV / KVideo / LibreTV, plain-text list.
 - Admin page supports adding, bulk importing, testing, editing and deleting sources. Writes go to `sources/sources.json`, then the cloud Action regenerates the subscriptions.
+- Feed URLs are a one-shot import queue: the cloud fetches them, merges the entries into `sources/sources.json` and removes them from `sources/feeds.json`; failed feeds are retried until they succeed. Deleting all sources also clears the queue, so the file never accumulates.
 - Admin page includes a language switcher, status badges, probe summary, and subscription groups with 5 routes each.
 
 ## Import URL
@@ -59,7 +60,7 @@ YSC notes: ① use a version that supports jar-free endpoints; ② after import,
 
 `https://<username>.github.io/<repo>/`
 
-The top section shows status badges, update and probe summaries, plus a language switcher. Subscription URLs are grouped by client with backup routes. You can add, bulk-import, test, edit and delete sources; deleted endpoints are blocked from being re-added by feeds. Changes are written to `sources/sources.json` and regenerated in the cloud.
+The top section shows status badges, update and probe summaries, plus a language switcher. Subscription URLs are grouped by client with backup routes. You can add, bulk-import, test, edit and delete sources; deleted endpoints are blocked from being re-added. Feed URLs are one-shot: the cloud fetches and merges them, then removes them from `sources/feeds.json`; deleting all sources clears the queue too, so links never accumulate. Changes are written to `sources/sources.json` and regenerated in the cloud.
 
 ## Command line
 
