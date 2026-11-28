@@ -1,86 +1,144 @@
 # TVbox-Configs
 
-[中文](README.md) | English | [Deploy](#deploy) · [Features](#features) · [Import URL](#import-url) · [Clients](#other-clients) · [Disclaimer](#disclaimer)
+Aggregates video API endpoints from public lists, probes and deduplicates them, and generates subscriptions that TVBox, YSC, MoonTV and other clients can import directly.
 
-Aggregates video API endpoints from public sources into subscription configs that TVBox, YSC, MoonTV and other clients can import directly. A Go generator probes each endpoint, deduplicates and filters entries, and only verified sources reach the subscription.
+[中文](README.md) · English · [Live admin page](https://looomix.github.io/TVbox-Configs/) · [Live status](api/status.json)
 
-Auto-refresh every 168 hours (7 days). Live numbers are shown on the [admin page](https://looomix.github.io/TVbox-Configs/) and in [`api/status.json`](api/status.json). Latest probe: 75/119 sources alive (63%), 34 dead endpoints removed, 23 adult sources filtered.
+> Badge numbers are a snapshot from the latest generation. See the admin page and `api/status.json` for live values.
 
-> Badge numbers (sites / sources / links) are a snapshot from the latest generation. See the admin page and `api/status.json` for live values.
+---
 
-## Features
+## Contents
 
-- Go generator + static admin page: probes, deduplicates and filters sources, keeping the last 8 check results.
-- Sources come from public feeds and manual entries, verified against real CMS list responses.
-- Adult content sources are filtered by default; use `-allow-nsfw` locally to keep them.
-- Maintain once, subscribe everywhere: TVBox / YSC single repo, MoonTV family, OuonnkiTV / KVideo / LibreTV, plain-text list.
-- Admin page supports adding, bulk importing, testing, editing and deleting sources. Writes go to `sources/sources.json`, then the cloud Action regenerates the subscriptions.
-- Feed URLs are a one-shot import queue: the cloud fetches them, merges the entries into `sources/sources.json` and removes them from `sources/feeds.json`; failed feeds are retried until they succeed. Deleting all sources also clears the queue, so the file never accumulates.
-- Admin page includes a language switcher, status badges, probe summary, and subscription groups with 5 routes each.
+- [Quick start](#quick-start)
+- [Features](#features)
+- [Subscription URLs](#subscription-urls)
+- [Client matrix](#client-matrix)
+- [Self-host](#self-host)
+- [Admin page](#admin-page)
+- [Command line](#command-line)
+- [File map](#file-map)
+- [Disclaimer](#disclaimer)
 
-## Import URL
+---
 
-All sources are Apple CMS `provide/vod` endpoints marked `type 1` (no jar required). TVBox and YSC share the same protocol, so use the same URL:
+## Quick start
+
+**One step**: copy the URL below into "Settings → Config URL" in TVBox / YSC.
 
 ```
 https://ghproxy.net/https://raw.githubusercontent.com/looomix/TVbox-Configs/main/api/tvbox.json
 ```
 
-Backup routes, in order:
+If it fails, try the backups in order:
 
-```
-https://gh-proxy.org/https://raw.githubusercontent.com/looomix/TVbox-Configs/main/api/tvbox.json
-https://ghfast.top/https://raw.githubusercontent.com/looomix/TVbox-Configs/main/api/tvbox.json
-https://raw.githubusercontent.com/looomix/TVbox-Configs/main/api/tvbox.json
-https://looomix.github.io/TVbox-Configs/api/tvbox.json
-```
+| Route | URL |
+| :-- | :-- |
+| gh-proxy | `https://gh-proxy.org/https://raw.githubusercontent.com/looomix/TVbox-Configs/main/api/tvbox.json` |
+| ghfast | `https://ghfast.top/https://raw.githubusercontent.com/looomix/TVbox-Configs/main/api/tvbox.json` |
+| Raw direct | `https://raw.githubusercontent.com/looomix/TVbox-Configs/main/api/tvbox.json` |
+| Pages | `https://looomix.github.io/TVbox-Configs/api/tvbox.json` |
 
-YSC notes: ① use a version that supports jar-free endpoints; ② after import, select the repository in "Repository Management"; ③ delete the old config and clear cache before re-importing (YSC caches for about 3 days); ④ if a proxy URL is rejected, use the `raw.githubusercontent.com` or `looomix.github.io` direct link; ⑤ as a last resort, open the direct link in a browser, copy the whole JSON text and paste it into YSC's "local import / paste config". Clients with multi-repo support can use `api/tvbox.txt`.
+**YSC tips**: ① use a version supporting jar-free endpoints; ② enable the repository in "Repository Management" after import; ③ delete the old config and clear cache before re-importing (~3-day cache); ④ if a proxy URL is rejected, use the Raw / Pages direct link; ⑤ as a last resort, open the direct link in a browser, copy the whole JSON and paste it into "local import / paste config".
 
-### Other clients
+---
 
-| File | Clients | Usage |
+## Features
+
+| Capability | Details |
+| :-- | :-- |
+| Auto aggregation | Fetches endpoints from public lists and manual entries, verifying each against a real CMS list response |
+| Quality filtering | Probes, deduplicates and filters adult sources; only verified ones are published, with the last 8 check results kept |
+| Multi-client | One source list feeds TVBox / YSC, MoonTV family, OuonnkiTV / KVideo / LibreTV and plain-text output |
+| Visual admin | Static page for add, bulk import, test, edit and delete, with language switcher, badges and probe summary |
+| Cloud generation | Page writes `sources/sources.json`; GitHub Actions regenerates and publishes automatically |
+| One-shot feeds | Feed URLs are removed after being fetched and merged; failures are retried; deleting all sources clears the queue |
+
+---
+
+## Subscription URLs
+
+All sources are Apple CMS `provide/vod` endpoints marked `type 1` (no jar plugin). TVBox and YSC share the same URL. Multi-repo clients can use `api/tvbox.txt`; the full entry index is `api/index.json`.
+
+### Client matrix
+
+| File | Clients | How to import |
 | :-- | :-- | :-- |
-| `api/moontv.json` | MoonTV / LunaTV / KatelyaTV / DecoTV / MoonTVPlus | Paste the JSON content into "Video Source Config"; most of these projects do not support URL subscriptions |
-| `api/list.json` | OuonnkiTV / KVideo / LibreTV | Source list subscription URL (JSON array) |
+| `api/tvbox.json` | TVBox / YSC | Single-repo config URL |
+| `api/moontv.json` | MoonTV / LunaTV / KatelyaTV / DecoTV / MoonTVPlus | Paste JSON (most do not support URL subscription) |
+| `api/list.json` | OuonnkiTV / KVideo / LibreTV | JSON-array source list URL |
 | `api/sources.txt` | Clients accepting a plain `name\|API` list | Plain text |
-| `api/tvbox.txt` | TVBox / YSC multi-repo TXT index | Multi-repo import |
+| `api/tvbox.txt` | Multi-repo TVBox / YSC | Multi-repo TXT index |
 
-`api/status.json`, `api/mirror.json`, `api/index.json` and `api/probe.json` are internal data — **do not** paste them into a client's config URL. Check for leading/trailing spaces, and delete the old config before re-importing to clear client cache.
+> `api/status.json`, `api/mirror.json`, `api/index.json` and `api/probe.json` are internal data — **do not** paste them into a client's config URL. Check for leading/trailing spaces, and delete the old config before re-importing to clear cache.
 
-## Deploy
+---
 
-1. Fork this repository.
+## Self-host
+
+1. **Fork** this repository.
 2. Open **Actions** and enable the workflows.
 3. **Settings → Pages**: Source = `Deploy from a branch`, Branch = `main`, `/ (root)`, then save.
-4. Make the repository **Public**. Create a fine-grained token with `Contents: Read and write` and `Actions: Read and write` for this repository, then enter it in the admin page's "Set token" dialog.
-5. Add or import sources in the admin page and wait for `Update Configs` to finish. Subscription URLs follow your own repository name automatically.
+4. Make the repo **Public**. Create a fine-grained token with `Contents: Read and write` and `Actions: Read and write`, then enter it in the admin page's "Set token".
+5. Add or import sources in the admin page and wait for `Update Configs`. Subscription URLs follow your own repository name automatically.
+
+---
 
 ## Admin page
 
 `https://<username>.github.io/<repo>/`
 
-The top section shows status badges, update and probe summaries, plus a language switcher. Subscription URLs are grouped by client with backup routes. You can add, bulk-import, test, edit and delete sources; deleted endpoints are blocked from being re-added. Feed URLs are one-shot: the cloud fetches and merges them, then removes them from `sources/feeds.json`; deleting all sources clears the queue too, so links never accumulate. Changes are written to `sources/sources.json` and regenerated in the cloud.
+| Area | Purpose |
+| :-- | :-- |
+| System overview | Update/probe summary, site & source counts, route count, Stars, latest commit |
+| Quick import | Copy the primary TVBox / YSC single-repo URL and multi-repo TXT |
+| Subscription URLs | Grouped by client, 5 accelerated/direct routes each |
+| Sources | Search, filter, test, edit, delete, bulk import; deleted endpoints stay blocked |
+| Self-host | Fork → Actions → Pages checklist |
+
+Feed URLs are a one-shot import queue: the cloud fetches and merges them, then removes them from `sources/feeds.json`; deleting all sources clears the queue too. The page writes `sources/sources.json` and the cloud regenerates subscriptions. Without a token the page is read-only for browsing and testing.
+
+---
 
 ## Command line
 
 ```bash
 go build -o bin/tvboxgen ./cmd/tvboxgen
-./bin/tvboxgen -force                 # generate immediately
+
+./bin/tvboxgen -force                 # generate immediately (ignore the 7-day interval)
 ./bin/tvboxgen -feed-only             # merge feeds only, no probing
 ./bin/tvboxgen -probe=<endpoint>      # test a single endpoint
 ./bin/tvboxgen -force -allow-nsfw     # keep adult sources
 ```
 
-Common flags: `-workers`, `-timeout`, `-budget`, `-interval`, `-history`. Probing relies on real CMS list responses; only `ok` sources enter the subscriptions.
+Common flags: `-workers` (parallel probes), `-timeout` (per-request timeout), `-budget` (total run cap), `-interval` (minimum update gap), `-history` (check points kept). Probing relies on real CMS list responses; only `ok` sources enter subscriptions.
+
+---
+
+## File map
+
+| Path | Purpose |
+| :-- | :-- |
+| `sources/sources.json` | Master source list (includes the deletion blocklist) |
+| `sources/feeds.json` | One-shot feed import queue, cleared after fetching |
+| `api/tvbox.json` / `moontv.json` / `list.json` | Per-client subscription configs |
+| `api/sources.txt` / `tvbox.txt` | Plain-text list / multi-repo index |
+| `api/status.json` / `mirror.json` / `index.json` / `probe.json` | Status, route index and probe result (internal) |
+| `index.html` + `assets/` | Static admin page (HTML / styles / logic / i18n dictionary) |
+| `cmd/tvboxgen` + `internal/` | Go generator and internal packages |
+| `.github/workflows/` | Cloud generation and single-source probe workflows |
+
+---
 
 ## Disclaimer
 
-This project is a **config text generation and management tool**. It only outputs JSON / TXT files for clients to read. **This project does not store, cache, proxy, transcode, distribute or provide any audio or video content, and offers no playback service.** Endpoints in this repository are entered by the user or fetched from third-party public feeds configured by the user. The project does not own these endpoints and makes no review, endorsement or warranty regarding their content, copyright status, legality, availability, security or accuracy. Third-party endpoints may change, fail, return incorrect content or stop serving at any time.
+This project is a **config text generation and management tool**. It only outputs JSON / TXT files for clients to read. **This project does not store, cache, proxy, transcode, distribute or provide any audio or video content, and offers no playback service.** Endpoints in this repository are entered by the user or fetched from third-party public lists configured by the user. The project does not own these endpoints and makes no review, endorsement or warranty regarding their content, copyright status, legality, availability, security or accuracy. Third-party endpoints may change, fail, return incorrect content or stop serving at any time.
 
 Users are solely responsible for ensuring that the endpoints and content they enter, subscribe to, distribute and use comply with local laws, platform rules and applicable terms of service, and bear all resulting responsibilities and risks. Any loss, dispute, administrative penalty, third-party claim or other consequence arising from the use or inability to use this project, from reliance on the config text in this repository, or from third-party endpoint content or failures, is borne solely by the user. To the maximum extent permitted by law, the authors and contributors accept no liability, including but not limited to direct or indirect loss, data loss, device damage and loss of anticipated profits.
 
 This project is provided **AS IS**, without any express or implied warranty, including but not limited to merchantability, fitness for a particular purpose, accuracy, continuous availability and non-infringement. If a rights holder believes an entry infringes their rights, the claim should be directed to the operator of the corresponding third-party endpoint; this project does not control or host that endpoint or its content. Do not use this project for any unlawful purpose. If such use is not permitted where you live, stop using it immediately.
+
+---
 
 ## License
 
