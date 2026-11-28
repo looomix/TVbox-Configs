@@ -3,14 +3,19 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>TVbox-Configs · 视频源管理</title>
+<title>TVbox-Configs · 视频源管理控制台</title>
 <meta name="description" content="从公开来源自动聚合视频接口，生成 TVBox / 影视仓 / MoonTV 等客户端可直接导入的订阅配置">
-<link rel="stylesheet" href="assets/style.css?v=20261128c">
+<link rel="stylesheet" href="assets/style.css?v=20261128d">
 </head>
 <body>
 <div class="wrap">
 
+  <!-- 顶部导航 -->
   <nav class="topnav" aria-label="主导航">
+    <a class="nav-brand" href="#status">
+      <span class="nav-mark" aria-hidden="true"><svg viewBox="0 0 24 24"><rect x="3" y="4" width="18" height="16" rx="2"/><path d="M3 9h18M8 4v5"/></svg></span>
+      <span class="nav-brand-txt">TVbox<span>-Configs</span></span>
+    </a>
     <div class="nav-links">
       <a href="#status" data-i18n="运行状态">运行状态</a>
       <a href="#hero" data-i18n="快速导入">快速导入</a>
@@ -23,12 +28,14 @@
     </div>
   </nav>
 
+  <!-- 标题区 -->
   <header class="top">
     <div class="brand">
-      <h1>TVbox-Configs</h1>
+      <div class="eyebrow">CONFIGURATION CONSOLE</div>
+      <h1 data-i18n="视频源管理控制台">视频源管理控制台</h1>
       <p class="sub" data-i18n="自动检测 · 去重过滤 · 一处维护，多端订阅">自动检测 · 去重过滤 · 一处维护，多端订阅</p>
     </div>
-    <div class="stats">
+    <div class="stats" id="statsBar">
       <span class="pill ok" id="pillAlive" data-i18n="可用 —">可用 —</span>
       <span class="pill warn" id="pillUnverified" data-i18n="未验证 —">未验证 —</span>
       <span class="pill bad" id="pillDead" data-i18n="失效 —">失效 —</span>
@@ -37,7 +44,17 @@
     </div>
   </header>
 
+  <!-- 运行状态 -->
   <section class="card status-card" id="status">
+    <div class="section-head">
+      <div class="section-title">
+        <span class="section-index">01</span>
+        <div>
+          <h2 data-i18n="运行状态总览">运行状态总览</h2>
+          <p data-i18n="从公开来源自动聚合视频接口，转换成 TVBox / 影视仓 / MoonTV 等客户端可直接导入的订阅配置">从公开来源自动聚合视频接口，转换成 TVBox / 影视仓 / MoonTV 等客户端可直接导入的订阅配置</p>
+        </div>
+      </div>
+    </div>
     <div class="badge-row" id="badgeRow">
       <span class="bdg"><span class="bdg-k">update</span><span class="bdg-v" id="bdgUpdate">—</span></span>
       <span class="bdg"><span class="bdg-k">sites</span><span class="bdg-v blue" id="bdgSites">—</span></span>
@@ -47,40 +64,69 @@
       <span class="bdg"><span class="bdg-k">last commit</span><span class="bdg-v" id="bdgCommit">—</span></span>
       <a class="bdg" id="bdgStarsLink" href="https://github.com/looomix/TVbox-Configs/stargazers" target="_blank" rel="noopener"><span class="bdg-k">Stars</span><span class="bdg-v" id="bdgStars">—</span></a>
     </div>
-    <p class="status-desc" data-i18n="从公开来源自动聚合视频接口，转换成 TVBox / 影视仓 / MoonTV 等客户端可直接导入的订阅配置">从公开来源自动聚合视频接口，转换成 TVBox / 影视仓 / MoonTV 等客户端可直接导入的订阅配置</p>
-    <p class="status-line" id="statusLine" data-i18n="正在读取运行状态…">正在读取运行状态…</p>
-    <p class="status-line" id="probeLine" data-i18n="正在读取探测结果…">正在读取探测结果…</p>
+    <div class="status-grid">
+      <div class="status-item">
+        <span class="status-k">UPDATE CYCLE</span>
+        <p class="status-line" id="statusLine" data-i18n="正在读取运行状态…">正在读取运行状态…</p>
+      </div>
+      <div class="status-item">
+        <span class="status-k">LAST PROBE</span>
+        <p class="status-line" id="probeLine" data-i18n="正在读取探测结果…">正在读取探测结果…</p>
+      </div>
+    </div>
   </section>
 
+  <!-- 快速导入 -->
   <section class="card hero" id="hero">
-    <div class="card-head">
-      <h2 data-i18n="快速导入">快速导入</h2>
+    <div class="section-head">
+      <div class="section-title">
+        <span class="section-index">02</span>
+        <div>
+          <h2 data-i18n="快速导入">快速导入</h2>
+          <p data-i18n="把下面这条单仓配置地址填进「设置 → 配置地址」。其他客户端的文件在下方「订阅地址」中选取。">把下面这条单仓配置地址填进「设置 → 配置地址」。其他客户端的文件在下方「订阅地址」中选取。</p>
+        </div>
+      </div>
       <span class="tag primary">TVBox / 影视仓</span>
     </div>
-    <p class="hero-tip" data-i18n="把下面这条单仓配置地址填进「设置 → 配置地址」。其他客户端的文件在下方「订阅地址」中选取。">把下面这条单仓配置地址填进「设置 → 配置地址」。其他客户端的文件在下方「订阅地址」中选取。</p>
-    <div class="quick-url" id="primaryUrl">https://ghproxy.net/https://raw.githubusercontent.com/looomix/TVbox-Configs/main/api/tvbox.json</div>
-    <div class="quick-actions">
-      <button class="btn primary" id="btnCopyPrimary" data-i18n="复制首选线路">复制首选线路</button>
-      <button class="btn" id="btnCopyMulti" data-i18n="复制多仓 TXT">复制多仓 TXT</button>
+    <div class="quick-block">
+      <div class="quick-label"><span class="dot-live"></span><span data-i18n="首选单仓地址">首选单仓地址</span></div>
+      <div class="quick-url" id="primaryUrl">https://ghproxy.net/https://raw.githubusercontent.com/looomix/TVbox-Configs/main/api/tvbox.json</div>
+      <div class="quick-actions">
+        <button class="btn primary" id="btnCopyPrimary" data-i18n="复制首选线路">复制首选线路</button>
+        <button class="btn" id="btnCopyMulti" data-i18n="复制多仓 TXT">复制多仓 TXT</button>
+      </div>
     </div>
     <p class="hint" data-i18n="打不开时换下方同组的备用线路。若导入后首页空白，请确认没有把 MoonTV、纯文本清单或多仓入口填进单仓配置地址。">打不开时换下方同组的备用线路。若导入后首页空白，请确认没有把 MoonTV、纯文本清单或多仓入口填进单仓配置地址。</p>
   </section>
 
+  <!-- 订阅地址 -->
   <section class="card" id="mirrorCard">
-    <div class="card-head">
-      <h2 data-i18n="订阅地址">订阅地址</h2>
-      <span class="hint" id="mirrorHint" data-i18n="按客户端选择，每条含 5 条线路">按客户端选择，每条含 5 条线路</span>
+    <div class="section-head">
+      <div class="section-title">
+        <span class="section-index">03</span>
+        <div>
+          <h2 data-i18n="订阅地址">订阅地址</h2>
+          <p id="mirrorHint" data-i18n="按客户端选择，每条含 5 条线路">按客户端选择，每条含 5 条线路</p>
+        </div>
+      </div>
     </div>
     <div id="mirrorGroups"></div>
-    <div class="inline-row">
+    <div class="inline-row index-row">
       <span class="url" id="indexUrl">api/index.json</span>
       <button class="btn sm" data-copy="index" data-i18n="复制多仓入口">复制多仓入口</button>
     </div>
   </section>
 
+  <!-- 视频源管理 -->
   <section class="card sources" id="sourceCard">
-    <div class="card-head">
-      <h2><span data-i18n="视频源">视频源</span><span class="sub-count" id="listCount"></span></h2>
+    <div class="section-head">
+      <div class="section-title">
+        <span class="section-index">04</span>
+        <div>
+          <h2><span data-i18n="视频源">视频源</span><span class="sub-count" id="listCount"></span></h2>
+          <p data-i18n="管理源清单：搜索、测试、编辑与删除，所有变更写入仓库后由云端重新生成。">管理源清单：搜索、测试、编辑与删除，所有变更写入仓库后由云端重新生成。</p>
+        </div>
+      </div>
       <div class="tools">
         <input class="input" id="q" type="search" data-i18n-placeholder="搜索名称 / 地址" placeholder="搜索名称 / 地址">
         <select id="filterState">
@@ -91,13 +137,18 @@
           <option value="off" data-i18n="仅停用">仅停用</option>
         </select>
         <select id="filterGroup"><option value="all" data-i18n="全部分类">全部分类</option></select>
-        <button class="btn primary" id="btnAdd" data-i18n="＋ 新增源">＋ 新增源</button>
-        <button class="btn danger" id="btnBatchDel" disabled><span data-i18n="批量删除">批量删除</span> <span id="selCount">0</span></button>
-        <button class="btn" id="btnDispatch" title="触发一次立即检测" data-i18n="立即重新生成">立即重新生成</button>
-        <button class="btn ghost" id="btnToken" data-i18n="设置令牌">设置令牌</button>
       </div>
     </div>
-    <div class="inline-row wide">
+
+    <div class="action-bar">
+      <button class="btn primary" id="btnAdd" data-i18n="＋ 新增源">＋ 新增源</button>
+      <button class="btn danger" id="btnBatchDel" disabled><span data-i18n="批量删除">批量删除</span> <span id="selCount">0</span></button>
+      <button class="btn" id="btnDispatch" title="触发一次立即检测" data-i18n="立即重新生成">立即重新生成</button>
+      <button class="btn ghost" id="btnToken" data-i18n="设置令牌">设置令牌</button>
+    </div>
+
+    <div class="import-bar">
+      <label class="import-label" data-i18n="批量导入">批量导入</label>
       <input class="input" id="feedCustom" data-i18n-placeholder="粘贴接口地址或源库链接，多条用换行 / 逗号分隔；重复的自动跳过" placeholder="粘贴接口地址或源库链接，多条用换行 / 逗号分隔；重复的自动跳过">
       <button class="btn primary" id="btnFeedAdd" data-i18n="导入">导入</button>
     </div>
@@ -117,8 +168,18 @@
     </div>
   </section>
 
+  <!-- 自己部署 -->
   <section class="card deploy" id="deploy">
-    <div class="card-head"><h2 data-i18n="自己部署">自己部署</h2><span class="tag">Fork → Actions → Pages</span></div>
+    <div class="section-head">
+      <div class="section-title">
+        <span class="section-index">05</span>
+        <div>
+          <h2 data-i18n="自己部署">自己部署</h2>
+          <p data-i18n="Fork 仓库后开启 Actions 与 Pages，即可拥有自己的订阅服务。">Fork 仓库后开启 Actions 与 Pages，即可拥有自己的订阅服务。</p>
+        </div>
+      </div>
+      <span class="tag">Fork → Actions → Pages</span>
+    </div>
     <ol class="steps">
       <li data-i18n="Fork 本仓库，在 Actions 页启用工作流。">Fork 本仓库，在 Actions 页启用工作流。</li>
       <li data-i18n="Settings → Pages：Source 选 Deploy from a branch，Branch 选 main、/ (root)。">Settings → Pages：Source 选 Deploy from a branch，Branch 选 main、/ (root)。</li>
@@ -133,9 +194,13 @@
   </footer>
 </div>
 
+<!-- 编辑源弹窗 -->
 <div class="modal" id="modalEdit">
   <div class="sheet">
-    <h3 id="editTitle" data-i18n="新增视频源">新增视频源</h3>
+    <div class="sheet-head">
+      <h3 id="editTitle" data-i18n="新增视频源">新增视频源</h3>
+      <button class="icon-btn" data-close aria-label="Close">×</button>
+    </div>
     <label><span data-i18n="名称">名称</span><input class="input" id="fName" data-i18n-placeholder="例如：某某影视" placeholder="例如：某某影视"></label>
     <label><span data-i18n="接口地址（CMS API）">接口地址（CMS API）</span><input class="input" id="fApi" placeholder="https://example.com/api.php/provide/vod"></label>
     <div class="grid2">
@@ -158,9 +223,13 @@
   </div>
 </div>
 
+<!-- 令牌弹窗 -->
 <div class="modal" id="modalToken">
   <div class="sheet">
-    <h3 data-i18n="GitHub 访问令牌">GitHub 访问令牌</h3>
+    <div class="sheet-head">
+      <h3 data-i18n="GitHub 访问令牌">GitHub 访问令牌</h3>
+      <button class="icon-btn" data-close aria-label="Close">×</button>
+    </div>
     <label><span data-i18n="Personal access token（仅本机浏览器保存）">Personal access token（仅本机浏览器保存）</span><input class="input" id="fToken" type="password" placeholder="github_pat_…"></label>
     <p class="hint" data-i18n="建议 fine-grained token，仅授权本仓库的 Contents: Read and write 与 Actions: Read and write。令牌只写入浏览器本地存储。">建议 fine-grained token，仅授权本仓库的 Contents: Read and write 与 Actions: Read and write。令牌只写入浏览器本地存储。</p>
     <div class="sheet-actions">
@@ -173,7 +242,7 @@
 </div>
 
 <div class="toast" id="toast"></div>
-<script src="assets/i18n.js?v=20261128c"></script>
-<script src="assets/app.js?v=20261128c"></script>
+<script src="assets/i18n.js?v=20261128d"></script>
+<script src="assets/app.js?v=20261128d"></script>
 </body>
 </html>
