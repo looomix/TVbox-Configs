@@ -8,6 +8,7 @@ package main
 import (
 	"flag"
 	"fmt"
+	"math"
 	"os"
 	"path/filepath"
 	"strings"
@@ -122,11 +123,14 @@ func main() {
 		kept = append(kept, s)
 	}
 	// one entry per endpoint: the link decides, display names are never merged
-	list, dup := gen.Dedupe(kept)
+	allList, dup := gen.Dedupe(kept)
 
+	// 过滤只在"探活 + 发布"这条链路上生效，不能写回 sources.json：
+	// 否则用户手动加的源一旦命中成人关键词就会被永久删除，-allow-nsfw 也找不回。
+	list := allList
 	filtered := 0
 	if !*allowNSFW {
-		list, filtered = gen.FilterNSFW(list)
+		list, filtered = gen.FilterNSFW(allList)
 	}
 
 	fromFeed := 0
@@ -136,7 +140,8 @@ func main() {
 		}
 	}
 
-	newFile := model.SourceFile{Version: 1, Removed: sf.Removed, Sources: list}
+	// 源清单始终写全量，保持用户数据完整；发布产物由 list 决定。
+	newFile := model.SourceFile{Version: 1, Removed: sf.Removed, Sources: allList}
 	changed, err := gen.WriteJSONIfChanged(*sourcesPath, newFile)
 	if err != nil {
 		fmt.Printf("write %s: %v\n", *sourcesPath, err)
@@ -166,7 +171,7 @@ func main() {
 	rep := &model.Report{
 		UpdatedAt:     start.UTC().Format(time.RFC3339),
 		NextUpdateAt:  start.Add(*interval).UTC().Format(time.RFC3339),
-		IntervalHours: int(interval.Hours()),
+		IntervalHours: int(math.Round(interval.Hours())),
 		Total:         len(list),
 		FromFeed:      fromFeed,
 		Deduped:       dup,
@@ -275,8 +280,12 @@ func fetchFeeds(ff model.FeedFile, timeout time.Duration, deadline time.Time) ([
 				return
 			}
 			fmt.Printf("feed %s -> %d entries\n", jobs[i].Name, len(items))
-			results[i] = items
-			fetched[i] = true
+			// 只有真正解析出可用源才算消费成功；空内容/错误页保留在队列里
+			// 下次重试，否则一次性队列会静默丢失这条订阅。
+			if len(items) > 0 {
+				results[i] = items
+				fetched[i] = true
+			}
 		}(i)
 	}
 	wg.Wait()
@@ -352,7 +361,11 @@ func writeArtifacts(outDir, owner, repo, branch string, sites []model.Site, upda
 	mirrors := mirror.List(owner, repo, branch, "api/tvbox.json")
 	var multi strings.Builder
 	multi.WriteString("# TVbox-Configs 多仓入口（名称,单仓配置地址）\n")
-	for _, m := range mirrors[:3] {
+	limit := 3
+	if len(mirrors) < limit {
+		limit = len(mirrors)
+	}
+	for _, m := range mirrors[:limit] {
 		multi.WriteString(m.Name + "," + m.URL + "\n")
 	}
 	if err := gen.WriteText(filepath.Join(outDir, "tvbox.txt"), multi.String()); err != nil {
