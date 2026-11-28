@@ -149,7 +149,7 @@
 
   function defaultGroups() {
     var files = [
-      { file: 'api/tvbox.json', label: 'TVBox / 影视仓 单仓配置', kind: 'config' },
+      { file: 'api/tvbox.json', label: 'TVBox / 影视仓 单仓配置（type 1）', kind: 'config' },
       { file: 'api/moontv.json', label: 'MoonTV / LunaTV / KatelyaTV / DecoTV / MoonTVPlus 视频源', kind: 'config' },
       { file: 'api/list.json', label: 'OuonnkiTV / KVideo / LibreTV 通用源清单', kind: 'config' },
       { file: 'api/sources.txt', label: '纯文本源清单（可粘贴导入）', kind: 'text' },
@@ -159,7 +159,8 @@
       var raw = 'https://raw.githubusercontent.com/' + OWNER + '/' + REPO + '/' + BRANCH + '/' + f.file;
       var ms = [
         { name: 'ghproxy 加速', kind: 'primary', url: 'https://ghproxy.net/' + raw },
-        { name: 'gh-proxy 加速', kind: 'backup', url: 'https://gh-proxy.com/' + raw },
+        { name: 'gh-proxy 加速', kind: 'backup', url: 'https://gh-proxy.org/' + raw },
+        { name: 'ghfast 加速', kind: 'backup', url: 'https://ghfast.top/' + raw },
         { name: 'Raw 直连', kind: 'backup', url: raw },
         { name: 'GitHub Pages 备用', kind: 'backup', url: 'https://' + OWNER + '.github.io/' + REPO + '/' + f.file }
       ];
