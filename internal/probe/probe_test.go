@@ -40,6 +40,25 @@ func TestVerifyJSONOK(t *testing.T) {
 	if r.LatencyMs <= 0 {
 		t.Fatalf("ok result must carry a latency, got %d", r.LatencyMs)
 	}
+	if !r.Searchable {
+		t.Fatalf("a keyword query that returned data means the site is searchable, got %+v", r)
+	}
+}
+
+// A station that rejects the keyword query is usable but not searchable, and
+// the published flag must say so instead of claiming every site supports search.
+func TestVerifyListingOnlyIsNotSearchable(t *testing.T) {
+	srv, c := serve(t, func(w http.ResponseWriter, r *http.Request) {
+		if r.URL.Query().Get("wd") != "" {
+			fmt.Fprint(w, "<html>search disabled</html>")
+			return
+		}
+		fmt.Fprint(w, okJSON)
+	})
+	r := Verify(c, api(srv), time.Time{})
+	if r.State != "ok" || r.Searchable {
+		t.Fatalf("want ok and not searchable, got %+v", r)
+	}
 }
 
 // Many Apple CMS deployments answer with XML unless at=json is requested; that
@@ -126,6 +145,30 @@ func TestVerify500IsDead(t *testing.T) {
 	r := Verify(c, api(srv), time.Time{})
 	if r.State != "down" || r.Reason != ReasonServer {
 		t.Fatalf("want down/http_5xx, got %+v", r)
+	}
+}
+
+// A single 5xx on one request shape is usually the gateway, not a dead api:
+// every other shape fails at the network layer, so this must stay unverified.
+func TestVerifySingleServerErrorIsUnverified(t *testing.T) {
+	srv, c := serve(t, func(w http.ResponseWriter, r *http.Request) {
+		if r.URL.RawQuery == "ac=detail&pg=1" {
+			w.WriteHeader(http.StatusBadGateway)
+			return
+		}
+		panic(http.ErrAbortHandler) // drop the connection: a transport failure
+	})
+	r := Verify(c, api(srv), time.Time{})
+	if r.State != "limited" || r.Reason != ReasonServer {
+		t.Fatalf("want limited/http_5xx, got %+v", r)
+	}
+}
+
+// A source record without an address is not a station that refused to serve.
+func TestVerifyEmptyAddressIsUnverified(t *testing.T) {
+	r := Verify(NewClient(time.Second), "   ", time.Time{})
+	if r.State != "limited" || r.Reason != ReasonBadURL {
+		t.Fatalf("want limited/bad_url, got %+v", r)
 	}
 }
 
