@@ -10,8 +10,8 @@
       "url": "https://ghfast.top/https://raw.githubusercontent.com/looomix/TVbox-Configs/main/api/tvbox.json"
     },
     {
-      "name": "GitHub Pages 备用",
-      "url": "https://looomix.github.io/TVbox-Configs/api/tvbox.json"
+      "name": "Raw 直连",
+      "url": "https://raw.githubusercontent.com/looomix/TVbox-Configs/main/api/tvbox.json"
     }
   ]
 }
