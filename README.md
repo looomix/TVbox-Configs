@@ -1,178 +1,74 @@
 # TVbox-Configs
 
-一个**容器型**视频源配置仓库：自带生成器、网页管理台和 10 种客户端订阅产物。源清单由内置的公开源库自动抓取并逐条探活，只有验证通过的条目才写进订阅；放什么源、怎么用，最终由使用者自己决定。
+自动生成和管理视频源订阅：Go 生成器 + 静态管理页。源来自公开清单，逐条探活；只有验证通过且未被过滤的条目写入订阅。默认过滤成人内容源，本地可用 `-allow-nsfw` 关闭。
 
-- 一次生成，多客户端可用：TVBox / 影视仓、MoonTV / LunaTV、KatelyaTV、DecoTV、MoonTVPlus、OuonnkiTV、KVideo、LibreTV、纯文本清单、多仓 TXT
-- 网页即可新增、导入、测试、修改、单条删除、批量删除
-- 网页写入落到 `sources/sources.json`，云端 Action 重新生成订阅
-- 7 天一次自动检测，单次运行硬上限 45 秒
-- 默认过滤成人内容源（部分 TVBox 编译会隐藏这类站点，导致整仓看起来空白）；需要时本地加 `-allow-nsfw` 可保留
+## 导入地址
 
-## TVBox / 影视仓 导入（先读这段）
-
-**只把 `api/tvbox.json` 填进「设置 → 配置地址」**：
+TVBox / 影视仓的「设置 → 配置地址」只填**单仓配置**：
 
 ```
-https://cdn.jsdelivr.net/gh/looomix/TVbox-Configs@main/api/tvbox.json
+https://ghproxy.net/https://raw.githubusercontent.com/looomix/TVbox-Configs/main/api/tvbox.json
 ```
 
-备用线路（主线路打不开时二选一）：
+备用线路（按顺序试）：
 
 ```
-https://looomix.github.io/TVbox-Configs/api/tvbox.json
+https://gh-proxy.com/https://raw.githubusercontent.com/looomix/TVbox-Configs/main/api/tvbox.json
 https://raw.githubusercontent.com/looomix/TVbox-Configs/main/api/tvbox.json
+https://looomix.github.io/TVbox-Configs/api/tvbox.json
 ```
 
-客户端支持多仓时，也可以填 TXT 入口（内容是上面三条线路，选一条加载）：
+支持多仓的客户端可填 TXT 入口：
 
 ```
-https://raw.githubusercontent.com/looomix/TVbox-Configs/main/api/tvbox.txt
+https://ghproxy.net/https://raw.githubusercontent.com/looomix/TVbox-Configs/main/api/tvbox.txt
 ```
 
-**不要把** `api/index.json`、`api/mirror.json`、`api/status.json`、`api/moontv.json`、`api/kvideo.json` 等填进 TVBox 的配置地址——它们不是单仓配置，客户端解析不出 `sites`，表现就是「首页空白 / 全部无内容」。
+其他客户端按各自后台要求选择：
 
-导入后若仍空白，按顺序排查：
+| 文件 | 适用客户端 |
+| :-- | :-- |
+| `api/tvbox.json` | TVBox / 影视仓单仓配置 |
+| `api/moontv.json` | MoonTV / LunaTV / KatelyaTV / DecoTV / MoonTVPlus |
+| `api/list.json` | OuonnkiTV / KVideo / LibreTV |
+| `api/sources.txt` | 支持粘贴 `名称\|API` 清单的客户端 |
+| `api/tvbox.txt` | TVBox / 影视仓多仓 TXT 入口 |
 
-1. 手机浏览器直接打开上面的 URL，必须看到以 `{"spider":...` 开头的 JSON，而不是 HTML 网页或 404。
-2. 确认链接首尾没有空格；TVBox 会清缓存，切换配置后重启应用或清一次缓存再刷新。
-3. 电视 DNS 改成 `114.114.114.114` 或 `223.5.5.5`；很多采集接口在运营商 DNS 下解析失败。
-4. 在配置里看站点数量；若显示 0，去仓库 Actions 看 `Update Configs` 是否成功、以及 `api/status.json` 里 `alive` 是否大于 0。
-5. 点开某个站点仍无列表，是第三方采集接口自身失效，换同组其他站点，或到管理页点「测试」筛掉失效源。
+`api/status.json`、`api/mirror.json`、`api/index.json`、`api/probe.json` 是内部数据，**不要**填进客户端配置地址。填错文件是首页空白的最常见原因；其次检查链接首尾空格、清缓存、换 DNS。
 
-## 目录
+## 自己部署
 
-```
-cmd/tvboxgen        生成器入口（Go，无第三方依赖）
-internal/probe      接口探活（CMS 搜索 + 最新列表，最多三次请求定结论）
-internal/gen        产物构造、接口地址去重（域名 + 路径前缀，不看名称）
-internal/feed       源库拉取（纯文本 / json / api_site 三种格式）
-internal/mirror     各产物的多镜像地址
-sources/            源清单与源库清单（内置公开源库，可在网页里增删）
-api/                生成后的产物（勿手改）
-index.html          管理页
-```
+1. Fork 本仓库。
+2. 进入 **Actions**，点绿色按钮启用工作流。
+3. **Settings → Pages**：Source 选 `Deploy from a branch`，Branch 选 `main`、`/ (root)`，保存。
+4. 仓库设为 **Public**；创建 fine-grained token，仅授权本仓库 `Contents: Read and write` 与 `Actions: Read and write`，在管理页「设置令牌」中填入。
+5. 在管理页新增或导入源，等待 `Update Configs` 完成；订阅链接中的用户名会自动跟随你的仓库。
 
-## Fork 后必做：五步，照着点就行
+## 管理页
 
-不需要装任何软件、不需要改代码，全程只在 GitHub 网页上点按钮。**跳过第 2 步或第 3 步，Action 不会跑、网页也打不开。**
+`https://<用户名>.github.io/<仓库名>/`
 
-### 第 1 步 · Fork 到你自己的账号
-
-1. 打开本仓库页面，点右上角的 **Fork** 按钮（旁边有 ▼ 的，点 ▼ 选 **Create a new fork**）。
-2. 页面出现 **Create a new fork**：`Owner` 保持你自己的账号；`Repository name` 可以改成你喜欢的名字（例如 `my-tv`）；其余默认，直接点最下方 **Create fork**。
-3. 等几秒，浏览器会跳到 `https://github.com/<你的用户名>/<你的仓库名>` —— 从这里开始，看到的都是你自己的副本。
-
-### 第 2 步 · 打开 Actions（Fork 默认是关闭的，这步最容易漏）
-
-1. 在你自己的仓库页面，点上方标签栏的 **Actions**。
-2. 会看到黄色提示条：*Workflows aren't being run on this forked repository*。
-3. 点这条提示右侧的绿色按钮 **I understand my workflows, go ahead and enable them**。
-4. 左侧列表出现 **Update Configs** 和 **测试单个源（网页测试按钮用）** 两个工作流，说明已经开启。
-
-### 第 3 步 · 打开 Pages（不开就没有网页）
-
-1. 点上方标签栏的 **Settings**，在左侧菜单往下找到 **Pages**（大约在 Code and automation 分组里）。
-2. **Source** 选择 **Deploy from a branch**。
-3. **Branch** 选 **main**，右边的目录保持 **/ (root)**，点 **Save**。
-4. 等 1~2 分钟，回到 Settings → Pages 顶部，出现 *Your site is live at https://<你的用户名>.github.io/<你的仓库名>/* 就成功了，点 **Visit site** 打开管理页。
-
-### 第 4 步 · 给管理页填令牌（不填只能看，不能增删源）
-
-1. 先确认你的仓库是 **Public**：Settings → General → 拉到最下面 *Danger Zone* → **Change repository visibility** → **Change to public**（Private 仓库的订阅链接会 404，jsDelivr 不支持私有库）。
-2. 生成令牌：打开 https://github.com/settings/personal-access-tokens/new
-   - **Token name** 随便填；
-   - **Expiration** 选 90 days 或 No expiration；
-   - **Repository access** 选 **Only select repositories**，只勾你刚才那个仓库；
-   - **Permissions** 展开 **Repository permissions**，找到 **Contents** 选 **Read and write**，**Actions** 选 **Read and write**；
-   - 点最下方 **Generate token**，复制那串 `github_pat_...`（只显示一次）。
-3. 回到你的管理页 `https://<你的用户名>.github.io/<你的仓库名>/`，点右上角 **设置令牌**，粘贴、保存。页面上「只读模式」变成已设置状态即可。
-
-### 第 5 步 · 加第一条源并验证是自己的链接
-
-1. 点 **＋ 新增源**，填名称和接口地址（形如 `https://xxx.com/api.php/provide/vod`），点 **保存并发布**；或在下方整行粘贴多个接口地址批量导入。
-2. 保存后会自动触发 **Update Configs**，约 1 分钟回来自动刷新；也可以点 **立即重新生成** 手动触发。
-3. 到 **Actions** 页能看到一条绿色的 *Update Configs* 运行记录，说明链路通了。
-4. 确认链接是**你自己的**：管理页「订阅地址」里应显示 `https://cdn.jsdelivr.net/gh/<你的用户名>/<你的仓库名>@main/api/tvbox.json`。如果你看到的是别人的用户名，说明副本是旧代码 —— 在仓库页点 **Sync fork → Update branch**，再点一次「立即重新生成」。
-
-### 新手常见问题
-
-| 现象 | 原因 | 怎么修 |
-| :--- | :--- | :--- |
-| Actions 里提示工作流被禁用 / 看不到运行记录 | Fork 默认禁用工作流 | 回第 2 步，点绿色 enable 按钮 |
-| 打开网页 404 | Pages 没开，或分支/目录选错 | 回第 3 步，确认 `main` + `/ (root)`，保存后再等 2 分钟 |
-| 订阅链接 404 | 仓库是 Private | Settings → General → Danger Zone → 改为 Public |
-| 保存/删除提示 403、401 | 令牌权限或过期 | 重新生成令牌：Contents 与 Actions 都要 Read and write，且只勾你这一个仓库 |
-| 网页里显示的不是自己的链接 | 用的是旧版代码 | Sync fork 后跑一次 Update Configs |
-| 刚打开网页一片「0 条」 | 源库抓取失败或还没跑过生成 | 去 Actions 手动跑一次 `Update Configs`，刷新页面 |
-| TVBox 里首页空白、全部无内容 | 把多仓入口 / 其他客户端产物填进了单仓配置地址 | 只填 `api/tvbox.json`，见文首「TVBox / 影视仓 导入」 |
-
-> 两个工作流分工：**Update Configs** 每天 16:00 UTC 检查一次、也是「立即重新生成」按钮触发的那个；**测试单个源** 只在你点表格里的「测试」时被网页自动调用，不需要手动点。
-
-订阅地址形如 `https://cdn.jsdelivr.net/gh/<用户名>/<仓库名>@main/api/tvbox.json`，10 个产物各配 5 条镜像，页面上一键复制。
-
-| 产物 | 用途 |
-| :--- | :--- |
-| `api/tvbox.json` | TVBox / 影视仓 单仓配置（`sites` 数组） |
-| `api/moontv.json` | MoonTV / LunaTV 源配置（`api_site` 对象） |
-| `api/katelyatv.json` | KatelyaTV 源配置（同 MoonTV 结构） |
-| `api/decotv.json` | DecoTV 源配置（同 MoonTV 结构） |
-| `api/moontvplus.json` | MoonTVPlus 源配置（同 MoonTV 结构） |
-| `api/ouonnkitv.json` | OuonnkiTV 源清单（`id / name / url / detailUrl / timeout / isEnabled`） |
-| `api/kvideo.json` | KVideo 源清单（`id / name / baseUrl / group / enabled`） |
-| `api/libretv.json` | LibreTV 源清单（`name / url`） |
-| `api/sources.txt` | 纯文本清单（`名称\|API\|类型\|状态`） |
-| `api/tvbox.txt` | TVBox / 影视仓 多仓 TXT 入口（`名称,单仓地址`） |
-| `api/status.json` | 全量检测报告：状态、延迟、近 8 期趋势、去重统计 |
-| `api/mirror.json` | 每个产物的 5 条镜像线路 |
-| `api/index.json` | TVBox 多仓入口（主 / 备 / 加速） |
-| `api/probe.json` | 网页「测试」按钮的单源云端检测结果 |
-
-用自定义域名发布时（不再是 `<用户名>.github.io`），在 `index.html` 引入脚本前加一行即可，无需改代码：
-
-```html
-<script>window.TVBOX_REPO = { owner: '你的用户名', repo: '你的仓库名' };</script>
-```
+可新增、批量导入、测试、修改、删除源；删除记录会阻止源库重新加回同一接口。网页写入 `sources/sources.json`，云端重新生成订阅。
 
 ## 命令行
 
 ```bash
 go build -o bin/tvboxgen ./cmd/tvboxgen
-./bin/tvboxgen -force             # 立即生成一次
-./bin/tvboxgen                    # 距上次不足 7 天则跳过
-./bin/tvboxgen -feed-only         # 只把源库合并进 sources.json，不探活
-./bin/tvboxgen -probe=<接口地址>   # 只测一个接口
-./bin/tvboxgen -force -allow-nsfw  # 本地生成时保留成人内容源（默认过滤）
+./bin/tvboxgen -force                 # 立即生成
+./bin/tvboxgen -feed-only             # 只合并源库，不探活
+./bin/tvboxgen -probe=<接口地址>       # 测单个接口
+./bin/tvboxgen -force -allow-nsfw     # 保留成人内容源
 ```
 
-常用参数：`-workers`（并发，默认 24）、`-timeout`（单请求，默认 8s）、`-budget`（整轮上限，默认 50s）、`-interval`（更新间隔，默认 168h）、`-history`（每源保留的检查点）。
-
-探活判定：先按两个关键词搜索，再取最新列表；任一成功且返回真实条目即 `ok`，能连但返回空则 `limited`，连不上才 `down`。**只有 `ok` 的源会写进订阅产物**，`limited` 与 `down` 只留在 `api/status.json`。
+常用参数：`-workers`、`-timeout`、`-budget`、`-interval`、`-history`。探活以真实 CMS 列表返回为准；仅 `ok` 的源进入订阅。
 
 ## 免责声明
 
-本项目仅提供配置生成与管理工具，**不存储、不转码、不代理、不分发任何音视频内容**。
+本项目仅为配置文本生成与管理工具，**不存储、不缓存、不代理、不转码、不分发、不提供任何音视频内容**。仓库内所有接口地址均由使用者自己录入，或由使用者自行配置的第三方公开清单抓取而来；本项目不拥有这些接口，也不对其内容、版权状态、合法性、可用性、安全性或准确性作任何审查、背书或保证。第三方接口可能随时变更、失效或停止服务。
 
-- 所有接口地址由仓库使用者自行录入，或从其自行配置的第三方清单抓取。本项目不筛选、不背书，也不保证任何第三方接口的合法性、可用性、安全性或内容合规性；该第三方接口的运营主体、内容版权及由此产生的法律责任，均与本项目及作者无关。
-- 使用者应确保其录入、传播与使用的接口及内容符合所在地法律法规，并符合其所用软件的许可条款。因使用本项目产生的版权纠纷、行政处罚或其他法律后果，由使用者自行承担。
-- 本项目按「现状」（AS IS）提供，不作任何明示或默示担保，包括但不限于适销性、特定用途适用性与不侵权担保。作者不对因使用或无法使用本项目造成的任何直接或间接损失承担责任。
-- 仓库内产物仅为结构化配置文本，不含任何媒体文件；本项目不承载、不缓存第三方内容。如权利人认为某条目侵权，应针对该第三方接口主张权利。
-- 禁止将本项目用于任何违法用途；如所在地法律不允许相关使用，请立即停止。
+使用者应自行确认其录入、订阅、传播和使用的接口及内容符合所在地法律法规、平台规则与相关服务条款，并自行承担由此产生的全部责任与风险。任何因使用或无法使用本项目、或因依赖仓库内配置文本而导致的损失、纠纷、行政处罚、第三方索赔或其他后果，均由使用者自行承担；项目作者与贡献者在法律允许的最大范围内不承担任何责任，包括但不限于直接损失、间接损失、数据丢失、设备损坏及可得利益损失。
 
-## English
-
-**TVbox-Configs** is a container-style repository for video source configs: a Go generator, a static web console, and ten subscription artifacts (TVBox, MoonTV / LunaTV, KatelyaTV, DecoTV, MoonTVPlus, OuonnkiTV, KVideo, LibreTV, a plain text list, and a multi-warehouse TXT). Sources are fetched from public lists and verified before publishing; adult-only stations are filtered by default. What you put in is ultimately up to you.
-
-- **Setup (5 steps, no code change)**:
-  1. **Fork** the repo into your own account.
-  2. Open the **Actions** tab and click **I understand my workflows, go ahead and enable them** — forked workflows are disabled by default.
-  3. Open **Settings → Pages**, set *Source* = `Deploy from a branch`, *Branch* = `main`, folder = `/ (root)`, then **Save** and wait 1–2 minutes for `https://<you>.github.io/<repo>/`.
-  4. Make the repository **Public** (Settings → General → Danger Zone), then create a fine-grained token with **Contents: read & write** and **Actions: read & write** scoped to that repository, and paste it via **设置令牌** on the site.
-  5. Add a source, wait for the auto-triggered **Update Configs** run, and check the subscription URL shows *your* account — if it still shows someone else's, run **Sync fork** and regenerate.
-  Every link (jsDelivr, Pages, api calls, probe polling) is derived from the current repository, so **no code change is needed** after forking.
-- **Manage**: add sources one by one, or paste many interface URLs at once (newline / comma separated); test, edit, delete a single row, or delete a multi-selected batch. Deleted endpoints go to a `removed` list so feeds cannot bring them back; the row below the table shows that count and offers **restore** (clear + re-run) and **clear only**.
-- **Generate**: `go build -o bin/tvboxgen ./cmd/tvboxgen && ./bin/tvboxgen -force`. Each run is hard-capped (`-budget`, default 50s). Only endpoints that answer with a real vod list (`ok`) reach the artifacts; the rest stay in `api/status.json`.
-- **Dedupe**: by endpoint only — host plus the first meaningful path segments. Same display name on different endpoints is kept, so nothing is merged just because it reads alike.
-- **Disclaimer**: this project only generates and manages configuration files. It does **not** host, proxy, transcode, or distribute any media. All endpoints are supplied by the repository's own users or fetched from lists they configure; the project does not screen or endorse them and gives no warranty as to their legality, availability, security, or content rights. Users are solely responsible for complying with the laws of their jurisdiction and the license terms of the software they use. Provided "as is", without any express or implied warranty, including merchantability, fitness for a particular purpose, and non-infringement; the author accepts no liability for any direct or indirect damages arising from use of, or inability to use, this project.
+本项目按「现状」（AS IS）提供，不作任何明示或默示担保，包括但不限于适销性、特定用途适用性、准确性、持续可用性与不侵权担保。若权利人认为某条目侵犯其权益，应向对应第三方接口的运营主体主张权利；本项目不控制、不托管该接口及其内容。禁止将本项目用于任何违法用途；如所在地法律不允许相关使用，请立即停止。
 
 ## License
 
