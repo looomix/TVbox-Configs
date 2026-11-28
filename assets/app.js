@@ -27,10 +27,38 @@
   var BRANCH = 'main';
   var API = 'https://api.github.com/repos/' + OWNER + '/' + REPO;
   var TOKEN_KEY = 'tvbox_configs_pat';
+  // Search keyword sent to CMS APIs. Must stay Chinese: probe servers expect a
+  // real title, an English translation would return no results.
   var KEYWORD = '庆余年';
   var HIST_MAX = 8;
 
   var $ = function (sel) { return document.querySelector(sel); };
+
+  /* ---------------- i18n ---------------- */
+  // The dictionary lives in assets/i18n.js so the page can be translated by
+  // editing one file. Keys are the original Chinese strings; English is the
+  // only alternate language, everything else falls back to the original.
+  var LANG_KEY = 'tvbox_configs_lang';
+  var LANG = localStorage.getItem(LANG_KEY) === 'en' ? 'en' : 'zh';
+  var DICT = (window.TVBOX_I18N && window.TVBOX_I18N.en) || {};
+
+  function t(s) {
+    return LANG === 'en' ? (DICT[s] || s) : s;
+  }
+
+  function applyLang() {
+    document.documentElement.lang = LANG === 'en' ? 'en' : 'zh-CN';
+    document.querySelectorAll('[data-i18n]').forEach(function (el) {
+      el.textContent = t(el.getAttribute('data-i18n'));
+    });
+    document.querySelectorAll('[data-i18n-placeholder]').forEach(function (el) {
+      el.placeholder = t(el.getAttribute('data-i18n-placeholder'));
+    });
+    document.querySelectorAll('[data-lang]').forEach(function (btn) {
+      btn.classList.toggle('on', btn.getAttribute('data-lang') === LANG);
+    });
+  }
+
   var state = {
     token: localStorage.getItem(TOKEN_KEY) || '',
     status: null,
@@ -42,7 +70,8 @@
     results: {},
     pending: {},
     selected: {},
-    editingId: null
+    editingId: null,
+    meta: { stars: null, commitAt: null, update: null }
   };
 
   /* ---------------- helpers ---------------- */
@@ -76,11 +105,11 @@
     if (isNaN(diff)) return '—';
     if (diff < 0) {
       var h = Math.round(-diff / 3600000);
-      return h >= 24 ? Math.round(h / 24) + ' 天后' : h + ' 小时后';
+      return h >= 24 ? Math.round(h / 24) + t(' 天后') : h + t(' 小时后');
     }
-    if (diff < 3600000) return Math.max(1, Math.round(diff / 60000)) + ' 分钟前';
-    if (diff < 86400000) return Math.round(diff / 3600000) + ' 小时前';
-    return Math.round(diff / 86400000) + ' 天前';
+    if (diff < 3600000) return Math.max(1, Math.round(diff / 60000)) + t(' 分钟前');
+    if (diff < 86400000) return Math.round(diff / 3600000) + t(' 小时前');
+    return Math.round(diff / 86400000) + t(' 天前');
   }
 
   function authHeaders() {
@@ -149,20 +178,20 @@
 
   function defaultGroups() {
     var files = [
-      { file: 'api/tvbox.json', label: 'TVBox / 影视仓 单仓配置（type 1）', kind: 'config' },
-      { file: 'api/moontv.json', label: 'MoonTV / LunaTV / KatelyaTV / DecoTV / MoonTVPlus 视频源', kind: 'config' },
-      { file: 'api/list.json', label: 'OuonnkiTV / KVideo / LibreTV 通用源清单', kind: 'config' },
-      { file: 'api/sources.txt', label: '纯文本源清单（可粘贴导入）', kind: 'text' },
-      { file: 'api/tvbox.txt', label: 'TVBox / 影视仓 多仓 TXT 入口', kind: 'text' }
+      { file: 'api/tvbox.json', label: t('TVBox / 影视仓 单仓配置（type 1）'), kind: 'config' },
+      { file: 'api/moontv.json', label: t('MoonTV / LunaTV / KatelyaTV / DecoTV / MoonTVPlus 视频源'), kind: 'config' },
+      { file: 'api/list.json', label: t('OuonnkiTV / KVideo / LibreTV 通用源清单'), kind: 'config' },
+      { file: 'api/sources.txt', label: t('纯文本源清单（可粘贴导入）'), kind: 'text' },
+      { file: 'api/tvbox.txt', label: t('TVBox / 影视仓 多仓 TXT 入口'), kind: 'text' }
     ];
     return files.map(function (f) {
       var raw = 'https://raw.githubusercontent.com/' + OWNER + '/' + REPO + '/' + BRANCH + '/' + f.file;
       var ms = [
-        { name: 'ghproxy 加速', kind: 'primary', url: 'https://ghproxy.net/' + raw },
-        { name: 'gh-proxy 加速', kind: 'backup', url: 'https://gh-proxy.org/' + raw },
-        { name: 'ghfast 加速', kind: 'backup', url: 'https://ghfast.top/' + raw },
-        { name: 'Raw 直连', kind: 'backup', url: raw },
-        { name: 'GitHub Pages 备用', kind: 'backup', url: 'https://' + OWNER + '.github.io/' + REPO + '/' + f.file }
+        { name: t('ghproxy 加速'), kind: 'primary', url: 'https://ghproxy.net/' + raw },
+        { name: t('gh-proxy 加速'), kind: 'backup', url: 'https://gh-proxy.org/' + raw },
+        { name: t('ghfast 加速'), kind: 'backup', url: 'https://ghfast.top/' + raw },
+        { name: t('Raw 直连'), kind: 'backup', url: raw },
+        { name: t('GitHub Pages 备用'), kind: 'backup', url: 'https://' + OWNER + '.github.io/' + REPO + '/' + f.file }
       ];
       return { file: f.file, label: f.label, kind: f.kind, primary: ms[0].url, mirrors: ms };
     });
@@ -191,26 +220,26 @@
   }
 
   function stateMeta(st) {
-    if (!st) return { cls: 'warn', label: '待检测', rank: 3 };
-    if (!st.enabled) return { cls: 'off', label: '停用', rank: 6 };
-    if (st.state === 'ok') return { cls: 'ok', label: '可用', rank: 0 };
-    if (st.state === 'limited') return { cls: 'warn', label: '未验证', rank: 2 };
-    return { cls: 'bad', label: '失效', rank: 4 };
+    if (!st) return { cls: 'warn', label: t('待检测'), rank: 3 };
+    if (!st.enabled) return { cls: 'off', label: t('停用'), rank: 6 };
+    if (st.state === 'ok') return { cls: 'ok', label: t('可用'), rank: 0 };
+    if (st.state === 'limited') return { cls: 'warn', label: t('未验证'), rank: 2 };
+    return { cls: 'bad', label: t('失效'), rank: 4 };
   }
 
   function groupOf(s) {
     var st = statusOf(s.id);
-    return (s.group || (st && st.group) || '综合');
+    return s.group || (st && st.group) || t('综合');
   }
 
   function spark(history) {
     var items = (history || []).slice(-HIST_MAX);
     var pad = HIST_MAX - items.length;
     var out = '';
-    for (var i = 0; i < pad; i++) out += '<span title="无记录"></span>';
+    for (var i = 0; i < pad; i++) out += t('<span title="无记录"></span>');
     items.forEach(function (c, idx) {
       var now = idx === items.length - 1 ? ' now' : '';
-      out += '<span class="' + (c.ok ? 'on' : '') + now + '" title="' + esc((c.t || '').slice(0, 10)) + ' · ' + (c.ok ? '通' : '断') + ' · ' + (c.ms || 0) + 'ms"></span>';
+      out += '<span class="' + (c.ok ? 'on' : '') + now + '" title="' + esc((c.t || '').slice(0, 10)) + ' · ' + (c.ok ? t('通') : t('断')) + ' · ' + (c.ms || 0) + 'ms"></span>';
     });
     return '<span class="spark">' + out + '</span>';
   }
@@ -225,14 +254,89 @@
       else if (s.state === 'limited') unverified++;
       else dead++;
     });
-    $('#pillAlive').textContent = '可用 ' + (st ? alive : '—');
-    $('#pillUnverified').textContent = '未验证 ' + (st ? unverified : '—');
-    $('#pillDead').textContent = '失效 ' + (st ? dead : '—');
-    $('#pillTime').textContent = '更新 ' + (st ? relTime(st.updated_at) : '—');
-    $('#pillTime').title = st ? ('上次 ' + fmtTime(st.updated_at) + ' · 下次 ' + fmtTime(st.next_update_at) + ' · 停用 ' + off + ' 条') : '';
+    $('#pillAlive').textContent = t('可用 ') + (st ? alive : '—');
+    $('#pillUnverified').textContent = t('未验证 ') + (st ? unverified : '—');
+    $('#pillDead').textContent = t('失效 ') + (st ? dead : '—');
+    $('#pillTime').textContent = t('更新 ') + (st ? relTime(st.updated_at) : '—');
+    $('#pillTime').title = st ? (t('上次 ') + fmtTime(st.updated_at) + t(' · 下次 ') + fmtTime(st.next_update_at) + t(' · 停用 ') + off + t(' 条')) : '';
     var pill = $('#pillToken');
-    pill.textContent = state.token ? '🔑 可编辑' : '🔑 只读模式';
+    pill.textContent = state.token ? t('🔑 可编辑') : t('🔑 只读模式');
     pill.classList.toggle('ok', !!state.token);
+    renderBadges();
+  }
+
+  /* ---------------- status badges & summary ---------------- */
+
+  function setBadge(id, value, cls) {
+    var el = $('#' + id);
+    if (!el) return;
+    el.textContent = value;
+    el.className = 'bdg-v' + (cls ? ' ' + cls : '');
+  }
+
+  function renderBadges() {
+    var st = state.status;
+    setBadge('bdgSites', st ? String(st.alive) : '—', 'blue');
+    setBadge('bdgSources', st ? String(st.total) : '—', 'blue');
+    var linkCount = state.groups.reduce(function (n, g) { return n + ((g.mirrors || []).length || 0); }, 0);
+    setBadge('bdgLinks', linkCount ? String(linkCount) : '—', 'blue');
+
+    var line = $('#statusLine');
+    var probe = $('#probeLine');
+    if (!st) {
+      if (line) line.textContent = t('正在读取运行状态…');
+      if (probe) probe.textContent = t('正在读取探测结果…');
+      return;
+    }
+    if (line) {
+      line.textContent = t('每 ') + (st.interval_hours || 168) + t(' 小时自动更新 · 最后更新 ') + fmtTime(st.updated_at) +
+        ' · ' + t('下次 ') + fmtTime(st.next_update_at);
+    }
+    if (probe) {
+      var total = st.total || 0;
+      var alive = st.alive || 0;
+      var rate = total ? Math.round(alive * 100 / total) : 0;
+      probe.textContent = t('最近一次探测：') + alive + '/' + total + t(' 个源可用 (') + rate +
+        t('%)，已剔除 ') + (st.dead || 0) + t(' 个失效地址') +
+        (st.filtered ? t(' · 过滤 ') + st.filtered + t(' 个成人内容源') : '');
+    }
+  }
+
+  function renderRepoMeta() {
+    var m = state.meta;
+    if (m.stars !== null) setBadge('bdgStars', String(m.stars));
+    if (m.commitAt) setBadge('bdgCommit', relTime(m.commitAt));
+    if (m.update) setBadge('bdgUpdate', m.update.label, m.update.cls);
+  }
+
+  // Public GitHub metadata: all endpoints are readable without a token.
+  // A failure only leaves the badge as "—", it never blocks page rendering.
+  function loadRepoMeta() {
+    function meta(url, onData) {
+      return fetch(url, { headers: authHeaders(), cache: 'no-store' })
+        .then(function (r) { return r.ok ? r.json() : null; })
+        .then(function (d) { if (d) onData(d); })
+        .catch(function () { /* keep placeholder */ });
+    }
+    var starsLink = $('#bdgStarsLink');
+    if (starsLink) starsLink.href = 'https://github.com/' + OWNER + '/' + REPO + '/stargazers';
+    meta(API, function (d) { state.meta.stars = d.stargazers_count; renderRepoMeta(); });
+    meta(API + '/commits?per_page=1', function (d) {
+      if (d && d[0]) {
+        state.meta.commitAt = d[0].commit && d[0].commit.author && d[0].commit.author.date;
+        renderRepoMeta();
+      }
+    });
+    meta(API + '/actions/runs?per_page=1', function (d) {
+      var run = d && d.workflow_runs && d.workflow_runs[0];
+      if (!run) return;
+      var ok = run.conclusion === 'success';
+      state.meta.update = {
+        label: ok ? 'passing' : (run.conclusion === 'failure' ? 'failing' : run.status),
+        cls: ok ? 'green' : (run.conclusion === 'failure' ? 'red' : '')
+      };
+      renderRepoMeta();
+    });
   }
 
   function renderMirrors() {
@@ -240,19 +344,19 @@
       var others = (g.mirrors || []).filter(function (m) { return m.url !== g.primary; });
       var rows = others.map(function (m) {
         return '<div class="mirror">' +
-          '<span class="tag ' + (m.kind === 'primary' ? 'primary' : '') + '">' + esc(m.name) + '</span>' +
+          '<span class="tag ' + (m.kind === 'primary' ? 'primary' : '') + '">' + esc(t(m.name)) + '</span>' +
           '<span class="url" title="' + esc(m.url) + '">' + esc(m.url) + '</span>' +
-          '<button class="btn tiny copy-url" data-url="' + esc(m.url) + '">复制</button>' +
+          '<button class="btn tiny copy-url" data-url="' + esc(m.url) + t('">复制</button>') +
           '</div>';
       }).join('');
       return '<div class="mgroup">' +
         '<div class="mgroup-head">' +
-        '<span class="mgroup-title">' + esc(g.label) + '</span>' +
-        '<span class="badge">' + (g.kind === 'text' ? '文本' : '配置') + '</span>' +
-        '<button class="btn tiny primary copy-url" data-url="' + esc(g.primary) + '">复制</button>' +
+        '<span class="mgroup-title">' + esc(t(g.label)) + '</span>' +
+        '<span class="badge">' + (g.kind === 'text' ? t('文本') : t('配置')) + '</span>' +
+        '<button class="btn tiny primary copy-url" data-url="' + esc(g.primary) + t('">复制</button>') +
         '</div>' +
         '<div class="primary-url" title="' + esc(g.primary) + '">' + esc(g.primary) + '</div>' +
-        (others.length ? '<details><summary>其他 ' + others.length + ' 条镜像</summary>' + rows + '</details>' : '') +
+        (others.length ? t('<details><summary>其他 ') + others.length + t(' 条镜像</summary>') + rows + '</details>' : '') +
         '</div>';
     }).join('');
     $('#indexUrl').textContent = 'https://' + OWNER + '.github.io/' + REPO + '/api/index.json';
@@ -265,7 +369,7 @@
     state.sources.forEach(function (s) { groups[groupOf(s)] = true; });
     var opts = ['all'].concat(Object.keys(groups).sort());
     $('#filterGroup').innerHTML = opts.map(function (g) {
-      return '<option value="' + esc(g) + '">' + (g === 'all' ? '全部分类' : esc(g)) + '</option>';
+      return '<option value="' + esc(g) + '">' + (g === 'all' ? t('全部分类') : esc(t(g))) + '</option>';
     }).join('');
     $('#filterGroup').value = state.filters.group;
   }
@@ -313,13 +417,13 @@
   function renderRows() {
     var list = visibleSources();
     var st = state.status;
-    $('#listCount').textContent = '共 ' + state.sources.length + ' 个 · 显示 ' + list.length;
+    $('#listCount').textContent = t('共 ') + state.sources.length + t(' 个 · 显示 ') + list.length;
     if (!state.sources.length) {
-      $('#listHint').textContent = '还没有源：点「＋ 新增源」逐条添加，或在上方整行粘贴多个接口地址批量导入。';
+      $('#listHint').textContent = t('还没有源：点「＋ 新增源」逐条添加，或在上方整行粘贴多个接口地址批量导入。');
     } else if (st) {
-      $('#listHint').textContent = '自动抓取 ' + (st.from_feed || 0) + ' 条 · 去重 ' + (st.deduped || 0) + ' 条 · 列表按延迟从低到高；只有验证通过的源才会写进订阅；「改」需要令牌。';
+      $('#listHint').textContent = t('自动抓取 ') + (st.from_feed || 0) + t(' 条 · 去重 ') + (st.deduped || 0) + t(' 条 · 列表按延迟从低到高；只有验证通过的源才会写进订阅；「改」需要令牌。');
     } else {
-      $('#listHint').textContent = '点击接口地址可复制；「改」需要令牌。';
+      $('#listHint').textContent = t('点击接口地址可复制；「改」需要令牌。');
     }
     $('#rows').innerHTML = list.map(function (s) {
       var st2 = statusOf(s.id);
@@ -327,23 +431,23 @@
       var lat = st2 && st2.enabled ? (st2.latency_ms > 0 ? st2.latency_ms + ' ms' : '—') : '—';
       var res = state.results[s.id];
       var pending = state.pending[s.id];
-      var stateLabel = pending ? '检测中' : (res ? (res.ok ? '可用 ' + res.vods + ' 条' : '测试失败') : meta.label);
+      var stateLabel = pending ? t('检测中') : (res ? (res.ok ? t('可用 ') + res.vods + t(' 条') : t('测试失败')) : meta.label);
       var stateCls = pending ? 'warn' : (res ? (res.ok ? 'ok' : 'bad') : meta.cls);
       var auto = s.origin === 'feed';
       var checked = state.selected[s.id] ? ' checked' : '';
       return '<div class="row grid-cols" data-id="' + esc(s.id) + '">' +
-        '<div class="c-check"><input type="checkbox" data-sel="' + esc(s.id) + '"' + checked + ' aria-label="选择 ' + esc(s.name) + '"></div>' +
-        '<div class="name-cell"><div class="n"><span class="txt" title="' + esc(s.name) + '">' + esc(s.name) + '</span>' + (auto ? '<span class="badge on">自动</span>' : '') + '</div></div>' +
-        '<div class="api-cell" data-act="copy" data-url="' + esc(s.api) + '" title="点击复制：' + esc(s.api) + '">' + esc(s.api) + '</div>' +
-        '<div><span class="badge">' + esc(groupOf(s)) + '</span></div>' +
+        '<div class="c-check"><input type="checkbox" data-sel="' + esc(s.id) + '"' + checked + t(' aria-label="选择 ') + esc(s.name) + '"></div>' +
+        '<div class="name-cell"><div class="n"><span class="txt" title="' + esc(s.name) + '">' + esc(s.name) + '</span>' + (auto ? t('<span class="badge on">自动</span>') : '') + '</div></div>' +
+        '<div class="api-cell" data-act="copy" data-url="' + esc(s.api) + t('" title="点击复制：') + esc(s.api) + '">' + esc(s.api) + '</div>' +
+        '<div><span class="badge">' + esc(t(groupOf(s))) + '</span></div>' +
         '<div class="c-state"><span class="dot ' + stateCls + '"><i></i>' + esc(stateLabel) +
           '</span></div>' +
         '<div class="c-lat">' + lat + '</div>' +
         '<div class="c-spark">' + spark(st2 && st2.history) + '</div>' +
         '<div class="ops">' +
-        '<button class="btn tiny" data-act="test">测试</button>' +
-        '<button class="btn tiny" data-act="edit">改</button>' +
-        '<button class="btn tiny" data-act="del">删</button>' +
+        t('<button class="btn tiny" data-act="test">测试</button>') +
+        t('<button class="btn tiny" data-act="edit">改</button>') +
+        t('<button class="btn tiny" data-act="del">删</button>') +
         '</div></div>';
     }).join('');
     syncSelection();
@@ -384,7 +488,7 @@
       var hit = state.sources.filter(function (s) { return s.id === id; })[0];
       return hit ? hit.name : id;
     });
-    if (!confirm('确定删除选中的 ' + ids.length + ' 个源？\n' + names.slice(0, 6).join('、') + (ids.length > 6 ? ' 等' : '') + '\n删除后会同步更新订阅配置。')) return;
+    if (!confirm(t('确定删除选中的 ') + ids.length + t(' 个源？\n') + names.slice(0, 6).join('、') + (ids.length > 6 ? t(' 等') : '') + t('\n删除后会同步更新订阅配置。'))) return;
     var drop = {};
     ids.forEach(function (id) { drop[id] = true; });
     $('#btnBatchDel').disabled = true;
@@ -400,7 +504,7 @@
       doc.sources = (doc.sources || []).filter(function (s) { return !drop[s.id]; });
       doc.updated_at = new Date().toISOString().slice(0, 10);
       var text = JSON.stringify(doc, null, 2) + '\n';
-      return ghPutFile('sources/sources.json', text, res.sha, 'chore: 批量删除 ' + ids.length + ' 个视频源').then(function () {
+      return ghPutFile('sources/sources.json', text, res.sha, 'chore: 批量删除 ' + ids.length + t(' 个视频源')).then(function () {
         state.sources = doc.sources;
         state.removed = doc.removed || [];
         ids.forEach(function (id) { delete state.results[id]; delete state.pending[id]; });
@@ -408,24 +512,25 @@
         return dispatchWorkflow();
       }).then(function (triggered) {
         renderAll();
-        toast('已删除 ' + ids.length + ' 个源' + (triggered ? '，后台正在重新生成（约 2 分钟）' : '，等待下一次自动更新'));
+        toast('已删除 ' + ids.length + t(' 个源') + (triggered ? t('，后台正在重新生成（约 2 分钟）') : t('，等待下一次自动更新')));
         scheduleRefresh();
       });
     }).catch(function (err) {
       renderAll();
-      toast(err.message || '批量删除失败');
+      toast(err.message || t('批量删除失败'));
     });
   }
 
   function renderRemoved() {
     var n = (state.removed || []).length;
-    $('#removedInfo').textContent = '删除记录 ' + n + ' 条' + (n ? '（屏蔽源库重新抓回）' : '');
+    $('#removedInfo').textContent = t('删除记录 ') + n + t(' 条') + (n ? t('（屏蔽源库重新抓回）') : '');
     $('#btnRestore').disabled = !n;
     $('#btnClearRemoved').disabled = !n;
   }
 
   function renderAll() {
     renderStats();
+    renderRepoMeta();
     renderMirrors();
     renderGroups();
     renderRows();
@@ -450,13 +555,13 @@
         var ms = Math.round(performance.now() - t0);
         try {
           var j = JSON.parse(txt);
-          return { ok: true, ms: ms, vods: (j && j.list && j.list.length) || 0, via: '直连', state: 'ok' };
+          return { ok: true, ms: ms, vods: (j && j.list && j.list.length) || 0, via: t('直连'), state: 'ok' };
         } catch (e) {
-          return { ok: false, ms: ms, vods: 0, via: '直连', note: '返回内容不是标准 CMS JSON' };
+          return { ok: false, ms: ms, vods: 0, via: t('直连'), note: t('返回内容不是标准 CMS JSON') };
         }
       });
     }).catch(function () {
-      return { ok: false, ms: Math.round(performance.now() - t0), vods: 0, via: '直连', note: '跨域或网络受限' };
+      return { ok: false, ms: Math.round(performance.now() - t0), vods: 0, via: t('直连'), note: t('跨域或网络受限') };
     });
   }
 
@@ -466,7 +571,7 @@
       headers: Object.assign({ 'Content-Type': 'application/json' }, authHeaders()),
       body: JSON.stringify({ ref: BRANCH, inputs: { url: api } })
     }).then(function (r) {
-      if (r.status !== 204) throw new Error('云端检测无法触发（HTTP ' + r.status + '），请确认令牌含 Actions 权限');
+      if (r.status !== 204) throw new Error(t('云端检测无法触发（HTTP ') + r.status + t('），请确认令牌含 Actions 权限'));
     });
   }
 
@@ -477,13 +582,13 @@
         var tries = 0;
         function poll() {
           tries++;
-          if (tries > 22) { reject(new Error('云端检测超时，可稍后在列表里看结果')); return; }
+          if (tries > 22) { reject(new Error(t('云端检测超时，可稍后在列表里看结果'))); return; }
           setTimeout(function () {
             fetch(PROBE_FILE + '?t=' + Date.now(), { cache: 'no-store' })
               .then(function (r) { return r.ok ? r.json() : null; })
               .then(function (d) {
                 if (d && d.url === api && new Date(d.checked_at).getTime() >= started - 2000) { resolve(d); return; }
-                if (onProgress) onProgress('云端检测中…');
+                if (onProgress) onProgress(t('云端检测中…'));
                 poll();
               })
               .catch(function () { poll(); });
@@ -496,20 +601,20 @@
 
   function runProbe(api, onProgress) {
     if (state.token) {
-      if (onProgress) onProgress('云端检测中…（约 1 分钟）');
+      if (onProgress) onProgress(t('云端检测中…（约 1 分钟）'));
       return cloudProbe(api, onProgress).then(function (d) {
-        return { ok: d.state === 'ok', ms: d.latency_ms, vods: d.vods, via: '云端', state: d.state };
+        return { ok: d.state === 'ok', ms: d.latency_ms, vods: d.vods, via: t('云端'), state: d.state };
       }).catch(function (err) {
-        if (onProgress) onProgress('云端不可用，改用本机浏览器…');
+        if (onProgress) onProgress(t('云端不可用，改用本机浏览器…'));
         return quickProbe(api).then(function (quick) {
           quick.note = (quick.note || '') + '；' + (err.message || err);
           return quick;
         });
       });
     }
-    if (onProgress) onProgress('检测中…（未设置令牌，只能用本机浏览器）');
+    if (onProgress) onProgress(t('检测中…（未设置令牌，只能用本机浏览器）'));
     return quickProbe(api).then(function (quick) {
-      if (!quick.ok) quick.note = '未设置令牌，无法云端检测（多数采集接口不带 CORS 头）';
+      if (!quick.ok) quick.note = t('未设置令牌，无法云端检测（多数采集接口不带 CORS 头）');
       return quick;
     });
   }
@@ -522,8 +627,8 @@
       state.results[id] = res;
       renderRows();
       toast(res.ok
-        ? ('可用，返回 ' + res.vods + ' 条 · ' + res.ms + ' ms · ' + res.via)
-        : ('未通过验证：' + (res.note || res.via) + ' · ' + res.ms + ' ms'));
+        ? (t('可用，返回 ') + res.vods + t(' 条 · ') + res.ms + ' ms · ' + res.via)
+        : (t('未通过验证：') + (res.note || res.via) + ' · ' + res.ms + ' ms'));
       return res;
     }, function (err) {
       delete state.pending[id];
@@ -551,9 +656,9 @@
   function ghGetFile(path) {
     return fetch(API + '/contents/' + path + '?ref=' + BRANCH, { headers: authHeaders(), cache: 'no-store' })
       .then(function (r) {
-        if (r.status === 401) throw new Error('令牌无效，请重新设置');
+        if (r.status === 401) throw new Error(t('令牌无效，请重新设置'));
         if (r.status === 404) return { sha: '', doc: null };
-        if (!r.ok) throw new Error('读取仓库失败（HTTP ' + r.status + '）');
+        if (!r.ok) throw new Error(t('读取仓库失败（HTTP ') + r.status + '）');
         return r.json();
       })
       .then(function (d) {
@@ -571,8 +676,8 @@
       headers: Object.assign({ 'Content-Type': 'application/json' }, authHeaders()),
       body: JSON.stringify(body)
     }).then(function (r) {
-      if (r.status === 409) throw new Error('仓库刚被更新，请刷新页面后重试');
-      if (!r.ok) return r.json().then(function (d) { throw new Error((d && d.message) || ('写入失败 HTTP ' + r.status)); });
+      if (r.status === 409) throw new Error(t('仓库刚被更新，请刷新页面后重试'));
+      if (!r.ok) return r.json().then(function (d) { throw new Error((d && d.message) || (t('写入失败 HTTP ') + r.status)); });
       return r.json();
     });
   }
@@ -594,8 +699,8 @@
     var n = (state.removed || []).length;
     if (!n) return;
     var msg = restore
-      ? '恢复被删源？会清空 ' + n + ' 条删除记录并立即重新生成，源库里的条目会回来（手动删掉的、源库也没有的例外）。'
-      : '清空 ' + n + ' 条删除记录？只解除屏蔽，不立即生成，下次自动更新时才生效。';
+      ? t('恢复被删源？会清空 ') + n + t(' 条删除记录并立即重新生成，源库里的条目会回来（手动删掉的、源库也没有的例外）。')
+      : t('清空 ') + n + t(' 条删除记录？只解除屏蔽，不立即生成，下次自动更新时才生效。');
     if (!confirm(msg)) return;
     $('#btnRestore').disabled = true;
     $('#btnClearRemoved').disabled = true;
@@ -612,19 +717,19 @@
     }).then(function (triggered) {
       renderRemoved();
       toast(restore
-        ? (triggered ? '已清空删除记录，正在重新抓取（约 1 分钟）' : '已清空删除记录，等下次自动更新')
-        : '已清空删除记录，下次自动更新时生效');
+        ? (triggered ? t('已清空删除记录，正在重新抓取（约 1 分钟）') : t('已清空删除记录，等下次自动更新'))
+        : t('已清空删除记录，下次自动更新时生效'));
       if (triggered) scheduleRefresh();
     }).catch(function (err) {
       renderRemoved();
-      toast(err.message || '操作失败');
+      toast(err.message || t('操作失败'));
     });
   }
 
   function saveSource(payload) {
     if (!state.token) {
       openToken();
-      return Promise.reject(new Error('请先设置访问令牌'));
+      return Promise.reject(new Error(t('请先设置访问令牌')));
     }
     return ghGetFile('sources/sources.json').then(function (res) {
       var doc = res.doc || {};
@@ -647,14 +752,14 @@
         return dispatchWorkflow();
       }).then(function (triggered) {
         renderAll();
-        toast(triggered ? '已提交，后台正在重新生成（约 2 分钟）' : '已提交，等待下一次自动更新');
+        toast(triggered ? t('已提交，后台正在重新生成（约 2 分钟）') : t('已提交，等待下一次自动更新'));
         scheduleRefresh();
       });
     });
   }
 
   function deleteSource(id) {
-    if (!state.token) { openToken(); return Promise.reject(new Error('请先设置访问令牌')); }
+    if (!state.token) { openToken(); return Promise.reject(new Error(t('请先设置访问令牌'))); }
     return ghGetFile('sources/sources.json').then(function (res) {
       var doc = res.doc || {};
       var name = '';
@@ -695,14 +800,14 @@
         id: stableId(api),
         name: hostKey(api),
         api: api,
-        group: '综合',
+        group: t('综合'),
         note: '',
         enabled: true,
         origin: 'manual',
         added_at: new Date().toISOString().slice(0, 10)
       });
     });
-    if (!fresh.length) { toast(dup ? ('这些接口都已存在（' + dup + ' 个重复）') : '没有可用的接口地址'); return; }
+    if (!fresh.length) { toast(dup ? (t('这些接口都已存在（') + dup + t(' 个重复）')) : t('没有可用的接口地址')); return; }
     ghGetFile('sources/sources.json').then(function (res) {
       var doc = res.doc || {};
       var list = doc.sources || (doc.sources = []);
@@ -724,16 +829,16 @@
       if (!doc.version) doc.version = 1;
       doc.updated_at = new Date().toISOString().slice(0, 10);
       var text = JSON.stringify(doc, null, 2) + '\n';
-      return ghPutFile('sources/sources.json', text, res.sha, 'feat: 新增 ' + fresh.length + ' 个视频接口').then(function () {
+      return ghPutFile('sources/sources.json', text, res.sha, 'feat: 新增 ' + fresh.length + t(' 个视频接口')).then(function () {
         state.sources = list;
         return dispatchWorkflow();
       }).then(function (triggered) {
         renderAll();
-        toast('已加入 ' + fresh.length + ' 个接口' + (dup ? '（跳过 ' + dup + ' 个重复）' : '') +
-          (triggered ? '，后台开始验证（约 2 分钟）' : '，等待下一次自动更新'));
+        toast('已加入 ' + fresh.length + t(' 个接口') + (dup ? t('（跳过 ') + dup + t(' 个重复）') : '') +
+          (triggered ? t('，后台开始验证（约 2 分钟）') : t('，等待下一次自动更新')));
         scheduleRefresh();
       });
-    }).catch(function (err) { toast(err.message || '写入失败'); });
+    }).catch(function (err) { toast(err.message || t('写入失败')); });
   }
 
   /* same key the generator uses, so deletions survive the next feed merge */
@@ -804,14 +909,14 @@
       });
       doc.feeds = clean;
       var text = JSON.stringify(doc, null, 2) + '\n';
-      return ghPutFile('sources/feeds.json', text, res.sha, 'feat: 导入源库 ' + urls.length + ' 个')
+      return ghPutFile('sources/feeds.json', text, res.sha, 'feat: 导入源库 ' + urls.length + t(' 个'))
         .then(function () { return dispatchWorkflow(); })
         .then(function (triggered) {
-          toast(triggered ? ('已导入 ' + urls.length + ' 个源库，云端正在抓取（约 1 分钟）') : '已保存，等待下一次自动更新');
+          toast(triggered ? (t('已导入 ') + urls.length + t(' 个源库，云端正在抓取（约 1 分钟）')) : t('已保存，等待下一次自动更新'));
           scheduleRefresh();
         });
     }).catch(function (err) {
-      toast(err.message || '操作失败');
+      toast(err.message || t('操作失败'));
     });
   }
 
@@ -848,19 +953,19 @@
 
   function openToken() {
     $('#fToken').value = state.token;
-    $('#tokenHint').textContent = state.token ? '当前已保存令牌，可编辑源清单和源库。' : '当前为只读模式：可浏览、可测试，不能新增或修改。';
+    $('#tokenHint').textContent = state.token ? t('当前已保存令牌，可编辑源清单和源库。') : t('当前为只读模式：可浏览、可测试，不能新增或修改。');
     openModal('#modalToken');
   }
 
   function openEdit(source) {
     state.editingId = source ? source.id : null;
-    $('#editTitle').textContent = source ? '修改视频源' : '新增视频源';
+    $('#editTitle').textContent = source ? t('修改视频源') : t('新增视频源');
     $('#fName').value = source ? source.name : '';
     $('#fApi').value = source ? source.api : '';
     $('#fGroup').value = source ? groupOf(source) : '综合';
     $('#fEnabled').value = source && source.enabled === false ? '0' : '1';
     $('#fNote').value = source ? (source.note || '') : '';
-    $('#editHint').textContent = '保存会直接提交到仓库的 sources/sources.json，并在后台触发一次检测；令牌只留在本机浏览器。';
+    $('#editHint').textContent = t('保存会直接提交到仓库的 sources/sources.json，并在后台触发一次检测；令牌只留在本机浏览器。');
     $('#editHint').className = 'hint';
     openModal('#modalEdit');
   }
@@ -886,8 +991,8 @@
     var name = $('#fName').value.trim();
     var api = $('#fApi').value.trim();
     var hint = $('#editHint');
-    if (!name) { hint.textContent = '请填写名称'; hint.className = 'hint err'; return; }
-    if (!/^https?:\/\//i.test(api)) { hint.textContent = '接口地址需以 http(s):// 开头'; hint.className = 'hint err'; return; }
+    if (!name) { hint.textContent = t('请填写名称'); hint.className = 'hint err'; return; }
+    if (!/^https?:\/\//i.test(api)) { hint.textContent = t('接口地址需以 http(s):// 开头'); hint.className = 'hint err'; return; }
     var id = state.editingId || slug(name, api);
     var exists = state.sources.some(function (s) { return s.id === id && s.id !== state.editingId; });
     if (exists) id = id + '-' + Math.random().toString(36).slice(2, 5);
@@ -905,7 +1010,7 @@
     saveSource(payload).then(function () {
       closeModal('#modalEdit');
     }).catch(function (err) {
-      hint.textContent = err.message || '保存失败';
+      hint.textContent = err.message || t('保存失败');
       hint.className = 'hint err';
     }).then(function () { $('#btnSave').disabled = false; });
   }
@@ -996,8 +1101,8 @@
         openEdit(src);
       } else if (act === 'del') {
         if (!state.token) { openToken(); return; }
-        if (confirm('确定删除「' + src.name + '」？删除后会同步更新订阅配置。')) {
-          deleteSource(id).catch(function (err) { toast(err.message || '删除失败'); });
+        if (confirm(t('确定删除「') + src.name + t('」？删除后会同步更新订阅配置。'))) {
+          deleteSource(id).catch(function (err) { toast(err.message || t('删除失败')); });
         }
       }
     });
@@ -1005,7 +1110,7 @@
     $('#btnDispatch').addEventListener('click', function () {
       if (!state.token) { openToken(); return; }
       dispatchWorkflow().then(function (ok) {
-        toast(ok ? '已触发后台检测，约 2 分钟后刷新' : '触发失败，请检查令牌的 Actions 权限');
+        toast(ok ? t('已触发后台检测，约 2 分钟后刷新') : t('触发失败，请检查令牌的 Actions 权限'));
         if (ok) scheduleRefresh();
       });
     });
@@ -1013,11 +1118,11 @@
     $('#btnTestForm').addEventListener('click', function () {
       var api = $('#fApi').value.trim();
       var hint = $('#editHint');
-      if (!/^https?:\/\//i.test(api)) { hint.textContent = '接口地址需以 http(s):// 开头'; hint.className = 'hint err'; return; }
+      if (!/^https?:\/\//i.test(api)) { hint.textContent = t('接口地址需以 http(s):// 开头'); hint.className = 'hint err'; return; }
       hint.className = 'hint';
       runProbe(api, function (msg) { hint.textContent = msg; }).then(function (res) {
-        hint.textContent = res.ok ? ('可用：返回 ' + res.vods + ' 条 · ' + res.ms + ' ms · ' + res.via)
-          : ('未通过验证：' + (res.note || res.via) + ' · ' + res.ms + ' ms');
+        hint.textContent = res.ok ? (t('可用：返回 ') + res.vods + t(' 条 · ') + res.ms + ' ms · ' + res.via)
+          : (t('未通过验证：') + (res.note || res.via) + ' · ' + res.ms + ' ms');
         hint.className = 'hint ' + (res.ok ? '' : 'err');
       });
     });
@@ -1026,22 +1131,22 @@
 
     $('#btnTokenSave').addEventListener('click', function () {
       var t = $('#fToken').value.trim();
-      if (!t) { $('#tokenHint').textContent = '请填写令牌'; return; }
+      if (!t) { $('#tokenHint').textContent = t('请填写令牌'); return; }
       state.token = t;
       localStorage.setItem(TOKEN_KEY, t);
       fetch(API + '/contents/sources/sources.json?ref=' + BRANCH, { headers: authHeaders(), cache: 'no-store' })
         .then(function (r) {
           if (r.ok) { toast('令牌已保存，可编辑'); closeModal('#modalToken'); renderStats(); }
-          else { $('#tokenHint').textContent = '令牌权限不足（HTTP ' + r.status + '），需要 Contents: Read and write'; }
+          else { $('#tokenHint').textContent = t('令牌权限不足（HTTP ') + r.status + t('），需要 Contents: Read and write'); }
         })
-        .catch(function () { $('#tokenHint').textContent = '校验失败，请检查网络或令牌'; });
+        .catch(function () { $('#tokenHint').textContent = t('校验失败，请检查网络或令牌'); });
     });
 
     $('#btnTokenClear').addEventListener('click', function () {
       state.token = '';
       localStorage.removeItem(TOKEN_KEY);
       $('#fToken').value = '';
-      $('#tokenHint').textContent = '已清除，切换为只读模式。';
+      $('#tokenHint').textContent = t('已清除，切换为只读模式。');
       renderStats();
     });
 
@@ -1054,10 +1159,22 @@
     document.querySelectorAll('.modal').forEach(function (m) {
       m.addEventListener('click', function (e) { if (e.target === m) m.classList.remove('open'); });
     });
+
+    document.querySelectorAll('[data-lang]').forEach(function (btn) {
+      btn.addEventListener('click', function () {
+        var next = btn.getAttribute('data-lang');
+        if (next === LANG) return;
+        LANG = next;
+        localStorage.setItem(LANG_KEY, LANG);
+        applyLang();
+        renderAll();
+      });
+    });
   }
 
   /* ---------------- boot ---------------- */
 
+  applyLang();
   Promise.all([loadStatus(), loadSources(), loadMirrors()]).then(function () {
     if (!state.sources.length && state.status) {
       state.sources = state.status.sources.map(function (s) {
@@ -1065,12 +1182,13 @@
       });
     }
     if (!state.status) {
-      $('#pillTime').textContent = '尚无数据';
+      $('#pillTime').textContent = t('尚无数据');
       if (!$('#rows').children.length) {
-        $('#listHint').textContent = '数据没加载出来：先刷新一次页面；还是空的，去仓库 Actions 看「Update Configs」是否成功跑过。';
+        $('#listHint').textContent = t('数据没加载出来：先刷新一次页面；还是空的，去仓库 Actions 看「Update Configs」是否成功跑过。');
       }
     }
     bind();
     renderAll();
   });
+  loadRepoMeta();
 })();
