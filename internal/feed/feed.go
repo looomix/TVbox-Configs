@@ -10,6 +10,7 @@ import (
 	"io"
 	"net/http"
 	"net/url"
+	"sort"
 	"strings"
 	"time"
 	"unicode"
@@ -160,8 +161,16 @@ func parseJSON(data []byte) ([]model.Source, bool) {
 		for _, name := range []string{"api_site", "apiSite", "sites_map"} {
 			if m, ok := v[name].(map[string]any); ok {
 				out := make([]model.Source, 0, len(m))
-				for key, val := range m {
-					entry, ok := val.(map[string]any)
+				// 必须按 key 排序：Go 的 map 遍历顺序随机，不排序会让同一次
+				// 抓取产生不同顺序的源清单，进而让去重保留的条目每次翻跳，
+				// 生成文件天天变动。
+				keys := make([]string, 0, len(m))
+				for key := range m {
+					keys = append(keys, key)
+				}
+				sort.Strings(keys)
+				for _, key := range keys {
+					entry, ok := m[key].(map[string]any)
 					if !ok {
 						continue
 					}
