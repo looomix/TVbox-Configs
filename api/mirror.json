@@ -1,31 +1,36 @@
 {
-  "updated_at": "2026-11-27T09:13:06Z",
+  "updated_at": "2026-11-28T06:08:53Z",
   "files": [
     {
       "file": "api/tvbox.json",
-      "label": "TVBox / 影视仓 单仓配置",
+      "label": "TVBox / 影视仓 单仓配置（type 1）",
       "kind": "config",
       "primary": "https://ghproxy.net/https://raw.githubusercontent.com/looomix/TVbox-Configs/main/api/tvbox.json",
       "mirrors": [
         {
           "name": "ghproxy 加速",
-          "url": "https://ghproxy.net/https://raw.githubusercontent.com/looomix/TVbox-Configs/main/api/tvbox.json",
-          "kind": "primary"
+          "kind": "primary",
+          "url": "https://ghproxy.net/https://raw.githubusercontent.com/looomix/TVbox-Configs/main/api/tvbox.json"
         },
         {
           "name": "gh-proxy 加速",
-          "url": "https://gh-proxy.com/https://raw.githubusercontent.com/looomix/TVbox-Configs/main/api/tvbox.json",
-          "kind": "backup"
+          "kind": "backup",
+          "url": "https://gh-proxy.org/https://raw.githubusercontent.com/looomix/TVbox-Configs/main/api/tvbox.json"
+        },
+        {
+          "name": "ghfast 加速",
+          "kind": "backup",
+          "url": "https://ghfast.top/https://raw.githubusercontent.com/looomix/TVbox-Configs/main/api/tvbox.json"
         },
         {
           "name": "Raw 直连",
-          "url": "https://raw.githubusercontent.com/looomix/TVbox-Configs/main/api/tvbox.json",
-          "kind": "backup"
+          "kind": "backup",
+          "url": "https://raw.githubusercontent.com/looomix/TVbox-Configs/main/api/tvbox.json"
         },
         {
           "name": "GitHub Pages 备用",
-          "url": "https://looomix.github.io/TVbox-Configs/api/tvbox.json",
-          "kind": "backup"
+          "kind": "backup",
+          "url": "https://looomix.github.io/TVbox-Configs/api/tvbox.json"
         }
       ]
     },
@@ -37,23 +42,28 @@
       "mirrors": [
         {
           "name": "ghproxy 加速",
-          "url": "https://ghproxy.net/https://raw.githubusercontent.com/looomix/TVbox-Configs/main/api/moontv.json",
-          "kind": "primary"
+          "kind": "primary",
+          "url": "https://ghproxy.net/https://raw.githubusercontent.com/looomix/TVbox-Configs/main/api/moontv.json"
         },
         {
           "name": "gh-proxy 加速",
-          "url": "https://gh-proxy.com/https://raw.githubusercontent.com/looomix/TVbox-Configs/main/api/moontv.json",
-          "kind": "backup"
+          "kind": "backup",
+          "url": "https://gh-proxy.org/https://raw.githubusercontent.com/looomix/TVbox-Configs/main/api/moontv.json"
+        },
+        {
+          "name": "ghfast 加速",
+          "kind": "backup",
+          "url": "https://ghfast.top/https://raw.githubusercontent.com/looomix/TVbox-Configs/main/api/moontv.json"
         },
         {
           "name": "Raw 直连",
-          "url": "https://raw.githubusercontent.com/looomix/TVbox-Configs/main/api/moontv.json",
-          "kind": "backup"
+          "kind": "backup",
+          "url": "https://raw.githubusercontent.com/looomix/TVbox-Configs/main/api/moontv.json"
         },
         {
           "name": "GitHub Pages 备用",
-          "url": "https://looomix.github.io/TVbox-Configs/api/moontv.json",
-          "kind": "backup"
+          "kind": "backup",
+          "url": "https://looomix.github.io/TVbox-Configs/api/moontv.json"
         }
       ]
     },
@@ -65,23 +75,28 @@
       "mirrors": [
         {
           "name": "ghproxy 加速",
-          "url": "https://ghproxy.net/https://raw.githubusercontent.com/looomix/TVbox-Configs/main/api/list.json",
-          "kind": "primary"
+          "kind": "primary",
+          "url": "https://ghproxy.net/https://raw.githubusercontent.com/looomix/TVbox-Configs/main/api/list.json"
         },
         {
           "name": "gh-proxy 加速",
-          "url": "https://gh-proxy.com/https://raw.githubusercontent.com/looomix/TVbox-Configs/main/api/list.json",
-          "kind": "backup"
+          "kind": "backup",
+          "url": "https://gh-proxy.org/https://raw.githubusercontent.com/looomix/TVbox-Configs/main/api/list.json"
+        },
+        {
+          "name": "ghfast 加速",
+          "kind": "backup",
+          "url": "https://ghfast.top/https://raw.githubusercontent.com/looomix/TVbox-Configs/main/api/list.json"
         },
         {
           "name": "Raw 直连",
-          "url": "https://raw.githubusercontent.com/looomix/TVbox-Configs/main/api/list.json",
-          "kind": "backup"
+          "kind": "backup",
+          "url": "https://raw.githubusercontent.com/looomix/TVbox-Configs/main/api/list.json"
         },
         {
           "name": "GitHub Pages 备用",
-          "url": "https://looomix.github.io/TVbox-Configs/api/list.json",
-          "kind": "backup"
+          "kind": "backup",
+          "url": "https://looomix.github.io/TVbox-Configs/api/list.json"
         }
       ]
     },
@@ -93,23 +108,28 @@
       "mirrors": [
         {
           "name": "ghproxy 加速",
-          "url": "https://ghproxy.net/https://raw.githubusercontent.com/looomix/TVbox-Configs/main/api/sources.txt",
-          "kind": "primary"
+          "kind": "primary",
+          "url": "https://ghproxy.net/https://raw.githubusercontent.com/looomix/TVbox-Configs/main/api/sources.txt"
         },
         {
           "name": "gh-proxy 加速",
-          "url": "https://gh-proxy.com/https://raw.githubusercontent.com/looomix/TVbox-Configs/main/api/sources.txt",
-          "kind": "backup"
+          "kind": "backup",
+          "url": "https://gh-proxy.org/https://raw.githubusercontent.com/looomix/TVbox-Configs/main/api/sources.txt"
+        },
+        {
+          "name": "ghfast 加速",
+          "kind": "backup",
+          "url": "https://ghfast.top/https://raw.githubusercontent.com/looomix/TVbox-Configs/main/api/sources.txt"
         },
         {
           "name": "Raw 直连",
-          "url": "https://raw.githubusercontent.com/looomix/TVbox-Configs/main/api/sources.txt",
-          "kind": "backup"
+          "kind": "backup",
+          "url": "https://raw.githubusercontent.com/looomix/TVbox-Configs/main/api/sources.txt"
         },
         {
           "name": "GitHub Pages 备用",
-          "url": "https://looomix.github.io/TVbox-Configs/api/sources.txt",
-          "kind": "backup"
+          "kind": "backup",
+          "url": "https://looomix.github.io/TVbox-Configs/api/sources.txt"
         }
       ]
     },
@@ -121,23 +141,28 @@
       "mirrors": [
         {
           "name": "ghproxy 加速",
-          "url": "https://ghproxy.net/https://raw.githubusercontent.com/looomix/TVbox-Configs/main/api/tvbox.txt",
-          "kind": "primary"
+          "kind": "primary",
+          "url": "https://ghproxy.net/https://raw.githubusercontent.com/looomix/TVbox-Configs/main/api/tvbox.txt"
         },
         {
           "name": "gh-proxy 加速",
-          "url": "https://gh-proxy.com/https://raw.githubusercontent.com/looomix/TVbox-Configs/main/api/tvbox.txt",
-          "kind": "backup"
+          "kind": "backup",
+          "url": "https://gh-proxy.org/https://raw.githubusercontent.com/looomix/TVbox-Configs/main/api/tvbox.txt"
+        },
+        {
+          "name": "ghfast 加速",
+          "kind": "backup",
+          "url": "https://ghfast.top/https://raw.githubusercontent.com/looomix/TVbox-Configs/main/api/tvbox.txt"
         },
         {
           "name": "Raw 直连",
-          "url": "https://raw.githubusercontent.com/looomix/TVbox-Configs/main/api/tvbox.txt",
-          "kind": "backup"
+          "kind": "backup",
+          "url": "https://raw.githubusercontent.com/looomix/TVbox-Configs/main/api/tvbox.txt"
         },
         {
           "name": "GitHub Pages 备用",
-          "url": "https://looomix.github.io/TVbox-Configs/api/tvbox.txt",
-          "kind": "backup"
+          "kind": "backup",
+          "url": "https://looomix.github.io/TVbox-Configs/api/tvbox.txt"
         }
       ]
     }
