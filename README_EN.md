@@ -65,9 +65,9 @@ Probes run on GitHub Actions (an overseas datacenter), which is not your local n
 | :-- | :-- | :-- |
 | Alive | A valid vod list with at least one playable link | Yes |
 | Unverified | Host reachable, but no usable list: not an API, empty list, no playable link, 403/rate limit, DNS/TLS/timeout/connection error | No |
-| Dead | The site explicitly refuses: HTTP 404/410, or a persistent 5xx | No |
+| Dead | The site explicitly refuses: HTTP 404/410, or every request shape of the endpoint returns 5xx | No |
 
-Each endpoint is tried with `?ac=detail&pg=1`, a keyword search, `?ac=videolist&pg=1`, a forced JSON request and the bare address; both JSON and Apple CMS XML are understood; certificate errors get one insecure retry; proxy endpoints (`?url=…`) receive the parameters inside the target URL.
+Each endpoint is tried with a keyword search, `?ac=detail&pg=1`, `?ac=videolist&pg=1`, a forced JSON request and the bare address; both JSON and Apple CMS XML are understood; certificate errors get one insecure retry; proxy endpoints (`?url=…`) receive the parameters inside the target URL. The keyword query comes first, so the published `searchable` flag reflects real search support — listing-only stations are flagged 0 instead of everything being flagged 1.
 
 **Unverified does not mean dead**: geo blocking, cross-border latency and broken certificates can stop the probe while the source still works for you. Hover the state badge to see the exact reason.
 
