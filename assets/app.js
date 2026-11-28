@@ -110,7 +110,8 @@
     function grab(url) {
       return once(url).catch(function () { return once(url); });
     }
-    return grab(local).catch(function () { return grab(remote); });
+    var raw = 'https://raw.githubusercontent.com/' + OWNER + '/' + REPO + '/' + BRANCH + '/' + path;
+    return grab(local).catch(function () { return grab(remote).catch(function () { return grab(raw); }); });
   }
 
   function withParams(api) {
@@ -150,7 +151,8 @@
     var files = [
       { file: 'api/tvbox.json', label: 'TVBox / 影视仓 单仓配置', kind: 'config' },
       { file: 'api/moontv.json', label: 'MoonTV / LunaTV 视频源', kind: 'config' },
-      { file: 'api/sources.txt', label: '纯文本源清单（可粘贴导入）', kind: 'text' }
+      { file: 'api/sources.txt', label: '纯文本源清单（可粘贴导入）', kind: 'text' },
+      { file: 'api/tvbox.txt', label: 'TVBox / 影视仓 多仓 TXT 入口', kind: 'text' }
     ];
     return files.map(function (f) {
       var raw = 'https://raw.githubusercontent.com/' + OWNER + '/' + REPO + '/' + BRANCH + '/' + f.file;
@@ -240,7 +242,7 @@
   function renderMirrors() {
     $('#mirrorGroups').innerHTML = state.groups.map(function (g) {
       var others = (g.mirrors || []).filter(function (m) { return m.url !== g.primary; });
-      var rows = (g.mirrors || []).map(function (m) {
+      var rows = others.map(function (m) {
         return '<div class="mirror">' +
           '<span class="tag ' + (m.kind === 'proxy' ? 'proxy' : '') + '">' + esc(m.name) + '</span>' +
           '<span class="url" title="' + esc(m.url) + '">' + esc(m.url) + '</span>' +
@@ -482,7 +484,7 @@
             fetch(PROBE_FILE + '?t=' + Date.now(), { cache: 'no-store' })
               .then(function (r) { return r.ok ? r.json() : null; })
               .then(function (d) {
-                if (d && d.url === api && new Date(d.checked_at).getTime() >= started - 20000) { resolve(d); return; }
+                if (d && d.url === api && new Date(d.checked_at).getTime() >= started - 2000) { resolve(d); return; }
                 if (onProgress) onProgress('云端检测中…');
                 poll();
               })
@@ -692,7 +694,7 @@
       if (known[key]) { dup++; return; }
       known[key] = true;
       fresh.push({
-        id: slug(key, api),
+        id: stableId(api),
         name: hostKey(api),
         api: api,
         group: '综合',
@@ -872,6 +874,16 @@
     return base || 'source';
   }
 
+  // Stable id derived from the normalized endpoint: two sources on the same
+  // host but with different paths must not collide on an id.
+  function stableId(api) {
+    var key = apiKey(api);
+    var h = 0;
+    for (var i = 0; i < key.length; i++) h = ((h << 5) - h + key.charCodeAt(i)) | 0;
+    var suffix = (h >>> 0).toString(36);
+    return (slug('', api) + '-' + suffix).slice(0, 64);
+  }
+
   function submitEdit() {
     var name = $('#fName').value.trim();
     var api = $('#fApi').value.trim();
@@ -939,7 +951,7 @@
 
     $('#btnCopyPrimary').addEventListener('click', function () {
       var g = state.groups[0];
-      if (g) copyText(g.primary);
+      copyText(g ? g.primary : ('https://cdn.jsdelivr.net/gh/' + OWNER + '/' + REPO + '@' + BRANCH + '/api/tvbox.json'));
     });
 
     $('#mirrorGroups').addEventListener('click', function (e) {
@@ -949,6 +961,10 @@
 
     document.querySelector('[data-copy="index"]').addEventListener('click', function () {
       copyText($('#indexUrl').textContent);
+    });
+
+    $('#btnCopyMulti').addEventListener('click', function () {
+      copyText('https://raw.githubusercontent.com/' + OWNER + '/' + REPO + '/' + BRANCH + '/api/tvbox.txt');
     });
 
     $('#btnFeedAdd').addEventListener('click', function () {
