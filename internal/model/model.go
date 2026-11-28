@@ -126,8 +126,9 @@ type FeedFile struct {
 
 // MoonSite is one entry of the MoonTV / LunaTV api_site object.
 type MoonSite struct {
-	Name string `json:"name"`
-	API  string `json:"api"`
+	Name   string `json:"name"`
+	API    string `json:"api"`
+	Detail string `json:"detail,omitempty"`
 }
 
 // MoonConfig is the MoonTV config.json shape, importable in its 视频源配置 page.
