@@ -11,6 +11,7 @@ import (
 	"math"
 	"os"
 	"path/filepath"
+	"sort"
 	"strings"
 	"sync"
 	"time"
@@ -59,6 +60,7 @@ func main() {
 		res := model.ProbeResult{
 			URL:       *probeURL,
 			State:     r.State,
+			Reason:    r.Reason,
 			Vods:      r.Vods,
 			LatencyMs: r.LatencyMs,
 			CheckedAt: start.UTC().Format(time.RFC3339),
@@ -69,7 +71,7 @@ func main() {
 				os.Exit(1)
 			}
 		}
-		fmt.Printf("probe %s -> %s, %d ms, %d results\n", res.URL, res.State, res.LatencyMs, res.Vods)
+		fmt.Printf("probe %s -> %s, %d ms, %d results, reason=%s\n", res.URL, res.State, res.LatencyMs, res.Vods, res.Reason)
 		return
 	}
 
@@ -189,6 +191,7 @@ func main() {
 			Origin:     s.Origin,
 			Enabled:    s.Enabled,
 			State:      r.State,
+			Reason:     r.Reason,
 			LatencyMs:  r.LatencyMs,
 			Vods:       r.Vods,
 			Searchable: r.Searchable,
@@ -225,9 +228,36 @@ func main() {
 
 	fmt.Printf("done: %d verified / %d unverified / %d dead, %d sites published, %.1fs total\n",
 		rep.Alive, rep.Unverified, rep.Dead, len(sites), time.Since(start).Seconds())
+	if reasons := reasonSummary(rep); reasons != "" {
+		fmt.Printf("not-ok reasons: %s\n", reasons)
+	}
 	if !deadline.IsZero() && time.Now().After(deadline) {
 		fmt.Printf("budget %s reached: sources without a verdict stay unverified, raise -budget or -workers for full coverage\n", *budget)
 	}
+}
+
+// reasonSummary counts why enabled sources did not verify, so one cloud run is
+// diagnosable from its log without opening every record.
+func reasonSummary(rep *model.Report) string {
+	counts := map[string]int{}
+	for _, s := range rep.Sources {
+		if s.Enabled && s.State != "ok" && s.Reason != "" {
+			counts[s.Reason]++
+		}
+	}
+	if len(counts) == 0 {
+		return ""
+	}
+	keys := make([]string, 0, len(counts))
+	for k := range counts {
+		keys = append(keys, k)
+	}
+	sort.Strings(keys)
+	parts := make([]string, 0, len(keys))
+	for _, k := range keys {
+		parts = append(parts, fmt.Sprintf("%s=%d", k, counts[k]))
+	}
+	return strings.Join(parts, " ")
 }
 
 // fetchFeeds downloads every enabled remote list in parallel and caps each
