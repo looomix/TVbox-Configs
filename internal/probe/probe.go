@@ -152,6 +152,11 @@ func Verify(c *http.Client, api string, deadline time.Time) Result {
 			r.Searchable = false
 			r.LatencyMs = int(time.Since(start).Milliseconds())
 			return r
+		} else if best == nil || rank(r.State) > rank(best.State) {
+			// 列表页即使没有可播放条目，也比"完全连不上"更接近可用，
+			// 不能把这次结果直接丢掉。
+			cp := r
+			best = &cp
 		}
 	}
 	out := Result{State: "down"}
