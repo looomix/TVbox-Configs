@@ -83,6 +83,7 @@ window.TVBOX_I18N = { en: {
   " 个源": " sources",
   "，后台正在重新生成（约 2 分钟）": ", regenerating in background (~2 min)",
   "，等待下一次自动更新": ", waiting for next scheduled update",
+  "，已清空源库订阅": ", feed subscriptions cleared",
   "批量删除失败": "Batch delete failed",
   "删除记录 ": "Deletion records: ",
   "（屏蔽源库重新抓回）": " (blocks feeds from re-adding them)",
