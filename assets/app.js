@@ -431,12 +431,13 @@
       if (state.filters.state === 'down' && (alive || unverified)) return false;
       return true;
     }).sort(function (a, b) {
-      // 可用/未验证按延迟从低到高；失效（含停用、未记录）沉到最后
+      // 先按状态分组：可用 → 未验证 → 失效（含停用、未记录）。
+      // 组内再按延迟从低到高，最后按名称，保证顺序稳定。
       var sa = statusOf(a.id);
       var sb = statusOf(b.id);
-      var ba = latencyBucket(sa);
-      var bb = latencyBucket(sb);
-      if (ba !== bb) return ba - bb;
+      var ra = statusRank(sa);
+      var rb = statusRank(sb);
+      if (ra !== rb) return ra - rb;
       var la = latencyOf(sa);
       var lb = latencyOf(sb);
       if (la !== lb) return la - lb;
@@ -450,9 +451,11 @@
     return Infinity;
   }
 
-  function latencyBucket(st) {
-    if (st && st.enabled && (st.state === 'ok' || st.state === 'limited')) return 0;
-    return 1; // 失效统一沉底，不再显示/按其耗时排序
+  function statusRank(st) {
+    // 0 = 可用，1 = 未验证，2 = 失效/停用/无记录：可用永远在最前面。
+    if (st && st.enabled && st.state === 'ok') return 0;
+    if (st && st.enabled && st.state === 'limited') return 1;
+    return 2;
   }
 
   function renderRows() {
@@ -462,7 +465,7 @@
     if (!state.sources.length) {
       $('#listHint').textContent = t('还没有源：点「＋ 新增源」逐条添加，或在上方整行粘贴多个接口地址批量导入。');
     } else if (st) {
-      $('#listHint').textContent = t('自动抓取 ') + (st.from_feed || 0) + t(' 条 · 去重 ') + (st.deduped || 0) + t(' 条 · 列表按延迟从低到高；只有验证通过的源才会写进订阅；「改」需要令牌。');
+      $('#listHint').textContent = t('自动抓取 ') + (st.from_feed || 0) + t(' 条 · 去重 ') + (st.deduped || 0) + t(' 条 · 列表按可用、未验证、失效排序，同状态内延迟从低到高；只有可用源才会写进订阅；「改」需要令牌。');
     } else {
       $('#listHint').textContent = t('点击接口地址可复制；「改」需要令牌。');
     }
